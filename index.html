@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--PRATINJAU:MULAI-->
+<title>Rumatika</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Rumatika, rumahnya matematika interaktif: MPI, gim edukasi, lab maya, dan video tips Fase A sampai F.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Lexend:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<!--PRATINJAU:KEPALA-SELESAI-->
+</head>
+<body>
+
+<header class="kepala">
+  <div class="wrap kepala-isi">
+    <a class="merek" href="#beranda" aria-label="Rumatika, ke beranda">
+      <svg class="merek-logo" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M3 14.5 16 3.5l13 11V29H3z" class="logo-rumah"/>
+        <path d="M8.5 19.5h2.6l3.2 5.2 5-11.2h4.7" class="logo-akar"/>
+      </svg>
+      <span>Rumatika</span>
+    </a>
+    <nav class="menu" aria-label="Menu utama">
+      <a href="#beranda" data-nav="beranda">Beranda</a>
+      <a href="#semua-karya" data-nav="semua-karya">Semua Karya</a>
+      <a href="#teras-trik" data-nav="teras-trik">Teras Trik</a>
+      <a href="#panduan-guru" data-nav="panduan-guru">Panduan Guru</a>
+      <a href="#tentang" data-nav="tentang">Tentang</a>
+    </nav>
+  </div>
+</header>
+
+<main id="isi">
+
+  <!-- ===================== BERANDA ===================== -->
+  <section data-view="beranda">
+    <div class="hero">
+      <div class="wrap hero-isi">
+        <div class="hero-teks">
+          <p class="alis">MPI · Gim Edukasi · Lab Maya</p>
+          <h1 class="judul-besar">Rumahnya matematika yang bisa <span class="sapuan">dimainkan</span>.</h1>
+          <p class="lead">Media pembelajaran interaktif, gim edukasi, dan lab maya untuk Fase A sampai F. Siap tayang di proyektor kelas, ringan dibuka di HP, tanpa perlu login.</p>
+          <div class="aksi">
+            <button class="tombol tombol-utama" type="button" data-gulir="denah">Masuk ke Ruang Fase</button>
+            <a class="tombol tombol-garis" href="#teras-trik">Tonton Teras Trik</a>
+          </div>
+          <p class="ringkas" id="ringkas-angka"></p>
+        </div>
+
+        <figure class="denah-bingkai" id="denah" aria-label="Denah Rumatika, enam ruang fase">
+          <div class="ukur-atas"><span>Denah Rumatika · 6 ruang fase</span></div>
+          <div class="denah-wadah">
+            <div class="label-lantai" aria-hidden="true"><span>SD</span><span>SMP · SMA</span></div>
+            <div class="denah" id="denah-ruang"></div>
+          </div>
+          <figcaption class="denah-ket">Klik ruang sesuai kelas yang Anda ajar. Ruang berarsir sedang ditata.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="wrap bagian">
+      <div class="bagian-kepala">
+        <div>
+          <p class="alis">Tiga kamar</p>
+          <h2>Pilih cara belajarnya</h2>
+        </div>
+      </div>
+      <div class="kamar-grid">
+        <a class="kamar" href="#kamar-belajar">
+          <span class="kamar-tanda" data-jenis="mpi" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg>
+          </span>
+          <h3>Kamar Belajar</h3>
+          <p>MPI yang memandu dari konsep, contoh, sampai latihan, langkah demi langkah.</p>
+          <span class="kamar-hitung" data-hitung-jenis="MPI"></span>
+        </a>
+        <a class="kamar" href="#kamar-main">
+          <span class="kamar-tanda" data-jenis="gim" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="11" rx="5"/><path d="M8 10.5v4M6 12.5h4"/><circle cx="15.5" cy="11.5" r="1"/><circle cx="17.5" cy="13.8" r="1"/></svg>
+          </span>
+          <h3>Kamar Main</h3>
+          <p>Gim kelas dan gim mandiri untuk membuka, menguatkan, atau menutup pelajaran.</p>
+          <span class="kamar-hitung" data-hitung-jenis="Gim"></span>
+        </a>
+        <a class="kamar" href="#laboratorium">
+          <span class="kamar-tanda" data-jenis="lab" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5 19a1.5 1.5 0 0 0 1.3 2h11.4A1.5 1.5 0 0 0 19 19l-5.5-9.5v-6"/><path d="M7.5 15h9"/></svg>
+          </span>
+          <h3>Laboratorium</h3>
+          <p>Lab maya yang bisa diutak-atik: ubah angkanya, amati polanya, simpulkan sendiri.</p>
+          <span class="kamar-hitung" data-hitung-jenis="Lab Maya"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="wrap bagian">
+      <div class="bagian-kepala">
+        <div>
+          <p class="alis">Isi rumah</p>
+          <h2>Karya terbaru</h2>
+        </div>
+        <a class="tautan-panah" href="#semua-karya">Lihat semua karya →</a>
+      </div>
+      <div class="grid-kartu" id="grid-baru"></div>
+    </div>
+
+    <div class="wrap bagian">
+      <div class="bagian-kepala">
+        <div>
+          <p class="alis">Teras Trik</p>
+          <h2>Tips dan trik dalam 90 detik</h2>
+        </div>
+        <a class="tautan-panah" href="#teras-trik">Semua video →</a>
+      </div>
+      <div class="grid-video" id="grid-video-beranda"></div>
+    </div>
+  </section>
+
+  <!-- ===================== SEMUA KARYA ===================== -->
+  <section data-view="semua-karya" hidden>
+    <div class="kepala-halaman">
+      <div class="wrap">
+        <p class="alis" id="semua-alis">Semua karya</p>
+        <h1 class="judul-halaman" id="semua-judul">Semua karya Rumatika</h1>
+        <p class="lead" id="semua-lead">Saring menurut fase, jenis, atau cari topik yang sedang Anda ajarkan.</p>
+      </div>
+    </div>
+    <div class="wrap isi-halaman">
+      <div class="saring">
+        <div class="saring-baris" role="group" aria-label="Saring fase" id="saring-fase"></div>
+        <div class="saring-baris" role="group" aria-label="Saring jenis" id="saring-jenis"></div>
+        <label class="cari-wadah" for="cari-karya">
+          <span class="saring-label">Cari</span>
+          <input class="cari" id="cari-karya" type="search" placeholder="Misalnya: pecahan, pythagoras, logaritma" autocomplete="off">
+        </label>
+      </div>
+      <p class="hasil-hitung" id="hasil-hitung" aria-live="polite"></p>
+      <div class="grid-kartu" id="grid-semua"></div>
+      <div class="kosong" id="kosong-semua" hidden>
+        <h3>Belum ada karya yang cocok</h3>
+        <p>Coba hapus kata pencarian atau pilih "Semua" pada saringan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RUANG FASE ===================== -->
+  <section data-view="fase" hidden>
+    <div class="kepala-halaman">
+      <div class="wrap fase-kepala">
+        <div class="fase-huruf" id="fase-huruf" aria-hidden="true">A</div>
+        <div>
+          <p class="alis" id="fase-alis">Ruang Fase A</p>
+          <h1 class="judul-halaman" id="fase-judul">SD Kelas 1–2</h1>
+          <p class="lead" id="fase-lead"></p>
+        </div>
+      </div>
+    </div>
+    <div class="wrap isi-halaman">
+      <div class="saring">
+        <div class="saring-baris" role="group" aria-label="Saring jenis" id="fase-saring-jenis"></div>
+      </div>
+      <div class="grid-kartu" id="grid-fase"></div>
+      <div class="kosong" id="kosong-fase" hidden>
+        <h3>Ruang ini sedang ditata</h3>
+        <p id="kosong-fase-teks">Karya pertama untuk fase ini sedang disiapkan. Sementara itu, tonton video di Teras Trik.</p>
+        <a class="tombol tombol-garis" href="#teras-trik">Ke Teras Trik</a>
+      </div>
+      <nav class="tetangga" aria-label="Ruang sebelah" id="fase-tetangga"></nav>
+    </div>
+  </section>
+
+  <!-- ===================== HALAMAN KARYA ===================== -->
+  <section data-view="karya" hidden>
+    <div class="wrap isi-halaman" id="karya-isi"></div>
+  </section>
+
+  <!-- ===================== TERAS TRIK ===================== -->
+  <section data-view="teras-trik" hidden>
+    <div class="kepala-halaman">
+      <div class="wrap">
+        <p class="alis">Teras Trik</p>
+        <h1 class="judul-halaman">Video motion tips dan trik matematika</h1>
+        <p class="lead">Satu konsep, 60–90 detik. Setiap video menautkan ke satu karya untuk latihan lanjutan.</p>
+      </div>
+    </div>
+    <div class="wrap isi-halaman">
+      <div class="saring">
+        <div class="saring-baris" role="group" aria-label="Saring fase video" id="saring-video"></div>
+      </div>
+      <div class="grid-video" id="grid-video"></div>
+      <div class="kosong" id="kosong-video" hidden>
+        <h3>Belum ada video untuk fase ini</h3>
+        <p>Video baru tayang di kanal YouTube <a href="https://www.youtube.com/@yunascp" target="_blank" rel="noopener">@yunascp</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PANDUAN GURU ===================== -->
+  <section data-view="panduan-guru" hidden>
+    <div class="kepala-halaman">
+      <div class="wrap">
+        <p class="alis">Panduan Guru</p>
+        <h1 class="judul-halaman">Memakai Rumatika di kelas</h1>
+        <p class="lead">Empat langkah dari memilih karya sampai membagikannya ke siswa.</p>
+      </div>
+    </div>
+    <div class="wrap isi-halaman panduan">
+      <ol class="langkah">
+        <li>
+          <h3>Pilih ruang fase</h3>
+          <p>Buka denah di beranda, lalu klik ruang sesuai kelas yang Anda ajar. Saring dengan Kamar Belajar, Kamar Main, atau Laboratorium.</p>
+        </li>
+        <li>
+          <h3>Coba dulu di laptop</h3>
+          <p>Buka karya dan klik <strong>Mainkan</strong> sekali sebelum kelas dimulai, supaya semua aset sudah termuat.</p>
+        </li>
+        <li>
+          <h3>Tayangkan dengan Mode Proyektor</h3>
+          <p>Klik <strong>Mode Proyektor</strong> untuk layar penuh 16:9. Tekan <kbd>Esc</kbd> untuk kembali.</p>
+        </li>
+        <li>
+          <h3>Bagikan ke siswa</h3>
+          <p>Klik <strong>Salin tautan</strong> di halaman karya, lalu kirim ke grup kelas. Siswa membukanya langsung di HP, tanpa akun.</p>
+        </li>
+      </ol>
+      <aside class="catatan">
+        <h3>Catatan lapangan</h3>
+        <ul>
+          <li><strong>Kelas tanpa internet:</strong> unduh karya sebelum berangkat. Berkas HTML bisa dibuka di browser tanpa koneksi.</li>
+          <li><strong>Proyektor:</strong> atur resolusi layar minimal 1280 × 720 agar teks tetap tajam.</li>
+          <li><strong>Gim di HP:</strong> minta siswa memutar layar ke posisi mendatar.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================== TENTANG ===================== -->
+  <section data-view="tentang" hidden>
+    <div class="kepala-halaman">
+      <div class="wrap">
+        <p class="alis">Tentang</p>
+        <h1 class="judul-halaman">Tentang Rumatika</h1>
+      </div>
+    </div>
+    <div class="wrap isi-halaman tentang">
+      <div class="tentang-teks">
+        <p class="lead">Rumatika adalah rumah bagi media pembelajaran matematika interaktif yang saya buat dan pakai sendiri di kelas.</p>
+        <p>Setiap karya dibangun dengan NI Engine, kerangka yang sama untuk MPI, gim, dan lab maya. Hasilnya seragam, ringan, dan bisa dibuka tanpa login, baik di proyektor kelas maupun di HP siswa.</p>
+        <p>Isinya disusun per fase Kurikulum Merdeka, dari Fase A di SD sampai Fase F di SMA, ditambah video singkat di Teras Trik untuk konsep yang sering membuat siswa bertanya "kenapa begitu?".</p>
+      </div>
+      <aside class="kreator">
+        <p class="alis">Kreator</p>
+        <h2>Yunas Chandra Perdana, M.Pd.</h2>
+        <ul>
+          <li>Kepala Sekolah dan guru Matematika SMAIT Nurul Ilmi</li>
+          <li>Guru Matematika SMPIT Nurul Ilmi</li>
+          <li>Pengurus MGMP Matematika SMP Kabupaten Bekasi</li>
+        </ul>
+        <div class="kreator-tautan">
+          <a class="tombol tombol-garis" href="https://www.instagram.com/yunascp" target="_blank" rel="noopener">Instagram @yunascp</a>
+          <a class="tombol tombol-garis" href="https://www.youtube.com/@yunascp" target="_blank" rel="noopener">YouTube @yunascp</a>
+        </div>
+        <p class="kecil">Ingin memakai karya Rumatika di sekolah Anda? Kirim DM di Instagram.</p>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<footer class="kaki">
+  <div class="wrap kaki-isi">
+    <div>
+      <a class="merek" href="#beranda">
+        <svg class="merek-logo" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M3 14.5 16 3.5l13 11V29H3z" class="logo-rumah"/>
+          <path d="M8.5 19.5h2.6l3.2 5.2 5-11.2h4.7" class="logo-akar"/>
+        </svg>
+        <span>Rumatika</span>
+      </a>
+      <p class="kecil">Rumahnya Matematika Interaktif</p>
+    </div>
+    <nav class="kaki-menu" aria-label="Menu bawah">
+      <a href="#semua-karya">Semua Karya</a>
+      <a href="#teras-trik">Teras Trik</a>
+      <a href="#panduan-guru">Panduan Guru</a>
+      <a href="#tentang">Tentang</a>
+    </nav>
+    <p class="kecil kaki-hak">© 2026 Rumatika · Yunas Chandra Perdana, M.Pd. · Dibangun dengan NI Engine</p>
+  </div>
+</footer>
+
+<!--PRATINJAU:SKRIP-->
+<script src="data/katalog.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

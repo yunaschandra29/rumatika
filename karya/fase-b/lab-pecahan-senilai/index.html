@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lab Pecahan Senilai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500&family=Lexend:wght@400;500;600&display=swap">
+<style>
+/* Contoh karya Rumatika: satu berkas HTML, bisa dibuka offline. */
+:root {
+  --kertas: #F3F6FC; --permukaan: #FFFFFF; --tinta: #0F1E45; --tinta-2: #4B5A7C;
+  --garis: #D5DFF2; --kisi: rgba(37, 84, 214, .08); --biru: #2554D6; --biru-muda: #E4ECFD;
+  --arsir: #3E44B8; --arsir-2: #0B7896; --di-biru: #FFFFFF;
+  --f-tampil: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-teks: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --f-ukur: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --kertas: #0A1530; --permukaan: #101E3F; --tinta: #E7EEFF; --tinta-2: #A3B4DA;
+    --garis: #24386A; --kisi: rgba(132, 165, 255, .09); --biru: #7097FF; --biru-muda: #18295A;
+    --arsir: #7C82FF; --arsir-2: #3FB4D6; --di-biru: #0A1530; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --kertas: #0A1530; --permukaan: #101E3F; --tinta: #E7EEFF; --tinta-2: #A3B4DA;
+  --garis: #24386A; --kisi: rgba(132, 165, 255, .09); --biru: #7097FF; --biru-muda: #18295A;
+  --arsir: #7C82FF; --arsir-2: #3FB4D6; --di-biru: #0A1530; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  margin: 0; background: var(--kertas); color: var(--tinta); font: 400 16px/1.55 var(--f-teks);
+  background-image: linear-gradient(var(--kisi) 1px, transparent 1px), linear-gradient(90deg, var(--kisi) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.lab {
+  max-width: 1040px; margin-inline: auto; padding-block: 28px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 20px;
+}
+.atas { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.kembali { color: var(--biru); font-weight: 600; text-decoration: none; font-size: .92rem; }
+.alis { margin: 0; font: 500 .74rem var(--f-ukur); letter-spacing: .12em; text-transform: uppercase; color: var(--biru); }
+h1 { margin: 4px 0 0; font: 800 clamp(1.8rem, 4vw, 2.6rem)/1.05 var(--f-tampil); letter-spacing: -.03em; }
+.panel { background: var(--permukaan); border: 1px solid var(--garis); border-radius: 14px; padding: 22px; }
+.persamaan {
+  display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap;
+  font: 700 2.6rem/1 var(--f-tampil); font-variant-numeric: tabular-nums;
+}
+.pecahan { display: inline-grid; justify-items: center; gap: 6px; }
+.pecahan span:first-child { padding-inline: 10px; border-bottom: 3px solid currentColor; }
+.pecahan.a { color: var(--arsir); }
+.pecahan.b { color: var(--arsir-2); }
+.sama { color: var(--tinta-2); font-size: 2rem; }
+.pita-wadah { display: grid; gap: 16px; margin-top: 22px; }
+.pita-label { font: 500 .78rem var(--f-ukur); color: var(--tinta-2); margin-bottom: 6px; }
+.pita { display: flex; height: 54px; border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
+.pita div { flex: 1; border-right: 1.5px solid var(--tinta); transition: background-color .25s; }
+.pita div:last-child { border-right: 0; }
+.pita.a .isi { background: var(--arsir); }
+.pita.b .isi { background: var(--arsir-2); }
+.kendali { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.kontrol { display: grid; gap: 8px; }
+.kontrol label { font-weight: 600; font-size: .95rem; }
+.langkah { display: flex; align-items: center; gap: 10px; }
+.langkah button {
+  width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--garis); background: var(--kertas);
+  color: var(--tinta); font: 700 1.2rem var(--f-teks); cursor: pointer;
+}
+.langkah button:hover { border-color: var(--biru); }
+.langkah output { min-width: 2ch; text-align: center; font: 700 1.5rem var(--f-tampil); font-variant-numeric: tabular-nums; }
+input[type="range"] { width: 100%; accent-color: var(--biru); }
+.tanya { display: grid; gap: 10px; }
+.tanya h2 { margin: 0; font: 700 1.2rem var(--f-tampil); }
+.tanya p { margin: 0; color: var(--tinta-2); }
+.tombol {
+  justify-self: start; padding: 10px 18px; border-radius: 999px; border: 0; background: var(--biru);
+  color: var(--di-biru); font: 600 .95rem var(--f-teks); cursor: pointer;
+}
+.jawaban { padding: 14px 16px; border-radius: 10px; background: var(--biru-muda); color: var(--tinta); }
+:focus-visible { outline: 3px solid var(--biru); outline-offset: 2px; }
+@media (max-width: 700px) {
+  .kendali { grid-template-columns: minmax(0, 1fr); }
+  .persamaan { font-size: 2rem; gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .pita div { transition: none; } }
+</style>
+</head>
+<body>
+<main class="lab">
+  <div class="atas">
+    <div>
+      <p class="alis">Laboratorium · Fase B</p>
+      <h1>Lab Pecahan Senilai</h1>
+    </div>
+    <a class="kembali" href="../../../#karya-lab-pecahan-senilai">← Kembali ke Rumatika</a>
+  </div>
+
+  <section class="panel" aria-label="Pecahan yang dibandingkan">
+    <div class="persamaan" aria-live="polite">
+      <span class="pecahan a"><span id="a1">1</span><span id="b1">2</span></span>
+      <span class="sama">=</span>
+      <span class="pecahan b"><span id="a2">2</span><span id="b2">4</span></span>
+    </div>
+    <div class="pita-wadah">
+      <div>
+        <div class="pita-label" id="label-1">Pita 1 · dibagi 2 bagian</div>
+        <div class="pita a" id="pita-1"></div>
+      </div>
+      <div>
+        <div class="pita-label" id="label-2">Pita 2 · setiap bagian dibagi lagi menjadi 2</div>
+        <div class="pita b" id="pita-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel kendali" aria-label="Pengatur">
+    <div class="kontrol">
+      <label for="pembilang">Pembilang</label>
+      <div class="langkah">
+        <button type="button" data-ubah="pembilang" data-arah="-1" aria-label="Kurangi pembilang">−</button>
+        <output id="pembilang">1</output>
+        <button type="button" data-ubah="pembilang" data-arah="1" aria-label="Tambah pembilang">+</button>
+      </div>
+    </div>
+    <div class="kontrol">
+      <label for="penyebut">Penyebut</label>
+      <div class="langkah">
+        <button type="button" data-ubah="penyebut" data-arah="-1" aria-label="Kurangi penyebut">−</button>
+        <output id="penyebut">2</output>
+        <button type="button" data-ubah="penyebut" data-arah="1" aria-label="Tambah penyebut">+</button>
+      </div>
+    </div>
+    <div class="kontrol">
+      <label for="pengali">Pengali: <span id="pengali-teks">2</span></label>
+      <input id="pengali" type="range" min="1" max="5" step="1" value="2">
+    </div>
+  </section>
+
+  <section class="panel tanya">
+    <h2>Amati</h2>
+    <p>Geser pengali dari 1 sampai 5. Apa yang berubah pada Pita 2, dan apa yang tetap sama?</p>
+    <button class="tombol" type="button" id="tombol-jawab">Lihat penjelasan</button>
+    <div class="jawaban" id="jawaban" hidden>
+      Jumlah potongan dan angkanya berubah, tetapi panjang bagian yang diarsir tetap sama. Membagi setiap potongan menjadi beberapa bagian kecil tidak mengubah besar bagian yang diambil. Karena itu pembilang dan penyebut boleh dikali bilangan yang sama.
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var s = { pembilang: 1, penyebut: 2, pengali: 2 };
+  function el(id) { return document.getElementById(id); }
+  function pita(wadah, bagian, terisi) {
+    var html = "";
+    for (var i = 0; i < bagian; i++) html += '<div class="' + (i < terisi ? "isi" : "") + '"></div>';
+    wadah.innerHTML = html;
+  }
+  function gambar() {
+    var k = s.pengali;
+    el("pembilang").textContent = s.pembilang;
+    el("penyebut").textContent = s.penyebut;
+    el("pengali-teks").textContent = k;
+    el("a1").textContent = s.pembilang; el("b1").textContent = s.penyebut;
+    el("a2").textContent = s.pembilang * k; el("b2").textContent = s.penyebut * k;
+    el("label-1").textContent = "Pita 1 · dibagi " + s.penyebut + " bagian, " + s.pembilang + " diarsir";
+    el("label-2").textContent = k === 1
+      ? "Pita 2 · sama persis dengan Pita 1"
+      : "Pita 2 · setiap bagian dibagi lagi menjadi " + k + ", " + (s.pembilang * k) + " diarsir";
+    pita(el("pita-1"), s.penyebut, s.pembilang);
+    pita(el("pita-2"), s.penyebut * k, s.pembilang * k);
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-ubah]");
+    if (b) {
+      var kunci = b.getAttribute("data-ubah"), arah = Number(b.getAttribute("data-arah"));
+      if (kunci === "penyebut") s.penyebut = Math.min(8, Math.max(2, s.penyebut + arah));
+      if (kunci === "pembilang") s.pembilang = s.pembilang + arah;
+      s.pembilang = Math.min(s.penyebut, Math.max(1, s.pembilang));
+      gambar();
+    }
+  });
+  el("pengali").addEventListener("input", function (e) { s.pengali = Number(e.target.value); gambar(); });
+  el("tombol-jawab").addEventListener("click", function () {
+    var j = el("jawaban"); j.hidden = !j.hidden;
+    this.textContent = j.hidden ? "Lihat penjelasan" : "Sembunyikan penjelasan";
+  });
+  gambar();
+})();
+</script>
+</body>
+</html>
