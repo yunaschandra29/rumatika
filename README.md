@@ -60,6 +60,18 @@ Statusnya bisa dilihat di dasbor Cloudflare → Workers & Pages → rumatika →
 
 Berkas kerja (`alat/`, `CLAUDE.md`, `README.md`) tidak ikut diunggah; daftarnya ada di `.assetsignore`.
 
+## Statistik pengunjung
+
+Beranda menampilkan jumlah kunjungan (total dan hari ini) serta karya yang paling sering dimainkan.
+Kartu dan halaman karya menampilkan berapa kali karya dimainkan, dan Semua Karya bisa diurutkan "Terpopuler".
+
+- Penghitungnya ada di `worker/index.js`, datanya disimpan di database D1 `rumatika-statistik` (diatur di `wrangler.jsonc`).
+- Satu browser dihitung sekali per sesi, baik untuk kunjungan maupun untuk tiap karya yang dimainkan.
+- Hanya jumlah yang disimpan; tidak ada data pribadi.
+- Jika penghitung bermasalah, situs tetap berjalan normal tanpa angka.
+
+Menguji di laptop: `npx wrangler dev`, lalu buka http://localhost:8787
+
 ## Alamat halaman
 
 | Alamat | Halaman |

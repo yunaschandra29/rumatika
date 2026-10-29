@@ -27,3 +27,5 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 - Situs (https://rumatika.yunaschandra29.workers.dev) dirilis otomatis oleh Cloudflare Workers setiap kali ada push ke cabang `main`.
 - Perubahan besar dikerjakan di cabang terpisah dulu dan dicek di pratinjau lokal sebelum digabung ke `main`.
 - Berkas kerja yang tidak boleh tampil di situs didaftarkan di `.assetsignore`.
+- `wrangler.jsonc` mengatur Worker dan database D1 `rumatika-statistik`; `worker/index.js` hanya menangani alamat `/api/*`, sisanya berkas statis.
+- Perubahan pada `worker/` atau `wrangler.jsonc` diuji dulu dengan `npx wrangler dev` sebelum digabung.

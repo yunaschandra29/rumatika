@@ -52,6 +52,11 @@
   function alamat(k) { return /\/$/.test(k.url) ? k.url + "index.html" : k.url; }
   function jenisKelas(j) { return (JENIS[j] || JENIS["MPI"]).kelas; }
 
+  /* ---------- statistik (diisi dari /api/statistik bila tersedia) ---------- */
+  var STAT = null;
+  function angka(n) { return Number(n || 0).toLocaleString("id-ID"); }
+  function jumlahMain(id) { return STAT && STAT.main ? (STAT.main[id] || 0) : 0; }
+
   /* ---------- komponen ---------- */
   function kartuKarya(k) {
     var f = fase(k.fase);
@@ -61,6 +66,7 @@
         '<span class="sampul-rumus">' + esc(k.simbol) + '</span>' +
         (sampulKarya(k) ? '<img class="sampul-gambar" src="' + esc(sampulKarya(k)) + '" alt="" loading="lazy" onerror="this.remove()">' : '') +
         (tersedia(k) ? '' : '<span class="label-segera">Segera hadir</span>') +
+        (jumlahMain(k.id) ? '<span class="label-main">' + angka(jumlahMain(k.id)) + '× dimainkan</span>' : '') +
       '</div>' +
       '<div class="kartu-isi">' +
         '<div class="chip-baris"><span class="chip" data-jenis="' + j + '">' + esc(k.jenis) + '</span>' +
@@ -128,11 +134,22 @@
     });
 
     $("#grid-baru").innerHTML = K.karya.slice(0, 4).map(kartuKarya).join("");
+
+    var elStat = $("#statistik");
+    if (elStat) {
+      elStat.hidden = !STAT;
+      if (STAT) {
+        var teratas = K.karya.filter(function (k) { return jumlahMain(k.id) > 0; })
+          .sort(function (a, b) { return jumlahMain(b.id) - jumlahMain(a.id); })[0];
+        elStat.innerHTML = 'Dikunjungi <b>' + angka(STAT.total) + '</b> kali · <b>' + angka(STAT.hariIni) + '</b> hari ini' +
+          (teratas ? ' · Paling sering dimainkan: <a href="#karya-' + esc(teratas.id) + '">' + esc(teratas.judul) + '</a>' : '');
+      }
+    }
     $("#grid-video-beranda").innerHTML = K.video.slice(0, 3).map(kartuVideo).join("");
   }
 
   /* ---------- semua karya ---------- */
-  var saring = { fase: "Semua", jenis: "Semua", cari: "" };
+  var saring = { fase: "Semua", jenis: "Semua", cari: "", urut: "terbaru" };
 
   function renderSemua() {
     var dariKamar = saring.jenis !== "Semua" && JENIS[saring.jenis];
@@ -148,6 +165,12 @@
         return tombolPil(j, j, saring.jenis === j, "data-jenis-pil");
       }).join("");
 
+    $("#saring-urut").innerHTML = STAT
+      ? '<span class="saring-label">Urutkan</span>' +
+        tombolPil("terbaru", "Terbaru", saring.urut === "terbaru", "data-urut") +
+        tombolPil("terpopuler", "Terpopuler", saring.urut === "terpopuler", "data-urut")
+      : "";
+
     var q = saring.cari.trim().toLowerCase();
     var hasil = K.karya.filter(function (k) {
       if (saring.fase !== "Semua" && k.fase !== saring.fase) return false;
@@ -155,6 +178,9 @@
       if (q && (k.judul + " " + k.topik + " " + k.tujuan + " " + k.jenis).toLowerCase().indexOf(q) === -1) return false;
       return true;
     });
+    if (STAT && saring.urut === "terpopuler") {
+      hasil = hasil.slice().sort(function (a, b) { return jumlahMain(b.id) - jumlahMain(a.id); });
+    }
     $("#grid-semua").innerHTML = hasil.map(kartuKarya).join("");
     $("#kosong-semua").hidden = hasil.length > 0;
     $("#hasil-hitung").textContent = hasil.length + " dari " + K.karya.length + " karya";
@@ -163,6 +189,8 @@
   document.addEventListener("click", function (e) {
     var b = e.target.closest("[data-fase]");
     if (b) { saring.fase = b.getAttribute("data-fase"); renderSemua(); return; }
+    b = e.target.closest("[data-urut]");
+    if (b) { saring.urut = b.getAttribute("data-urut"); renderSemua(); return; }
     b = e.target.closest("[data-jenis-pil]");
     if (b) { saring.jenis = b.getAttribute("data-jenis-pil"); renderSemua(); return; }
     b = e.target.closest("[data-fase-jenis]");
@@ -233,7 +261,7 @@
 
     var bagikan = alamatBagikan(k);
     var aksi = (siap
-      ? '<a class="tombol tombol-utama" href="' + esc(alamat(k)) + '">Mainkan</a>' +
+      ? '<a class="tombol tombol-utama" href="' + esc(alamat(k)) + '" id="tombol-mainkan">Mainkan</a>' +
         '<button class="tombol tombol-garis" type="button" id="tombol-proyektor">Mode Proyektor</button>'
       : '<span class="tombol tombol-utama" aria-disabled="true">Segera hadir</span>') +
       '<button class="tombol tombol-garis" type="button" id="tombol-qr">Tampilkan QR</button>';
@@ -268,6 +296,8 @@
             '<dt>Topik</dt><dd>' + esc(k.topik) + '</dd>' +
             '<dt>Durasi</dt><dd>' + (typeof k.durasi === "number" ? '± ' : '') + esc(k.durasi) + ' menit</dd>' +
             '<dt>Perangkat</dt><dd>' + esc(k.perangkat) + '</dd>' +
+            '<dt class="baris-main"' + (STAT && siap ? '' : ' hidden') + '>Dimainkan</dt>' +
+            '<dd class="baris-main" id="karya-dimainkan"' + (STAT && siap ? '' : ' hidden') + '>' + angka(jumlahMain(k.id)) + ' kali</dd>' +
           '</dl>' +
           '<div class="karya-aksi">' + aksi + '</div>' +
           '<div class="karya-aksi-kedua">' + kedua.join('<span aria-hidden="true">·</span>') + '</div>' +
@@ -279,12 +309,16 @@
     function muat() {
       var el = $("#bingkai-karya");
       if (!el || $("iframe", el)) return el;
+      catatMain(k);
       el.className = "bingkai";
       var ket = $(".ket-muat");
       if (ket) ket.remove();
       el.innerHTML = '<iframe src="' + esc(alamat(k)) + '" title="' + esc(k.judul) + '" allow="fullscreen; autoplay; camera; microphone"></iframe>';
       return el;
     }
+    var tombolMainkan = $("#tombol-mainkan");
+    if (tombolMainkan) tombolMainkan.addEventListener("click", function () { catatMain(k); });
+
     var bingkaiMuat = $("#bingkai-karya.bingkai-siap");
     if (bingkaiMuat) bingkaiMuat.addEventListener("click", function () {
       muat();
@@ -431,7 +465,7 @@
     var m;
 
     if (h === "semua-karya" || RUTE_JENIS[h]) {
-      saring = { fase: "Semua", jenis: RUTE_JENIS[h] || "Semua", cari: "" };
+      saring = { fase: "Semua", jenis: RUTE_JENIS[h] || "Semua", cari: "", urut: saring.urut || "terbaru" };
       if (cari) cari.value = "";
       renderSemua();
       tampil("semua-karya", "semua-karya", RUTE_JENIS[h] ? JENIS[RUTE_JENIS[h]].kamar : "Semua Karya");
@@ -458,6 +492,53 @@
     if (!awal) window.scrollTo(0, 0);
   }
 
+  /* ---------- penghitung kunjungan & permainan ---------- */
+  var ADA_SERVER = /^https?:$/.test(location.protocol) && !PRATINJAU;
+  function simpanSesi(kunci) { try { sessionStorage.setItem(kunci, "1"); } catch (e) { /* abaikan */ } }
+  function adaSesi(kunci) { try { return sessionStorage.getItem(kunci) === "1"; } catch (e) { return false; } }
+
+  function catatMain(k) {
+    if (!ADA_SERVER || !k || adaSesi("rumatika-main-" + k.id)) return;
+    simpanSesi("rumatika-main-" + k.id);
+    var data = JSON.stringify({ id: k.id });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon("/api/main", data)) return;
+    } catch (e) { /* lanjut ke fetch */ }
+    try { fetch("/api/main", { method: "POST", body: data, keepalive: true }).catch(function () {}); } catch (e) { /* abaikan */ }
+  }
+
+  function segarkanStatistik() {
+    var aktif = $("[data-view]:not([hidden])");
+    var nama = aktif ? aktif.getAttribute("data-view") : "";
+    if (nama === "beranda") renderBeranda();
+    else if (nama === "semua-karya") renderSemua();
+    else if (nama === "fase") renderFase(faseAktif);
+    else if (nama === "karya") {
+      var m = /^karya-(.+)$/.exec(decodeURIComponent(location.hash.replace(/^#/, "")));
+      var k = m && karya(m[1]);
+      var dd = $("#karya-dimainkan");
+      if (k && dd && tersedia(k)) {
+        dd.textContent = angka(jumlahMain(k.id)) + " kali";
+        $$(".baris-main").forEach(function (el) { el.hidden = false; });
+      }
+    }
+  }
+
+  function muatStatistik() {
+    if (!ADA_SERVER || !window.fetch) return;
+    var sudah = adaSesi("rumatika-kunjungan");
+    fetch(sudah ? "/api/statistik" : "/api/kunjungan", { method: sudah ? "GET" : "POST", cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || typeof d.total !== "number") return;
+        STAT = d;
+        if (!sudah) simpanSesi("rumatika-kunjungan");
+        segarkanStatistik();
+      })
+      .catch(function () { /* statistik tidak tersedia: situs tetap berjalan tanpa angka */ });
+  }
+
   window.addEventListener("hashchange", function () { rute(false); });
   rute(true);
+  muatStatistik();
 })();

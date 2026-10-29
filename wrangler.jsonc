@@ -1,0 +1,22 @@
+// Pengaturan Cloudflare Workers untuk Rumatika.
+// Berkas situs disajikan langsung dari folder ini; hanya alamat /api/* yang dijalankan oleh worker/index.js.
+// Berkas kerja yang tidak ikut diunggah didaftarkan di .assetsignore.
+{
+  "name": "rumatika",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "rumatika-statistik",
+      "database_id": "ead0cf41-045c-4f65-acaa-265a268602f4"
+    }
+  ],
+  "observability": { "enabled": true }
+}
