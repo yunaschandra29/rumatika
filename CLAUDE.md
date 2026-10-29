@@ -12,6 +12,10 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 - Daftar karya dan video hanya di `data/katalog.js`. Karya terbaru ditaruh paling atas.
 - Setiap karya baru: folder `karya/fase-<huruf>/<nama-karya>/index.html` + satu entri katalog. Keduanya wajib.
 - Karya berupa HTML satu berkas agar bisa diunduh dan dibuka offline. Aset besar (audio, gambar) dipisah dan dijaga di bawah 25 MiB per berkas.
+- Sampul karya: gambar 16:9 di `assets/img/<id>.webp` (lebar 960 px, sekitar 50 KB), dicatat di kolom `sampul`. Karya belum siap tanpa sampul otomatis memakai `segera-hadir.webp`.
+- Setiap kali `data/katalog.js` berubah, jalankan `python alat/bagikan.py` sebelum commit. Skrip ini membuat `k/<id>/` (halaman berbagi) dan `assets/og/` (gambar pratinjau WhatsApp). Jangan mengedit kedua folder itu secara manual.
+- Alamat situs untuk tautan berbagi diatur di `SITUS` pada `alat/bagikan.py`. Ganti di sana jika memakai domain sendiri, lalu jalankan ulang skripnya.
+- Nomor WA dan email kreator hanya diatur di `kontak` pada `data/katalog.js`.
 
 ## Tampilan
 - Warna hanya lewat token di bagian atas `assets/site.css`; setiap token punya nilai terang dan gelap.

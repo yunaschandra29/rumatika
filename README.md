@@ -38,6 +38,15 @@ lalu buka http://localhost:8080
 3. Isi `url` dengan alamat foldernya, misalnya `"karya/fase-d/operasi-sigap/"`.
    Kosongkan (`""`) jika belum siap; kartunya tetap tampil dengan label "Segera hadir".
 
+4. Jalankan `python alat/bagikan.py` (butuh `pip install pillow json5`). Skrip ini membuat halaman berbagi
+   `k/<id>/` dan gambar pratinjau di `assets/og/`, sehingga tautan yang dikirim ke WhatsApp menampilkan
+   sampul dan judul karya.
+
+## Kontak
+
+Nomor WhatsApp dan email kreator diatur di bagian `kontak` pada `data/katalog.js`.
+Tombol "Tanya via WA" di setiap halaman dan halaman `#kontak` memakai data itu.
+
 ## Menambah video Teras Trik
 
 Tambahkan satu objek di daftar `video` pada `data/katalog.js`.
@@ -60,4 +69,5 @@ Setelah video tayang, ganti `url` dengan tautan YouTube-nya dan ubah `status` me
 | `#kamar-belajar`, `#kamar-main`, `#laboratorium` | Semua karya MPI, Gim, Lab Maya |
 | `#karya-<id>` | Halaman satu karya |
 | `#teras-trik` | Video tips & trik |
-| `#panduan-guru`, `#tentang` | Halaman pendukung |
+| `#panduan-guru`, `#tentang`, `#kontak` | Halaman pendukung |
+| `k/<id>/` | Tautan berbagi karya (pratinjau WhatsApp), langsung membuka halaman karya |

@@ -32,6 +32,23 @@
   /* Sampul cadangan untuk karya yang belum siap (url kosong) dan belum punya sampul. */
   var SAMPUL_SEGERA = "assets/img/segera-hadir.webp";
   function sampulKarya(k) { return k.sampul || (tersedia(k) ? "" : SAMPUL_SEGERA); }
+  /* ---------- kontak & tautan berbagi ---------- */
+  var KONTAK = K.kontak || {};
+  function tautanWa(teks) {
+    return "https://wa.me/" + (KONTAK.wa || "") + "?text=" + encodeURIComponent(teks);
+  }
+  /* Alamat halaman berbagi k/<id>/ — memunculkan sampul dan judul saat dikirim di WhatsApp. */
+  function alamatBagikan(k) {
+    try { return new URL("k/" + k.id + "/", location.href.split("#")[0]).href; }
+    catch (err) { return location.href; }
+  }
+  function salinTeks(teks, pesanEl, berhasil) {
+    function gagal() { pesanEl.textContent = "Salin manual: " + teks; }
+    try {
+      navigator.clipboard.writeText(teks).then(function () { pesanEl.textContent = berhasil; }, gagal);
+    } catch (err) { gagal(); }
+  }
+
   function alamat(k) { return /\/$/.test(k.url) ? k.url + "index.html" : k.url; }
   function jenisKelas(j) { return (JENIS[j] || JENIS["MPI"]).kelas; }
 
@@ -214,15 +231,23 @@
           '<span class="rumus">' + esc(k.simbol) + '</span></div>' +
         '<p class="ket-muat">Karya ini sedang disiapkan untuk diunggah. Kartu dan halamannya sudah bisa dibagikan.</p>';
 
-    var aksi = siap
+    var bagikan = alamatBagikan(k);
+    var aksi = (siap
       ? '<a class="tombol tombol-utama" href="' + esc(alamat(k)) + '">Mainkan</a>' +
-        '<button class="tombol tombol-garis" type="button" id="tombol-proyektor">Mode Proyektor</button>' +
-        (PRATINJAU ? '' : '<a class="tombol tombol-garis" href="' + esc(alamat(k)) + '" download="' + esc(k.id) + '.html">Unduh offline</a>')
-      : '<span class="tombol tombol-utama" aria-disabled="true">Segera hadir</span>';
-    aksi += '<button class="tombol tombol-garis" type="button" id="tombol-salin">Salin tautan</button>';
+        '<button class="tombol tombol-garis" type="button" id="tombol-proyektor">Mode Proyektor</button>'
+      : '<span class="tombol tombol-utama" aria-disabled="true">Segera hadir</span>') +
+      '<button class="tombol tombol-garis" type="button" id="tombol-qr">Tampilkan QR</button>';
+
+    var kedua = [
+      '<button class="tautan-tombol" type="button" id="tombol-salin">Salin tautan</button>',
+      '<a href="https://wa.me/?text=' + encodeURIComponent(k.judul + " · " + k.jenis + " Fase " + k.fase + "\n" + bagikan) +
+        '" target="_blank" rel="noopener">Bagikan ke WhatsApp</a>'
+    ];
+    if (siap && !PRATINJAU) kedua.push('<a href="' + esc(alamat(k)) + '" download="' + esc(k.id) + '.html">Unduh offline' + (k.ukuran ? ' (' + esc(k.ukuran) + ')' : '') + '</a>');
     if (v) {
-      aksi += '<a class="tombol tombol-garis" href="' + esc(v.url) + '" target="_blank" rel="noopener">' +
-        (v.status === "tayang" ? 'Tonton videonya' : 'Video segera tayang') + '</a>';
+      kedua.push(v.status === "tayang" && idYoutube(v.url)
+        ? '<button class="tautan-tombol" type="button" data-putar="' + esc(v.id) + '">Tonton videonya</button>'
+        : '<span class="kecil">Video segera tayang</span>');
     }
 
     var lain = K.karya.filter(function (x) { return x.fase === k.fase && x.id !== k.id; }).slice(0, 3);
@@ -245,6 +270,7 @@
             '<dt>Perangkat</dt><dd>' + esc(k.perangkat) + '</dd>' +
           '</dl>' +
           '<div class="karya-aksi">' + aksi + '</div>' +
+          '<div class="karya-aksi-kedua">' + kedua.join('<span aria-hidden="true">·</span>') + '</div>' +
           '<p class="pesan-salin" id="pesan-salin" aria-live="polite"></p>' +
         '</div>' +
       '</div>' +
@@ -276,15 +302,69 @@
     });
 
     $("#tombol-salin").addEventListener("click", function () {
-      var tautan = location.href;
-      var pesan = $("#pesan-salin");
-      function gagal() { pesan.textContent = "Salin manual: " + tautan; }
-      try {
-        navigator.clipboard.writeText(tautan).then(function () {
-          pesan.textContent = "Tautan tersalin. Tempel di grup kelas.";
-        }, gagal);
-      } catch (err) { gagal(); }
+      salinTeks(bagikan, $("#pesan-salin"), "Tautan tersalin. Tempel di grup kelas; sampul karya ikut tampil di WhatsApp.");
     });
+    $("#tombol-qr").addEventListener("click", function () { tampilkanQr(k.judul, bagikan); });
+  }
+
+  /* ---------- QR untuk kelas ---------- */
+  var jendelaQr = $("#jendela-qr");
+  function tampilkanQr(judul, url) {
+    var kotak = $("#qr-kode");
+    if (!jendelaQr || typeof window.qrcode !== "function") { kotak && (kotak.textContent = url); return; }
+    var qr = window.qrcode(0, "M");
+    qr.addData(url);
+    qr.make();
+    kotak.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 2, scalable: true, alt: "Kode QR untuk " + judul });
+    $("#qr-judul").textContent = judul;
+    $("#qr-alamat").textContent = url.replace(/^https?:\/\//, "");
+    if (jendelaQr.showModal) jendelaQr.showModal(); else jendelaQr.setAttribute("open", "");
+  }
+  if (jendelaQr) {
+    $("#qr-tutup").addEventListener("click", function () { jendelaQr.close ? jendelaQr.close() : jendelaQr.removeAttribute("open"); });
+    jendelaQr.addEventListener("click", function (e) { if (e.target === jendelaQr) jendelaQr.close(); });
+  }
+
+  /* ---------- halaman kontak & tombol WA melayang ---------- */
+  var KEPERLUAN = {
+    karya: { label: "Minta karya untuk sekolah", subjek: "Permintaan karya Rumatika" },
+    kendala: { label: "Lapor kendala", subjek: "Laporan kendala Rumatika" },
+    kolaborasi: { label: "Pelatihan dan kolaborasi", subjek: "Pelatihan dan kolaborasi Rumatika" }
+  };
+  function perbaruiKontak() {
+    var pilih = $('input[name="keperluan"]:checked');
+    var kep = KEPERLUAN[pilih ? pilih.value : "karya"];
+    var nama = $("#kontak-nama").value.trim();
+    var pesan = $("#kontak-pesan").value.trim();
+    var badan = "Halo " + (KONTAK.nama || "Pak Yunas") + ",\n\n" +
+      "Keperluan: " + kep.label + "\n" +
+      "Nama/sekolah: " + (nama || "-") + "\n\n" +
+      (pesan || "(tulis pesan di sini)");
+    $("#kirim-wa").href = tautanWa(badan);
+    $("#kirim-email").href = "mailto:" + (KONTAK.email || "") +
+      "?subject=" + encodeURIComponent(kep.subjek) + "&body=" + encodeURIComponent(badan);
+  }
+  var formKontak = $("#kontak-form");
+  if (formKontak) {
+    $("#kontak-wa-teks").textContent = KONTAK.waTampil || "";
+    $("#kontak-email-teks").textContent = KONTAK.email || "";
+    formKontak.addEventListener("input", perbaruiKontak);
+    formKontak.addEventListener("change", perbaruiKontak);
+    formKontak.addEventListener("submit", function (e) { e.preventDefault(); });
+    $("#salin-email").addEventListener("click", function () {
+      salinTeks(KONTAK.email || "", $("#pesan-salin-email"), "Alamat email tersalin.");
+    });
+    perbaruiKontak();
+  }
+
+  var waMelayang = $("#wa-melayang");
+  function perbaruiWaMelayang(nama, k) {
+    if (!waMelayang) return;
+    waMelayang.hidden = nama === "kontak" || !KONTAK.wa;
+    var teks = k
+      ? "Halo " + (KONTAK.nama || "Pak Yunas") + ", saya ingin bertanya tentang karya Rumatika \"" + k.judul + "\" (Fase " + k.fase + ").\n" + alamatBagikan(k)
+      : "Halo " + (KONTAK.nama || "Pak Yunas") + ", saya mengunjungi Rumatika dan ingin bertanya: ";
+    waMelayang.href = tautanWa(teks);
   }
 
   /* ---------- pemutar video di halaman ---------- */
@@ -342,6 +422,8 @@
       else a.removeAttribute("aria-current");
     });
     document.title = judul ? judul + " · " + JUDUL_DASAR : JUDUL_DASAR;
+    var m = /^karya-(.+)$/.exec(decodeURIComponent(location.hash.replace(/^#/, "")));
+    perbaruiWaMelayang(nama, nama === "karya" && m ? karya(m[1]) : null);
   }
 
   function rute(awal) {
@@ -367,6 +449,8 @@
       tampil("panduan-guru", "panduan-guru", "Panduan Guru");
     } else if (h === "tentang") {
       tampil("tentang", "tentang", "Tentang");
+    } else if (h === "kontak") {
+      tampil("kontak", "kontak", "Kontak");
     } else {
       renderBeranda();
       tampil("beranda", "beranda", "");

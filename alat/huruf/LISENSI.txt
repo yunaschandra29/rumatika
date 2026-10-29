@@ -1,0 +1,2 @@
+Huruf di folder ini (Bricolage Grotesque, Lexend, IBM Plex Mono) berlisensi SIL Open Font License 1.1.
+Dipakai oleh alat/bagikan.py untuk membuat gambar pratinjau tautan.

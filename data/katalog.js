@@ -17,6 +17,14 @@
   Nilai "fase" harus salah satu: "A", "B", "C", "D", "E", "F".
 */
 window.RUMATIKA_KATALOG = {
+  /* Kontak kreator. "wa" memakai kode negara tanpa tanda + dan tanpa angka 0 di depan. */
+  kontak: {
+    nama: "Pak Yunas",
+    wa: "6282261578489",
+    waTampil: "0822-6157-8489",
+    email: "yunaschandra29@gmail.com"
+  },
+
   fase: [
     { kode: "A", jenjang: "SD", kelas: "Kelas 1–2", ringkas: "Bilangan sampai 100, penjumlahan dan pengurangan, bentuk datar." },
     { kode: "B", jenjang: "SD", kelas: "Kelas 3–4", ringkas: "Perkalian dan pembagian, pecahan, pengukuran." },

@@ -20,6 +20,8 @@
   --mpi: #2554D6;
   --gim: #0B7896;
   --lab: #3E44B8;
+  --wa: #128C4A;
+  --di-wa: #FFFFFF;
 
   --f-tampil: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-teks: "Lexend", "Segoe UI", system-ui, sans-serif;
@@ -46,6 +48,8 @@
     --mpi: #2A55D0;
     --gim: #0C6E8A;
     --lab: #4045B0;
+  --wa: #25B864;
+  --di-wa: #04230F;
     color-scheme: dark;
   }
 }
@@ -67,6 +71,8 @@
   --mpi: #2A55D0;
   --gim: #0C6E8A;
   --lab: #4045B0;
+  --wa: #25B864;
+  --di-wa: #04230F;
   color-scheme: dark;
 }
 
@@ -745,6 +751,81 @@ button.video-layar:hover .video-putar { transform: scale(1.08); }
 .pemutar-kaki a { color: #fff; font-weight: 600; text-decoration: none; opacity: .9; }
 .pemutar-kaki a:hover { text-decoration: underline; opacity: 1; }
 .pemutar-kaki #pemutar-yt { margin-left: auto; }
+
+/* ---------- aksi kedua di halaman karya ---------- */
+.karya-aksi-kedua { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 14px; font-size: .92rem; color: var(--tinta-2); }
+.karya-aksi-kedua a { font-weight: 600; text-decoration: none; }
+.karya-aksi-kedua a:hover { text-decoration: underline; }
+
+/* ---------- kontak ---------- */
+.kontak { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: start; }
+.kontak-form { display: grid; gap: 20px; min-width: 0; }
+.kontak-keperluan { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
+.kontak-keperluan legend, .isian > span {
+  margin-bottom: 8px; padding: 0;
+  font: 500 .74rem var(--f-ukur); letter-spacing: .12em; text-transform: uppercase; color: var(--tinta-2);
+}
+.pilihan {
+  display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; cursor: pointer;
+  border: 1px solid var(--garis); border-radius: 12px; background: var(--permukaan);
+}
+.pilihan:has(input:checked) { border-color: var(--biru); background: var(--biru-muda); }
+.pilihan input { margin: 4px 0 0; accent-color: var(--biru); width: 18px; height: 18px; flex-shrink: 0; }
+.pilihan span { display: grid; gap: 2px; }
+.pilihan small { color: var(--tinta-2); font-size: .88rem; }
+.isian { display: grid; }
+.isian input, .isian textarea {
+  width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--garis);
+  background: var(--permukaan); color: var(--tinta); font: 400 .98rem/1.5 var(--f-teks); resize: vertical;
+}
+.kontak-aksi { display: flex; flex-wrap: wrap; gap: 10px; }
+.tombol-wa { background: var(--wa); color: var(--di-wa); }
+.tombol-wa:hover { filter: brightness(1.08); }
+.kontak-daftar { display: grid; gap: 4px; margin: 4px 0 0; }
+.kontak-daftar dt { margin-top: 10px; font: 500 .72rem var(--f-ukur); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); }
+.kontak-daftar dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; user-select: all; }
+.kontak-daftar dd .tautan-tombol { user-select: none; margin-left: 6px; font-size: .9rem; }
+@media (max-width: 860px) { .kontak { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
+
+/* ---------- tombol WA melayang ---------- */
+.wa-melayang {
+  position: fixed;
+  right: calc(18px + env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 25;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px 12px 14px; border-radius: 999px;
+  background: var(--wa); color: var(--di-wa);
+  font: 600 .95rem/1 var(--f-teks); text-decoration: none;
+  box-shadow: 0 6px 20px rgba(6, 14, 36, .28);
+}
+.wa-melayang:hover { filter: brightness(1.08); }
+.wa-melayang svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 560px) {
+  .wa-melayang { padding: 14px; }
+  .wa-melayang span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+.kaki .kaki-isi { padding-bottom: 88px; }
+
+/* ---------- jendela QR (selalu terang agar mudah dipindai) ---------- */
+.jendela-qr { padding: 0; border: 0; background: transparent; max-width: none; max-height: none; overflow: visible; }
+.jendela-qr::backdrop { background: rgba(6, 14, 36, .86); }
+.jendela-qr[open] { display: grid; place-items: center; }
+.qr-isi {
+  position: relative; display: grid; justify-items: center; gap: 8px;
+  width: min(92vw, 560px); padding: 28px 28px 24px; border-radius: 18px;
+  background: #FFFFFF; color: #0F1E45; text-align: center;
+}
+.qr-alis { margin: 0; font: 500 .76rem var(--f-ukur); letter-spacing: .12em; text-transform: uppercase; color: #2554D6; }
+.qr-isi h2 { margin: 0; color: #0F1E45; font-size: clamp(1.3rem, 3vw, 1.9rem); }
+.qr-kode { width: min(78vw, 60vh, 440px); aspect-ratio: 1; max-width: 100%; }
+.qr-kode svg { display: block; width: 100%; height: 100%; }
+.qr-alamat { margin: 0; font: 500 .9rem var(--f-ukur); color: #4B5A7C; overflow-wrap: anywhere; }
+.qr-tutup {
+  position: absolute; top: 12px; right: 12px; width: 38px; height: 38px; border-radius: 50%;
+  border: 0; cursor: pointer; display: grid; place-items: center; background: #E4ECFD;
+}
+.qr-tutup svg { width: 18px; height: 18px; fill: none; stroke: #0F1E45; stroke-width: 2; stroke-linecap: round; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
