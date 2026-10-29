@@ -207,15 +207,26 @@ window.RUMATIKA_KATALOG = {
   */
   video: [
     {
+      id: "mengalikan-pecahan",
+      judul: "Bagaimana cara mengalikan pecahan?",
+      fase: "C",
+      detik: 76,
+      simbol: "2/3 × 3/4",
+      ringkas: "Cara mengalikan dua pecahan dan alasan di balik langkahnya, dalam waktu singkat.",
+      karya: "",
+      url: "https://www.youtube.com/shorts/M7RE_m5rEMI",
+      status: "tayang"
+    },
+    {
       id: "kenapa-penyebut-disamakan",
-      judul: "Kenapa penyebut harus disamakan?",
-      fase: "B",
-      detik: 75,
+      judul: "Kenapa harus samakan penyebut?",
+      fase: "C",
+      detik: 67,
       simbol: "1/2 + 1/3",
-      ringkas: "Menjumlah pecahan itu seperti menjumlah satuan: potongannya harus sama besar dulu.",
+      ringkas: "Alasan penyebut harus disamakan dulu sebelum dua pecahan dijumlahkan atau dikurangkan.",
       karya: "lab-pecahan-senilai",
-      url: "https://www.youtube.com/@yunascp",
-      status: "segera"
+      url: "https://www.youtube.com/shorts/vRyYFs6cXrk",
+      status: "tayang"
     },
     {
       id: "negatif-kali-negatif",

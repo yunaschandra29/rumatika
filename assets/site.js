@@ -51,13 +51,23 @@
       '</div></a>';
   }
 
+  function idYoutube(url) {
+    var m = /(?:shorts\/|youtu\.be\/|[?&]v=)([\w-]{11})/.exec(url || "");
+    return m ? m[1] : "";
+  }
+
   function kartuVideo(v) {
     var terkait = karya(v.karya);
     var tayang = v.status === "tayang";
-    return '<article class="video">' +
-      '<div class="video-layar"><span class="video-rumus">' + esc(v.simbol) + '</span>' +
-        '<span class="video-putar" aria-hidden="true"></span>' +
-        '<span class="video-durasi">' + esc(v.detik) + ' dtk</span></div>' +
+    var yt = tayang ? idYoutube(v.url) : "";
+    var isiLayar = '<span class="video-rumus">' + esc(v.simbol) + '</span>' +
+      (yt ? '<img class="video-gambar" src="https://i.ytimg.com/vi/' + yt + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">' : '') +
+      '<span class="video-putar" aria-hidden="true"></span>' +
+      '<span class="video-durasi">' + esc(v.detik) + ' dtk</span>';
+    var layar = tayang
+      ? '<a class="video-layar" href="' + esc(v.url) + '" target="_blank" rel="noopener" aria-label="Tonton ' + esc(v.judul) + ' di YouTube">' + isiLayar + '</a>'
+      : '<div class="video-layar">' + isiLayar + '</div>';
+    return '<article class="video">' + layar +
       '<div class="video-isi">' +
         '<div class="chip-baris"><span class="chip">Fase ' + esc(v.fase) + '</span>' +
           (tayang ? '' : '<span class="status-segera">Segera tayang</span>') + '</div>' +
