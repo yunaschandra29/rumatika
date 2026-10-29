@@ -23,10 +23,70 @@ window.RUMATIKA_KATALOG = {
     { kode: "C", jenjang: "SD", kelas: "Kelas 5–6", ringkas: "Pecahan dan desimal, bangun ruang, penyajian data." },
     { kode: "D", jenjang: "SMP", kelas: "Kelas 7–9", ringkas: "Aljabar, persamaan linear, geometri, statistika dan peluang." },
     { kode: "E", jenjang: "SMA", kelas: "Kelas 10", ringkas: "Eksponen dan logaritma, trigonometri, peluang, data dua variabel." },
-    { kode: "F", jenjang: "SMA", kelas: "Kelas 11–12", ringkas: "Polinomial, matriks, matematika keuangan, model linear data." }
+    { kode: "F", jenjang: "SMA", kelas: "Kelas 11–12", ringkas: "Lingkaran, peluang majemuk dan bersyarat, matematika keuangan, model linear data." }
   ],
 
   karya: [
+    {
+      id: "jaring-andal",
+      judul: "Jaring Andal",
+      fase: "F",
+      jenis: "Gim",
+      topik: "Peluang kejadian majemuk dan bersyarat",
+      tujuan: "Menjadi teknisi sekolah yang merakit genset, pompa, dan pengeras suara: memakai peluang kejadian majemuk dan bersyarat agar listrik dan air tetap menyala.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "P(A | B)",
+      url: "karya/fase-f/jaring-andal/",
+      sampul: "assets/img/jaring-andal.webp",
+      ukuran: "0,8 MB",
+      video: ""
+    },
+    {
+      id: "potong-pas",
+      judul: "Potong Pas",
+      fase: "F",
+      jenis: "Gim",
+      topik: "Lingkaran",
+      tujuan: "Menjadi montir magang di Bengkel Poros Kota: mengukur, menghitung, dan memotong tujuh komponen jam kincir dengan sifat-sifat lingkaran.",
+      durasi: 45,
+      perangkat: "Proyektor dan HP",
+      simbol: "K = 2πr",
+      url: "karya/fase-f/potong-pas/",
+      sampul: "assets/img/potong-pas.webp",
+      ukuran: "0,8 MB",
+      video: ""
+    },
+    {
+      id: "power-core",
+      judul: "POWER CORE: Krisis Eksponen",
+      fase: "E",
+      jenis: "Gim",
+      topik: "Bilangan berpangkat dan eksponen",
+      tujuan: "Menjinakkan reaktor Kota Nova dalam tujuh misi dengan menerapkan sifat-sifat bilangan berpangkat.",
+      durasi: 40,
+      perangkat: "Proyektor dan HP",
+      simbol: "aᵐ × aⁿ = aᵐ⁺ⁿ",
+      url: "karya/fase-e/power-core/",
+      sampul: "assets/img/power-core.webp",
+      ukuran: "1,4 MB",
+      video: "pangkat-nol"
+    },
+    {
+      id: "delapan-sudut-kota",
+      judul: "Delapan Sudut Kota",
+      fase: "E",
+      jenis: "Gim",
+      topik: "Trigonometri: sudut elevasi dan depresi",
+      tujuan: "Menyelesaikan delapan kasus pengukuran tinggi dan jarak di kota memakai perbandingan trigonometri, sudut istimewa, serta sudut elevasi dan depresi.",
+      durasi: 45,
+      perangkat: "Proyektor dan HP",
+      simbol: "tan θ = depan / samping",
+      url: "karya/fase-e/delapan-sudut-kota/",
+      sampul: "assets/img/delapan-sudut-kota.webp",
+      ukuran: "1,2 MB",
+      video: ""
+    },
     {
       id: "misteri-transaksi",
       judul: "Misteri Transaksi",
@@ -284,7 +344,7 @@ window.RUMATIKA_KATALOG = {
       detik: 60,
       simbol: "a⁰ = 1",
       ringkas: "Turunkan pangkat satu per satu, lihat apa yang terjadi saat pangkatnya habis.",
-      karya: "langkah-penyusup",
+      karya: "power-core",
       url: "https://www.youtube.com/@yunascp",
       status: "segera"
     },
