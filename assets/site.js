@@ -68,8 +68,8 @@
       (yt ? '<img class="video-gambar" src="https://i.ytimg.com/vi/' + yt + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">' : '') +
       '<span class="video-putar" aria-hidden="true"></span>' +
       '<span class="video-durasi">' + esc(v.detik) + ' dtk</span>';
-    var layar = tayang
-      ? '<a class="video-layar" href="' + esc(v.url) + '" target="_blank" rel="noopener" aria-label="Tonton ' + esc(v.judul) + ' di YouTube">' + isiLayar + '</a>'
+    var layar = yt
+      ? '<button class="video-layar" type="button" data-putar="' + esc(v.id) + '" aria-label="Putar video ' + esc(v.judul) + '">' + isiLayar + '</button>'
       : '<div class="video-layar">' + isiLayar + '</div>';
     return '<article class="video">' + layar +
       '<div class="video-isi">' +
@@ -78,8 +78,9 @@
         '<h3>' + esc(v.judul) + '</h3>' +
         '<p>' + esc(v.ringkas) + '</p>' +
         '<div class="video-tautan">' +
-          '<a href="' + esc(v.url) + '" target="_blank" rel="noopener">' +
-            (tayang ? 'Tonton di YouTube' : 'Kanal @yunascp') + '</a>' +
+          (yt
+            ? '<button class="tautan-tombol" type="button" data-putar="' + esc(v.id) + '">Putar video</button>'
+            : '<a href="' + esc(v.url) + '" target="_blank" rel="noopener">' + (tayang ? 'Tonton di YouTube' : 'Kanal @yunascp') + '</a>') +
           (terkait ? '<a href="#karya-' + esc(terkait.id) + '">Coba karyanya →</a>' : '') +
         '</div>' +
       '</div></article>';
@@ -285,6 +286,39 @@
       } catch (err) { gagal(); }
     });
   }
+
+  /* ---------- pemutar video di halaman ---------- */
+  var pemutar = $("#pemutar");
+  function putarVideo(v) {
+    var yt = idYoutube(v.url);
+    if (!pemutar || !yt) { window.open(v.url, "_blank", "noopener"); return; }
+    var tegak = /\/shorts\//.test(v.url);
+    var layar = $("#pemutar-layar");
+    layar.className = "pemutar-layar" + (tegak ? " tegak" : "");
+    layar.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + yt +
+      '?autoplay=1&rel=0&playsinline=1" title="' + esc(v.judul) + '" ' +
+      'allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+    $("#pemutar-judul").textContent = v.judul;
+    $("#pemutar-yt").href = v.url;
+    var k = karya(v.karya), tk = $("#pemutar-karya");
+    tk.hidden = !k;
+    if (k) tk.href = "#karya-" + k.id;
+    if (pemutar.showModal) pemutar.showModal(); else pemutar.setAttribute("open", "");
+  }
+  function tutupVideo() {
+    if (!pemutar) return;
+    if (pemutar.open && pemutar.close) pemutar.close(); else pemutar.removeAttribute("open");
+  }
+  if (pemutar) {
+    pemutar.addEventListener("close", function () { $("#pemutar-layar").innerHTML = ""; });
+    pemutar.addEventListener("click", function (e) { if (e.target === pemutar) tutupVideo(); });
+    $("#pemutar-tutup").addEventListener("click", tutupVideo);
+    $("#pemutar-karya").addEventListener("click", tutupVideo);
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-putar]");
+    if (b && video(b.getAttribute("data-putar"))) putarVideo(video(b.getAttribute("data-putar")));
+  });
 
   /* ---------- teras trik ---------- */
   var videoFase = "Semua";
