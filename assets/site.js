@@ -39,6 +39,7 @@
     return '<a class="kartu" href="#karya-' + esc(k.id) + '">' +
       '<div class="sampul" data-jenis="' + j + '">' +
         '<span class="sampul-rumus">' + esc(k.simbol) + '</span>' +
+        (k.sampul ? '<img class="sampul-gambar" src="' + esc(k.sampul) + '" alt="" loading="lazy" onerror="this.remove()">' : '') +
         (tersedia(k) ? '' : '<span class="label-segera">Segera hadir</span>') +
       '</div>' +
       '<div class="kartu-isi">' +
@@ -198,10 +199,12 @@
     var siap = tersedia(k);
 
     var bingkai = siap
-      ? '<div class="bingkai bingkai-segera bingkai-siap" id="bingkai-karya" data-jenis="' + j + '">' +
+      ? '<div class="bingkai bingkai-segera bingkai-siap' + (k.sampul ? ' ada-sampul' : '') + '" id="bingkai-karya" data-jenis="' + j + '">' +
+          (k.sampul ? '<img class="sampul-gambar" src="' + esc(k.sampul) + '" alt="" onerror="this.remove()">' : '') +
           '<span class="rumus">' + esc(k.simbol) + '</span>' +
           '<button class="tombol tombol-muat" type="button" id="tombol-muat">Muat di halaman ini' + (k.ukuran ? ' · ' + esc(k.ukuran) : '') + '</button>' +
-          '<p>Karya dimuat setelah diklik, supaya kuota HP tidak terpakai sebelum siap.</p></div>'
+          '<p>Karya dimuat setelah diklik, supaya kuota HP tidak terpakai sebelum siap.</p></div>' +
+        (k.sampul ? '<p class="ket-muat">Klik gambar untuk memuat gim di halaman ini. Gim baru diunduh setelah diklik, supaya kuota HP tidak terpakai sebelum siap.</p>' : '')
       : '<div class="bingkai bingkai-segera" data-jenis="' + j + '"><span class="rumus">' + esc(k.simbol) + '</span>' +
         '<p>Karya ini sedang disiapkan untuk diunggah. Kartu dan halamannya sudah bisa dibagikan.</p></div>';
 
@@ -222,7 +225,7 @@
       '<nav class="remah" aria-label="Posisi halaman"><a href="#beranda">Beranda</a><span aria-hidden="true">/</span>' +
         '<a href="#fase-' + k.fase.toLowerCase() + '">Ruang Fase ' + esc(k.fase) + '</a><span aria-hidden="true">/</span>' +
         '<span>' + esc(k.judul) + '</span></nav>' +
-      '<div class="karya-tata">' + bingkai +
+      '<div class="karya-tata"><div class="karya-media">' + bingkai + '</div>' +
         '<div class="karya-info">' +
           '<div class="chip-baris"><span class="chip" data-jenis="' + j + '">' + esc((JENIS[k.jenis] || {}).kamar || k.jenis) + '</span>' +
             '<span class="chip">Fase ' + esc(k.fase) + '</span></div>' +
@@ -245,11 +248,15 @@
       var el = $("#bingkai-karya");
       if (!el || $("iframe", el)) return el;
       el.className = "bingkai";
+      var ket = $(".ket-muat");
+      if (ket) ket.remove();
       el.innerHTML = '<iframe src="' + esc(alamat(k)) + '" title="' + esc(k.judul) + '" allow="fullscreen; autoplay"></iframe>';
       return el;
     }
-    var tombolMuat = $("#tombol-muat");
-    if (tombolMuat) tombolMuat.addEventListener("click", muat);
+    var bingkaiMuat = $("#bingkai-karya.bingkai-siap");
+    if (bingkaiMuat) bingkaiMuat.addEventListener("click", function () {
+      muat();
+    });
 
     var proyektor = $("#tombol-proyektor");
     if (proyektor) proyektor.addEventListener("click", function () {

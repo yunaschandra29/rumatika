@@ -8,7 +8,9 @@
     2. Tambahkan satu objek di daftar "karya" di bawah (paling atas = paling baru).
     3. Isi "url" dengan alamat foldernya. Kosongkan url ("") jika karya belum siap:
        kartunya tetap tampil dengan label "Segera hadir".
-    4. Isi "ukuran" dengan besar berkasnya (misalnya "7 MB"). Angka ini tampil di
+    4. (Opsional) Isi "sampul" dengan gambar 16:9 di assets/img/, misalnya
+       "assets/img/nama-karya.webp". Tanpa sampul, kartu menampilkan rumusnya.
+    5. Isi "ukuran" dengan besar berkasnya (misalnya "7 MB"). Angka ini tampil di
        tombol muat, supaya guru tahu kuota yang dipakai sebelum membuka di HP.
 
   Nilai "jenis" harus salah satu: "MPI", "Gim", "Lab Maya".
@@ -36,6 +38,7 @@ window.RUMATIKA_KATALOG = {
       perangkat: "Proyektor dan HP",
       simbol: "A = M·i / (1 − (1+i)⁻ⁿ)",
       url: "karya/fase-f/warisan-cicilan/",
+      sampul: "assets/img/warisan-cicilan.webp",
       ukuran: "11 MB",
       video: "anuitas-90-detik"
     },
@@ -50,6 +53,7 @@ window.RUMATIKA_KATALOG = {
       perangkat: "Proyektor dan HP",
       simbol: "untung = jual − beli",
       url: "karya/fase-d/bendahara-baru/",
+      sampul: "assets/img/bendahara-baru.webp",
       ukuran: "7 MB",
       video: ""
     },
