@@ -8,6 +8,8 @@
     2. Tambahkan satu objek di daftar "karya" di bawah (paling atas = paling baru).
     3. Isi "url" dengan alamat foldernya. Kosongkan url ("") jika karya belum siap:
        kartunya tetap tampil dengan label "Segera hadir".
+    4. Isi "ukuran" dengan besar berkasnya (misalnya "7 MB"). Angka ini tampil di
+       tombol muat, supaya guru tahu kuota yang dipakai sebelum membuka di HP.
 
   Nilai "jenis" harus salah satu: "MPI", "Gim", "Lab Maya".
   Nilai "fase" harus salah satu: "A", "B", "C", "D", "E", "F".
@@ -24,6 +26,34 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "warisan-cicilan",
+      judul: "Warisan Cicilan",
+      fase: "F",
+      jenis: "Gim",
+      topik: "Anuitas dan rencana angsuran",
+      tujuan: "Menghitung bunga majemuk dan anuitas, menyusun tabel angsuran, lalu memutuskan pinjaman terbaik dalam kisah tiga generasi keluarga.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "A = M·i / (1 − (1+i)⁻ⁿ)",
+      url: "karya/fase-f/warisan-cicilan/",
+      ukuran: "11 MB",
+      video: "anuitas-90-detik"
+    },
+    {
+      id: "bendahara-baru",
+      judul: "Bendahara Baru",
+      fase: "D",
+      jenis: "Gim",
+      topik: "Aritmetika sosial",
+      tujuan: "Mengelola kas kelas lewat novel visual: menghitung untung-rugi, diskon bertingkat, bruto-neto-tara, bunga tunggal, dan pajak dari setiap pilihan cerita.",
+      durasi: 120,
+      perangkat: "Proyektor dan HP",
+      simbol: "untung = jual − beli",
+      url: "karya/fase-d/bendahara-baru/",
+      ukuran: "7 MB",
+      video: ""
+    },
+    {
       id: "lab-pecahan-senilai",
       judul: "Lab Pecahan Senilai",
       fase: "B",
@@ -34,6 +64,7 @@ window.RUMATIKA_KATALOG = {
       perangkat: "Proyektor dan HP",
       simbol: "1/2 = 2/4",
       url: "karya/fase-b/lab-pecahan-senilai/",
+      ukuran: "10 KB",
       video: "kenapa-penyebut-disamakan"
     },
     {
@@ -215,7 +246,7 @@ window.RUMATIKA_KATALOG = {
       detik: 90,
       simbol: "A = b + a",
       ringkas: "Angsuran tetap, tetapi porsi bunganya mengecil dan porsi pokoknya membesar.",
-      karya: "lab-anuitas",
+      karya: "warisan-cicilan",
       url: "https://www.youtube.com/@yunascp",
       status: "segera"
     }

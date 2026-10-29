@@ -188,7 +188,10 @@
     var siap = tersedia(k);
 
     var bingkai = siap
-      ? '<div class="bingkai" id="bingkai-karya"><iframe src="' + esc(alamat(k)) + '" title="' + esc(k.judul) + '" loading="lazy" allow="fullscreen"></iframe></div>'
+      ? '<div class="bingkai bingkai-segera bingkai-siap" id="bingkai-karya" data-jenis="' + j + '">' +
+          '<span class="rumus">' + esc(k.simbol) + '</span>' +
+          '<button class="tombol tombol-muat" type="button" id="tombol-muat">Muat di halaman ini' + (k.ukuran ? ' · ' + esc(k.ukuran) : '') + '</button>' +
+          '<p>Karya dimuat setelah diklik, supaya kuota HP tidak terpakai sebelum siap.</p></div>'
       : '<div class="bingkai bingkai-segera" data-jenis="' + j + '"><span class="rumus">' + esc(k.simbol) + '</span>' +
         '<p>Karya ini sedang disiapkan untuk diunggah. Kartu dan halamannya sudah bisa dibagikan.</p></div>';
 
@@ -228,9 +231,19 @@
       '</div>' +
       (lain.length ? '<div class="karya-lain"><h2>Karya lain di Ruang Fase ' + esc(k.fase) + '</h2><div class="grid-kartu">' + lain.map(kartuKarya).join("") + '</div></div>' : '');
 
+    function muat() {
+      var el = $("#bingkai-karya");
+      if (!el || $("iframe", el)) return el;
+      el.className = "bingkai";
+      el.innerHTML = '<iframe src="' + esc(alamat(k)) + '" title="' + esc(k.judul) + '" allow="fullscreen; autoplay"></iframe>';
+      return el;
+    }
+    var tombolMuat = $("#tombol-muat");
+    if (tombolMuat) tombolMuat.addEventListener("click", muat);
+
     var proyektor = $("#tombol-proyektor");
     if (proyektor) proyektor.addEventListener("click", function () {
-      var el = $("#bingkai-karya");
+      var el = muat();
       var minta = el && (el.requestFullscreen || el.webkitRequestFullscreen);
       if (!minta) { location.href = alamat(k); return; }
       try {
