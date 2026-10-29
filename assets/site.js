@@ -240,7 +240,7 @@
             '<dt>Jenis</dt><dd>' + esc(k.jenis) + '</dd>' +
             '<dt>Fase</dt><dd>' + esc(k.fase + (f ? ' · ' + f.jenjang + ' ' + f.kelas : '')) + '</dd>' +
             '<dt>Topik</dt><dd>' + esc(k.topik) + '</dd>' +
-            '<dt>Durasi</dt><dd>± ' + esc(k.durasi) + ' menit</dd>' +
+            '<dt>Durasi</dt><dd>' + (typeof k.durasi === "number" ? '± ' : '') + esc(k.durasi) + ' menit</dd>' +
             '<dt>Perangkat</dt><dd>' + esc(k.perangkat) + '</dd>' +
           '</dl>' +
           '<div class="karya-aksi">' + aksi + '</div>' +
@@ -255,7 +255,7 @@
       el.className = "bingkai";
       var ket = $(".ket-muat");
       if (ket) ket.remove();
-      el.innerHTML = '<iframe src="' + esc(alamat(k)) + '" title="' + esc(k.judul) + '" allow="fullscreen; autoplay"></iframe>';
+      el.innerHTML = '<iframe src="' + esc(alamat(k)) + '" title="' + esc(k.judul) + '" allow="fullscreen; autoplay; camera; microphone"></iframe>';
       return el;
     }
     var bingkaiMuat = $("#bingkai-karya.bingkai-siap");

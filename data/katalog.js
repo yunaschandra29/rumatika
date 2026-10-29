@@ -28,6 +28,36 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "arena-juara",
+      judul: "Arena Juara",
+      fase: "E",
+      jenis: "Gim",
+      topik: "Kuis antarlegiun 14 bab Fase E",
+      tujuan: "Menguatkan materi Fase E, dari eksponen dan logaritma sampai data dan peluang, lewat perebutan kotak soal antarkelompok dengan papan skor langsung.",
+      durasi: "10–60",
+      perangkat: "Proyektor",
+      simbol: "Σ skor",
+      url: "karya/fase-e/arena-juara/",
+      sampul: "assets/img/arena-juara.webp",
+      ukuran: "5 MB",
+      video: "pangkat-nol"
+    },
+    {
+      id: "porsenika",
+      judul: "PORSENIKA",
+      fase: "D",
+      jenis: "Gim",
+      topik: "Pembuka kelas bertema lomba 17-an",
+      tujuan: "Membuka pelajaran dengan lomba 2–4 pemain: cari nilai x, hitung cepat dan KPK-FPB, volume dan luas bangun, serta perbandingan, skala, dan pola.",
+      durasi: 20,
+      perangkat: "Proyektor (sentuh, papan tuts, atau gerakan tangan)",
+      simbol: "+ − × ÷",
+      url: "karya/fase-d/porsenika/",
+      sampul: "assets/img/porsenika.webp",
+      ukuran: "3 MB",
+      video: ""
+    },
+    {
       id: "warisan-cicilan",
       judul: "Warisan Cicilan",
       fase: "F",
@@ -109,32 +139,6 @@ window.RUMATIKA_KATALOG = {
       simbol: "(x, y) → (−y, x)",
       url: "",
       video: ""
-    },
-    {
-      id: "porsenika",
-      judul: "PORSENIKA",
-      fase: "D",
-      jenis: "Gim",
-      topik: "Pembuka kelas bertema lomba 17-an",
-      tujuan: "Membuka pelajaran dengan lomba matematika berkelompok yang menghangatkan kelas.",
-      durasi: 20,
-      perangkat: "Proyektor",
-      simbol: "+ − × ÷",
-      url: "",
-      video: ""
-    },
-    {
-      id: "arena-juara",
-      judul: "Arena Juara",
-      fase: "D",
-      jenis: "Gim",
-      topik: "Kuis antartim",
-      tujuan: "Menguatkan materi Fase D lewat kuis antartim dengan papan skor langsung.",
-      durasi: 30,
-      perangkat: "Proyektor",
-      simbol: "Σ skor",
-      url: "",
-      video: "negatif-kali-negatif"
     },
     {
       id: "langkah-penyusup",
@@ -239,7 +243,7 @@ window.RUMATIKA_KATALOG = {
       detik: 80,
       simbol: "(−2) × (−3) = 6",
       ringkas: "Pola perkalian yang bergeser ke kiri garis bilangan menjelaskan aturannya.",
-      karya: "arena-juara",
+      karya: "",
       url: "https://www.youtube.com/@yunascp",
       status: "segera"
     },
