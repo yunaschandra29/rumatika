@@ -1,0 +1,10 @@
+# Berkas kerja yang tidak ikut diunggah ke situs (dibaca oleh Cloudflare Workers)
+.git
+.github
+.assetsignore
+alat
+CLAUDE.md
+README.md
+wrangler.json
+wrangler.jsonc
+wrangler.toml

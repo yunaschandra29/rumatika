@@ -52,13 +52,13 @@ Tombol "Tanya via WA" di setiap halaman dan halaman `#kontak` memakai data itu.
 Tambahkan satu objek di daftar `video` pada `data/katalog.js`.
 Setelah video tayang, ganti `url` dengan tautan YouTube-nya dan ubah `status` menjadi `"tayang"`.
 
-## Rilis ke internet (Cloudflare Pages)
+## Rilis ke internet (Cloudflare Workers)
 
-1. Unggah folder ini ke repositori GitHub, misalnya `rumatika`.
-2. Dasbor Cloudflare → **Workers & Pages → Create → Pages → Connect to Git** → pilih repo `rumatika`.
-3. Pengaturan build: Framework preset **None**, Build command **kosong**, Build output directory **/**.
-4. Klik **Save and Deploy**. Situs aktif di `rumatika.pages.dev` (atau nama lain jika sudah dipakai orang).
-5. Setiap perubahan yang di-push ke GitHub otomatis tayang dalam beberapa menit.
+Situs aktif di **https://rumatika.yunaschandra29.workers.dev** dan tersambung ke repo GitHub `rumatika`.
+Setiap push ke cabang `main` otomatis dibangun dan tayang dalam beberapa menit.
+Statusnya bisa dilihat di dasbor Cloudflare → Workers & Pages → rumatika → Deployments.
+
+Berkas kerja (`alat/`, `CLAUDE.md`, `README.md`) tidak ikut diunggah; daftarnya ada di `.assetsignore`.
 
 ## Alamat halaman
 

@@ -24,5 +24,6 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 - Setiap perubahan dicek di lebar HP (±400 px) dan lebar proyektor (1280 × 720).
 
 ## Rilis
-- Situs dirilis otomatis oleh Cloudflare Pages setiap kali ada push ke cabang `main`.
-- Perubahan besar dikerjakan di cabang terpisah dulu agar bisa dicek lewat tautan pratinjau.
+- Situs (https://rumatika.yunaschandra29.workers.dev) dirilis otomatis oleh Cloudflare Workers setiap kali ada push ke cabang `main`.
+- Perubahan besar dikerjakan di cabang terpisah dulu dan dicek di pratinjau lokal sebelum digabung ke `main`.
+- Berkas kerja yang tidak boleh tampil di situs didaftarkan di `.assetsignore`.

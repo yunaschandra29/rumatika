@@ -20,7 +20,7 @@ import re
 import shutil
 from PIL import Image, ImageDraw, ImageFont
 
-SITUS = "https://rumatika.pages.dev"   # ganti di sini jika memakai domain sendiri
+SITUS = "https://rumatika.yunaschandra29.workers.dev"   # ganti di sini jika memakai domain sendiri
 
 AKAR = pathlib.Path(__file__).resolve().parent.parent
 HURUF = AKAR / "alat" / "huruf"
