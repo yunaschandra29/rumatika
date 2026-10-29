@@ -28,6 +28,36 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "misteri-transaksi",
+      judul: "Misteri Transaksi",
+      fase: "E",
+      jenis: "Gim",
+      topik: "Barisan, deret, dan bunga",
+      tujuan: "Menyelidiki delapan buku kas sekolah: memakai uji selisih dan uji rasio untuk menemukan baris yang salah catat pada barisan aritmetika, geometri, serta bunga tunggal dan majemuk.",
+      durasi: 45,
+      perangkat: "Proyektor dan HP",
+      simbol: "Mₙ = M(1 + i)ⁿ",
+      url: "karya/fase-e/misteri-transaksi/",
+      sampul: "assets/img/misteri-transaksi.webp",
+      ukuran: "1,2 MB",
+      video: ""
+    },
+    {
+      id: "brankas-menara-pola",
+      judul: "Brankas Menara Pola",
+      fase: "E",
+      jenis: "Gim",
+      topik: "Barisan dan deret aritmetika",
+      tujuan: "Membuka lima brankas dengan menemukan suku ke-n, melengkapi barisan berlubang, dan menjumlahkan deret aritmetika.",
+      durasi: 30,
+      perangkat: "Proyektor dan HP",
+      simbol: "Uₙ = a + (n − 1)b",
+      url: "karya/fase-e/brankas-menara-pola/",
+      sampul: "assets/img/brankas-menara-pola.webp",
+      ukuran: "0,9 MB",
+      video: ""
+    },
+    {
       id: "arena-juara",
       judul: "Arena Juara",
       fase: "E",
