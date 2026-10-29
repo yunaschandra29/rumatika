@@ -29,6 +29,9 @@
   function tersedia(k) { return !!(k && k.url); }
   /* Alamat berkas karya. Folder ("…/") dilengkapi index.html supaya tetap jalan
      saat index.html dibuka langsung dari laptop tanpa server. */
+  /* Sampul cadangan untuk karya yang belum siap (url kosong) dan belum punya sampul. */
+  var SAMPUL_SEGERA = "assets/img/segera-hadir.webp";
+  function sampulKarya(k) { return k.sampul || (tersedia(k) ? "" : SAMPUL_SEGERA); }
   function alamat(k) { return /\/$/.test(k.url) ? k.url + "index.html" : k.url; }
   function jenisKelas(j) { return (JENIS[j] || JENIS["MPI"]).kelas; }
 
@@ -39,7 +42,7 @@
     return '<a class="kartu" href="#karya-' + esc(k.id) + '">' +
       '<div class="sampul" data-jenis="' + j + '">' +
         '<span class="sampul-rumus">' + esc(k.simbol) + '</span>' +
-        (k.sampul ? '<img class="sampul-gambar" src="' + esc(k.sampul) + '" alt="" loading="lazy" onerror="this.remove()">' : '') +
+        (sampulKarya(k) ? '<img class="sampul-gambar" src="' + esc(sampulKarya(k)) + '" alt="" loading="lazy" onerror="this.remove()">' : '') +
         (tersedia(k) ? '' : '<span class="label-segera">Segera hadir</span>') +
       '</div>' +
       '<div class="kartu-isi">' +
@@ -205,8 +208,10 @@
           '<button class="tombol tombol-muat" type="button" id="tombol-muat">Muat di halaman ini' + (k.ukuran ? ' · ' + esc(k.ukuran) : '') + '</button>' +
           '<p>Karya dimuat setelah diklik, supaya kuota HP tidak terpakai sebelum siap.</p></div>' +
         (k.sampul ? '<p class="ket-muat">Klik gambar untuk memuat gim di halaman ini. Gim baru diunduh setelah diklik, supaya kuota HP tidak terpakai sebelum siap.</p>' : '')
-      : '<div class="bingkai bingkai-segera" data-jenis="' + j + '"><span class="rumus">' + esc(k.simbol) + '</span>' +
-        '<p>Karya ini sedang disiapkan untuk diunggah. Kartu dan halamannya sudah bisa dibagikan.</p></div>';
+      : '<div class="bingkai bingkai-segera ada-sampul-segera" data-jenis="' + j + '">' +
+          '<img class="sampul-gambar" src="' + esc(sampulKarya(k)) + '" alt="Karya sedang dibangun" onerror="this.remove()">' +
+          '<span class="rumus">' + esc(k.simbol) + '</span></div>' +
+        '<p class="ket-muat">Karya ini sedang disiapkan untuk diunggah. Kartu dan halamannya sudah bisa dibagikan.</p>';
 
     var aksi = siap
       ? '<a class="tombol tombol-utama" href="' + esc(alamat(k)) + '">Mainkan</a>' +
