@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "lab-trigonometri",
+      judul: "Lab Trigonometri",
+      fase: "E",
+      jenis: "Lab Maya",
+      topik: "Perbandingan trigonometri",
+      tujuan: "Menemukan sin, cos, dan tan dari rasio sisi segitiga siku-siku, menurunkan nilai sudut istimewa, lalu mengukur tinggi benda dengan klinometer dan sudut elevasi.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "tan θ = de / sa",
+      url: "karya/fase-e/lab-trigonometri/",
+      sampul: "assets/img/lab-trigonometri.webp",
+      ukuran: "73 KB",
+      video: ""
+    },
+    {
       id: "sonar-teluk",
       judul: "Sonar Teluk",
       fase: "E",
@@ -295,19 +310,6 @@ window.RUMATIKA_KATALOG = {
       simbol: "²log 8 = 3",
       url: "",
       video: "pangkat-nol"
-    },
-    {
-      id: "lab-trigonometri",
-      judul: "Lab Trigonometri",
-      fase: "E",
-      jenis: "Lab Maya",
-      topik: "Perbandingan trigonometri",
-      tujuan: "Mengamati perubahan nilai sin, cos, dan tan saat besar sudut diubah.",
-      durasi: 25,
-      perangkat: "Proyektor dan HP",
-      simbol: "sin²θ + cos²θ = 1",
-      url: "",
-      video: ""
     },
     {
       id: "lab-peluang",
