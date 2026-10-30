@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "ragam-susun",
+      judul: "Ragam Susun",
+      fase: "F",
+      jenis: "MPI",
+      topik: "Kaidah pencacahan (permutasi dan kombinasi)",
+      tujuan: "Membantu Nayla, Rafi, dan Sinta menyiapkan festival sekolah: menghitung urutan tampil, kursi tamu, kode tiket, dan susunan tim dengan aturan perkalian, permutasi, dan kombinasi, lalu menguji diri di gim Gladi Bersih. Cocok untuk belajar mandiri karena kemajuan siswa bisa dicetak menjadi satu lembar laporan.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "C(n, r) = n! / (r! (n − r)!)",
+      url: "karya/fase-f/ragam-susun/",
+      sampul: "assets/img/ragam-susun.webp",
+      ukuran: "5,1 MB",
+      video: ""
+    },
+    {
       id: "lab-trigonometri",
       judul: "Lab Trigonometri",
       fase: "E",
