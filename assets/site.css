@@ -596,6 +596,7 @@ button.video-layar:hover .video-putar { transform: scale(1.08); }
   background-image: repeating-linear-gradient(135deg, var(--kisi) 0 2px, transparent 2px 9px);
   color: var(--tinta-2);
 }
+.kosong[hidden] { display: none; }
 .kosong h3 { margin: 0; font: 700 1.25rem var(--f-tampil); color: var(--tinta); }
 .kosong p { margin: 0; max-width: 52ch; }
 

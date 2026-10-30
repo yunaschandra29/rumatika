@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "jadwal-kereta",
+      judul: "Jadwal Kereta",
+      fase: "C",
+      jenis: "MPI",
+      topik: "Menghitung durasi waktu",
+      tujuan: "Menemani Raka naik kereta: menghitung lama perjalanan dengan lompatan garis waktu dan cara bersusun, termasuk perjalanan lintas tengah malam, lalu menentukan waktu tiba atau waktu berangkat.",
+      durasi: 70,
+      perangkat: "Proyektor dan HP",
+      simbol: "tiba − berangkat",
+      url: "karya/fase-c/jadwal-kereta/",
+      sampul: "assets/img/jadwal-kereta.webp",
+      ukuran: "1,1 MB",
+      video: ""
+    },
+    {
       id: "jam-ajaib",
       judul: "Jam Ajaib",
       fase: "B",
