@@ -132,7 +132,7 @@ LOGO = ('<svg class="merek-logo" viewBox="0 0 32 32" aria-hidden="true">'
         '<path d="M8.5 19.5h2.6l3.2 5.2 5-11.2h4.7" class="logo-akar"/></svg>')
 
 MENU = [("Beranda", "#beranda"), ("Semua Karya", "#semua-karya"), ("Teras Trik", "#teras-trik"),
-        ("Artikel", "artikel/"), ("Panduan Guru", "#panduan-guru"), ("Tentang", "#tentang"), ("Kontak", "#kontak")]
+        ("Pojok Baca", "artikel/"), ("Panduan Guru", "#panduan-guru"), ("Tentang", "#tentang"), ("Kontak", "#kontak")]
 
 
 def kepala_html(p, judul, desk, kanonik, og_gambar, rumus, jenis_og="article", tambahan=""):
@@ -174,10 +174,11 @@ def kepala_html(p, judul, desk, kanonik, og_gambar, rumus, jenis_og="article", t
     <a class="merek" href="{p}#beranda" aria-label="Rumatika, ke beranda">{LOGO}<span>Rumatika</span></a>
     <nav class="menu" aria-label="Menu utama">
 """ + "".join(
-        '      <a href="{}{}"{}>{}</a>\n'.format(p, h, ' aria-current="page"' if n == "Artikel" else "", n) for n, h in MENU
+        '      <a href="{}{}"{}>{}</a>\n'.format(p, h, ' aria-current="page"' if n == "Pojok Baca" else "", n) for n, h in MENU
     ) + """    </nav>
   </div>
 </header>
+<script>(function(){var m=document.querySelector(".menu"),a=m&&m.querySelector("[aria-current]");if(a&&m.scrollWidth>m.clientWidth)m.scrollLeft=a.offsetLeft-(m.clientWidth-a.offsetWidth)/2;})();</script>
 
 <main id="isi">
 """
@@ -203,7 +204,7 @@ def kaki_html(p, kontak, teks_wa):
     <nav class="kaki-menu" aria-label="Menu bawah">
       <a href="{p}#semua-karya">Semua Karya</a>
       <a href="{p}#teras-trik">Teras Trik</a>
-      <a href="{p}artikel/">Artikel</a>
+      <a href="{p}artikel/">Pojok Baca</a>
       <a href="{p}#panduan-guru">Panduan Guru</a>
       <a href="{p}#tentang">Tentang</a>
       <a href="{p}#kontak">Kontak</a>
@@ -286,7 +287,7 @@ def halaman_artikel(a, semua, katalog):
     teks += f"""
   <div class="kepala-halaman">
     <div class="wrap artikel-kepala">
-      <nav class="remah" aria-label="Posisi halaman"><a href="{p}#beranda">Beranda</a><span aria-hidden="true">/</span><a href="../">Artikel</a><span aria-hidden="true">/</span><span>{E(info_fase(katalog, a['fase']).split(' · ')[0])}</span></nav>
+      <nav class="remah" aria-label="Posisi halaman"><a href="{p}#beranda">Beranda</a><span aria-hidden="true">/</span><a href="../">Pojok Baca</a><span aria-hidden="true">/</span><span>{E(info_fase(katalog, a['fase']).split(' · ')[0])}</span></nav>
       <div class="chip-baris"><span class="chip">{E(a['kategori'])}</span><span class="chip">{E(info_fase(katalog, a['fase']))}</span></div>
       <h1 class="judul-halaman">{E(a['judul'])}</h1>
       <p class="lead">{E(a['ringkasan'])}</p>
@@ -314,7 +315,7 @@ def halaman_artikel(a, semua, katalog):
 """
     if lain:
         teks += ('    <div class="karya-lain"><div class="bagian-kepala"><div><p class="alis">Baca juga</p><h2>Artikel lainnya</h2></div>'
-                 '<a class="tautan-panah" href="../">Semua artikel →</a></div>'
+                 '<a class="tautan-panah" href="../">Ke Pojok Baca →</a></div>'
                  '<div class="grid-kartu grid-artikel">' +
                  "".join(kartu_artikel(x, p, f"../{x['slug']}/") for x in lain) + "</div></div>\n")
     teks += "  </div>\n"
@@ -329,13 +330,13 @@ def halaman_daftar(semua, katalog):
     fase = sorted({a["fase"] for a in semua})
     pil = lambda attr, nilai, label, aktif: (f'<button class="pil" type="button" {attr}="{E(nilai)}" '
                                             f'aria-pressed="{"true" if aktif else "false"}">{E(label)}</button>')
-    teks = kepala_html(p, "Artikel · Rumatika",
-                       "Artikel matematika dari Rumatika: penjelasan konsep untuk siswa dan tips mengajar untuk guru, Fase A sampai F.",
+    teks = kepala_html(p, "Pojok Baca · Rumatika",
+                       "Pojok Baca Rumatika: artikel matematika berisi penjelasan konsep untuk siswa dan tips mengajar untuk guru, Fase A sampai F.",
                        f"{SITUS}/artikel/", f"{SITUS}/assets/og/rumatika.jpg", False, jenis_og="website")
     teks += f"""
   <div class="kepala-halaman">
     <div class="wrap">
-      <p class="alis">Artikel</p>
+      <p class="alis">Pojok Baca</p>
       <h1 class="judul-halaman">Bacaan singkat untuk guru dan siswa</h1>
       <p class="lead">Penjelasan konsep yang bisa dibaca siswa, dan tips mengajar dari kelas yang sebenarnya. Setiap artikel menautkan ke karya Rumatika untuk latihan lanjutan.</p>
     </div>

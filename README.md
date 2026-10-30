@@ -99,5 +99,5 @@ Menguji di laptop: `npx wrangler dev`, lalu buka http://localhost:8787
 | `#teras-trik` | Video tips & trik |
 | `#panduan-guru`, `#tentang`, `#kontak` | Halaman pendukung |
 | `k/<id>/` | Tautan berbagi karya (pratinjau WhatsApp), langsung membuka halaman karya |
-| `artikel/` | Daftar artikel (halaman biasa, bukan `#`) |
+| `artikel/` | Pojok Baca, daftar artikel (halaman biasa, bukan `#`) |
 | `artikel/<slug>/` | Halaman satu artikel, dibuat dari `tulisan/<slug>.md` |

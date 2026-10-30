@@ -4,7 +4,7 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 
 ## Bahasa dan gaya
 - Semua teks di situs memakai Bahasa Indonesia yang baku dan ramah guru.
-- Istilah tetap: Ruang Fase (halaman fase), Kamar Belajar (MPI), Kamar Main (Gim), Laboratorium (Lab Maya), Teras Trik (video).
+- Istilah tetap: Ruang Fase (halaman fase), Kamar Belajar (MPI), Kamar Main (Gim), Laboratorium (Lab Maya), Teras Trik (video), Pojok Baca (artikel; alamatnya tetap `/artikel/`).
 - Jangan memakai emoji di antarmuka.
 
 ## Struktur
