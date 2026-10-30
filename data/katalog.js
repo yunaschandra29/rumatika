@@ -358,6 +358,26 @@ window.RUMATIKA_KATALOG = {
   */
   video: [
     {
+      id: "timbangan-persamaan",
+      judul: "Timbangan Persamaan",
+      fase: "D",
+      simbol: "2x + 3 = 11",
+      ringkas: "Persamaan linear satu variabel dibayangkan sebagai timbangan: apa pun yang dilakukan di satu sisi, lakukan juga di sisi lainnya.",
+      karya: "porsenika",
+      url: "https://www.youtube.com/shorts/38IczGNhlLg",
+      status: "tayang"
+    },
+    {
+      id: "bahas-soal-tka",
+      judul: "Bahas Soal TKA",
+      fase: "D",
+      simbol: "TKA",
+      ringkas: "Pembahasan singkat soal Tes Kemampuan Akademik matematika, langkah demi langkah.",
+      karya: "",
+      url: "https://www.youtube.com/shorts/ghVUGxmrYLE",
+      status: "tayang"
+    },
+    {
       id: "mengalikan-pecahan",
       judul: "Bagaimana cara mengalikan pecahan?",
       fase: "C",

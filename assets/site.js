@@ -90,7 +90,7 @@
     var isiLayar = '<span class="video-rumus">' + esc(v.simbol) + '</span>' +
       (yt ? '<img class="video-gambar" src="https://i.ytimg.com/vi/' + yt + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">' : '') +
       '<span class="video-putar" aria-hidden="true"></span>' +
-      '<span class="video-durasi">' + esc(v.detik) + ' dtk</span>';
+      (v.detik ? '<span class="video-durasi">' + esc(v.detik) + ' dtk</span>' : '');
     var layar = yt
       ? '<button class="video-layar" type="button" data-putar="' + esc(v.id) + '" aria-label="Putar video ' + esc(v.judul) + '">' + isiLayar + '</button>'
       : '<div class="video-layar">' + isiLayar + '</div>';
