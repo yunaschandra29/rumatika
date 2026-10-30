@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "jam-ajaib",
+      judul: "Jam Ajaib",
+      fase: "B",
+      jenis: "MPI",
+      topik: "Membaca jam dan menit",
+      tujuan: "Membaca jam tepat, setengah, seperempat, lewat, dan kurang bersama Dina: memutar jarum sendiri di bawah langit pagi sampai malam, lalu berlatih memilih, mengatur, menjodohkan, dan mengurutkan jam.",
+      durasi: 70,
+      perangkat: "Proyektor dan HP",
+      simbol: "1 jam = 60 menit",
+      url: "karya/fase-b/jam-ajaib/",
+      sampul: "assets/img/jam-ajaib.webp",
+      ukuran: "0,5 MB",
+      video: ""
+    },
+    {
       id: "jaring-andal",
       judul: "Jaring Andal",
       fase: "F",
