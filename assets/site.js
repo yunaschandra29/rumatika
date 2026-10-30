@@ -7,6 +7,7 @@
   "use strict";
 
   var K = window.RUMATIKA_KATALOG || { fase: [], karya: [], video: [] };
+  var ARTIKEL = window.RUMATIKA_ARTIKEL || [];
   var PRATINJAU = !!window.RUMATIKA_PRATINJAU;
 
   var JENIS = {
@@ -109,6 +110,24 @@
       '</div></article>';
   }
 
+  /* Kartu artikel. Artikel adalah halaman biasa di artikel/<slug>/, bukan alamat #. */
+  function kartuArtikel(a) {
+    var k = karya(a.karya);
+    var j = k ? jenisKelas(k.jenis) : "mpi";
+    return '<a class="kartu" href="artikel/' + esc(a.slug) + '/">' +
+      '<div class="sampul" data-jenis="' + j + '">' +
+        '<span class="sampul-rumus">' + esc(a.simbol || a.judul) + '</span>' +
+        (k && k.sampul ? '<img class="sampul-gambar" src="' + esc(k.sampul) + '" alt="" loading="lazy" onerror="this.remove()">' : '') +
+        '<span class="label-segera">Artikel</span>' +
+      '</div>' +
+      '<div class="kartu-isi">' +
+        '<div class="chip-baris"><span class="chip">' + esc(a.kategori) + '</span><span class="chip">Fase ' + esc(a.fase) + '</span></div>' +
+        '<h3>' + esc(a.judul) + '</h3>' +
+        '<p>' + esc(a.ringkasan) + '</p>' +
+        '<div class="kartu-kaki"><span>' + esc(a.tanggalTampil) + '</span><span>' + esc(a.menit) + ' menit baca</span></div>' +
+      '</div></a>';
+  }
+
   function tombolPil(nilai, label, aktif, attr) {
     return '<button class="pil" type="button" ' + attr + '="' + esc(nilai) + '" aria-pressed="' + (aktif ? 'true' : 'false') + '">' + esc(label) + '</button>';
   }
@@ -146,6 +165,11 @@
       }
     }
     $("#grid-video-beranda").innerHTML = K.video.slice(0, 3).map(kartuVideo).join("");
+    var bagianArtikel = $("#bagian-artikel");
+    if (bagianArtikel) {
+      bagianArtikel.hidden = !ARTIKEL.length;
+      $("#grid-artikel-beranda").innerHTML = ARTIKEL.slice(0, 3).map(kartuArtikel).join("");
+    }
   }
 
   /* ---------- semua karya ---------- */
@@ -277,6 +301,9 @@
         ? '<button class="tautan-tombol" type="button" data-putar="' + esc(v.id) + '">Tonton videonya</button>'
         : '<span class="kecil">Video segera tayang</span>');
     }
+
+    var bacaan = ARTIKEL.filter(function (a) { return a.karya === k.id; })[0];
+    if (bacaan) kedua.push('<a href="artikel/' + esc(bacaan.slug) + '/">Baca artikelnya</a>');
 
     var lain = K.karya.filter(function (x) { return x.fase === k.fase && x.id !== k.id; }).slice(0, 3);
 

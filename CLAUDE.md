@@ -16,6 +16,9 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 - Setiap kali `data/katalog.js` berubah, jalankan `python alat/bagikan.py` sebelum commit. Skrip ini membuat `k/<id>/` (halaman berbagi) dan `assets/og/` (gambar pratinjau WhatsApp). Jangan mengedit kedua folder itu secara manual.
 - Alamat situs untuk tautan berbagi diatur di `SITUS` pada `alat/bagikan.py`. Ganti di sana jika memakai domain sendiri, lalu jalankan ulang skripnya.
 - Nomor WA dan email kreator hanya diatur di `kontak` pada `data/katalog.js`.
+- Artikel ditulis di `tulisan/<slug>.md` (Markdown + kepala tulisan, contoh di `tulisan/_contoh.md`). Setelah menambah atau mengubah artikel, jalankan `python alat/artikel.py`. Skrip ini membuat `artikel/`, `data/artikel.js`, `assets/og/artikel-*.jpg`, `sitemap.xml`, `robots.txt`, dan `ads.txt`; jangan mengedit hasilnya secara manual.
+- Artikel adalah halaman HTML biasa (bukan alamat `#`) agar terbaca Google dan AdSense. Iklan AdSense hanya dipasang di halaman artikel, diatur lewat `ADSENSE` di `alat/artikel.py`.
+- Rumus artikel dirender KaTeX dari `assets/vendor/katex/` (disimpan sendiri, tanpa CDN).
 
 ## Tampilan
 - Warna hanya lewat token di bagian atas `assets/site.css`; setiap token punya nilai terang dan gelap.

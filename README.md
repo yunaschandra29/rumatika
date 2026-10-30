@@ -42,6 +42,22 @@ lalu buka http://localhost:8080
    `k/<id>/` dan gambar pratinjau di `assets/og/`, sehingga tautan yang dikirim ke WhatsApp menampilkan
    sampul dan judul karya.
 
+## Menulis artikel
+
+Artikel adalah halaman biasa di `artikel/<slug>/` (bukan alamat `#`), supaya bisa dibaca Google dan peninjau AdSense.
+
+1. Salin `tulisan/_contoh.md` menjadi `tulisan/<slug>.md`, misalnya `tulisan/teorema-pythagoras.md`.
+   Nama berkas menjadi alamat: `/artikel/teorema-pythagoras/`.
+2. Isi kepala tulisan (`judul`, `ringkasan`, `fase`, `kategori`, `tanggal`; `karya`, `topik`, `simbol` opsional).
+   `karya` diisi id dari `data/katalog.js`, supaya artikel menautkan ke karyanya dan sebaliknya.
+3. Tulis isinya dengan Markdown. Rumus memakai `$...$` (dalam kalimat) dan `$$...$$` (baris sendiri).
+4. Jalankan `python alat/artikel.py` (butuh `pip install markdown pillow json5`).
+   Skrip ini membuat `artikel/`, `data/artikel.js`, gambar pratinjau `assets/og/artikel-*.jpg`, `sitemap.xml`, dan `robots.txt`.
+   Artikel dengan tanggal di masa depan dilewati sampai tanggalnya tiba.
+
+Setelah AdSense disetujui, isi `ADSENSE` di `alat/artikel.py` dengan kode `ca-pub-...`, lalu jalankan ulang skripnya.
+Iklan hanya dipasang di halaman artikel, tidak di dalam karya, dan `ads.txt` dibuat otomatis.
+
 ## Kontak
 
 Nomor WhatsApp dan email kreator diatur di bagian `kontak` pada `data/katalog.js`.
@@ -83,3 +99,5 @@ Menguji di laptop: `npx wrangler dev`, lalu buka http://localhost:8787
 | `#teras-trik` | Video tips & trik |
 | `#panduan-guru`, `#tentang`, `#kontak` | Halaman pendukung |
 | `k/<id>/` | Tautan berbagi karya (pratinjau WhatsApp), langsung membuka halaman karya |
+| `artikel/` | Daftar artikel (halaman biasa, bukan `#`) |
+| `artikel/<slug>/` | Halaman satu artikel, dibuat dari `tulisan/<slug>.md` |
