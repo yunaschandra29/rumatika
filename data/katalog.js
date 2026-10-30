@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "sonar-teluk",
+      judul: "Sonar Teluk",
+      fase: "E",
+      jenis: "Gim",
+      topik: "Persamaan dan fungsi kuadrat",
+      tujuan: "Menjadi kru magang Kapal Riset Pelita yang memetakan dasar teluk berkabut dengan ping sonar terbatas: mencari akar, membaca diskriminan dan akar imajiner, menyusun fungsi kuadrat, dan menentukan nilai optimum dalam enam misi.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "D = b² − 4ac",
+      url: "karya/fase-e/sonar-teluk/",
+      sampul: "assets/img/sonar-teluk.webp",
+      ukuran: "2 MB",
+      video: ""
+    },
+    {
       id: "jadwal-kereta",
       judul: "Jadwal Kereta",
       fase: "C",
