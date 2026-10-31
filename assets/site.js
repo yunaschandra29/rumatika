@@ -565,7 +565,40 @@
       .catch(function () { /* statistik tidak tersedia: situs tetap berjalan tanpa angka */ });
   }
 
+  /* ---------- jendela sambutan ----------
+     Muncul sekali per pengunjung, hanya bila halaman pertama yang dibuka adalah beranda.
+     Siswa yang datang lewat tautan karya tidak melihatnya. Ubah KUNCI_SAMBUTAN agar muncul lagi untuk semua. */
+  var KUNCI_SAMBUTAN = "rumatika-sambutan-1";
+  var sambutan = $("#sambutan");
+  function sudahDisambut() { try { return localStorage.getItem(KUNCI_SAMBUTAN) === "1"; } catch (e) { return false; } }
+  function tandaiDisambut() { try { localStorage.setItem(KUNCI_SAMBUTAN, "1"); } catch (e) { /* abaikan */ } }
+  function tutupSambutan() {
+    if (!sambutan) return;
+    if (sambutan.open && sambutan.close) sambutan.close(); else sambutan.removeAttribute("open");
+  }
+  function bukaSambutan() {
+    if (!sambutan || sudahDisambut()) return;
+    var h = decodeURIComponent(location.hash.replace(/^#/, ""));
+    if (h && h !== "beranda") return;
+    var wa = $("#sambutan-wa");
+    if (KONTAK.wa) {
+      wa.href = tautanWa("Assalamu'alaikum " + (KONTAK.nama || "Pak Yunas") + ", saya guru yang baru mengunjungi Rumatika. ");
+    } else {
+      wa.href = "#kontak"; wa.removeAttribute("target"); wa.textContent = "Hubungi Kreator";
+    }
+    tandaiDisambut();
+    if (sambutan.showModal) sambutan.showModal(); else sambutan.setAttribute("open", "");
+    $("#sambutan-mulai").focus();
+  }
+  if (sambutan) {
+    $("#sambutan-tutup").addEventListener("click", tutupSambutan);
+    $("#sambutan-mulai").addEventListener("click", tutupSambutan);
+    $("#sambutan-wa").addEventListener("click", tutupSambutan);
+    sambutan.addEventListener("click", function (e) { if (e.target === sambutan) tutupSambutan(); });
+  }
+
   window.addEventListener("hashchange", function () { rute(false); });
   rute(true);
   muatStatistik();
+  setTimeout(bukaSambutan, 700);
 })();

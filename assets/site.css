@@ -869,6 +869,46 @@ button.video-layar:hover .video-putar { transform: scale(1.08); }
 }
 .qr-tutup svg { width: 18px; height: 18px; fill: none; stroke: #0F1E45; stroke-width: 2; stroke-linecap: round; }
 
+/* ---------- jendela sambutan (muncul sekali di kunjungan pertama ke beranda) ---------- */
+.sambutan { padding: 0; border: 0; background: transparent; max-width: none; max-height: none; overflow: visible; color: var(--tinta); }
+.sambutan::backdrop { background: rgba(6, 14, 36, .72); }
+.sambutan[open] { display: grid; place-items: center; animation: sambutan-masuk .35s ease-out; }
+.sambutan-isi {
+  position: relative; display: grid; justify-items: center; gap: 10px;
+  width: min(calc(100vw - 32px), 500px); max-height: calc(100dvh - 32px); overflow-y: auto;
+  padding: 32px 28px 26px; border-radius: 20px; text-align: center;
+  background: var(--permukaan); border: 1px solid var(--garis);
+  box-shadow: 0 24px 60px rgba(6, 14, 36, .35);
+}
+.sambutan-isi::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 92px; border-radius: 20px 20px 0 0;
+  background: var(--biru-muda);
+  background-image: linear-gradient(var(--kisi) 1px, transparent 1px), linear-gradient(90deg, var(--kisi) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.sambutan-foto {
+  position: relative; width: 112px; height: 112px; border-radius: 50%; object-fit: cover;
+  border: 4px solid var(--permukaan); box-shadow: 0 0 0 2px var(--biru); background: var(--biru-muda);
+}
+.sambutan-isi .alis { margin-top: 6px; }
+.sambutan-isi h2 { margin: 0; font: 800 clamp(1.4rem, 4vw, 1.75rem)/1.15 var(--f-tampil); color: var(--tinta); }
+.sambutan-teks { margin: 2px 0 0; color: var(--tinta-2); line-height: 1.6; max-width: 40ch; }
+.sambutan-teks strong { color: var(--tinta); background: linear-gradient(transparent 60%, var(--sapuan) 60%); }
+.sambutan-ttd { margin: 6px 0 0; font-size: .9rem; color: var(--tinta-2); line-height: 1.45; }
+.sambutan-ttd b { color: var(--tinta); font-weight: 600; }
+.sambutan-ttd span { display: block; font: 500 .72rem/1.6 var(--f-ukur); letter-spacing: .1em; text-transform: uppercase; color: var(--biru); }
+.sambutan-aksi { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; width: 100%; }
+.sambutan-aksi .tombol { flex: 1 1 180px; }
+.sambutan-tutup {
+  position: absolute; top: 12px; right: 12px; z-index: 1; width: 38px; height: 38px; border-radius: 50%;
+  border: 0; cursor: pointer; display: grid; place-items: center; background: var(--permukaan);
+}
+.sambutan-tutup:hover { background: var(--garis); }
+.sambutan-tutup svg { width: 18px; height: 18px; fill: none; stroke: var(--tinta); stroke-width: 2; stroke-linecap: round; }
+@keyframes sambutan-masuk { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sambutan[open] { animation: none; } }
+@media (max-width: 420px) { .sambutan-isi { padding: 28px 20px 22px; } }
+
 /* ---------- artikel ---------- */
 .artikel-kepala .remah { margin-bottom: 16px; }
 .artikel-kepala .judul-halaman { max-width: 24ch; }
