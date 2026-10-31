@@ -22,6 +22,10 @@
   --lab: #3E44B8;
   --wa: #128C4A;
   --di-wa: #FFFFFF;
+  --pita-putih: #FFFFFF;
+  --pita-gelap: #0F1E45;
+  --pita-gelap-2: #17295C;
+  --kaki-bg: #E4ECFD;
 
   --f-tampil: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-teks: "Lexend", "Segoe UI", system-ui, sans-serif;
@@ -50,6 +54,10 @@
     --lab: #4045B0;
   --wa: #25B864;
   --di-wa: #04230F;
+  --pita-putih: #14244E;
+  --pita-gelap: #050B1E;
+  --pita-gelap-2: #0E1838;
+  --kaki-bg: #070F26;
     color-scheme: dark;
   }
 }
@@ -73,6 +81,10 @@
   --lab: #4045B0;
   --wa: #25B864;
   --di-wa: #04230F;
+  --pita-putih: #14244E;
+  --pita-gelap: #050B1E;
+  --pita-gelap-2: #0E1838;
+  --kaki-bg: #070F26;
   color-scheme: dark;
 }
 
@@ -325,9 +337,29 @@ kbd {
   .ruang-huruf { font-size: 2.5rem; }
 }
 
-/* ---------- bagian beranda ---------- */
+/* ---------- bagian beranda ----------
+   Setiap bagian beranda berada di pita selebar layar dengan latar bergantian,
+   supaya batas antarbagian terlihat jelas saat digulir. */
 .bagian { padding-block: 60px 0; }
 .bagian:last-child { padding-bottom: 72px; }
+.pita > .bagian { padding-block: 64px 68px; }
+.pita-putih { background: var(--pita-putih); border-block: 1px solid var(--garis); }
+.pita-putih .kamar,
+.pita-putih .kartu { background: var(--kertas); }
+.pita-kertas { background: var(--kertas); }
+.pita-gelap {
+  --tinta: #EEF3FF;
+  --tinta-2: #AFBEE3;
+  --garis: rgba(255, 255, 255, .12);
+  --permukaan: var(--pita-gelap-2);
+  --biru: #9DB8FF;
+  --biru-muda: rgba(157, 184, 255, .16);
+  background: var(--pita-gelap);
+  background-image: radial-gradient(ellipse 70% 60% at 85% 0%, rgba(37, 84, 214, .35), transparent 70%);
+  color: var(--tinta);
+}
+.pita-gelap .alis { color: var(--stabilo); }
+.pita + .pita { border-top: 0; }
 .bagian-kepala {
   display: flex;
   align-items: end;
@@ -729,7 +761,7 @@ button.video-layar:hover .video-putar { transform: scale(1.08); }
 @media (max-width: 860px) { .panduan, .tentang { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
 
 /* ---------- kaki ---------- */
-.kaki { background: var(--permukaan); border-top: 1px solid var(--garis); }
+.kaki { background: var(--kaki-bg); border-top: 1px solid var(--garis); }
 .kaki-isi { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 20px 40px; padding-block: 36px; }
 .kaki-isi .kecil { margin-top: 8px; }
 .kaki-menu { display: flex; flex-wrap: wrap; gap: 8px 20px; }
