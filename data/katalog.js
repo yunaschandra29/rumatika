@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "misi-perkemahan",
+      judul: "Misi Perkemahan: Jejak Bilangan Bulat",
+      fase: "D",
+      jenis: "MPI",
+      topik: "Bilangan bulat",
+      tujuan: "Menyelesaikan misi perkemahan regu pramuka: membandingkan suhu di termometer pos, menghitung jalur naik-turun, memakai sifat operasi untuk belanja perbekalan, dan mencatat saldo buku kas regu.",
+      durasi: 80,
+      perangkat: "Proyektor dan HP",
+      simbol: "−3 + 8 = 5",
+      url: "karya/fase-d/misi-perkemahan/",
+      sampul: "assets/img/misi-perkemahan.webp",
+      ukuran: "399 KB",
+      video: ""
+    },
+    {
       id: "ragam-susun",
       judul: "Ragam Susun",
       fase: "F",
