@@ -32,3 +32,12 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 - Berkas kerja yang tidak boleh tampil di situs didaftarkan di `.assetsignore`.
 - `wrangler.jsonc` mengatur Worker dan database D1 `rumatika-statistik`; `worker/index.js` hanya menangani alamat `/api/*`, sisanya berkas statis.
 - Perubahan pada `worker/` atau `wrangler.jsonc` diuji dulu dengan `npx wrangler dev` sebelum digabung.
+
+## Dasbor progres (wajib setiap push)
+- Rekap progres per fase ada di dasbor claude.ai "Progres Rumatika": https://claude.ai/artifact/5VDCku5v3tcXuLK2wY4u8c
+- Karya yang sudah dibuat atau direncanakan tetapi belum masuk katalog dicatat di `alat/rencana.json`. Hapus entrinya begitu karya itu masuk `data/katalog.js`; isi `judulAsli` jika kartu katalog masih memakai nama sementara.
+- Setiap kali push ke `main` (karya baru, video baru, atau perubahan katalog/rencana), lakukan juga:
+  1. `python alat/progres.py` (menulis `alat/progres.json`; butuh Node.js) dan ikutkan hasilnya di commit.
+  2. Unggah `alat/progres.json` sebagai aset ke dasbor di atas (Artifact `publish` dengan `url` dasbor, `file_path`, `asset: true`).
+  3. Baca dokumen `datasets/karya` di dasbor, lalu `update` kolom `source.url` (alamat `/_blob/...` dari hasil unggah), `source.name`, `updated {at, by}`, dan `edit {via: "claude", at}`. Halaman dasbor (`files/index.html`) tidak perlu diubah.
+  4. Sebutkan ke pemilik bahwa dasbor progres sudah diperbarui.

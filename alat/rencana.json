@@ -1,0 +1,22 @@
+{
+  "keterangan": "Karya yang sudah dibuat atau direncanakan tetapi BELUM ada di data/katalog.js. Hapus entri dari sini begitu karyanya masuk katalog. 'judulAsli' mengganti judul kartu katalog yang masih memakai nama sementara.",
+  "judulAsli": {
+    "duo-dagang": "Misteri Kantin: Dua Harga yang Hilang",
+    "batik-transformasi": "Sang Perancang Batik: Rahasia Motif Berulang"
+  },
+  "rencana": [
+    { "judul": "Poros Nol", "fase": "D", "jenis": "MPI", "topik": "Bilangan bulat" },
+    { "judul": "Detective Math: Misteri Transaksi Sekolah", "fase": "D", "jenis": "Gim", "topik": "SPLDV dan SPLTV" },
+    { "judul": "Arena Juara (versi Fase D)", "fase": "D", "jenis": "Gim", "topik": "Adaptasi Arena Juara untuk SMP" },
+    { "judul": "Misteri Arsip Kota", "fase": "E", "jenis": "Gim", "topik": "Statistika" },
+    { "judul": "Batas Cakrawala", "fase": "E", "jenis": "MPI", "topik": "Sistem pertidaksamaan linear dua variabel" },
+    { "judul": "Arunika: Pameran Kota Kreatif", "fase": "E", "jenis": "MPI", "topik": "Transformasi geometri", "catatan": "Dalam pengembangan" },
+    { "judul": "ePub Trigonometri", "fase": "E", "jenis": "ePub", "topik": "Trigonometri" },
+    { "judul": "Benang Merah", "fase": "F", "jenis": "MPI", "topik": "Data bivariat" },
+    { "judul": "Kedai Broto: Trilogi Rupiah", "fase": "F", "jenis": "Gim", "topik": "Matematika keuangan" },
+    { "judul": "Escape Room Permutasi-Kombinasi", "fase": "F", "jenis": "Gim", "topik": "Kaidah pencacahan" },
+    { "judul": "Motion Graphic Anuitas", "fase": "F", "jenis": "Video", "topik": "Anuitas" },
+    { "judul": "Lengkung Terakhir", "fase": "?", "jenis": "?", "topik": "", "catatan": "Fase belum ditentukan" },
+    { "judul": "Jangan Tertipu Angka", "fase": "?", "jenis": "?", "topik": "", "catatan": "Fase belum ditentukan" }
+  ]
+}

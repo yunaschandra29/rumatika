@@ -1,0 +1,502 @@
+[
+ {
+  "id": "maket-taman-kota",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Maket Taman Kota",
+  "topik": "Luas permukaan dan volume bangun ruang",
+  "status": "Tayang",
+  "catatan": "3,5 MB"
+ },
+ {
+  "id": "titik-puncak",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Titik Puncak",
+  "topik": "Persamaan dan fungsi kuadrat",
+  "status": "Tayang",
+  "catatan": "2,0 MB"
+ },
+ {
+  "id": "escape-room-statistik",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Escape Room Statistik",
+  "topik": "Ukuran pemusatan data berkelompok",
+  "status": "Tayang",
+  "catatan": "9,4 MB"
+ },
+ {
+  "id": "meja-redaksi",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Meja Redaksi",
+  "topik": "Literasi data: analisis data bivariat",
+  "status": "Tayang",
+  "catatan": "1,7 MB"
+ },
+ {
+  "id": "konsultan-muda",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Konsultan Muda: Delapan Berkas Senja",
+  "topik": "Sistem pertidaksamaan linear dua variabel",
+  "status": "Tayang",
+  "catatan": "1,0 MB"
+ },
+ {
+  "id": "pulau-senja",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Misi Pulau Senja",
+  "topik": "Fungsi eksponensial",
+  "status": "Tayang",
+  "catatan": "582 KB"
+ },
+ {
+  "id": "misi-perkemahan",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Misi Perkemahan: Jejak Bilangan Bulat",
+  "topik": "Bilangan bulat",
+  "status": "Tayang",
+  "catatan": "399 KB"
+ },
+ {
+  "id": "ragam-susun",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Ragam Susun",
+  "topik": "Kaidah pencacahan (permutasi dan kombinasi)",
+  "status": "Tayang",
+  "catatan": "5,1 MB"
+ },
+ {
+  "id": "lab-trigonometri",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Lab Maya",
+  "judul": "Lab Trigonometri",
+  "topik": "Perbandingan trigonometri",
+  "status": "Tayang",
+  "catatan": "73 KB"
+ },
+ {
+  "id": "sonar-teluk",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Sonar Teluk",
+  "topik": "Persamaan dan fungsi kuadrat",
+  "status": "Tayang",
+  "catatan": "2 MB"
+ },
+ {
+  "id": "jadwal-kereta",
+  "fase": "C",
+  "jenjang": "SD",
+  "jenis": "MPI",
+  "judul": "Jadwal Kereta",
+  "topik": "Menghitung durasi waktu",
+  "status": "Tayang",
+  "catatan": "1,1 MB"
+ },
+ {
+  "id": "jam-ajaib",
+  "fase": "B",
+  "jenjang": "SD",
+  "jenis": "MPI",
+  "judul": "Jam Ajaib",
+  "topik": "Membaca jam dan menit",
+  "status": "Tayang",
+  "catatan": "0,5 MB"
+ },
+ {
+  "id": "jaring-andal",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Jaring Andal",
+  "topik": "Peluang kejadian majemuk dan bersyarat",
+  "status": "Tayang",
+  "catatan": "0,8 MB"
+ },
+ {
+  "id": "potong-pas",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Potong Pas",
+  "topik": "Lingkaran",
+  "status": "Tayang",
+  "catatan": "0,8 MB"
+ },
+ {
+  "id": "power-core",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "POWER CORE: Krisis Eksponen",
+  "topik": "Bilangan berpangkat dan eksponen",
+  "status": "Tayang",
+  "catatan": "1,4 MB"
+ },
+ {
+  "id": "delapan-sudut-kota",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Delapan Sudut Kota",
+  "topik": "Trigonometri: sudut elevasi dan depresi",
+  "status": "Tayang",
+  "catatan": "1,2 MB"
+ },
+ {
+  "id": "misteri-transaksi",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Misteri Transaksi",
+  "topik": "Barisan, deret, dan bunga",
+  "status": "Tayang",
+  "catatan": "1,2 MB"
+ },
+ {
+  "id": "brankas-menara-pola",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Brankas Menara Pola",
+  "topik": "Barisan dan deret aritmetika",
+  "status": "Tayang",
+  "catatan": "0,9 MB"
+ },
+ {
+  "id": "arena-juara",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Arena Juara",
+  "topik": "Kuis antarlegiun 14 bab Fase E",
+  "status": "Tayang",
+  "catatan": "5 MB"
+ },
+ {
+  "id": "porsenika",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Gim",
+  "judul": "PORSENIKA",
+  "topik": "Pembuka kelas bertema lomba 17-an",
+  "status": "Tayang",
+  "catatan": "3 MB"
+ },
+ {
+  "id": "warisan-cicilan",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Warisan Cicilan",
+  "topik": "Anuitas dan rencana angsuran",
+  "status": "Tayang",
+  "catatan": "11 MB"
+ },
+ {
+  "id": "bendahara-baru",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Gim",
+  "judul": "Bendahara Baru",
+  "topik": "Aritmetika sosial",
+  "status": "Tayang",
+  "catatan": "7 MB"
+ },
+ {
+  "id": "lab-pecahan-senilai",
+  "fase": "B",
+  "jenjang": "SD",
+  "jenis": "Lab Maya",
+  "judul": "Lab Pecahan Senilai",
+  "topik": "Pecahan senilai",
+  "status": "Tayang",
+  "catatan": "10 KB"
+ },
+ {
+  "id": "operasi-sigap",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Operasi SIGAP",
+  "topik": "Teorema Pythagoras",
+  "status": "Segera hadir",
+  "catatan": "Kartu sudah ada, berkas belum dikirim"
+ },
+ {
+  "id": "duo-dagang",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Misteri Kantin: Dua Harga yang Hilang",
+  "topik": "Sistem persamaan linear dua variabel",
+  "status": "Segera hadir",
+  "catatan": "Kartu sudah ada, berkas belum dikirim"
+ },
+ {
+  "id": "batik-transformasi",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Sang Perancang Batik: Rahasia Motif Berulang",
+  "topik": "Transformasi geometri",
+  "status": "Segera hadir",
+  "catatan": "Kartu sudah ada, berkas belum dikirim"
+ },
+ {
+  "id": "langkah-penyusup",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Langkah Penyusup",
+  "topik": "Eksponen dan logaritma",
+  "status": "Segera hadir",
+  "catatan": "Kartu sudah ada, berkas belum dikirim"
+ },
+ {
+  "id": "lab-peluang",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Lab Maya",
+  "judul": "Lab Peluang",
+  "topik": "Peluang empirik dan teoretik",
+  "status": "Segera hadir",
+  "catatan": "Kartu sudah ada, berkas belum dikirim"
+ },
+ {
+  "id": "lab-anuitas",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Lab Maya",
+  "judul": "Lab Anuitas",
+  "topik": "Bunga majemuk dan anuitas",
+  "status": "Segera hadir",
+  "catatan": "Kartu sudah ada, berkas belum dikirim"
+ },
+ {
+  "id": "lab-regresi",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Lab Maya",
+  "judul": "Lab Regresi",
+  "topik": "Model linear terbaik",
+  "status": "Segera hadir",
+  "catatan": "Kartu sudah ada, berkas belum dikirim"
+ },
+ {
+  "id": "video-timbangan-persamaan",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Video",
+  "judul": "Timbangan Persamaan",
+  "topik": "",
+  "status": "Tayang",
+  "catatan": "Teras Trik"
+ },
+ {
+  "id": "video-bahas-soal-tka",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Video",
+  "judul": "Bahas Soal TKA",
+  "topik": "",
+  "status": "Tayang",
+  "catatan": "Teras Trik"
+ },
+ {
+  "id": "video-mengalikan-pecahan",
+  "fase": "C",
+  "jenjang": "SD",
+  "jenis": "Video",
+  "judul": "Bagaimana cara mengalikan pecahan?",
+  "topik": "",
+  "status": "Tayang",
+  "catatan": "Teras Trik"
+ },
+ {
+  "id": "video-kenapa-penyebut-disamakan",
+  "fase": "C",
+  "jenjang": "SD",
+  "jenis": "Video",
+  "judul": "Kenapa harus samakan penyebut?",
+  "topik": "",
+  "status": "Tayang",
+  "catatan": "Teras Trik"
+ },
+ {
+  "id": "video-negatif-kali-negatif",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Video",
+  "judul": "Kenapa negatif × negatif jadi positif?",
+  "topik": "",
+  "status": "Segera hadir",
+  "catatan": "Judul sudah ada, video belum"
+ },
+ {
+  "id": "video-pangkat-nol",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Video",
+  "judul": "Kenapa a⁰ = 1?",
+  "topik": "",
+  "status": "Segera hadir",
+  "catatan": "Judul sudah ada, video belum"
+ },
+ {
+  "id": "video-anuitas-90-detik",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Video",
+  "judul": "Anuitas dalam 90 detik",
+  "topik": "",
+  "status": "Segera hadir",
+  "catatan": "Judul sudah ada, video belum"
+ },
+ {
+  "id": "rencana-01",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Poros Nol",
+  "topik": "Bilangan bulat",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-02",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Gim",
+  "judul": "Detective Math: Misteri Transaksi Sekolah",
+  "topik": "SPLDV dan SPLTV",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-03",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Gim",
+  "judul": "Arena Juara (versi Fase D)",
+  "topik": "Adaptasi Arena Juara untuk SMP",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-04",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Misteri Arsip Kota",
+  "topik": "Statistika",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-05",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Batas Cakrawala",
+  "topik": "Sistem pertidaksamaan linear dua variabel",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-06",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Arunika: Pameran Kota Kreatif",
+  "topik": "Transformasi geometri",
+  "status": "Belum masuk situs",
+  "catatan": "Dalam pengembangan"
+ },
+ {
+  "id": "rencana-07",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "ePub",
+  "judul": "ePub Trigonometri",
+  "topik": "Trigonometri",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-08",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Benang Merah",
+  "topik": "Data bivariat",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-09",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Kedai Broto: Trilogi Rupiah",
+  "topik": "Matematika keuangan",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-10",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Escape Room Permutasi-Kombinasi",
+  "topik": "Kaidah pencacahan",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-11",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Video",
+  "judul": "Motion Graphic Anuitas",
+  "topik": "Anuitas",
+  "status": "Belum masuk situs",
+  "catatan": "Belum dikirim ke repo"
+ },
+ {
+  "id": "rencana-12",
+  "fase": "?",
+  "jenjang": "-",
+  "jenis": "?",
+  "judul": "Lengkung Terakhir",
+  "topik": "",
+  "status": "Belum masuk situs",
+  "catatan": "Fase belum ditentukan"
+ },
+ {
+  "id": "rencana-13",
+  "fase": "?",
+  "jenjang": "-",
+  "jenis": "?",
+  "judul": "Jangan Tertipu Angka",
+  "topik": "",
+  "status": "Belum masuk situs",
+  "catatan": "Fase belum ditentukan"
+ }
+]
