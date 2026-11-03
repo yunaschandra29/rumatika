@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "maket-taman-kota",
+      judul: "Maket Taman Kota",
+      fase: "D",
+      jenis: "MPI",
+      topik: "Luas permukaan dan volume bangun ruang",
+      tujuan: "Merancang tujuh objek maket taman sambil menguasai jaring-jaring, luas permukaan, dan volume prisma, limas, tabung, kerucut, dan bola. Enam modul beranimasi, empat lab maya (jaring-jaring, luas, volume, skala), dan sumatif tiga paket bergaya TKA.",
+      durasi: 120,
+      perangkat: "Proyektor dan HP",
+      simbol: "V = ⅓ × La × t",
+      url: "karya/fase-d/maket-taman-kota/",
+      sampul: "assets/img/maket-taman-kota.webp",
+      ukuran: "3,5 MB",
+      video: ""
+    },
+    {
       id: "titik-puncak",
       judul: "Titik Puncak",
       fase: "E",
