@@ -17,7 +17,7 @@
   Nilai "fase" harus salah satu: "A", "B", "C", "D", "E", "F".
 */
 window.RUMATIKA_KATALOG = {
-  /* Kontak kreator. "wa" memakai kode negara tanpa tanda + dan tanpa angka 0 di depan. */
+  /* Kontak Founder Rumatika. "wa" memakai kode negara tanpa tanda + dan tanpa angka 0 di depan. */
   kontak: {
     nama: "Pak Yunas",
     wa: "6282261578489",

@@ -584,7 +584,7 @@
     if (KONTAK.wa) {
       wa.href = tautanWa("Assalamu'alaikum " + (KONTAK.nama || "Pak Yunas") + ", saya guru yang baru mengunjungi Rumatika. ");
     } else {
-      wa.href = "#kontak"; wa.removeAttribute("target"); wa.textContent = "Hubungi Kreator";
+      wa.href = "#kontak"; wa.removeAttribute("target"); wa.textContent = "Hubungi Founder";
     }
     tandaiDisambut();
     if (sambutan.showModal) sambutan.showModal(); else sambutan.setAttribute("open", "");

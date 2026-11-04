@@ -4,7 +4,7 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 
 ## Bahasa dan gaya
 - Semua teks di situs memakai Bahasa Indonesia yang baku dan ramah guru.
-- Istilah tetap: Ruang Fase (halaman fase), Kamar Belajar (MPI), Kamar Main (Gim), Laboratorium (Lab Maya), Teras Trik (video), Pojok Baca (artikel; alamatnya tetap `/artikel/`).
+- Istilah tetap: Ruang Fase (halaman fase), Kamar Belajar (MPI), Kamar Main (Gim), Laboratorium (Lab Maya), Teras Trik (video), Pojok Baca (artikel; alamatnya tetap `/artikel/`), Founder Rumatika (sebutan untuk Yunas Chandra Perdana, M.Pd.; bukan "kreator" dan bukan "Co-Founder").
 - Jangan memakai emoji di antarmuka.
 
 ## Struktur
@@ -15,7 +15,7 @@ Rumatika adalah portal statis (HTML + CSS + JS tanpa build) berisi MPI, gim eduk
 - Sampul karya: gambar 16:9 di `assets/img/<id>.webp` (lebar 960 px, sekitar 50 KB), dicatat di kolom `sampul`. Karya belum siap tanpa sampul otomatis memakai `segera-hadir.webp`.
 - Setiap kali `data/katalog.js` berubah, jalankan `python alat/bagikan.py` sebelum commit. Skrip ini membuat `k/<id>/` (halaman berbagi) dan `assets/og/` (gambar pratinjau WhatsApp). Jangan mengedit kedua folder itu secara manual.
 - Alamat situs untuk tautan berbagi diatur di `SITUS` pada `alat/bagikan.py`. Ganti di sana jika memakai domain sendiri, lalu jalankan ulang skripnya.
-- Nomor WA dan email kreator hanya diatur di `kontak` pada `data/katalog.js`.
+- Nomor WA dan email Founder hanya diatur di `kontak` pada `data/katalog.js`.
 - Artikel ditulis di `tulisan/<slug>.md` (Markdown + kepala tulisan, contoh di `tulisan/_contoh.md`). Setelah menambah atau mengubah artikel, jalankan `python alat/artikel.py`. Skrip ini membuat `artikel/`, `data/artikel.js`, `assets/og/artikel-*.jpg`, `sitemap.xml`, `robots.txt`, dan `ads.txt`; jangan mengedit hasilnya secara manual.
 - Artikel adalah halaman HTML biasa (bukan alamat `#`) agar terbaca Google dan AdSense. Iklan AdSense hanya dipasang di halaman artikel, diatur lewat `ADSENSE` di `alat/artikel.py`.
 - Rumus artikel dirender KaTeX dari `assets/vendor/katex/` (disimpan sendiri, tanpa CDN).

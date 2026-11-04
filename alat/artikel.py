@@ -36,7 +36,7 @@ from bagikan import SITUS, AKAR, baca_katalog, huruf, bungkus, logo, W, H, NAVY,
 ADSENSE = ""
 
 PENULIS = "Yunas Chandra Perdana, M.Pd."
-PENULIS_PERAN = "Kepala Sekolah dan guru Matematika SMAIT Nurul Ilmi, pengurus MGMP Matematika SMP Kabupaten Bekasi."
+PENULIS_PERAN = "Founder Rumatika. Kepala Sekolah dan guru Matematika SMAIT Nurul Ilmi, pengurus MGMP Matematika SMP Kabupaten Bekasi."
 
 TULISAN = AKAR / "tulisan"
 KELUAR = AKAR / "artikel"
@@ -189,7 +189,7 @@ def kaki_html(p, kontak, teks_wa):
     if kontak.get("wa"):
         from urllib.parse import quote
         wa = (f'<a class="wa-melayang" href="https://wa.me/{E(kontak["wa"])}?text={quote(teks_wa)}" target="_blank" rel="noopener" '
-              'aria-label="Chat WhatsApp dengan kreator Rumatika">'
+              'aria-label="Chat WhatsApp dengan Founder Rumatika">'
               '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A8 8 0 1 1 8.6 18.6z"/>'
               '<path d="M9 10.5h6M9 13.5h4"/></svg><span>Tanya via WA</span></a>\n')
     tahun = datetime.date.today().year

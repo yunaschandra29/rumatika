@@ -60,7 +60,7 @@ Iklan hanya dipasang di halaman artikel, tidak di dalam karya, dan `ads.txt` dib
 
 ## Kontak
 
-Nomor WhatsApp dan email kreator diatur di bagian `kontak` pada `data/katalog.js`.
+Nomor WhatsApp dan email Founder diatur di bagian `kontak` pada `data/katalog.js`.
 Tombol "Tanya via WA" di setiap halaman dan halaman `#kontak` memakai data itu.
 
 ## Menambah video Teras Trik
