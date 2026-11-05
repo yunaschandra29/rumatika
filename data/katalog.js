@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "pasar-malam-bilangan",
+      judul: "Pasar Malam Bilangan",
+      fase: "C",
+      jenis: "MPI",
+      topik: "Faktor, kelipatan, KPK, dan FPB",
+      tujuan: "Berkeliling lima wahana pasar malam: lampu berkedip untuk kelipatan, pohon lampion untuk faktorisasi prima, komidi putar dan bianglala untuk KPK, stan parsel untuk FPB, lalu dua petugas yang memilah soal cerita KPK atau FPB. Setiap wahana beranimasi dan bisa dicoba sendiri, ditutup 10 soal latihan, rapor, dan refleksi.",
+      durasi: 70,
+      perangkat: "Proyektor dan HP",
+      simbol: "KPK × FPB",
+      url: "karya/fase-c/pasar-malam-bilangan/",
+      sampul: "assets/img/pasar-malam-bilangan.webp",
+      ukuran: "3,8 MB",
+      video: ""
+    },
+    {
       id: "resep-rahasia-x",
       judul: "Resep Rahasia x",
       fase: "D",
