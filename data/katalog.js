@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "resep-rahasia-x",
+      judul: "Resep Rahasia x",
+      fase: "D",
+      jenis: "MPI",
+      topik: "Unsur dan operasi aljabar",
+      tujuan: "Magang sepekan di toko kue sambil menguasai variabel, koefisien, konstanta, suku sejenis, penjumlahan, perkalian, pembagian, dan substitusi bentuk aljabar. Lima hari bergaya novel visual, empat lab maya (penerjemah pesanan, ubin aljabar, loyang luas, uji kesetaraan), pretest dan posttest dengan N-gain.",
+      durasi: 120,
+      perangkat: "Proyektor dan HP",
+      simbol: "3x + 5",
+      url: "karya/fase-d/resep-rahasia-x/",
+      sampul: "assets/img/resep-rahasia-x.webp",
+      ukuran: "5 MB",
+      video: ""
+    },
+    {
       id: "maket-taman-kota",
       judul: "Maket Taman Kota",
       fase: "D",
