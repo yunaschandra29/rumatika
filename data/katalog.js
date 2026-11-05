@@ -129,7 +129,7 @@ window.RUMATIKA_KATALOG = {
       id: "pulau-senja",
       judul: "Misi Pulau Senja",
       fase: "E",
-      jenis: "MPI",
+      jenis: "Gim",
       topik: "Fungsi eksponensial",
       tujuan: "Menyelamatkan pulau dari dua ancaman, satu berlipat ganda dan satu memudar, dengan menalar pertumbuhan dan peluruhan eksponensial.",
       durasi: 45,
