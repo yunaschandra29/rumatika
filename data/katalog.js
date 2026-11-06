@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "dapur-kue-nusantara",
+      judul: "Dapur Kue Nusantara",
+      fase: "C",
+      jenis: "MPI",
+      topik: "Penjumlahan dan pengurangan pecahan",
+      tujuan: "Memasak di enam meja dapur kue: timbangan kue untuk membandingkan pecahan, antrean di garis bilangan untuk mengurutkan, menggabung dan mencicip kue berpenyebut sama, simulasi potong ulang yang menunjukkan alasan penyebut harus disamakan, menyamakan loyang dengan KPK, lalu pecahan campuran dan soal cerita. Setiap meja beranimasi dengan model kue, kotak, dan garis bilangan, ditutup 12 soal Uji Rasa, rapor, dan refleksi.",
+      durasi: 80,
+      perangkat: "Proyektor dan HP",
+      simbol: "½ + ⅓ = ⅚",
+      url: "karya/fase-c/dapur-kue-nusantara/",
+      sampul: "assets/img/dapur-kue-nusantara.webp",
+      ukuran: "3,7 MB",
+      video: ""
+    },
+    {
       id: "pasar-malam-bilangan",
       judul: "Pasar Malam Bilangan",
       fase: "C",
