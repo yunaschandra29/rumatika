@@ -342,3 +342,81 @@
 .rg span{width:4.9cqw;height:4.9cqw;border-radius:50%;background:#0d1a35;display:grid;place-items:center;font-size:1.25cqw;font-weight:800}
 .rstb{margin-top:auto;background:#c8503c;color:#fff;border:0;border-radius:.8cqw;padding:1.1cqw;font:inherit;font-weight:800;font-size:1.3cqw;cursor:pointer}
 .itc svg{width:2.1cqw;height:2.1cqw}
+
+/* ---- animasi grafik: garis ditarik, arsiran muncul, titik pojok meletup ---- */
+.anTmp{opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  .anDraw{animation:psDraw .6s cubic-bezier(.5,0,.3,1) both}
+  .anFade{animation:psFade .5s ease both}
+  .anPop{animation:psPop .4s cubic-bezier(.3,1.5,.5,1) both;transform-box:fill-box;transform-origin:center}
+  .anTmp{animation:psTmp 1.3s ease both;transform-box:fill-box;transform-origin:center}
+}
+@keyframes psDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes psFade{from{opacity:0}to{opacity:1}}
+@keyframes psPop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+@keyframes psTmp{0%{opacity:0;transform:scale(.3)}18%{opacity:1;transform:scale(1)}78%{opacity:1}100%{opacity:0}}
+
+/* ---- layar rapor ---- */
+.rapg{left:3cqw;right:3cqw;top:2.6cqw;bottom:2.6cqw;display:grid;grid-template-columns:27cqw 1fr;gap:2cqw}
+.rapf{background:rgba(255,255,255,.06);border:.1cqw solid rgba(255,255,255,.12);border-radius:1.4cqw;overflow-y:auto}
+.rapf h2{font-size:2.3cqw;color:#fff;margin:0 0 .2cqw}
+.rapf input{font:inherit;font-size:1.35cqw;padding:.55cqw .9cqw;border-radius:.6cqw;border:.12cqw solid #35507f;background:rgba(255,255,255,.06);color:#fff;width:100%}
+.rapf .row{margin-top:auto;padding-top:.8cqw}
+.rapv{overflow-y:auto;border-radius:1cqw;background:rgba(0,0,0,.25);padding:8px;scrollbar-width:thin}
+.rdoc.prev{margin:0 auto;overflow:hidden;box-shadow:0 .6cqw 2cqw rgba(0,0,0,.5)}
+.rdoc.prev .rsc{width:794px;transform-origin:0 0;background:#fff;padding:45px 46px}
+#raporCetak{display:none}
+
+/* ---- isi rapor (dipakai pratinjau dan cetak; satuan px agar sama dengan kertas) ---- */
+.rpg{color:#17223b;font:13px/1.45 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:#fff}
+.rpg h1{font:700 25px/1.15 "Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;margin:3px 0 4px;color:#0e2a5c}
+.rpg h2{font-size:14px;margin:13px 0 6px;color:#0e2a5c;border-bottom:1.5px solid #d5dff0;padding-bottom:3px;break-after:avoid}
+.rpg .rk{font-size:10px;letter-spacing:1.6px;font-weight:700;color:#8a6414}
+.rpg .rhead{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:3px solid #1f5fbf;padding-bottom:10px;margin-bottom:12px}
+.rpg .rs{font-size:12px;color:#44506a}
+.rpg .rlogo{font:700 18px/1 "Palatino Linotype",Georgia,serif;color:#1f5fbf;border:2px solid #1f5fbf;border-radius:8px;padding:6px 10px}
+.rpg .rwarn{background:#fff6dc;border:1px solid #f0c86a;border-radius:6px;padding:6px 10px;margin-bottom:10px;font-size:12px}
+.rpg table{width:100%;border-collapse:collapse}
+.rpg .rid th,.rpg .rid td{border:1px solid #d5dff0;padding:5px 8px;text-align:left;font-size:12.5px}
+.rpg .rid th{background:#f1f5fc;width:14%;font-weight:600;color:#44506a}
+.rpg .rsum{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;break-inside:avoid}
+.rpg .rend{border:1px solid #d5dff0;border-left:4px solid #f0b64b;border-radius:6px;padding:9px 12px}
+.rpg .rend b{display:block;font:700 18px/1.2 "Palatino Linotype",Georgia,serif;color:#0e2a5c;margin:3px 0}
+.rpg .rend p{font-size:12px;color:#44506a}
+.rpg .rmet th{text-align:left;font-weight:600;color:#44506a;padding:3px 0;width:38%;font-size:12.5px}
+.rpg .rmet td{padding:3px 0;font-size:12.5px}
+.rpg .rbar{display:inline-block;vertical-align:middle;width:150px;height:9px;border-radius:5px;background:#e6ecf6;margin-right:8px;overflow:hidden}
+.rpg .rbar i{display:block;height:100%;background:#1f5fbf;border-radius:5px}
+.rpg .rnote{font-size:11px;color:#6a7690;margin-top:6px}
+.rpg .rtab th{background:#1f5fbf;color:#fff;font-size:11.5px;padding:5px 8px;text-align:left}
+.rpg .rtab td{border-bottom:1px solid #e3e9f4;padding:4px 8px;font-size:12px;vertical-align:top}
+.rpg .rtab td span{color:#6a7690;font-size:11px}
+.rpg .rtab tr{break-inside:avoid}
+.rpg .c{text-align:center!important}
+.rpg b,.rpg strong{color:#17223b}
+.rpg .rtab td.bin{color:#c58a12;white-space:nowrap;letter-spacing:1px}
+.rpg .mut{color:#b9c3d6!important}
+.rpg .rlv{display:inline-block;border-radius:10px;padding:1px 9px;font-size:11px;font-weight:700}
+.rpg .rlv.l4{background:#dcf5e6;color:#17733e}.rpg .rlv.l3{background:#e3eefc;color:#1f5fbf}
+.rpg .rlv.l2{background:#fff1cf;color:#8a6414}.rpg .rlv.l1{background:#fde3e1;color:#a8322a}
+.rpg .rfb{display:grid;grid-template-columns:1fr 1fr;gap:14px;break-inside:avoid}
+.rpg .rfb ul{margin:4px 0 0 16px;font-size:12px}
+.rpg .rfb li{margin-bottom:3px}
+.rpg .rquote{margin-top:10px;background:#f1f5fc;border-radius:6px;padding:8px 12px;font-size:12px;font-style:italic;break-inside:avoid}
+.rpg .rquote b{font-style:normal;color:#0e2a5c;margin-right:4px}
+.rpg .rref{break-inside:avoid}
+.rpg .rref p{font-size:12px;margin-top:6px}
+.rpg .rref i{display:block;border-bottom:1px dotted #9aa8c2;height:20px}
+.rpg .rttd{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:14px;break-inside:avoid;text-align:center;font-size:12.5px}
+.rpg .rttd .sp{height:56px}
+.rpg .rttd b{display:inline-block;min-width:200px;border-bottom:1px solid #17223b;padding-bottom:2px}
+.rpg .rttd .nip{font-size:11.5px;margin-top:2px}
+.rpg .rfoot{margin-top:10px;border-top:1px solid #d5dff0;padding-top:5px;font-size:10px;color:#8a95ab;text-align:center}
+
+@media print{
+  @page{size:A4;margin:12mm}
+  html,body{height:auto!important;overflow:visible!important;background:#fff!important}
+  #wrap,#rotate{display:none!important}
+  #raporCetak{display:block!important}
+  .rpg{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}

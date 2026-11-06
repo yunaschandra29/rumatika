@@ -8,7 +8,7 @@ function rPilihGambar(t,A){
   urut.forEach(function(idx,pos){
     var K=t.opsi[idx].cons.map(parseCons), v=autoView(K);
     var d=document.createElement("div"); d.className="gopt"; d.setAttribute("tabindex","0");
-    d.innerHTML=plotSVG({view:v,cons:K,region:true,step:v.step,labelStep:v.step,small:true})+
+    d.innerHTML=plotSVG({view:v,cons:K,region:true,step:v.step,labelStep:v.step,small:true,anim:true})+
       '<div class="cap">Gambar '+String.fromCharCode(65+pos)+'</div>';
     d.addEventListener("click",function(){
       if(box.dataset.kunci) return;
@@ -28,14 +28,17 @@ function rPilihGambar(t,A){
 }
 function rPilihKalimat(t,A){
   var box=document.createElement("div"); box.className="kopts";
-  t.opsi.forEach(function(teks,i){
-    var b=document.createElement("button"); b.className="kopt"; b.type="button"; b.textContent=teks;
+  var urut=t.opsi.map(function(_,i){return i;});
+  for(var q=urut.length-1;q>0;q--){ var r=Math.floor(Math.random()*(q+1)); var tmp=urut[q];urut[q]=urut[r];urut[r]=tmp; }
+  urut.forEach(function(i){
+    var teks=t.opsi[i];
+    var b=document.createElement("button"); b.className="kopt"; b.type="button"; b.textContent=teks; b.dataset.i=i;
     b.addEventListener("click",function(){
       if(box.dataset.kunci) return;
       if(i===t.benar){ box.dataset.kunci="1"; b.classList.add("benar"); benarkan(t.bahas); }
       else{
         b.classList.add("salah"); b.disabled=true;
-        var kunci=salahkan(t,function(){ box.children[t.benar].classList.add("benar"); });
+        var kunci=salahkan(t,function(){ box.children[urut.indexOf(t.benar)].classList.add("benar"); });
         if(kunci) box.dataset.kunci="1";
       }
     });
@@ -49,8 +52,8 @@ function rUjiTitik(t,A){
   var kiri=document.createElement("div"); kiri.className="bidang";
   var kanan=document.createElement("div"); kanan.className="sisi";
   row.appendChild(kiri); row.appendChild(kanan); A.appendChild(row);
-  function gambar(){
-    kiri.innerHTML=plotSVG({view:v,cons:K,region:false,step:v.step,labelStep:v.step,
+  function gambar(an){
+    kiri.innerHTML=plotSVG({view:v,cons:K,region:false,step:v.step,labelStep:v.step,anim:an===true,
       pts:t.rencana.map(function(r,i){
         return {x:r.x,y:r.y,col:pilih[i]?"#49c6b8":"#7f96ba",r:6,label:String.fromCharCode(65+i)};
       })});
@@ -66,7 +69,7 @@ function rUjiTitik(t,A){
     d.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); d.click(); } });
     kanan.appendChild(d);
   });
-  gambar();
+  gambar(true);
   var kirim=document.createElement("button"); kirim.className="btn"; kirim.textContent="Kirim laporan";
   kirim.addEventListener("click",function(){
     if(row.dataset.kunci) return;
@@ -97,8 +100,8 @@ function rSeretTitik(t,A){
   var kiri=document.createElement("div"); kiri.className="bidang";
   var kanan=document.createElement("div"); kanan.className="sisi";
   row.appendChild(kiri); row.appendChild(kanan); A.appendChild(row);
-  function gambar(){
-    kiri.innerHTML=plotSVG({view:v,cons:K,region:false,step:v.step,labelStep:v.step,
+  function gambar(an){
+    kiri.innerHTML=plotSVG({view:v,cons:K,region:false,step:v.step,labelStep:v.step,anim:an===true,
       pts:[{x:titik.x,y:titik.y,col:"#f0b64b",r:8,label:"("+titik.x+", "+titik.y+")"}]});
     var h='<div class="lbl">Rencana sekarang</div><div class="mathline" style="font-size:1.9cqw">('+
       titik.x+", "+titik.y+')</div>';
@@ -121,7 +124,7 @@ function rSeretTitik(t,A){
   kiri.addEventListener("pointerup",function(){ seret=false; });
   kiri.addEventListener("pointercancel",function(){ seret=false; });
   kiri.addEventListener("click",function(e){ if(!row.dataset.kunci) dari(e); });
-  gambar();
+  gambar(true);
   var a=document.getElementById("aksi");
   var nav=document.createElement("div"); nav.style.cssText="display:flex;gap:.5cqw";
   [["x −1",-1,0],["x +1",1,0],["y −1",0,-1],["y +1",0,1]].forEach(function(k){
@@ -288,7 +291,7 @@ function rKetikKoordinat(t,A){
   var K=t.cons.map(parseCons), v=autoView(K);
   var row=document.createElement("div"); row.className="kerjaRow";
   var kiri=document.createElement("div"); kiri.className="bidang";
-  kiri.innerHTML=plotSVG({view:v,cons:K,region:true,step:v.step,labelStep:v.step});
+  kiri.innerHTML=plotSVG({view:v,cons:K,region:true,step:v.step,labelStep:v.step,anim:true});
   var kanan=document.createElement("div"); kanan.className="sisi";
   kanan.innerHTML='<div class="lbl">Koordinat titik pojok</div>'+
     '<div style="display:flex;gap:1cqw;align-items:center">'+
@@ -336,4 +339,80 @@ function rKetikKoordinat(t,A){
     }
   });
   document.getElementById("aksi").appendChild(per);
+}
+/* ---- menggambar garis batas sendiri: dua titik untuk setiap garis ---- */
+function rGambarGaris(t,A){
+  var K=t.cons.map(parseCons), v=autoView(K), pal=["#49c6b8","#f0b64b","#e08b52","#8f7ae0"];
+  var kunciT=G.kini+"/"+G.tahap;
+  if(!G.gg||G.gg.key!==kunciT||G.salahTahap===0) G.gg={key:kunciT,sel:[],done:[],pts:{},awal:true,baru:-1};
+  var st=G.gg; st.view=v; st.sel=[];
+  var row=document.createElement("div"); row.className="kerjaRow";
+  var kiri=document.createElement("div"); kiri.className="bidang"; kiri.style.cursor="crosshair";
+  var kanan=document.createElement("div"); kanan.className="sisi";
+  row.appendChild(kiri); row.appendChild(kanan); A.appendChild(row);
+  var hov=null;
+  function aktif(){ for(var i=0;i<t.garis.length;i++) if(st.done.indexOf(i)<0) return i; return -1; }
+  function gk(i){ return K[t.garis[i].k]; }
+  function eqTeks(k){ return consText(k.a,k.b,"=",k.c); }
+  function gambar(){
+    var cons=[],cols=[],anim=[];
+    st.done.forEach(function(i){ if(i===st.baru) anim.push(cons.length); cons.push(gk(i)); cols.push(pal[i%pal.length]); });
+    var pts=[];
+    st.done.forEach(function(i){ st.pts[i].forEach(function(p){ pts.push({x:p[0],y:p[1],col:pal[i%pal.length],r:4.5}); }); });
+    st.sel.forEach(function(p){ pts.push({x:p[0],y:p[1],col:"#ffe27a",r:7,ring:true,label:"("+p[0]+", "+p[1]+")"}); });
+    if(hov&&!row.dataset.kunci) pts.push({x:hov[0],y:hov[1],col:"rgba(255,226,122,.55)",r:6,label:"("+hov[0]+", "+hov[1]+")"});
+    kiri.innerHTML=plotSVG({view:v,cons:cons,colors:cols,animLines:anim,pts:pts,step:v.step,labelStep:v.step,anim:st.awal&&!cons.length?true:false});
+    st.awal=false; st.baru=-1;
+    var a=aktif();
+    kanan.innerHTML='<div class="lbl">Garis yang harus digambar</div>'+t.garis.map(function(g,i){
+      var dn=st.done.indexOf(i)>=0;
+      return '<div class="rencana'+(i===a?" pilih":"")+(dn?" benar":"")+'"><span style="width:1.1cqw;height:1.1cqw;border-radius:50%;background:'+pal[i%pal.length]+';flex:none"></span>'+
+        '<b>'+esc(g.nama)+'</b> <span class="mathline">'+eqTeks(gk(i))+'</span><span class="ket">'+
+        (dn?"melalui ("+st.pts[i][0].join(", ")+") dan ("+st.pts[i][1].join(", ")+")":i===a?"titik dipilih: "+st.sel.length+" dari 2":"menunggu")+'</span></div>';
+    }).join("")+
+    '<p class="mut" style="font-size:1.25cqw;line-height:1.45">Klik bidang koordinat untuk menaruh titik. Klik titik yang sama untuk menghapusnya. Dua titik yang memenuhi persamaan sudah cukup untuk menarik satu garis.</p>';
+    var tb=document.getElementById("ggTarik"); if(tb) tb.disabled=st.sel.length<2;
+  }
+  function titikDari(ev){
+    var m=clickMath(kiri,ev,v);
+    var x=Math.round(m.x), y=Math.round(m.y);
+    x=Math.max(Math.ceil(v.x0),Math.min(Math.floor(v.x1),x)); y=Math.max(Math.ceil(v.y0),Math.min(Math.floor(v.y1),y));
+    return [x,y];
+  }
+  kiri.addEventListener("pointermove",function(e){ if(row.dataset.kunci||e.pointerType==="touch") return; var p=titikDari(e);
+    if(!hov||hov[0]!==p[0]||hov[1]!==p[1]){ hov=p; gambar(); } });
+  kiri.addEventListener("pointerleave",function(){ if(hov){ hov=null; gambar(); } });
+  kiri.addEventListener("click",function(e){
+    if(row.dataset.kunci||aktif()<0) return;
+    var p=titikDari(e), ada=-1;
+    st.sel.forEach(function(q,i){ if(q[0]===p[0]&&q[1]===p[1]) ada=i; });
+    if(ada>=0) st.sel.splice(ada,1); else { if(st.sel.length>=2) st.sel.shift(); st.sel.push(p); }
+    sfx("tap"); $("#umpan").innerHTML=""; gambar();
+  });
+  function kunciSemua(){
+    t.garis.forEach(function(g,i){ if(st.done.indexOf(i)<0){
+      var k=gk(i); st.pts[i]=[[0,k.c/k.b],[k.c/k.a,0]]; st.done.push(i); } });
+    st.sel=[]; st.done.sort(); gambar();
+  }
+  var aksi=document.getElementById("aksi");
+  var hapus=document.createElement("button"); hapus.className="btn gh"; hapus.textContent="Hapus titik";
+  hapus.addEventListener("click",function(){ if(row.dataset.kunci) return; st.sel=[]; gambar(); });
+  var tarik=document.createElement("button"); tarik.className="btn"; tarik.id="ggTarik"; tarik.textContent="Tarik garis";
+  tarik.addEventListener("click",function(){
+    var a=aktif(); if(row.dataset.kunci||a<0||st.sel.length<2) return;
+    var k=gk(a), salah=[];
+    st.sel.forEach(function(p){ var h=k.a*p[0]+k.b*p[1]; if(Math.abs(h-k.c)>1e-9) salah.push({p:p,h:h}); });
+    if(!salah.length){
+      st.pts[a]=st.sel.slice(); st.done.push(a); st.baru=a; st.sel=[]; sfx("ok"); gambar();
+      if(aktif()<0){ row.dataset.kunci="1"; benarkan(t.pesanBenar); }
+      else $("#umpan").innerHTML='<span class="ok"><b>Garis tergambar.</b></span> Lanjutkan ke garis berikutnya: <b>'+esc(t.garis[aktif()].nama)+'</b>.';
+      return;
+    }
+    var rinci=salah.map(function(s){ return "titik ("+s.p[0]+", "+s.p[1]+") memberi "+numStr(s.h)+", bukan "+numStr(k.c); }).join("; ");
+    var kunci=salahkan(t,kunciSemua);
+    if(kunci) row.dataset.kunci="1";
+    else $("#umpan").innerHTML+=' <span class="mut">Pada '+eqTeks(k)+', '+rinci+'.</span>';
+  });
+  aksi.appendChild(hapus); aksi.appendChild(tarik);
+  gambar();
 }

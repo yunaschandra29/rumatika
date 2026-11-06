@@ -83,7 +83,7 @@ const [,, FILE, SHOT, POLA='00000000', SALAH=''] = process.argv;
         const pos = await p.evaluate(b => document.querySelector('.gopts').dataset.urut.split(',').map(Number).indexOf(b), t.benar);
         await p.click(`.gopts .gopt >> nth=${pos}`);
       } else if (t.tipe === 'pilihKalimat') {
-        await p.click(`.kopts .kopt >> nth=${t.benar}`);
+        await p.click(`.kopts .kopt[data-i="${t.benar}"]`);
       } else if (t.tipe === 'ujiTitik') {
         const ok = await p.evaluate(t => { const K = t.cons.map(parseCons); return t.rencana.map(r => satAll(K, r.x, r.y)); }, t);
         for (let i = 0; i < ok.length; i++) if (ok[i]) await p.click(`.sisi .rencana >> nth=${i}`);
@@ -99,6 +99,17 @@ const [,, FILE, SHOT, POLA='00000000', SALAH=''] = process.argv;
         for (const ch of String(t.jawab[0])) await p.click(`#kNum .key:text-is("${ch}")`);
         await p.click('#kNum .key:text-is("→")');
         for (const ch of String(t.jawab[1])) await p.click(`#kNum .key:text-is("${ch}")`);
+      } else if (t.tipe === 'gambarGaris') {
+        for (const g of t.garis) {
+          const k = await p.evaluate(s => parseCons(s), t.cons[g.k]);
+          for (const [x, y] of [[0, k.c / k.b], [k.c / k.a, 0]]) {
+            const r = await p.evaluate(([x, y]) => { const v = G.gg.view, e = document.querySelector('.bidang').getBoundingClientRect();
+              return { X: e.left + (x - v.x0) / (v.x1 - v.x0) * e.width, Y: e.top + (v.y1 - y) / (v.y1 - v.y0) * e.height }; }, [x, y]);
+            await p.mouse.click(r.X, r.Y);
+          }
+          await once('08-gambar-garis-' + g.k);
+          await p.click('#ggTarik');
+        }
       } else if (t.tipe === 'ketikAngka') {
         for (const ch of String(t.jawab)) await p.click(`#agkKp .key:text-is("${ch}")`);
       }
@@ -126,6 +137,7 @@ const [,, FILE, SHOT, POLA='00000000', SALAH=''] = process.argv;
   await p.evaluate(() => { RFT = 1; referensi(); }); await shot('14-galeri');
   await p.click('#refBody .glt >> nth=20'); await shot('15-galeri-lbx');
   await p.keyboard.press('Escape'); await p.evaluate(() => pengaturan()); await shot('16-pengaturan');
+  await p.click('#sRapor'); await shot('17-rapor');
   console.log('langkah', langkah, 'error', err.length ? err : 'tidak ada');
   await b.close();
 })();

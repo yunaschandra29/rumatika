@@ -147,7 +147,7 @@ window.RUMATIKA_KATALOG = {
       jenis: "Gim",
       topik: "Sistem pertidaksamaan linear dua variabel",
       tujuan: "Novel visual 11 episode: menjadi konsultan Klinik Usaha, menyusun model pertidaksamaan dari cerita klien, menentukan daerah penyelesaian dan titik pojok, lalu mengambil keputusan jujur yang berakibat pada kepercayaan klien. Bisa dimainkan mandiri atau berkelompok.",
-      durasi: 90,
+      durasi: "3 × 45",
       perangkat: "Proyektor dan HP",
       simbol: "2x + 3y ≤ 12",
       url: "karya/fase-e/konsultan-muda/",

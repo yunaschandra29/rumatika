@@ -111,10 +111,18 @@ function PX(v,x){ return (x-v.x0)/(v.x1-v.x0)*VW; }
 function PY(v,y){ return VW-(y-v.y0)/(v.y1-v.y0)*VW; }
 function fmtT(n){ return numStr(n); }
 
+var PSV_ID=0;
 function plotSVG(o){
-  // o: {view, cons:[], shadeEach:bool, region:bool, pts:[{x,y,ok,label}], corners:[], lines:[], small:bool}
-  var v=o.view, s='<svg viewBox="0 0 '+VW+' '+VW+'" xmlns="http://www.w3.org/2000/svg">';
-  var sm=!!o.small, step=o.step||1;
+  // o: {view, cons:[], shadeEach, region, pts:[{x,y,ok,label}], corners:[], small, step, labelStep,
+  //     anim: animasikan proses terbentuknya grafik, animLines:[i] hanya garis tertentu yang digambar,
+  //     colors:[warna tiap garis tanpa arsiran]}
+  var v=o.view, s='<svg viewBox="0 0 '+VW+' '+VW+'" xmlns="http://www.w3.org/2000/svg"'+(o.anim?' class="psAnim"':'')+'>';
+  var sm=!!o.small, step=o.step||1, id="ps"+(++PSV_ID), defs='';
+  var A=!!o.anim, nK=o.cons?o.cons.length:0;
+  var T0=A?0.35:0, DT=sm?0.42:0.7, DUR=sm?0.38:0.6;
+  function tl(i){ return T0+i*DT; }
+  var tEnd=A?tl(nK)+0.05:0;
+  function an(kls,del,dur){ return A?' class="'+kls+'" style="animation-delay:'+del.toFixed(2)+'s'+(dur?';animation-duration:'+dur.toFixed(2)+'s':'')+'"':''; }
   s+='<rect width="'+VW+'" height="'+VW+'" fill="#060c18"/>';
   // grid
   var g='';
@@ -124,28 +132,27 @@ function plotSVG(o){
   for(var y=Math.ceil(v.y0/step)*step;y<=v.y1+1e-9;y+=step){
     var py=PY(v,y); g+='<line x1="0" y1="'+py.toFixed(1)+'" x2="'+VW+'" y2="'+py.toFixed(1)+'" />';
   }
-  s+='<g stroke="#1b2c4c" stroke-width="1">'+g+'</g>';
+  s+='<g stroke="#1b2c4c" stroke-width="1"'+an("anFade",0,0.4)+'>'+g+'</g>';
 
-  // arsiran tiap kendala (transparan)
   var pal=["#49c6b8","#f0b64b","#e08b52","#8f7ae0","#5fd18a","#5aa9f0"];
+  function poly(p){ return p.map(function(q){return PX(v,q[0]).toFixed(1)+","+PY(v,q[1]).toFixed(1);}).join(" "); }
+  // arsiran tiap kendala (transparan) — muncul setelah garisnya selesai digambar
   if(o.shadeEach&&o.cons){
     o.cons.forEach(function(k,i){
       var p=regionPoly([k],v); if(p.length<3) return;
-      s+='<polygon points="'+p.map(function(q){return PX(v,q[0]).toFixed(1)+","+PY(v,q[1]).toFixed(1);}).join(" ")+
-         '" fill="'+pal[i%6]+'" fill-opacity="0.13"/>';
+      s+='<polygon points="'+poly(p)+'" fill="'+pal[i%6]+'" fill-opacity="0.13"'+an("anFade",tl(i)+DUR,0.5)+'/>';
     });
   }
-  // daerah penyelesaian (irisan) — arsir penuh
+  // daerah penyelesaian (irisan)
   if(o.region&&o.cons&&o.cons.length){
     var rp=regionPoly(o.cons,v);
     if(rp.length>=3){
-      s+='<polygon points="'+rp.map(function(q){return PX(v,q[0]).toFixed(1)+","+PY(v,q[1]).toFixed(1);}).join(" ")+
-         '" fill="#f0b64b" fill-opacity="0.30" stroke="#f0b64b" stroke-opacity="0.5" stroke-width="1.5"/>';
+      s+='<polygon points="'+poly(rp)+'" fill="#f0b64b" fill-opacity="0.30" stroke="#f0b64b" stroke-opacity="0.5" stroke-width="1.5"'+an("anFade",tEnd,0.7)+'/>';
     }
   }
   // sumbu
   var ox=PX(v,0), oy=PY(v,0);
-  s+='<g stroke="#5f7aa6" stroke-width="2">';
+  s+='<g stroke="#5f7aa6" stroke-width="2"'+an("anFade",0.05,0.4)+'>';
   if(v.y0<=0&&v.y1>=0) s+='<line x1="0" y1="'+oy.toFixed(1)+'" x2="'+VW+'" y2="'+oy.toFixed(1)+'"/>';
   if(v.x0<=0&&v.x1>=0) s+='<line x1="'+ox.toFixed(1)+'" y1="0" x2="'+ox.toFixed(1)+'" y2="'+VW+'"/>';
   s+='</g>';
@@ -160,32 +167,50 @@ function plotSVG(o){
       if(Math.abs(y2)<1e-9) continue;
       t+='<text x="'+(ox-6).toFixed(1)+'" y="'+(PY(v,y2)+4).toFixed(1)+'" text-anchor="end">'+fmtT(y2)+'</text>';
     }
-    s+='<g fill="#7f96ba" font-size="11" font-family="sans-serif">'+t+'</g>';
+    s+='<g fill="#7f96ba" font-size="11" font-family="sans-serif"'+an("anFade",0.1,0.4)+'>'+t+'</g>';
     s+='<text x="'+(VW-6)+'" y="'+(oy-7).toFixed(1)+'" text-anchor="end" fill="#9db2d2" font-size="13" font-family="sans-serif">x</text>';
     s+='<text x="'+(ox+8).toFixed(1)+'" y="14" fill="#9db2d2" font-size="13" font-family="sans-serif">y</text>';
   }
-  // garis batas
+  // garis batas: titik potong sumbu muncul dulu, lalu garis ditarik melewatinya
   if(o.cons) o.cons.forEach(function(k,i){
     var seg=lineSeg(k,v); if(!seg) return;
     var dash=(k.op==="<"||k.op===">")?' stroke-dasharray="7 6"':"";
-    var col=o.shadeEach?pal[i%6]:"#f0b64b";
-    s+='<line x1="'+PX(v,seg[0][0]).toFixed(1)+'" y1="'+PY(v,seg[0][1]).toFixed(1)+
-       '" x2="'+PX(v,seg[1][0]).toFixed(1)+'" y2="'+PY(v,seg[1][1]).toFixed(1)+
-       '" stroke="'+col+'" stroke-width="'+(sm?2.4:3)+'"'+dash+' stroke-linecap="round"/>';
+    var col=o.colors?o.colors[i%o.colors.length]:o.shadeEach?pal[i%6]:"#f0b64b";
+    var ln='x1="'+PX(v,seg[0][0]).toFixed(1)+'" y1="'+PY(v,seg[0][1]).toFixed(1)+
+       '" x2="'+PX(v,seg[1][0]).toFixed(1)+'" y2="'+PY(v,seg[1][1]).toFixed(1)+'"';
+    var gerak=A||(o.animLines&&o.animLines.indexOf(i)>=0), mask='';
+    if(gerak){
+      var t1=A?tl(i)+0.15:0.05, mid=id+"m"+i;
+      defs+='<mask id="'+mid+'" maskUnits="userSpaceOnUse" x="0" y="0" width="'+VW+'" height="'+VW+'"><line '+ln+
+        ' stroke="#fff" stroke-width="12" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1" class="anDraw" style="animation-delay:'+t1.toFixed(2)+'s;animation-duration:'+DUR.toFixed(2)+'s"/></mask>';
+      mask=' mask="url(#'+mid+')"';
+      if(A&&!sm){
+        var tp=[]; if(Math.abs(k.b)>1e-9) tp.push([0,k.c/k.b]); if(Math.abs(k.a)>1e-9) tp.push([k.c/k.a,0]);
+        if(Math.abs(k.a)>1e-9&&Math.abs(k.b)>1e-9) tp.forEach(function(p){
+          if(p[0]<v.x0||p[0]>v.x1||p[1]<v.y0||p[1]>v.y1) return;
+          var cx=PX(v,p[0]).toFixed(1), cy=PY(v,p[1]).toFixed(1);
+          s+='<g class="anTmp" style="animation-delay:'+tl(i).toFixed(2)+'s;animation-duration:'+(DT+DUR).toFixed(2)+'s"><circle cx="'+cx+'" cy="'+cy+'" r="6" fill="'+col+'"/>'+
+             '<text x="'+(+cx+9)+'" y="'+(+cy-9)+'" fill="'+col+'" font-size="12" font-family="sans-serif">('+fmtT(p[0])+', '+fmtT(p[1])+')</text></g>';
+        });
+      }
+    }
+    s+='<line '+ln+' stroke="'+col+'" stroke-width="'+(sm?2.4:3)+'"'+dash+' stroke-linecap="round"'+mask+'/>';
   });
   // titik pojok
   if(o.corners) o.corners.forEach(function(p,i){
     var px=PX(v,p[0]),py=PY(v,p[1]);
-    s+='<circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="5.5" fill="#49c6b8" stroke="#062" stroke-width="1.5"/>';
+    s+='<g'+an("anPop",tEnd+0.4+i*0.12,0.4)+'><circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="5.5" fill="#49c6b8" stroke="#062" stroke-width="1.5"/>';
     if(!sm) s+='<text x="'+(px+9).toFixed(1)+'" y="'+(py-8).toFixed(1)+'" fill="#bdf1ea" font-size="12" font-family="sans-serif">('+fmtT(p[0])+", "+fmtT(p[1])+')</text>';
+    s+='</g>';
   });
   // titik uji
-  if(o.pts) o.pts.forEach(function(p){
+  if(o.pts) o.pts.forEach(function(p,i){
     var px=PX(v,p.x),py=PY(v,p.y), c=p.col||(p.ok?"#5fd18a":"#f2706a");
-    s+='<circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="'+(p.r||(p.big?6.5:5))+'" fill="'+c+'" fill-opacity="0.92"/>';
+    s+='<g'+an("anPop",tEnd+0.2+i*0.1,0.4)+'><circle cx="'+px.toFixed(1)+'" cy="'+py.toFixed(1)+'" r="'+(p.r||(p.big?6.5:5))+'" fill="'+c+'" fill-opacity="0.92"'+(p.ring?' stroke="#fff" stroke-width="2"':'')+'/>';
     if(p.label) s+='<text x="'+(px+8).toFixed(1)+'" y="'+(py-7).toFixed(1)+'" fill="'+c+'" font-size="12" font-family="sans-serif">'+p.label+'</text>';
+    s+='</g>';
   });
-  s+='</svg>';
+  s+=(defs?'<defs>'+defs+'</defs>':'')+'</svg>';
   return s;
 }
 function lineSeg(k,v){

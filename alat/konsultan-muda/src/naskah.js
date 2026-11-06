@@ -107,6 +107,13 @@ var BERKAS=[
   berkas:["Jam kerja tersedia: <b>16 jam</b>","Set roda tersedia: <b>18 set</b>",
           "Sepeda anak (x): 2 jam kerja, 1 set roda","Sepeda dewasa (y): 1 jam kerja, 3 set roda"],
   tahap:[
+   {tipe:"gambarGaris",jenis:"garis",
+    tanya:"Gambar sendiri dua garis batas Mas Yudi. Untuk setiap garis, klik dua titik yang dilaluinya, lalu tekan Tarik garis.",
+    cons:["2x+y≤16","x+3y≤18","x≥0","y≥0"],
+    garis:[{nama:"Jam kerja",k:0},{nama:"Set roda",k:1}],
+    pesanBenar:"Kedua garis batas sudah tergambar. Titik potong keduanya nanti menjadi titik pojok yang dicari.",
+    nudge:"Cara cepat: cari titik potong sumbu. Pada 2x + y = 16, saat x = 0 maka y = 16, dan saat y = 0 maka x = 8.",
+    bahas:"Garis 2x + y = 16 melalui (0, 16) dan (8, 0). Garis x + 3y = 18 melalui (0, 6) dan (18, 0). Titik lain juga boleh, asalkan memenuhi persamaannya."},
    {tipe:"seretTitik",jenis:"irisan",
     tanya:"Geser titik rencana sampai jam kerja dan set roda dua-duanya tersisa nol, lalu serahkan rencananya.",
     cons:["2x+y≤16","x+3y≤18","x≥0","y≥0"], target:[6,4],
@@ -126,11 +133,12 @@ var BERKAS=[
    {cast:["p","yudi"]},
    ["yudi","Minggu ini saya punya 16 jam kerja dan 18 set roda.","bingung"],
    ["yudi","Sepeda anak makan 2 jam kerja dan 1 set roda. Sepeda dewasa 1 jam kerja dan 3 set roda. Saya ingin dua-duanya habis, jangan ada yang menganggur.","bingung"],
-   {kerja:[0]},
+   ["nar","Pak Hadi menyodorkan kertas berpetak. Gambar dulu garis batasnya, baru cari rencananya."],
+   {kerja:[0,1]},
    ["yudi","Enam sepeda anak dan empat sepeda dewasa. Pas.","lega"],
    ["yudi","Ngomong-ngomong, kalau saya lembur 2 jam dan beli 1 set roda lagi, ada gunanya tidak?","bingung"],
    {dec:"yudi"},
-   {kerja:[1]},
+   {kerja:[2]},
    ["yudi","Satu sepeda anak lebih banyak untuk lembur 2 jam. Sekarang saya bisa menimbang sendiri.","lega"]
   ]},
 /* ---------------- 4 ---------------- */
@@ -547,7 +555,7 @@ var BAGIAN=[{n:"Bagian 1",t:"Minggu Pertama",dari:0,sampai:7},{n:"Bagian 2",t:"S
 var EPS=[
  {j:"Modal Rp48.000",l:"Bu Ratmi ingin dagangannya penuh, padahal modalnya terbatas.",s:"Bu Ratmi hampir berbelanja melebihi modalnya."},
  {j:"Bukan Pas 20",l:"Pengering Pak Hasan hanya aman jika muatannya kurang dari 20 kg.",s:"Raka ingin muatan tepat 20 kg dinyatakan aman."},
- {j:"Dua-duanya Habis",l:"Mas Yudi tidak mau ada jam kerja atau set roda yang menganggur.",s:"Mas Yudi menimbang lembur lewat titik pojok yang bergeser."},
+ {j:"Dua-duanya Habis",l:"Mas Yudi tidak mau ada jam kerja atau set roda yang menganggur. Kali ini kamu menggambar sendiri garis batasnya.",s:"Mas Yudi menimbang lembur lewat titik pojok yang bergeser."},
  {j:"Arsiran yang Membangkang",l:"Bu Sinta yakin tanda ≤ selalu berarti arsiran ke bawah.",s:"Bu Sinta bersikeras soal arah arsiran."},
  {j:"Uang Lelah",l:"Pak Anwar ingin laporan menyebut 20 paket buku tulis bisa dibuat.",s:"Pak Anwar menyodorkan uang lelah untuk angka yang tidak mungkin."},
  {j:"Takaran Diam-diam",l:"Mbak Rina ingin susu dan sirupnya habis tanpa sisa.",s:"Mbak Rina tergoda mengurangi takaran sirup diam-diam."},

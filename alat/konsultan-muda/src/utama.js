@@ -8,7 +8,7 @@ function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function rp(n){return "Rp"+String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,".");}
 
 /* ---------------- layar ---------------- */
-var SCREENS={home:"gsHome",mode:"gsMode",id:"gsId",tokoh:"gsTokoh",vn:"gsVN",peta:"gsPeta",pos:"gsPos",end:"gsEnd",ref:"gsRef",prof:"gsProf",set:"gsSet"};
+var SCREENS={home:"gsHome",mode:"gsMode",id:"gsId",tokoh:"gsTokoh",vn:"gsVN",peta:"gsPeta",pos:"gsPos",end:"gsEnd",ref:"gsRef",prof:"gsProf",set:"gsSet",rapor:"gsRapor"};
 var CUR="home";
 function show(k){
   $$(".scr").forEach(function(e){e.classList.remove("on");});
@@ -387,10 +387,11 @@ function kartuJudul(i){
 }
 
 /* ---------------- keputusan ---------------- */
+function acak(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
 function putuskan(id){
   var v=V, D=DEC[id];
   var o=buka('<div class="dim2"></div><div class="dbox gl"><div class="dh">'+(S.mode==="kelompok"?"Keputusan tim · diskusikan dulu sebelum memilih":"Keputusan konsultan")+'</div><h3>'+esc(D.q)+'</h3>'+
-    D.o.map(function(x,i){ return '<button class="dop" data-o="'+i+'"><span class="nb">'+(i+1)+'</span><span>'+esc(x.l)+'</span></button>'; }).join("")+'</div>');
+    acak(D.o.map(function(_,i){ return i; })).map(function(i,n){ return '<button class="dop" data-o="'+i+'"><span class="nb">'+(n+1)+'</span><span>'+esc(D.o[i].l)+'</span></button>'; }).join("")+'</div>');
   var dipakai=false;
   v.pick=function(i){
     var x=D.o[i]; if(dipakai||!x||V!==v) return; dipakai=true;
@@ -449,7 +450,7 @@ function renderTahap(){
   var A=$("#alat"); A.innerHTML="";
   ({pilihGambar:rPilihGambar,pilihKalimat:rPilihKalimat,ujiTitik:rUjiTitik,
     seretTitik:rSeretTitik,seretKartu:rSeretKartu,ketikKoordinat:rKetikKoordinat,
-    ketikPertidaksamaan:rKetikPtd,ketikAngka:rKetikAngka})[t.tipe](t,A);
+    ketikPertidaksamaan:rKetikPtd,ketikAngka:rKetikAngka,gambarGaris:rGambarGaris})[t.tipe](t,A);
 }
 function adaTahapLagi(){ return G.idx<G.daftar.length-1; }
 function lanjut(){
@@ -648,6 +649,7 @@ $("#gsPeta").addEventListener("pointerup",function(e){
 document.addEventListener("keydown",function(e){
   if(e.target.closest("input,textarea")) return;
   if(e.key==="Escape"&&$("#lbx").classList.contains("on")){ $("#lbx").classList.remove("on"); $("#lbx").innerHTML=""; return; }
+  if(e.key==="Escape"&&CUR==="rapor"){ raporKembali(); return; }
   if(e.key==="Escape"&&(CUR==="ref"||CUR==="prof"||CUR==="set")){ menuUtama(); return; }
   if(CUR!=="peta") return;
   if(e.key==="ArrowDown"){ e.preventDefault(); dmv(1); }
@@ -659,7 +661,7 @@ document.addEventListener("keydown",function(e){
 /* ============================================================
    AKHIR CERITA
    ============================================================ */
-function akhir(){
+function akhir(diam){
   V=null; var R=nilaiRJ(), ek=kunciAkhir(R), E=ENDS[ek];
   show("end");
   $("#endBg").style.backgroundImage='url("'+bgSrc(E.sc)+'")';
@@ -682,11 +684,12 @@ function akhir(){
     (lemah?'<div class="note warn">Kekeliruan yang paling sering muncul: <b>'+nama[lemah]+'</b> ('+n+' kali). Ketepatan '+R.tepat+' dihitung dari '+R.bin+' dari '+(NB*3)+' bintang.</div>'
           :'<div class="note ok">Semua tahap dilewati tanpa satu pun kesimpulan yang meleset. Ketepatan '+R.tepat+' dari '+R.bin+' bintang.</div>')+
     '<div style="display:flex;gap:1cqw;flex-wrap:wrap">'+
-    '<button class="btn" id="endUlang">Buka klinik lagi</button><button class="btn gh" data-go="peta">Daftar episode</button><button class="btn gh" data-go="menu">Menu utama</button></div>';
+    '<button class="btn sm" id="endRapor">Lihat rapor</button><button class="btn gh sm" id="endUlang">Buka klinik lagi</button><button class="btn gh sm" data-go="peta">Daftar episode</button><button class="btn gh sm" data-go="menu">Menu utama</button></div>';
+  $("#endRapor").addEventListener("click",function(){ sfx("ok"); rapor("end"); });
   $("#endUlang").addEventListener("click",function(){
     var nm=S.nama,kl=S.kelas,tk=S.tokoh,md=S.mode,ag=S.anggota,st=S.set; S=baru(); S.nama=nm; S.kelas=kl; S.tokoh=tk; S.mode=md; S.anggota=ag; S.prolog=true; S.set=st; DRIX.ep=null; simpan(); peta();
   });
-  sfx("win");
+  if(!diam) sfx("win");
 }
 
 /* ============================================================
@@ -769,7 +772,7 @@ function profilPengembang(){
       '<dl><dt>Unit Kerja</dt><dd>SMPIT–SMAIT Nurul Ilmi</dd><dt>Email</dt><dd>yunaschandra29@gmail.com</dd><dt>Situs</dt><dd>rumatika.yunaschandra29.workers.dev</dd></dl></div>'+
     '<div class="gl pc"><div class="lb">TENTANG KARYA</div><h3 class="disp">Konsultan Muda: Klinik Usaha</h3>'+
       '<p>Gim novel visual Matematika Fase E tentang sistem pertidaksamaan linear dua variabel. Pemain menjadi konsultan muda yang menerjemahkan keluhan pelaku usaha menjadi model, wilayah penyelesaian, dan keputusan.</p>'+
-      '<p style="color:#9db2d2">11 episode · 2 bagian · 4 akhir cerita · Versi 2 · November 2026. Bagian dari koleksi Rumatika.</p></div>'+
+      '<p style="color:#9db2d2">11 episode · 2 bagian · 4 akhir cerita · 3 JP (3 × 45 menit) · Versi 2 · November 2026. Bagian dari koleksi Rumatika.</p></div>'+
     '<div class="gl pc"><div class="lb">PEMAIN</div><h3 class="disp">'+esc(S.nama||"Belum diisi")+'</h3>'+
       '<p>Kelas '+esc(S.kelas||"-")+' · Mode '+(kel?"kelompok":"mandiri")+' · Tokoh '+esc(tk)+'</p>'+
       (kel&&S.anggota.length?'<p style="color:#9db2d2">Anggota: '+S.anggota.map(esc).join(", ")+'</p>':'')+
@@ -801,7 +804,7 @@ function pengaturan(){
         :'<p class="fl">Berkas musik tidak tersedia; tombol musik memakai nada sintesis.</p><div class="mctl"><button class="play" id="mPlay"></button></div>')+
       '<div class="srow" style="margin-top:auto"><span>Ganti lagu otomatis (menu/cerita)</span>'+seg("ikut",[["Ya",true],["Tidak",false]])+'</div>'+
       '<div class="srow"><span>Efek suara</span>'+seg("sfx",[["Ya",true],["Tidak",false]])+'</div></div>'+
-    '<div class="pc" style="grid-column:2 / span 2"><div class="lb">PROGRES</div><div class="pg5">'+
+    '<div class="pc" style="grid-column:2 / span 2"><div style="display:flex;align-items:center"><div class="lb">PROGRES</div><button class="btn gh sm" id="sRapor" style="margin-left:auto">Lihat rapor</button></div><div class="pg5">'+
       ring(b1,NAWAL,"Bagian 1","Episode 1–8","#2f90d8")+ring(b2,NB-NAWAL,"Bagian 2","Episode 9–11","#d8892f")+
       ring(R.tepat,100,"Ketepatan",R.bin+" dari "+(NB*3)+" bintang","#f0b64b")+ring(R.kep,100,"Kepercayaan","Rekam jejak klien","#3f9f7a")+ring(R.int,100,"Integritas","Kejujuran keputusan","#8f6ad8")+'</div></div>'+
     '<div class="pc"><div class="lb">PROFIL SISWA</div>'+
@@ -822,6 +825,7 @@ function pengaturan(){
   $("#sNama").onchange=function(){ var v=this.value.trim(); if(v.length>=2){ S.nama=v; simpan(); toast("Nama disimpan"); } else { this.value=S.nama; toast("Nama minimal dua huruf"); } };
   $("#sKelas").onchange=function(){ var v=this.value.trim(); if(v){ S.kelas=v; simpan(); toast("Kelas disimpan"); } else this.value=S.kelas; };
   $("#sMode").onclick=function(){ sfx("ok"); pilihMode(); };
+  $("#sRapor").onclick=function(){ sfx("ok"); rapor("set"); };
   var rs=$("#sReset"), siap=false;
   rs.onclick=function(){
     if(!siap){ siap=true; rs.textContent="Klik lagi untuk menghapus"; setTimeout(function(){ if(rs.isConnected){ siap=false; rs.textContent="Hapus progres"; } },3500); return; }
@@ -848,6 +852,130 @@ function setMusik(){
   var a=AEL&&LAGU[LAGU_KINI];
   if(a&&$("#mpf")){ var d=a.duration||0; $("#mpf").style.width=(d?a.currentTime/d*100:0)+"%"; $("#mt0").textContent=mmss(a.currentTime); $("#mtd").textContent=mmss(d); }
 }
+
+/* ============================================================
+   RAPOR (bisa dicetak atau disimpan sebagai PDF)
+   ============================================================ */
+var ASPEK=[
+ {k:"model",n:"Menyusun model pertidaksamaan dari cerita",
+  kuat:"Mampu mengubah keterangan klien menjadi pertidaksamaan yang tepat, termasuk memilih tanda yang sesuai.",
+  saran:"Latih kebiasaan menandai setiap kendala pada cerita: apa yang dibatasi, berapa batasnya, dan apakah batas itu boleh tepat dicapai."},
+ {k:"garis",n:"Menggambar garis batas dan memaknai tanda < atau ≤",
+  kuat:"Mampu menggambar garis batas dari dua titik dan membedakan garis penuh (≤, ≥) dengan garis putus-putus (<, >).",
+  saran:"Gambar garis dari dua titik potong sumbu (x = 0 lalu y = 0), kemudian periksa apakah titik tepat di garis ikut memenuhi."},
+ {k:"arsiran",n:"Menentukan daerah (arsiran) yang memenuhi",
+  kuat:"Mampu menentukan sisi yang diarsir dengan uji titik, tidak hanya menebak dari arah tanda.",
+  saran:"Biasakan uji titik (0, 0) atau titik lain di luar garis sebelum menentukan arah arsiran."},
+ {k:"irisan",n:"Menentukan irisan beberapa kendala",
+  kuat:"Mampu membaca daerah yang memenuhi semua kendala sekaligus.",
+  saran:"Periksa setiap kendala satu per satu; titik yang benar harus lolos semuanya, bukan sebagian."},
+ {k:"pojok",n:"Menentukan titik pojok dan nilai terbaik",
+  kuat:"Mampu menghitung titik potong dua garis dan membandingkan nilai pada titik-titik pojok.",
+  saran:"Ulangi langkah eliminasi atau substitusi dengan rapi, lalu cek hasilnya ke kedua persamaan."},
+ {k:"tafsir",n:"Menafsirkan hasil menjadi keputusan",
+  kuat:"Mampu menerjemahkan hasil hitung menjadi saran yang bisa dijalankan klien.",
+  saran:"Setelah menemukan angka, tuliskan kembali artinya dalam kalimat klien: berapa yang dibuat, dan apa akibatnya."}
+];
+function jumlahTahap(){ var n={}; BERKAS.forEach(function(B){ B.tahap.forEach(function(t){ n[t.jenis]=(n[t.jenis]||0)+1; }); }); return n; }
+function capaianAspek(k,nT){
+  var e=S.catatan[k]||0, r=nT?e/nT:0;
+  if(e===0) return {e:e,lv:4,n:"Sangat baik"};
+  if(r<=0.5) return {e:e,lv:3,n:"Baik"};
+  if(r<=1) return {e:e,lv:2,n:"Cukup"};
+  return {e:e,lv:1,n:"Perlu bimbingan"};
+}
+function epsDenganJenis(k){
+  var L=[]; BERKAS.forEach(function(B,i){ if(B.tahap.some(function(t){return t.jenis===k;})) L.push("Episode "+(i+1)); });
+  return L.slice(0,3).join(", ");
+}
+function tglIndo(d){ var b=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  return d.getDate()+" "+b[d.getMonth()]+" "+d.getFullYear(); }
+function raporHTML(){
+  var R=nilaiRJ(), ek=kunciAkhir(R), E=ENDS[ek], nT=jumlahTahap(), kel=S.mode==="kelompok";
+  var tk=(TOKOH.filter(function(t){ return t.id===S.tokoh; })[0]||{nm:"-"}).nm;
+  var tgl=setv("tgl")||tglIndo(new Date()), guru=setv("guru"), nip=setv("nip"), tempat=setv("tempat");
+  var selesai=R.sel===NB&&S.akhir;
+  function bar(n){ return '<span class="rbar"><i style="width:'+n+'%"></i></span><b>'+n+'</b>'; }
+  var asp=ASPEK.map(function(a){ var c=capaianAspek(a.k,nT[a.k]||0); a.c=c; return a; });
+  var kuat=asp.filter(function(a){ return a.c.lv>=3; }), lemah=asp.filter(function(a){ return a.c.lv<=2; });
+  lemah.sort(function(a,b){ return a.c.lv-b.c.lv; });
+  var poinKuat=kuat.map(function(a){ return a.kuat; }), poinSaran=lemah.map(function(a){ return a.saran+" Ulangi "+epsDenganJenis(a.k)+"."; });
+  if(R.int>=70) poinKuat.push("Berani menyampaikan hasil hitung apa adanya, walaupun kabarnya tidak menyenangkan bagi klien.");
+  else poinSaran.push("Integritas masih "+R.int+". Sampaikan hasil hitung apa adanya; keputusan yang jujur melindungi klien dari kerugian.");
+  if(R.kep>=70) poinKuat.push("Memberi saran yang jelas dan bisa dijalankan sehingga klien percaya.");
+  else poinSaran.push("Kepercayaan klien masih "+R.kep+". Selain menolak rencana yang tidak mungkin, tawarkan pilihan lain yang masuk akal.");
+  if(!poinSaran.length) poinSaran.push("Pertahankan ketelitian. Coba jelaskan cara kerjamu kepada teman yang masih kesulitan.");
+  if(!poinKuat.length) poinKuat.push("Sudah menyelesaikan "+R.sel+" episode dan mengenal alur kerja konsultan: model, grafik, titik pojok, lalu keputusan.");
+  var eps=BERKAS.map(function(B,i){
+    var b=S.bintang[i], D=DEC[B.id], c=S.dec[B.id], kp="–";
+    if(D&&c!=null){ var o=D.o[c]; kp=o.best?"Terbaik":((o.d.kep||0)+(o.d.int||0)>=0?"Cukup":"Kurang tepat"); }
+    else if(D) kp="Belum";
+    return '<tr><td>'+(i+1)+'</td><td><b>'+esc(EPS[i].j)+'</b> <span>· '+esc(B.nama)+'</span></td><td class="c bin">'+
+      (b<0?'<span class="mut">belum</span>':"★".repeat(b)+'<span class="mut">'+"☆".repeat(3-b)+'</span>')+'</td><td class="c">'+kp+'</td></tr>';
+  }).join("");
+  var hadi=END_HADI[ek].replace(/\{N\}/g,S.nama||"Konsultan");
+  return '<div class="rpg">'+
+   '<div class="rhead"><div><div class="rk">RAPOR KEGIATAN · MATEMATIKA FASE E</div><h1>Konsultan Muda: Klinik Usaha</h1>'+
+     '<div class="rs">Sistem pertidaksamaan linear dua variabel · Alokasi waktu 3 JP (3 × 45 menit)</div></div>'+
+     '<div class="rlogo">Rumatika</div></div>'+
+   (selesai?'':'<div class="rwarn">Rapor sementara: baru '+R.sel+' dari '+NB+' episode yang selesai'+(S.akhir?'':' dan epilog belum dibuka')+'.</div>')+
+   '<table class="rid"><tr><th>'+(kel?"Nama tim":"Nama")+'</th><td>'+esc(S.nama||"-")+'</td><th>Kelas</th><td>'+esc(S.kelas||"-")+'</td></tr>'+
+     '<tr><th>Mode</th><td>'+(kel?"Kelompok":"Mandiri")+'</td><th>Tokoh</th><td>'+esc(tk)+'</td></tr>'+
+     (kel?'<tr><th>Anggota</th><td colspan="3">'+(S.anggota.length?S.anggota.map(esc).join(", "):"-")+'</td></tr>':'')+
+     '<tr><th>Tanggal</th><td colspan="3">'+esc(tgl)+'</td></tr></table>'+
+   '<h2>1. Ringkasan hasil</h2>'+
+   '<div class="rsum"><div class="rend"><div class="rk">AKHIR CERITA</div><b>'+(S.akhir?E.n:"Belum ditentukan")+'</b><p>'+(S.akhir?E.d:"Akhir cerita muncul setelah semua episode dan laporan mingguan selesai.")+'</p></div>'+
+     '<table class="rmet"><tr><th>Episode selesai</th><td><b>'+R.sel+'</b> dari '+NB+'</td></tr><tr><th>Bintang</th><td><b>'+R.bin+'</b> dari '+(NB*3)+'</td></tr>'+
+     '<tr><th>Ketepatan</th><td>'+bar(R.tepat)+'</td></tr><tr><th>Kepercayaan</th><td>'+bar(R.kep)+'</td></tr><tr><th>Integritas</th><td>'+bar(R.int)+'</td></tr></table></div>'+
+   '<p class="rnote">Ketepatan dihitung dari bintang (3 bintang jika benar tanpa salah, berkurang satu setiap kekeliruan). Kepercayaan dan Integritas berangkat dari 50 dan berubah menurut keputusan pada setiap episode.</p>'+
+   '<h2>2. Hasil per episode</h2>'+
+   '<table class="rtab"><thead><tr><th>No</th><th>Episode</th><th class="c">Bintang</th><th class="c">Keputusan</th></tr></thead><tbody>'+eps+'</tbody></table>'+
+   '<h2>3. Capaian per aspek</h2>'+
+   '<table class="rtab"><thead><tr><th>Aspek</th><th class="c">Tahap</th><th class="c">Kekeliruan</th><th class="c">Capaian</th></tr></thead><tbody>'+
+     asp.map(function(a){ return '<tr><td>'+esc(a.n)+'</td><td class="c">'+(nT[a.k]||0)+'</td><td class="c">'+a.c.e+'</td><td class="c"><span class="rlv l'+a.c.lv+'">'+a.c.n+'</span></td></tr>'; }).join("")+'</tbody></table>'+
+   '<h2>4. Umpan balik</h2>'+
+   '<div class="rfb"><div><div class="rk">KEKUATAN</div><ul>'+poinKuat.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div>'+
+     '<div><div class="rk">PERLU DITINGKATKAN</div><ul>'+poinSaran.map(function(x){return '<li>'+esc(x)+'</li>';}).join("")+'</ul></div></div>'+
+   '<div class="rquote"><b>Pesan Pak Hadi</b> '+esc(hadi)+'</div>'+
+   '<h2>5. Refleksi '+(kel?"tim":"siswa")+'</h2>'+
+   '<div class="rref"><p>Hal yang paling '+(kel?"kami":"saya")+' pahami hari ini:</p><i></i><i></i>'+
+     '<p>Hal yang masih membingungkan:</p><i></i><i></i>'+
+     '<p>Keputusan yang paling sulit dan alasannya:</p><i></i><i></i></div>'+
+   '<h2>6. Catatan guru</h2><div class="rref"><i></i><i></i></div>'+
+   '<div class="rttd"><div><p>&nbsp;</p><p>'+(kel?"Ketua tim":"Siswa")+'</p><div class="sp"></div><b>'+esc(kel&&S.anggota[0]?S.anggota[0]:(S.nama||"..............................."))+'</b></div>'+
+     '<div><p>'+esc(tempat||"................")+', '+esc(tgl)+'</p><p>Guru Mata Pelajaran Matematika</p><div class="sp"></div><b>'+esc(guru||"...............................")+'</b>'+
+     '<p class="nip">NIP. '+esc(nip||"...............................")+'</p></div></div>'+
+   '<div class="rfoot">Dicetak dari Konsultan Muda: Klinik Usaha · Rumatika · rumatika.yunaschandra29.workers.dev</div>'+
+  '</div>';
+}
+var RAPOR_DARI="end";
+function rapor(dari){
+  if(dari) RAPOR_DARI=dari;
+  show("rapor"); $("#rapBg").style.backgroundImage='url("'+bgSrc("klinik")+'")';
+  function inp(id,lab,k,ph){ return '<label><div class="fl">'+lab+'</div><input type="text" id="'+id+'" data-k="'+k+'" maxlength="60" placeholder="'+ph+'" value="'+esc(setv(k)||"")+'"></label>'; }
+  $("#rapForm").innerHTML='<div class="lb">RAPOR KONSULTAN</div><h2 class="disp">Rapor dan umpan balik</h2>'+
+    '<p>Isi data guru, lalu cetak. Untuk menyimpan sebagai PDF, pilih <b>Simpan sebagai PDF</b> di jendela cetak.</p>'+
+    inp("rGuru","Nama guru","guru","Nama lengkap dan gelar")+inp("rNip","NIP (boleh dikosongkan)","nip","")+
+    inp("rTempat","Tempat","tempat","Misalnya Bekasi")+inp("rTgl","Tanggal","tgl",tglIndo(new Date()))+
+    '<div class="row"><button class="btn" id="rCetak">Cetak rapor</button><button class="btn gh" id="rKembali">Kembali</button></div>';
+  $$("#rapForm input").forEach(function(el){ el.oninput=function(){ S.set=S.set||{}; S.set[el.getAttribute("data-k")]=el.value.trim(); simpan(); raporIsi(); }; });
+  $("#rCetak").onclick=function(){ sfx("ok"); raporIsi(); setTimeout(function(){ window.print(); },60); };
+  $("#rKembali").onclick=function(){ sfx("tap"); raporKembali(); };
+  raporIsi();
+  $("#rapPrev").scrollTop=0;
+}
+function raporKembali(){ if(RAPOR_DARI==="set") pengaturan(); else if(RAPOR_DARI==="end") akhir(true); else menuUtama(); }
+function raporIsi(){
+  var h=raporHTML();
+  var c=$("#raporCetak"); c.innerHTML=h;
+  var p=$("#rapPrev"); p.innerHTML='<div class="rdoc prev"><div class="rsc">'+h+'</div></div>';
+  raporSkala();
+}
+function raporSkala(){
+  var p=$("#rapPrev"); if(!p||CUR!=="rapor") return; var d=p.querySelector(".rdoc"), sc=p.querySelector(".rsc"); if(!d) return;
+  var s=(p.clientWidth-16)/794; sc.style.transform="scale("+s+")"; d.style.height=(sc.offsetHeight*s)+"px"; d.style.width=(794*s)+"px";
+}
+window.addEventListener("resize",raporSkala);
 
 /* ---------------- mulai ---------------- */
 var AEL=null, LAGU={}, LAGU_KINI="menu", MUSIK_DISENTUH=false;
