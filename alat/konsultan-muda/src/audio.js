@@ -38,6 +38,7 @@ function musicToggle(){
     .forEach(function(b){ b.textContent=AUD.on?"♪":"♪̸"; b.style.color=AUD.on?"#f0b64b":"#7f96ba"; });
 }
 function sfx(kind){
+  if(typeof setv==="function"&&setv("sfx")===false) return;
   audioInit(); if(!AUD.ctx) return;
   if(AUD.ctx.state==="suspended") AUD.ctx.resume();
   var t=AUD.ctx.currentTime, was=AUD.gain.gain.value;

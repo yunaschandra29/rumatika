@@ -48,6 +48,11 @@ const [,, FILE, SHOT, POLA='00000000', SALAH=''] = process.argv;
       if (!shots['06-adegan'] && await p.evaluate(() => V && V.cast[0] && V.cast[1] && !V.typing)) await once('06-adegan');
       await p.click('#dlg'); continue;
     }
+    if (c === 'peta' && await p.evaluate(() => DRMODE) === 'menu') {
+      await once('07a-menu-utama');
+      for (let n = 0; n < 6 && (await p.evaluate(() => DRI)) !== 0; n++) await p.keyboard.press('ArrowDown');
+      await p.click('#gob'); continue;
+    }
     if (c === 'peta') {
       await once('07-episode');
       const i = await p.evaluate(() => { for (let i = 0; i < NB; i++) if (bukaKah(i) && S.bintang[i] < 0) return i; return -1; });
@@ -118,8 +123,9 @@ const [,, FILE, SHOT, POLA='00000000', SALAH=''] = process.argv;
   await p.evaluate(() => peta()); await shot('12-hp-mendatar-episode');
   await p.setViewportSize({ width: 400, height: 860 }); await shot('13-hp-tegak');
   await p.setViewportSize({ width: 1280, height: 720 });
-  await p.evaluate(() => galeri()); await shot('14-galeri');
-  await p.click('#galBox .gt >> nth=20'); await shot('15-galeri-lbx');
+  await p.evaluate(() => { RFT = 1; referensi(); }); await shot('14-galeri');
+  await p.click('#refBody .glt >> nth=20'); await shot('15-galeri-lbx');
+  await p.keyboard.press('Escape'); await p.evaluate(() => pengaturan()); await shot('16-pengaturan');
   console.log('langkah', langkah, 'error', err.length ? err : 'tidak ada');
   await b.close();
 })();

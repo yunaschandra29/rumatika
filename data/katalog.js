@@ -152,7 +152,7 @@ window.RUMATIKA_KATALOG = {
       simbol: "2x + 3y ≤ 12",
       url: "karya/fase-e/konsultan-muda/",
       sampul: "assets/img/konsultan-muda.webp",
-      ukuran: "9,6 MB",
+      ukuran: "9,5 MB",
       video: ""
     },
     {

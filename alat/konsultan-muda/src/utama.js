@@ -8,13 +8,13 @@ function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function rp(n){return "Rp"+String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,".");}
 
 /* ---------------- layar ---------------- */
-var SCREENS={home:"gsHome",mode:"gsMode",id:"gsId",tokoh:"gsTokoh",vn:"gsVN",peta:"gsPeta",pos:"gsPos",end:"gsEnd",gal:"gsGal"};
+var SCREENS={home:"gsHome",mode:"gsMode",id:"gsId",tokoh:"gsTokoh",vn:"gsVN",peta:"gsPeta",pos:"gsPos",end:"gsEnd",ref:"gsRef",prof:"gsProf",set:"gsSet"};
 var CUR="home";
 function show(k){
   $$(".scr").forEach(function(e){e.classList.remove("on");});
   var el=document.getElementById(SCREENS[k]||k); if(el) el.classList.add("on");
   CUR=k;
-  if(typeof AEL!=="undefined"&&AEL) lagu(k==="vn"||k==="pos"?"cerita":"menu");
+  if(typeof AEL!=="undefined"&&AEL&&setv("ikut")) lagu(k==="vn"||k==="pos"?"cerita":"menu");
 }
 document.addEventListener("click",function(e){
   var t=e.target.closest("[data-go]"); if(!t) return;
@@ -23,7 +23,7 @@ document.addEventListener("click",function(e){
 function go(k){
   if(k==="home") home();
   else if(k==="peta") peta();
-  else if(k==="gal") galeri();
+  else if(k==="menu") menuUtama();
   else show(k);
 }
 
@@ -109,8 +109,10 @@ function imgTokoh(id,pose,kelas){return '<img class="tk '+(kelas||"")+'" src="'+
 var KUNCI="konsultan_muda_v2";
 var NB=BERKAS.length, NAWAL=8;
 function baru(){return {v:2,mode:"mandiri",nama:"",kelas:"",anggota:[],tokoh:"nayla",bintang:BERKAS.map(function(){return -1;}),
-  catatan:{arsiran:0,garis:0,model:0,pojok:0,irisan:0,tafsir:0},dec:{},buka:0,prolog:false,ulangIntro:false,akhir:false};}
+  catatan:{arsiran:0,garis:0,model:0,pojok:0,irisan:0,tafsir:0},dec:{},buka:0,prolog:false,ulangIntro:false,akhir:false,set:{}};}
 var S=baru();
+var SET_DEF={spd:18,auto:2200,sfx:true,ikut:true,vol:0.4};
+function setv(k){ var o=S&&S.set||{}; return o[k]===undefined?SET_DEF[k]:o[k]; }
 function simpan(){try{localStorage.setItem(KUNCI,JSON.stringify(S));}catch(e){}}
 function muat(){try{var t=localStorage.getItem(KUNCI); if(!t) return false; var o=JSON.parse(t);
   if(!o||o.v!==2) return false; var d=baru(); for(var k in d) if(o[k]!==undefined) d[k]=o[k]; S=d; return true;}catch(e){return false;}}
@@ -149,10 +151,9 @@ function home(){
   function tb(teks,kelas,fn){ var b=document.createElement("button"); b.className="btn "+(kelas||""); b.textContent=teks;
     b.addEventListener("click",fn); r.appendChild(b); }
   if(ada&&muat()&&S.nama){
-    tb("Lanjutkan sebagai "+S.nama+(S.mode==="kelompok"?" ("+S.anggota.length+" orang)":""),"",function(){ sfx("ok"); if(!S.prolog) prolog(); else peta(); });
-    tb("Mulai baru","gh",function(){ S=baru(); simpan(); pilihMode(); });
+    tb("Lanjutkan sebagai "+S.nama+(S.mode==="kelompok"?" ("+S.anggota.length+" orang)":""),"",function(){ sfx("ok"); if(!S.prolog) prolog(); else menuUtama(); });
+    tb("Mulai baru","gh",function(){ var st=S.set; S=baru(); S.set=st||{}; DRIX={menu:0,ep:null}; simpan(); pilihMode(); });
   } else tb("Buka klinik","",function(){ sfx("ok"); pilihMode(); });
-  tb("Galeri aset","gh",function(){ galeri(); });
 }
 function pilihMode(){ show("mode"); }
 $("#modeGrid").addEventListener("click",function(e){
@@ -209,11 +210,11 @@ function pilihTokoh(){
   TOKOH.forEach(function(t){
     var b=document.createElement("button"); b.className="tokohCard"+(S.tokoh===t.id?" pilih":"");
     b.innerHTML='<img class="tk" src="'+spSrc(t.id,"berdiri")+'" alt=""><div class="nm disp">'+t.nm+'</div><div class="ds">'+t.ds+'</div>';
-    b.addEventListener("click",function(){ S.tokoh=t.id; simpan(); sfx("ok"); prolog(); });
+    b.addEventListener("click",function(){ S.tokoh=t.id; simpan(); sfx("ok"); if(S.prolog) menuUtama(); else prolog(); });
     g.appendChild(b);
   });
 }
-function prolog(){ vn(PROLOG,function(){ S.prolog=true; simpan(); DRI=null; peta(); },{back:false}); }
+function prolog(){ vn(PROLOG,function(){ S.prolog=true; simpan(); DRIX.ep=null; DRIX.menu=0; menuUtama(); },{back:false}); }
 
 /* ============================================================
    MESIN NOVEL VISUAL
@@ -342,7 +343,7 @@ function ketik(t){
     if(V!==v||v.tm!==id){ clearInterval(id); return; }
     i+=1; el.textContent=t.slice(0,i);
     if(i>=t.length){ clearInterval(id); v.tm=null; v.typing=false; d.classList.remove("typ"); jadwalAuto(v); }
-  },18);
+  },setv("spd"));
   v.tm=id;
 }
 function selesaiKetik(){
@@ -350,7 +351,7 @@ function selesaiKetik(){
 }
 function jadwalAuto(v){
   if(!v.auto) return; clearTimeout(v.at); var s=v.i;
-  v.at=setTimeout(function(){ if(V===v&&v.i===s&&!v.busy&&!v.typing) adv(); },2200);
+  v.at=setTimeout(function(){ if(V===v&&v.i===s&&!v.busy&&!v.typing) adv(); },setv("auto"));
 }
 function buka(h){ var o=$("#vov"); o.innerHTML=h; o.classList.add("on"); return o; }
 function tutup(lanjut){
@@ -492,7 +493,7 @@ function selesaiBerkas(i,R0){
   if(S.bintang[i]<0||b>S.bintang[i]) S.bintang[i]=b;
   if(i===S.buka&&S.buka<NB) S.buka=i+1;
   if(i===NAWAL) S.ulangIntro=true;
-  simpan(); DRI=null;
+  simpan(); DRIX.ep=null;
   var R1=nilaiRJ(), nx=i+1;
   var bag=[["kep","Kepercayaan"],["int","Integritas"]].map(function(p){
     var d=R1[p[0]]-(R0?R0[p[0]]:R1[p[0]]);
@@ -530,36 +531,69 @@ function laporanMingguan(){
 /* ============================================================
    DAFTAR EPISODE
    ============================================================ */
-var DRI=null;
+/* menu bergulir dipakai dua kali: Menu Utama dan Daftar Episode */
+var DRMODE="menu", DRIX={menu:0,ep:null}, DRI=0;
 function bukaKah(i){ return i<=S.buka; }
 function semuaSelesai(){ return S.bintang.every(function(x){return x>=0;}); }
 var WARNA_EP={p:"#3f9f7a",b1:"#2f90d8",b2:"#d8892f",e:"#8f6ad8"};
-function daftarDrum(){
+var IKON={
+ main:'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>',
+ ref:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2z"/><path d="M8 7h8M8 11h6"/></svg>',
+ profil:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+ set:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>'
+};
+function daftarMenu(){
+  var R=nilaiRJ(), nx=-1; for(var i=0;i<NB;i++){ if(bukaKah(i)&&S.bintang[i]<0){ nx=i; break; } }
+  return [
+   {k:"main",l:"Main",ic:IKON.main,c:"#d8892f",sub:"Prolog, 11 episode, dan epilog",sp:["p","yakin"],bg:"klinik",
+    j:"Main",g:"Menu utama",kl:R.sel+" dari "+NB+" episode selesai",
+    d:"Lanjutkan cerita di Klinik Usaha. Pilih episode, bantu klien menyusun model, lalu ambil keputusan yang jujur.",
+    st:nx>=0?"Berikutnya: <b>Episode "+(nx+1)+" · "+esc(EPS[nx].j)+"</b>":(S.akhir?"Semua episode dan epilog selesai.":"Epilog sudah terbuka."),btn:"Buka daftar episode"},
+   {k:"ref",l:"Referensi",ic:IKON.ref,c:"#7a4fb0",sub:"Sumber dan galeri aset",sp:["hadi","jelaskan"],bg:"sampul",
+    j:"Referensi",g:"Menu utama",kl:"Sumber belajar dan ilustrasi",
+    d:"Acuan kurikulum, buku rujukan, catatan tentang angka di dalam gim, serta galeri 50 ilustrasi lengkap dengan prompt pembuatnya.",
+    st:"",btn:"Buka referensi"},
+   {k:"profil",l:"Profil Pengembang",ic:IKON.profil,c:"#c0443c",sub:"Founder Rumatika",sp:["hadi","senang"],bg:"end_hh",
+    j:"Profil Pengembang",g:"Menu utama",kl:"Yunas Chandra Perdana, M.Pd.",
+    d:"Siapa yang membuat Konsultan Muda, tentang karya ini, dan cara menghubungi pengembangnya.",st:"",btn:"Buka profil"},
+   {k:"set",l:"Pengaturan",ic:IKON.set,c:"#3f9f7a",sub:"Musik, teks, identitas, data",sp:["raka","santai"],bg:"end_lh",
+    j:"Pengaturan",g:"Menu utama",kl:"Atur sesuai kelasmu",
+    d:"Pilih musik latar dan volumenya, atur kecepatan teks dan mode otomatis, ubah identitas, atau mulai dari awal.",st:"",btn:"Buka pengaturan"}
+  ];
+}
+function daftarEpisode(){
   var R=nilaiRJ(), L=[{k:"prolog",l:"Prolog",ic:"P",c:WARNA_EP.p,sub:"Klinik Usaha · Pak Hadi",sp:["hadi","sapa"],bg:"klinik",
-    j:"Klinik Usaha Dibuka",g:"Pembuka",kl:"Pak Hadi dan Raka",d:"Perkenalan dengan Klinik Usaha dan tiga catatan rekam jejak konsultan.",st:"Bisa diputar ulang kapan saja."}];
+    j:"Klinik Usaha Dibuka",g:"Pembuka",kl:"Pak Hadi dan Raka",d:"Perkenalan dengan Klinik Usaha dan tiga catatan rekam jejak konsultan.",st:"Bisa diputar ulang kapan saja.",btn:"Putar prolog"}];
   BERKAS.forEach(function(B,i){
     var dn=S.bintang[i]>=0, lk=!bukaKah(i), g=i<NAWAL?BAGIAN[0]:BAGIAN[1];
     L.push({k:i,l:"Episode "+(i+1),ic:String(i+1),c:i<NAWAL?WARNA_EP.b1:WARNA_EP.b2,sub:EPS[i].j+" · "+NM[B.klien],
       sp:[B.klien,dn?"lega":"bingung"],bg:B.scn,j:EPS[i].j,g:g.n+" · "+g.t,kl:B.nama,d:EPS[i].l,
       dn:dn,lk:lk,st:dn?'Bintang terbaik: <b>'+"★".repeat(S.bintang[i])+"☆".repeat(3-S.bintang[i])+'</b>':"Belum dimainkan.",
-      msg:i===NAWAL?"Selesaikan Bagian 1 (Episode 1–8) dulu.":"Selesaikan Episode "+i+" dulu."});
+      msg:i===NAWAL?"Selesaikan Bagian 1 (Episode 1–8) dulu.":"Selesaikan Episode "+i+" dulu.",btn:(dn?"Main ulang ":"Mulai ")+"Episode "+(i+1)});
   });
   var bisa=semuaSelesai();
   L.push({k:"epilog",l:"Epilog",ic:"E",c:WARNA_EP.e,sub:EPILOG.j,sp:["hadi","senang"],bg:S.akhir?ENDS[kunciAkhir(R)].sc:"klinik",
-    j:EPILOG.j,g:"Penutup",kl:"Pak Hadi",d:EPILOG.l,dn:S.akhir,lk:!bisa,st:S.akhir?"Akhir cerita: <b>"+ENDS[kunciAkhir(R)].n+"</b>":"Terbuka setelah semua episode selesai.",msg:"Selesaikan semua episode dulu."});
+    j:EPILOG.j,g:"Penutup",kl:"Pak Hadi",d:EPILOG.l,dn:S.akhir,lk:!bisa,st:S.akhir?"Akhir cerita: <b>"+ENDS[kunciAkhir(R)].n+"</b>":"Terbuka setelah semua episode selesai.",
+    msg:"Selesaikan semua episode dulu.",btn:S.akhir?"Lihat akhir cerita":"Buka epilog"});
   return L;
 }
-function peta(){
-  V=null; show("peta");
+function menuUtama(){ V=null; DRMODE="menu"; tampilDrum(daftarMenu(),"Menu Utama","Gulir, geser, atau tekan tombol panah untuk memilih menu."); }
+function peta(){ V=null; DRMODE="ep"; tampilDrum(daftarEpisode(),"Daftar Episode","Gulir, geser, atau tekan tombol panah untuk memilih episode."); }
+function tampilDrum(L,judul,petunjuk){
+  show("peta");
+  $("#drTtl").textContent=judul;
+  $("#drBack").title=DRMODE==="ep"?"Kembali ke Menu Utama":"Kembali ke sampul";
   $("#petaBg").style.backgroundImage='url("'+bgSrc("klinik")+'")';
   var R=nilaiRJ();
   $("#petaMeter").innerHTML=meterHTML(R);
   $("#petaSub").textContent=(S.nama||"Konsultan")+" · "+R.sel+" dari "+NB+" episode selesai";
   $("#petaBintang").textContent="★ "+R.bin+" / "+(NB*3);
-  var L=daftarDrum();
-  if(DRI==null||DRI>=L.length){ DRI=1; for(var i=0;i<NB;i++){ if(bukaKah(i)&&S.bintang[i]<0){ DRI=i+1; break; } } if(semuaSelesai()) DRI=L.length-1; }
   var N=L.length;
-  $("#drum").innerHTML='<div class="drh">Gulir, geser, atau tekan tombol panah untuk memilih episode.</div><div class="mndots" style="top:'+(29.2+3.6-N*0.65)+'cqw">'+L.map(function(m,i){return '<i data-d="'+i+'"></i>';}).join("")+'</div>'+
+  if(DRMODE==="ep"&&(DRIX.ep==null||DRIX.ep>=N)){
+    var t=1; for(var i=0;i<NB;i++){ if(bukaKah(i)&&S.bintang[i]<0){ t=i+1; break; } } if(semuaSelesai()) t=N-1; DRIX.ep=t;
+  }
+  DRI=Math.min(DRIX[DRMODE]||0,N-1);
+  $("#drum").innerHTML='<div class="drh">'+petunjuk+'</div><div class="mndots" style="top:'+(29.2+3.6-N*0.65)+'cqw">'+L.map(function(m,i){return '<i data-d="'+i+'"></i>';}).join("")+'</div>'+
     L.map(function(m,i){
       return '<button class="it'+(m.lk?' lk':'')+'" data-it="'+i+'" style="--c:'+m.c+'"><span class="itc">'+m.ic+'</span>'+
         '<span class="itl"><b>'+esc(m.l)+'</b><small>'+esc(m.sub)+'</small></span><span class="ar">'+(m.lk?"Terkunci":m.dn?"Selesai":"›")+'</span></button>';
@@ -569,6 +603,7 @@ function peta(){
 var DRUM=[], DRS=null, DRT=0, DRSKIP=false;
 function dpos(awal){
   var L=DRUM, N=L.length, h=Math.floor(N/2);
+  DRIX[DRMODE]=DRI;
   L.forEach(function(m,i){
     var e=$('[data-it="'+i+'"]'), rel=((i-DRI+h+N)%N)-h, a=Math.abs(rel), sel=rel===0;
     e.style.top=(29.2+rel*8.125)+"cqw"; e.style.left=(5.5-Math.min(a,3)*1.4)+"cqw";
@@ -579,9 +614,8 @@ function dpos(awal){
   });
   var m=L[DRI];
   $("#mni").innerHTML='<div class="eyebrow">'+esc(m.g)+'</div><h3>'+esc(m.j)+'</h3><div class="kl">'+esc(m.kl)+'</div><p>'+esc(m.d)+'</p>'+
-    (m.lk?'<div class="lkm">'+esc(m.msg)+'</div>':'<div class="stt">'+m.st+'</div>');
-  var g=$("#gob"); g.textContent=m.lk?"Terkunci":(m.k==="prolog"?"Putar prolog":m.k==="epilog"?(m.dn?"Lihat akhir cerita":"Buka epilog"):(m.dn?"Main ulang ":"Mulai ")+m.l);
-  g.classList.toggle("dis",!!m.lk);
+    (m.lk?'<div class="lkm">'+esc(m.msg)+'</div>':(m.st?'<div class="stt">'+m.st+'</div>':''));
+  var g=$("#gob"); g.textContent=m.lk?"Terkunci":m.btn; g.classList.toggle("dis",!!m.lk);
   var bg=$("#ekBg"), src='url("'+bgSrc(m.bg)+'")';
   if(bg.style.backgroundImage!==src){ if(awal){ bg.style.backgroundImage=src; } else { bg.classList.add("ganti"); setTimeout(function(){ bg.style.backgroundImage=src; bg.classList.remove("ganti"); },180); } }
   var sp=$("#ekSp"); sp.classList.toggle("kunci",!!m.lk); sp.classList.remove("masuk"); void sp.offsetWidth;
@@ -592,15 +626,18 @@ function dopen(){
   var m=DRUM[DRI]; if(!m) return;
   if(m.lk){ sfx("no"); toast(m.msg); return; }
   sfx("ok");
+  if(DRMODE==="menu"){ ({main:peta,ref:referensi,profil:profilPengembang,set:pengaturan})[m.k](); return; }
   if(m.k==="prolog"){ vn(PROLOG,function(){ peta(); },{back:true}); return; }
   if(m.k==="epilog"){ if(S.akhir) akhir(); else laporanMingguan(); return; }
   mulaiBerkas(m.k);
 }
+function drumKembali(){ sfx("tap"); if(DRMODE==="ep") menuUtama(); else home(); }
 $("#drum").addEventListener("click",function(e){
   var b=e.target.closest("[data-it]"); if(!b||DRSKIP) return; var i=+b.getAttribute("data-it");
   if(i===DRI) dopen(); else { DRI=i; sfx("tap"); dpos(); }
 });
 $("#gob").addEventListener("click",function(){ dopen(); });
+$("#drBack").addEventListener("click",drumKembali);
 $("#gsPeta").addEventListener("wheel",function(e){ e.preventDefault(); if(Date.now()-DRT>250){ DRT=Date.now(); dmv(e.deltaY>0?1:-1); } },{passive:false});
 $("#gsPeta").addEventListener("pointerdown",function(e){ DRS=e.clientY; DRSKIP=false; });
 $("#gsPeta").addEventListener("pointerup",function(e){
@@ -609,12 +646,15 @@ $("#gsPeta").addEventListener("pointerup",function(e){
   if(Math.abs(d)>40*skala){ DRSKIP=true; dmv(d<0?1:-1); setTimeout(function(){ DRSKIP=false; },80); }
 });
 document.addEventListener("keydown",function(e){
-  if(CUR!=="peta"||e.target.closest("input,textarea")) return;
+  if(e.target.closest("input,textarea")) return;
+  if(e.key==="Escape"&&$("#lbx").classList.contains("on")){ $("#lbx").classList.remove("on"); $("#lbx").innerHTML=""; return; }
+  if(e.key==="Escape"&&(CUR==="ref"||CUR==="prof"||CUR==="set")){ menuUtama(); return; }
+  if(CUR!=="peta") return;
   if(e.key==="ArrowDown"){ e.preventDefault(); dmv(1); }
   else if(e.key==="ArrowUp"){ e.preventDefault(); dmv(-1); }
+  else if(e.key==="Escape"){ e.preventDefault(); drumKembali(); }
   else if(e.key==="Enter"&&!e.target.closest(".icb")){ e.preventDefault(); dopen(); }
 });
-$("#petaHome").addEventListener("click",function(){ home(); });
 
 /* ============================================================
    AKHIR CERITA
@@ -642,62 +682,176 @@ function akhir(){
     (lemah?'<div class="note warn">Kekeliruan yang paling sering muncul: <b>'+nama[lemah]+'</b> ('+n+' kali). Ketepatan '+R.tepat+' dihitung dari '+R.bin+' dari '+(NB*3)+' bintang.</div>'
           :'<div class="note ok">Semua tahap dilewati tanpa satu pun kesimpulan yang meleset. Ketepatan '+R.tepat+' dari '+R.bin+' bintang.</div>')+
     '<div style="display:flex;gap:1cqw;flex-wrap:wrap">'+
-    '<button class="btn" id="endUlang">Buka klinik lagi</button><button class="btn gh" data-go="peta">Daftar episode</button></div>';
+    '<button class="btn" id="endUlang">Buka klinik lagi</button><button class="btn gh" data-go="peta">Daftar episode</button><button class="btn gh" data-go="menu">Menu utama</button></div>';
   $("#endUlang").addEventListener("click",function(){
-    var nm=S.nama,kl=S.kelas,tk=S.tokoh,md=S.mode,ag=S.anggota; S=baru(); S.nama=nm; S.kelas=kl; S.tokoh=tk; S.mode=md; S.anggota=ag; S.prolog=true; simpan(); peta();
+    var nm=S.nama,kl=S.kelas,tk=S.tokoh,md=S.mode,ag=S.anggota,st=S.set; S=baru(); S.nama=nm; S.kelas=kl; S.tokoh=tk; S.mode=md; S.anggota=ag; S.prolog=true; S.set=st; DRIX.ep=null; simpan(); peta();
   });
   sfx("win");
 }
 
 /* ============================================================
-   GALERI ASET
+   REFERENSI
    ============================================================ */
-var GALF="Semua";
 function galSrc(a){ if(a.jenis==="bg") return bgSrc(a.k); var i=a.k.lastIndexOf("_"); var k=a.k.slice(0,i),p=a.k.slice(i+1);
   return ASSET.sp[a.k]||phSp(k,p); }
 function adaAset(a){ return a.jenis==="bg"?!!ASSET.bg[a.k]:!!ASSET.sp[a.k]; }
-function galeri(){
-  show("gal");
-  var grup=["Semua","Halaman","Latar","Akhir","Tokoh","Klien","Musik"];
-  $("#galF").innerHTML=grup.map(function(g){ return '<button class="btn gh sm'+(g===GALF?" on":"")+'" data-f="'+g+'">'+g+'</button>'; }).join("");
-  var item=GALF==="Musik"?[]:ASETDAF.aset.filter(function(a){ return GALF==="Semua"||a.g===GALF; });
-  var h=item.map(function(a){
-    var i=ASETDAF.aset.indexOf(a);
-    return '<button class="gt" data-g="'+i+'" style="font:inherit;color:inherit;text-align:left;cursor:pointer">'+
-      '<div class="im '+(a.jenis==="sp"?"sp":"")+'" style="background-image:url(&quot;'+galSrc(a)+'&quot;)"></div>'+
-      '<b>'+esc(a.t)+'</b><code>'+esc(a.berkas)+' · '+a.sz+'</code>'+
-      '<span class="st '+(adaAset(a)?"ada":"belum")+'">'+(adaAset(a)?"Sudah ada":"Belum dibuat")+'</span></button>';
-  }).join("");
-  if(GALF==="Semua"||GALF==="Musik") h+=Object.keys(ASETDAF.musik).map(function(k){
-    return '<button class="gt" data-m="'+k+'" style="font:inherit;color:inherit;text-align:left;cursor:pointer">'+
-      '<div class="im" style="display:flex;align-items:center;justify-content:center;font-size:3cqw;color:#f0b64b">♪</div>'+
-      '<b>Musik '+k+'</b><code>musik_'+k+'.mp3</code><span class="st '+(ASSET.mus[k]?"ada":"belum")+'">'+(ASSET.mus[k]?"Sudah ada":"Belum dibuat (musik sintesis dipakai)")+'</span></button>';
-  }).join("");
-  $("#galBox").innerHTML=h;
+var RFT=0, LBL=[];
+function referensi(){
+  show("ref"); $("#refBg").style.backgroundImage='url("'+bgSrc("sampul")+'")';
+  $("#refTab").innerHTML=["Sumber","Galeri Aset"].map(function(t,i){ return '<button data-t="'+i+'" class="'+(i===RFT?"on":"")+'">'+t+'</button>'; }).join("");
+  var B=$("#refBody"); B.scrollTop=0;
+  if(RFT===0){
+    B.className="panel gl rfl";
+    B.innerHTML='<ol>'+
+      '<li>Badan Standar, Kurikulum, dan Asesmen Pendidikan. (2024). <i>Keputusan Kepala BSKAP Nomor 032/H/KR/2024 tentang Capaian Pembelajaran pada Pendidikan Anak Usia Dini, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah pada Kurikulum Merdeka</i>. Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi.'+
+        '<small>Acuan elemen Aljabar dan Fungsi Fase E: sistem pertidaksamaan linear dua variabel.</small></li>'+
+      '<li>Susanto, D., dkk. (2021). <i>Matematika untuk SMA/SMK Kelas X</i>. Pusat Kurikulum dan Perbukuan, Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi.'+
+        '<small>Rujukan materi sistem pertidaksamaan linear: model, daerah penyelesaian, dan penafsirannya.</small></li>'+
+      '<li>Rumatika. (2026). <i>RPP dan LKPD Konsultan Muda: Klinik Usaha</i>.'+
+        '<small>Acuan alur kegiatan kelas, pembagian peran kelompok, dan lembar kerja yang menyertai gim ini.</small></li>'+
+      '</ol>'+
+      '<div class="note"><b>Tentang angka di dalam gim</b><p>Nama usaha, tokoh, harga, dan batasan di setiap episode adalah ilustrasi yang disusun agar soalnya masuk akal. Angka itu bukan data usaha yang sebenarnya.</p></div>'+
+      '<div class="note"><b>Ilustrasi dan musik</b><p>Semua latar dan tokoh bergaya tanah liat tiga dimensi dibuat dengan bantuan kecerdasan buatan. Prompt setiap gambar bisa dilihat dan disalin di tab Galeri Aset. Musik latar berupa dua lagu instrumental, Golden Hour dan Curious Focus.</p></div>';
+  } else {
+    B.className="panel gl";
+    LBL=[];
+    var grup=[["Halaman","Sampul gim"],["Latar","Tempat usaha setiap episode"],["Akhir","Empat akhir cerita"],["Tokoh","Pemain, Pak Hadi, dan Raka"],["Klien","Para pelaku usaha"]];
+    var h=grup.map(function(g){
+      var it=ASETDAF.aset.filter(function(a){ return a.g===g[0]; }); if(!it.length) return "";
+      var sp=it[0].jenis==="sp";
+      return '<div class="glh">'+g[0]+'<small>'+g[1]+' · '+it.length+' gambar</small></div><div class="glg'+(sp?" sp":"")+'">'+
+        it.map(function(a){ var n=LBL.length; LBL.push({src:galSrc(a),t:a.t,sub:a.berkas+" · "+a.sz,p:a.p,sp:sp});
+          return '<button class="glt" data-l="'+n+'"><div class="im" style="background-image:url(&quot;'+galSrc(a)+'&quot;)"></div><span>'+esc(a.t)+'</span></button>'; }).join("")+'</div>';
+    }).join("");
+    var mk=Object.keys(ASETDAF.musik);
+    h+='<div class="glh">Musik<small>Instrumental, diputar berulang · '+mk.length+' lagu</small></div><div class="glg">'+
+      mk.map(function(k){ var n=LBL.length, I=LAGU_INFO[k]||{n:k,d:""}; LBL.push({src:"",t:"Musik: "+I.n,sub:"musik_"+k+".mp3 · "+I.d,p:ASETDAF.musik[k],sp:false});
+        return '<button class="glt" data-l="'+n+'"><div class="im" style="display:grid;place-items:center;font-size:3cqw;color:#f0b64b">♪</div><span>'+esc(I.n)+'</span></button>'; }).join("")+'</div>';
+    B.innerHTML=h;
+  }
 }
-$("#galF").addEventListener("click",function(e){ var b=e.target.closest("[data-f]"); if(!b) return; GALF=b.getAttribute("data-f"); galeri(); });
-$("#galBox").addEventListener("click",function(e){
-  var g=e.target.closest("[data-g]"), m=e.target.closest("[data-m]");
-  if(g){ var a=ASETDAF.aset[+g.getAttribute("data-g")]; lbx(galSrc(a),a.t,a.berkas+" · "+a.sz,a.p,a.jenis==="sp"); }
-  if(m){ var k=m.getAttribute("data-m"); lbx("","Musik "+k,"musik_"+k+".mp3 · instrumental, bisa diulang",ASETDAF.musik[k]); }
-});
-function lbx(src,t,sub,p,sp){
-  var L=$("#lbx");
-  L.innerHTML='<div class="in gl"><div class="pv" style="'+(src?'background-image:url(&quot;'+src+'&quot;)':'')+(sp?';background-color:#13213f':'')+'"></div>'+
-    '<div style="display:flex;flex-direction:column;gap:.8cqw;min-height:0"><div class="h3">'+esc(t)+'</div><code style="color:#9db2d2;font-size:1.15cqw">'+esc(sub)+'</code>'+
-    '<pre id="lbxP">'+esc(p)+'</pre><div style="display:flex;gap:1cqw"><button class="btn" id="lbxC">Salin prompt</button><button class="btn gh" id="lbxX">Tutup</button></div></div></div>';
+$("#refTab").addEventListener("click",function(e){ var b=e.target.closest("[data-t]"); if(!b) return; RFT=+b.getAttribute("data-t"); sfx("tap"); referensi(); });
+$("#refBody").addEventListener("click",function(e){ var b=e.target.closest("[data-l]"); if(b) lbxBuka(+b.getAttribute("data-l")); });
+var LBI=0;
+function lbxBuka(n){
+  LBI=(n+LBL.length)%LBL.length; var a=LBL[LBI], L=$("#lbx");
+  L.innerHTML='<div class="in gl"><div class="pv" style="'+(a.src?'background-image:url(&quot;'+a.src+'&quot;)':'display:grid;place-items:center;font-size:8cqw;color:#f0b64b')+(a.sp?';background-color:#13213f':'')+'">'+(a.src?'':'♪')+'</div>'+
+    '<div style="display:flex;flex-direction:column;gap:.8cqw;min-height:0"><div class="h3">'+esc(a.t)+'</div><code style="color:#9db2d2;font-size:1.15cqw">'+esc(a.sub)+'</code>'+
+    '<pre>'+esc(a.p)+'</pre><div style="display:flex;gap:1cqw;align-items:center"><button class="btn sm" id="lbxC" style="white-space:nowrap">Salin prompt</button><button class="btn gh sm" id="lbxX">Tutup</button>'+
+    '<div class="nav"><button class="btn gh sm" id="lbxP">‹</button><span style="white-space:nowrap">'+(LBI+1)+' / '+LBL.length+'</span><button class="btn gh sm" id="lbxN">›</button></div></div></div></div>';
   L.classList.add("on");
-  $("#lbxX").onclick=function(){ L.classList.remove("on"); L.innerHTML=""; };
-  $("#lbxC").onclick=function(){ salin(p); toast("Prompt disalin"); };
+  $("#lbxX").onclick=lbxTutup;
+  $("#lbxC").onclick=function(){ salin(a.p); toast("Prompt disalin"); };
+  $("#lbxP").onclick=function(){ lbxBuka(LBI-1); };
+  $("#lbxN").onclick=function(){ lbxBuka(LBI+1); };
 }
+function lbxTutup(){ var L=$("#lbx"); L.classList.remove("on"); L.innerHTML=""; }
+$("#lbx").addEventListener("click",function(e){ if(e.target===this) lbxTutup(); });
+document.addEventListener("keydown",function(e){
+  if(!$("#lbx").classList.contains("on")) return;
+  if(e.key==="ArrowRight"){ e.preventDefault(); lbxBuka(LBI+1); }
+  else if(e.key==="ArrowLeft"){ e.preventDefault(); lbxBuka(LBI-1); }
+});
 function salin(t){
   function cad(){ var a=document.createElement("textarea"); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(a); }
   try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).catch(cad); else cad(); }catch(e){ cad(); }
 }
 
+/* ============================================================
+   PROFIL PENGEMBANG
+   ============================================================ */
+function profilPengembang(){
+  show("prof"); $("#profBg").style.backgroundImage='url("'+bgSrc("klinik")+'")';
+  var kel=S.mode==="kelompok", tk=(TOKOH.filter(function(t){ return t.id===S.tokoh; })[0]||{nm:"-"}).nm;
+  $("#profBody").innerHTML=
+    '<div class="gl pc pdev" style="justify-content:center"><div class="avat">YC</div><div class="lb">PENGEMBANG</div>'+
+      '<h2 class="disp">Yunas Chandra Perdana, M.Pd.</h2><div class="rl">Founder Rumatika</div>'+
+      '<dl><dt>Unit Kerja</dt><dd>SMPIT–SMAIT Nurul Ilmi</dd><dt>Email</dt><dd>yunaschandra29@gmail.com</dd><dt>Situs</dt><dd>rumatika.yunaschandra29.workers.dev</dd></dl></div>'+
+    '<div class="gl pc"><div class="lb">TENTANG KARYA</div><h3 class="disp">Konsultan Muda: Klinik Usaha</h3>'+
+      '<p>Gim novel visual Matematika Fase E tentang sistem pertidaksamaan linear dua variabel. Pemain menjadi konsultan muda yang menerjemahkan keluhan pelaku usaha menjadi model, wilayah penyelesaian, dan keputusan.</p>'+
+      '<p style="color:#9db2d2">11 episode · 2 bagian · 4 akhir cerita · Versi 2 · November 2026. Bagian dari koleksi Rumatika.</p></div>'+
+    '<div class="gl pc"><div class="lb">PEMAIN</div><h3 class="disp">'+esc(S.nama||"Belum diisi")+'</h3>'+
+      '<p>Kelas '+esc(S.kelas||"-")+' · Mode '+(kel?"kelompok":"mandiri")+' · Tokoh '+esc(tk)+'</p>'+
+      (kel&&S.anggota.length?'<p style="color:#9db2d2">Anggota: '+S.anggota.map(esc).join(", ")+'</p>':'')+
+      '<div class="row"><button class="btn gh sm" id="profUbah">Ubah identitas</button></div></div>';
+  $("#profUbah").onclick=function(){ sfx("ok"); pilihMode(); };
+}
+
+/* ============================================================
+   PENGATURAN
+   ============================================================ */
+var LAGU_INFO={menu:{n:"Golden Hour",d:"Menu dan layar akhir"},cerita:{n:"Curious Focus",d:"Adegan cerita dan meja kerja"}};
+var SET_TM=null;
+function setSimpan(k,v){ S.set=S.set||{}; S.set[k]=v; simpan(); }
+function mmss(s){ s=Math.max(0,Math.floor(s||0)); return Math.floor(s/60)+":"+("0"+s%60).slice(-2); }
+function pengaturan(){
+  show("set"); $("#setBg").style.backgroundImage='url("'+bgSrc("klinik")+'")';
+  var R=nilaiRJ(), b1=0, b2=0; S.bintang.forEach(function(x,i){ if(x>=0){ if(i<NAWAL) b1++; else b2++; } });
+  function ring(nil,maks,lab,sub,war){ var p=maks?Math.round(nil/maks*100):0;
+    return '<div class="mc"><div class="rg" style="background:conic-gradient('+war+' '+p+'%,rgba(255,255,255,.12) 0)"><span>'+(maks===100?nil:nil+"/"+maks)+'</span></div><b>'+lab+'</b><small>'+sub+'</small></div>'; }
+  function seg(k,pil){ return '<div style="display:flex;gap:.5cqw">'+pil.map(function(o){ return '<button class="sg'+(setv(k)===o[1]?" on":"")+'" data-s="'+k+'" data-v="'+o[1]+'">'+o[0]+'</button>'; }).join("")+'</div>'; }
+  var mk=Object.keys(LAGU), adaLagu=!!AEL&&mk.length;
+  $("#setBody").innerHTML=
+    '<div class="pc smus"><div class="cv" id="cv"><i style="height:45%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:95%"></i><i style="height:50%"></i><i style="height:70%"></i></div>'+
+      '<div class="lb">MUSIK LATAR</div><div class="tkn disp" id="tkn"></div><div class="tkd" id="tkd"></div>'+
+      (adaLagu?'<div class="mprog"><span id="mt0">0:00</span><div><i id="mpf"></i></div><span id="mtd">0:00</span></div>'+
+        '<div class="mctl"><button class="sg" id="mPrev" title="Lagu sebelumnya">‹</button><button class="play" id="mPlay"></button><button class="sg" id="mNext" title="Lagu berikutnya">›</button></div>'+
+        '<label class="vol"><span>Volume</span><input type="range" id="mVol" min="0" max="100" value="'+Math.round(setv("vol")*100)+'"></label>'+
+        '<div style="display:flex;flex-direction:column;gap:.3cqw">'+mk.map(function(k){ var I=LAGU_INFO[k]||{n:k,d:""}; return '<button class="trk" data-k="'+k+'"><b>'+esc(I.n)+'</b><small>'+esc(I.d)+'</small></button>'; }).join("")+'</div>'
+        :'<p class="fl">Berkas musik tidak tersedia; tombol musik memakai nada sintesis.</p><div class="mctl"><button class="play" id="mPlay"></button></div>')+
+      '<div class="srow" style="margin-top:auto"><span>Ganti lagu otomatis (menu/cerita)</span>'+seg("ikut",[["Ya",true],["Tidak",false]])+'</div>'+
+      '<div class="srow"><span>Efek suara</span>'+seg("sfx",[["Ya",true],["Tidak",false]])+'</div></div>'+
+    '<div class="pc" style="grid-column:2 / span 2"><div class="lb">PROGRES</div><div class="pg5">'+
+      ring(b1,NAWAL,"Bagian 1","Episode 1–8","#2f90d8")+ring(b2,NB-NAWAL,"Bagian 2","Episode 9–11","#d8892f")+
+      ring(R.tepat,100,"Ketepatan",R.bin+" dari "+(NB*3)+" bintang","#f0b64b")+ring(R.kep,100,"Kepercayaan","Rekam jejak klien","#3f9f7a")+ring(R.int,100,"Integritas","Kejujuran keputusan","#8f6ad8")+'</div></div>'+
+    '<div class="pc"><div class="lb">PROFIL SISWA</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9cqw"><label><div class="fl">'+(S.mode==="kelompok"?"Nama tim":"Nama")+'</div><input type="text" id="sNama" maxlength="40" value="'+esc(S.nama)+'"></label>'+
+      '<label><div class="fl">Kelas</div><input type="text" id="sKelas" maxlength="20" value="'+esc(S.kelas)+'"></label></div>'+
+      '<div class="srow"><span>Tokoh</span><div style="display:flex;gap:.5cqw">'+TOKOH.map(function(t){ return '<button class="sg'+(S.tokoh===t.id?" on":"")+'" data-tk="'+t.id+'">'+esc(t.nm)+'</button>'; }).join("")+'</div></div>'+
+      '<div class="srow"><span>Kecepatan teks</span>'+seg("spd",[["Lambat",40],["Normal",18],["Cepat",7]])+'</div>'+
+      '<div class="srow"><span>Jeda mode otomatis</span>'+seg("auto",[["Lambat",3800],["Normal",2200],["Cepat",1300]])+'</div>'+
+      '<div class="row"><button class="btn gh sm" id="sMode">Ubah mode dan anggota</button></div></div>'+
+    '<div class="pc"><div class="lb">MULAI DARI AWAL</div><p>Menghapus nama, bintang, keputusan, dan akhir cerita yang tersimpan di perangkat ini. Pengaturan musik dan teks juga kembali ke awal.</p>'+
+      '<button class="rstb" id="sReset">Hapus progres</button></div>';
+  var bd=$("#setBody");
+  bd.querySelectorAll("[data-s]").forEach(function(b){ b.onclick=function(){
+    var k=b.getAttribute("data-s"), v=b.getAttribute("data-v"); v=v==="true"?true:v==="false"?false:+v;
+    setSimpan(k,v); sfx("tap"); if(k==="ikut"&&v) lagu(CUR==="vn"||CUR==="pos"?"cerita":"menu"); pengaturan(); }; });
+  bd.querySelectorAll("[data-tk]").forEach(function(b){ b.onclick=function(){ S.tokoh=b.getAttribute("data-tk"); simpan(); sfx("tap"); pengaturan(); }; });
+  bd.querySelectorAll("[data-k]").forEach(function(b){ b.onclick=function(){ MUSIK_DISENTUH=true; lagu(b.getAttribute("data-k")); if(!AUD.on) musicToggle(); setMusik(); }; });
+  $("#sNama").onchange=function(){ var v=this.value.trim(); if(v.length>=2){ S.nama=v; simpan(); toast("Nama disimpan"); } else { this.value=S.nama; toast("Nama minimal dua huruf"); } };
+  $("#sKelas").onchange=function(){ var v=this.value.trim(); if(v){ S.kelas=v; simpan(); toast("Kelas disimpan"); } else this.value=S.kelas; };
+  $("#sMode").onclick=function(){ sfx("ok"); pilihMode(); };
+  var rs=$("#sReset"), siap=false;
+  rs.onclick=function(){
+    if(!siap){ siap=true; rs.textContent="Klik lagi untuk menghapus"; setTimeout(function(){ if(rs.isConnected){ siap=false; rs.textContent="Hapus progres"; } },3500); return; }
+    try{ localStorage.removeItem(KUNCI); }catch(e){} S=baru(); DRIX={menu:0,ep:null}; sfx("no"); toast("Progres dihapus"); home();
+  };
+  $("#mPlay").onclick=function(){ MUSIK_DISENTUH=true; musicToggle(); setMusik(); };
+  if(adaLagu){
+    $("#mPrev").onclick=function(){ var i=mk.indexOf(LAGU_KINI); MUSIK_DISENTUH=true; lagu(mk[(i-1+mk.length)%mk.length]); setMusik(); };
+    $("#mNext").onclick=function(){ var i=mk.indexOf(LAGU_KINI); MUSIK_DISENTUH=true; lagu(mk[(i+1)%mk.length]); setMusik(); };
+    $("#mVol").oninput=function(){ var v=+this.value/100; mk.forEach(function(k){ LAGU[k].volume=v; }); };
+    $("#mVol").onchange=function(){ setSimpan("vol",+this.value/100); };
+  }
+  setMusik();
+  clearInterval(SET_TM); SET_TM=setInterval(function(){ if(CUR!=="set"){ clearInterval(SET_TM); return; } setMusik(); },500);
+}
+function setMusik(){
+  if(!$("#tkn")) return;
+  var I=LAGU_INFO[LAGU_KINI]||{n:"Nada sintesis",d:"Musik cadangan"};
+  if(!AEL) I={n:"Nada sintesis",d:"Musik cadangan bawaan gim"};
+  $("#tkn").textContent=I.n; $("#tkd").textContent=I.d+(AUD.on?" · sedang diputar":" · berhenti");
+  $("#mPlay").textContent=AUD.on?"❚❚":"▶"; $("#mPlay").title=AUD.on?"Jeda musik":"Putar musik";
+  $("#cv").classList.toggle("on",!!AUD.on);
+  $$("#setBody .trk").forEach(function(b){ b.classList.toggle("on",b.getAttribute("data-k")===LAGU_KINI); });
+  var a=AEL&&LAGU[LAGU_KINI];
+  if(a&&$("#mpf")){ var d=a.duration||0; $("#mpf").style.width=(d?a.currentTime/d*100:0)+"%"; $("#mt0").textContent=mmss(a.currentTime); $("#mtd").textContent=mmss(d); }
+}
+
 /* ---------------- mulai ---------------- */
 var AEL=null, LAGU={}, LAGU_KINI="menu", MUSIK_DISENTUH=false;
-try{ Object.keys(ASSET.mus).forEach(function(k){ var a=new Audio(ASSET.mus[k]); a.loop=true; a.volume=0.4; LAGU[k]=a; AEL=true; }); }catch(e){ AEL=null; }
+try{ Object.keys(ASSET.mus).forEach(function(k){ var a=new Audio(ASSET.mus[k]); a.loop=true; a.volume=setv("vol"); LAGU[k]=a; AEL=true; }); }catch(e){ AEL=null; }
 function lagu(k){
   if(!AEL) return; if(!LAGU[k]) k=Object.keys(LAGU)[0]; LAGU_KINI=k;
   Object.keys(LAGU).forEach(function(n){ if(n!==k||!AUD.on){ try{ LAGU[n].pause(); }catch(e){} } });

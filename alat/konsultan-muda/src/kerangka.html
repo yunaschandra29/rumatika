@@ -60,12 +60,12 @@
   <div class="eksp" id="ekSp"></div>
   <div class="mnv"></div>
   <div class="bar" style="padding:2cqw 3cqw 0">
-    <div><div class="ttl disp">Daftar Episode</div><div class="sub" id="petaSub"></div></div>
+    <button class="icb" id="drBack" title="Kembali">‹</button>
+    <div><div class="ttl disp" id="drTtl">Daftar Episode</div><div class="sub" id="petaSub"></div></div>
     <div class="spacer"></div>
     <div class="meter" id="petaMeter"></div>
     <div class="bintang" id="petaBintang"></div>
     <button class="icb muteBtn" title="Musik">♪</button>
-    <button class="icb" id="petaHome" title="Sampul">⌂</button>
   </div>
   <div id="drum"></div>
   <div class="mni gl" id="mni"></div>
@@ -102,14 +102,26 @@
   <div class="ebx gl" id="endBox"></div>
 </section>
 
-<section class="scr" id="gsGal">
-  <div class="bar">
-    <button class="icb" data-go="home" title="Sampul">‹</button>
-    <div><div class="ttl disp">Galeri aset</div>
-    <div class="sub">Klik kartu untuk melihat gambar besar dan prompt-nya. Aset yang belum dibuat tampil sebagai ilustrasi pengganti.</div></div>
-    <div class="spacer"></div><div class="galf" id="galF"></div>
-  </div>
-  <div id="galBox"></div>
+<section class="scr full hal" id="gsRef">
+  <div class="bgf" id="refBg"></div><div class="hdim"></div>
+  <button class="pill" data-go="menu">‹ Menu Utama</button>
+  <h1 class="pgt disp">Referensi</h1>
+  <div class="tabs" id="refTab"></div>
+  <div class="panel gl" id="refBody"></div>
+</section>
+
+<section class="scr full hal" id="gsProf">
+  <div class="bgf" id="profBg"></div><div class="hdim"></div>
+  <button class="pill" data-go="menu">‹ Menu Utama</button>
+  <h1 class="pgt disp">Profil Pengembang</h1>
+  <div class="profg" id="profBody"></div>
+</section>
+
+<section class="scr full hal" id="gsSet">
+  <div class="bgf" id="setBg"></div><div class="hdim kuat"></div>
+  <button class="pill" data-go="menu">‹ Menu Utama</button>
+  <h1 class="pgt disp">Pengaturan</h1>
+  <div class="setg" id="setBody"></div>
 </section>
 
 <div class="lbx" id="lbx"></div>
