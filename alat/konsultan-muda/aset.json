@@ -1,0 +1,458 @@
+{
+ "aset": [
+  {
+   "k": "sampul",
+   "jenis": "bg",
+   "g": "Halaman",
+   "t": "Sampul gim",
+   "berkas": "bg_sampul.png",
+   "sz": "1920×1080",
+   "p": "a cozy Indonesian high school classroom converted into a small business consultation clinic, a wooden desk with neat stacks of blank folders, a desk lamp, a small potted plant, a cork board with blank colored sticky notes and a hand-drawn line graph with a shaded region, large window showing a street of small shops outside. Empty set with absolutely no people, no characters, no figures. Leave the left half calm, softly blurred and uncluttered for menu panels and a title; main details on the right side. Eye-level camera, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "klinik",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Ruang Klinik Usaha",
+   "berkas": "bg_klinik.png",
+   "sz": "1920×1080",
+   "p": "inside a cozy Indonesian high school classroom converted into a small business consultation clinic, two wooden desks facing each other, blank folders and a calculator on the desk, a whiteboard with a simple coordinate graph and a shaded region, a cork board with blank sticky notes. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos1",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Warung nasi uduk",
+   "berkas": "bg_pos1.png",
+   "sz": "1920×1080",
+   "p": "small Indonesian roadside food stall kitchen, a wooden counter with a big rice steamer, banana leaves, plates of fried snacks, a small gas stove with a pot, a tin biscuit can on the counter. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos2",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Laundry kilat",
+   "berkas": "bg_pos2.png",
+   "sz": "1920×1080",
+   "p": "small Indonesian laundry shop, a row of washing machines and one large tumble dryer, plastic laundry baskets of two sizes, folded clothes on shelves, a hanging scale. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos3",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Bengkel sepeda",
+   "berkas": "bg_pos3.png",
+   "sz": "1920×1080",
+   "p": "small Indonesian bicycle repair workshop, bicycle frames hanging on the wall, spare wheels stacked, a workbench with tools, a children's bicycle and an adult bicycle on stands. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos4",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Toko kue",
+   "berkas": "bg_pos4.png",
+   "sz": "1920×1080",
+   "p": "small Indonesian home cake shop, a glass display case of colorful traditional cakes, cooling racks with baking trays, a compact oven, flour bags. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos5",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Percetakan",
+   "berkas": "bg_pos5.png",
+   "sz": "1920×1080",
+   "p": "small Indonesian printing shop, an offset printing machine, tall stacks of paper reams, bundles of notebooks and drawing books with blank covers, a cutting machine. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos6",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Kedai kopi",
+   "berkas": "bg_pos6.png",
+   "sz": "1920×1080",
+   "p": "small Indonesian coffee kiosk popular with students, a counter with milk jugs and syrup bottles without labels, rows of plastic cups, a small menu board with no readable text, stools. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos7",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Dapur katering",
+   "berkas": "bg_pos7.png",
+   "sz": "1920×1080",
+   "p": "busy Indonesian home catering kitchen, a large oven, many food boxes stacked, trays of portions, a wall hook with paper order notes with no readable text. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "pos8",
+   "jenis": "bg",
+   "g": "Latar",
+   "t": "Konveksi seragam",
+   "berkas": "bg_pos8.png",
+   "sz": "1920×1080",
+   "p": "small Indonesian garment workshop, a row of sewing machines, rolls of navy and white fabric on shelves, a cutting table, finished shirts and trousers on hangers. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "end_hh",
+   "jenis": "bg",
+   "g": "Akhir",
+   "t": "Akhir: Konsultan Tepercaya",
+   "berkas": "bg_end_hh.png",
+   "sz": "1920×1080",
+   "p": "the consultation clinic classroom decorated with paper garlands, a wall covered with many colorful thank-you cards with no readable text, small gifts from shops on the desk, joyful mood. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "end_hl",
+   "jenis": "bg",
+   "g": "Akhir",
+   "t": "Akhir: Pintar Hitung, Kurang Dipercaya",
+   "berkas": "bg_end_hl.png",
+   "sz": "1920×1080",
+   "p": "the consultation clinic classroom at dusk, a desk full of neatly finished graphs and folders, empty chairs for clients, quiet slightly lonely cool lighting. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "end_lh",
+   "jenis": "bg",
+   "g": "Akhir",
+   "t": "Akhir: Jujur, Perlu Lebih Teliti",
+   "berkas": "bg_end_lh.png",
+   "sz": "1920×1080",
+   "p": "the consultation clinic classroom, a few handmade thank-you cards with no text pinned on a cork board, a crumpled graph paper and an eraser on the desk, warm hopeful light. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "end_ll",
+   "jenis": "bg",
+   "g": "Akhir",
+   "t": "Akhir: Masih Magang",
+   "berkas": "bg_end_ll.png",
+   "sz": "1920×1080",
+   "p": "the consultation clinic classroom on a cloudy afternoon, a fresh empty notebook and a pencil on the desk ready for a new start, soft light breaking through clouds. Empty set with absolutely no people, no characters, no figures, no mannequins, no animals. Composition for a visual novel background: the floor is visible across the bottom third so standing characters can be placed on it later; keep two clear standing areas on the left third and the right third; keep the lower third uncluttered because a dialog box covers it; main props and details along the back wall and the far edges. Eye-level camera at standing chest height, straight-on view, 16:9 wide landscape, built as a handmade clay miniature set, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the back wall slightly soft with shallow depth of field, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "nayla_berdiri",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Nayla (pemain): berdiri",
+   "berkas": "sp_nayla_berdiri.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school girl, 16 years old, calm attentive face, warm tan skin, holding a slim blue clipboard with blank paper, neatly wrapped white hijab, white long-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, long grey pleated school skirt, a navy lanyard with a small blank white ID card. Expression and pose: neutral calm expression with a slight friendly smile, relaxed natural pose. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the right side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "nayla_yakin",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Nayla (pemain): yakin",
+   "berkas": "sp_nayla_yakin.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school girl, 16 years old, calm attentive face, warm tan skin, holding a slim blue clipboard with blank paper, neatly wrapped white hijab, white long-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, long grey pleated school skirt, a navy lanyard with a small blank white ID card. Expression and pose: confident warm smile, holding the clipboard up slightly toward the viewer. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the right side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "nayla_berpikir",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Nayla (pemain): berpikir",
+   "berkas": "sp_nayla_berpikir.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school girl, 16 years old, calm attentive face, warm tan skin, holding a slim blue clipboard with blank paper, neatly wrapped white hijab, white long-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, long grey pleated school skirt, a navy lanyard with a small blank white ID card. Expression and pose: thoughtful focused expression, pen lightly touching the chin, looking slightly up. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the right side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "dimas_berdiri",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Dimas (pemain): berdiri",
+   "berkas": "sp_dimas_berdiri.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school boy, 16 years old, short neat black hair with a slight side part, light brown skin, friendly calm face, holding a slim blue clipboard with blank paper, white short-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, grey school trousers, a navy lanyard with a small blank white ID card. Expression and pose: neutral calm expression with a slight friendly smile, relaxed natural pose. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the right side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "dimas_yakin",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Dimas (pemain): yakin",
+   "berkas": "sp_dimas_yakin.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school boy, 16 years old, short neat black hair with a slight side part, light brown skin, friendly calm face, holding a slim blue clipboard with blank paper, white short-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, grey school trousers, a navy lanyard with a small blank white ID card. Expression and pose: confident warm smile, holding the clipboard up slightly toward the viewer. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the right side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "dimas_berpikir",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Dimas (pemain): berpikir",
+   "berkas": "sp_dimas_berpikir.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school boy, 16 years old, short neat black hair with a slight side part, light brown skin, friendly calm face, holding a slim blue clipboard with blank paper, white short-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, grey school trousers, a navy lanyard with a small blank white ID card. Expression and pose: thoughtful focused expression, pen lightly touching the chin, looking slightly up. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the right side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "hadi_sapa",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Pak Hadi (pembina): sapa",
+   "berkas": "sp_hadi_sapa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian male mathematics teacher, about 40 years old, neat short black hair, short trimmed beard, kind calm face, thin rimless rectangular glasses, long-sleeve shirt with a subtle blue batik pattern, dark grey trousers, holding a thin blue folder. Expression and pose: warm welcoming smile, one hand raised in a friendly greeting. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "hadi_jelaskan",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Pak Hadi (pembina): jelaskan",
+   "berkas": "sp_hadi_jelaskan.png",
+   "sz": "1024×1536",
+   "p": "Indonesian male mathematics teacher, about 40 years old, neat short black hair, short trimmed beard, kind calm face, thin rimless rectangular glasses, long-sleeve shirt with a subtle blue batik pattern, dark grey trousers, holding a thin blue folder. Expression and pose: explaining calmly, one open palm gesturing to the side, folder in the other hand. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "hadi_tanya",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Pak Hadi (pembina): tanya",
+   "berkas": "sp_hadi_tanya.png",
+   "sz": "1024×1536",
+   "p": "Indonesian male mathematics teacher, about 40 years old, neat short black hair, short trimmed beard, kind calm face, thin rimless rectangular glasses, long-sleeve shirt with a subtle blue batik pattern, dark grey trousers, holding a thin blue folder. Expression and pose: curious questioning expression, eyebrows slightly raised, index finger lightly raised. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "hadi_senang",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Pak Hadi (pembina): senang",
+   "berkas": "sp_hadi_senang.png",
+   "sz": "1024×1536",
+   "p": "Indonesian male mathematics teacher, about 40 years old, neat short black hair, short trimmed beard, kind calm face, thin rimless rectangular glasses, long-sleeve shirt with a subtle blue batik pattern, dark grey trousers, holding a thin blue folder. Expression and pose: proud happy smile, giving a gentle thumbs-up. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "raka_santai",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Raka (teman konsultan): santai",
+   "berkas": "sp_raka_santai.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school boy, 16 years old, slightly messy wavy black hair, playful sly half-grin, shirt sleeves casually rolled up, holding a smartphone, white short-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, grey school trousers, a navy lanyard with a small blank white ID card. Expression and pose: relaxed overconfident grin, one hand in the trouser pocket. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "raka_kaget",
+   "jenis": "sp",
+   "g": "Tokoh",
+   "t": "Raka (teman konsultan): kaget",
+   "berkas": "sp_raka_kaget.png",
+   "sz": "1024×1536",
+   "p": "Indonesian high school boy, 16 years old, slightly messy wavy black hair, playful sly half-grin, shirt sleeves casually rolled up, holding a smartphone, white short-sleeve Indonesian senior high school shirt with a small round navy school badge on the chest pocket, grey necktie, grey school trousers, a navy lanyard with a small blank white ID card. Expression and pose: surprised embarrassed expression, eyes wide, scratching the back of the head. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "ratmi_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Ratmi (warung nasi uduk): bingung",
+   "berkas": "sp_ratmi_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 50 years old, food stall owner, round kind face, simple brown floral hijab, maroon long-sleeve blouse, faded mustard-yellow kitchen apron, holding a small tin biscuit can. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "ratmi_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Ratmi (warung nasi uduk): lega",
+   "berkas": "sp_ratmi_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 50 years old, food stall owner, round kind face, simple brown floral hijab, maroon long-sleeve blouse, faded mustard-yellow kitchen apron, holding a small tin biscuit can. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "ratmi_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Ratmi (warung nasi uduk): kecewa",
+   "berkas": "sp_ratmi_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 50 years old, food stall owner, round kind face, simple brown floral hijab, maroon long-sleeve blouse, faded mustard-yellow kitchen apron, holding a small tin biscuit can. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "hasan_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Hasan (laundry): bingung",
+   "berkas": "sp_hasan_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 45 years old, laundry shop owner, short black hair with grey streaks, light blue polo shirt, a small white towel over one shoulder, dark trousers. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "hasan_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Hasan (laundry): lega",
+   "berkas": "sp_hasan_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 45 years old, laundry shop owner, short black hair with grey streaks, light blue polo shirt, a small white towel over one shoulder, dark trousers. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "hasan_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Hasan (laundry): kecewa",
+   "berkas": "sp_hasan_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 45 years old, laundry shop owner, short black hair with grey streaks, light blue polo shirt, a small white towel over one shoulder, dark trousers. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "yudi_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Mas Yudi (bengkel sepeda): bingung",
+   "berkas": "sp_yudi_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian young man, about 28 years old, bicycle mechanic, short undercut black hair, dark grey work shirt with small oil smudges, rolled sleeves, a small wrench in one hand. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "yudi_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Mas Yudi (bengkel sepeda): lega",
+   "berkas": "sp_yudi_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian young man, about 28 years old, bicycle mechanic, short undercut black hair, dark grey work shirt with small oil smudges, rolled sleeves, a small wrench in one hand. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "yudi_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Mas Yudi (bengkel sepeda): kecewa",
+   "berkas": "sp_yudi_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian young man, about 28 years old, bicycle mechanic, short undercut black hair, dark grey work shirt with small oil smudges, rolled sleeves, a small wrench in one hand. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "sinta_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Sinta (toko kue): bingung",
+   "berkas": "sp_sinta_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 35 years old, cake shop owner, soft pastel pink hijab, cream baker's apron over a light pink long-sleeve dress, a little flour on the apron. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "sinta_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Sinta (toko kue): lega",
+   "berkas": "sp_sinta_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 35 years old, cake shop owner, soft pastel pink hijab, cream baker's apron over a light pink long-sleeve dress, a little flour on the apron. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "sinta_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Sinta (toko kue): kecewa",
+   "berkas": "sp_sinta_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 35 years old, cake shop owner, soft pastel pink hijab, cream baker's apron over a light pink long-sleeve dress, a little flour on the apron. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "anwar_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Anwar (percetakan): bingung",
+   "berkas": "sp_anwar_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 55 years old, printing shop owner, black peci cap, grey hair at the temples, thick round glasses, dark brown long-sleeve shirt, holding a rolled blank paper order. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "anwar_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Anwar (percetakan): lega",
+   "berkas": "sp_anwar_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 55 years old, printing shop owner, black peci cap, grey hair at the temples, thick round glasses, dark brown long-sleeve shirt, holding a rolled blank paper order. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "anwar_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Anwar (percetakan): kecewa",
+   "berkas": "sp_anwar_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 55 years old, printing shop owner, black peci cap, grey hair at the temples, thick round glasses, dark brown long-sleeve shirt, holding a rolled blank paper order. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "rina_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Mbak Rina (kedai kopi): bingung",
+   "berkas": "sp_rina_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian young woman, about 25 years old, coffee kiosk owner, soft beige hijab, brown barista apron over a mustard long-sleeve shirt, holding a plastic iced coffee cup. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "rina_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Mbak Rina (kedai kopi): lega",
+   "berkas": "sp_rina_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian young woman, about 25 years old, coffee kiosk owner, soft beige hijab, brown barista apron over a mustard long-sleeve shirt, holding a plastic iced coffee cup. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "rina_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Mbak Rina (kedai kopi): kecewa",
+   "berkas": "sp_rina_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian young woman, about 25 years old, coffee kiosk owner, soft beige hijab, brown barista apron over a mustard long-sleeve shirt, holding a plastic iced coffee cup. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "lastri_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Lastri (katering): bingung",
+   "berkas": "sp_lastri_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 45 years old, home catering owner, maroon hijab, white kitchen apron over a maroon modest dress, holding a small paper order note. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "lastri_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Lastri (katering): lega",
+   "berkas": "sp_lastri_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 45 years old, home catering owner, maroon hijab, white kitchen apron over a maroon modest dress, holding a small paper order note. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "lastri_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Bu Lastri (katering): kecewa",
+   "berkas": "sp_lastri_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian woman, about 45 years old, home catering owner, maroon hijab, white kitchen apron over a maroon modest dress, holding a small paper order note. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "gunawan_bingung",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Gunawan (konveksi): bingung",
+   "berkas": "sp_gunawan_bingung.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 50 years old, garment workshop owner, short grey hair, thick mustache, navy short-sleeve shirt, a yellow tailor tape measure around the neck. Expression and pose: worried puzzled expression, slightly furrowed brows, one hand touching the chin. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "gunawan_lega",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Gunawan (konveksi): lega",
+   "berkas": "sp_gunawan_lega.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 50 years old, garment workshop owner, short grey hair, thick mustache, navy short-sleeve shirt, a yellow tailor tape measure around the neck. Expression and pose: relieved warm smile, shoulders relaxed, one hand on the chest. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  },
+  {
+   "k": "gunawan_kecewa",
+   "jenis": "sp",
+   "g": "Klien",
+   "t": "Pak Gunawan (konveksi): kecewa",
+   "berkas": "sp_gunawan_kecewa.png",
+   "sz": "1024×1536",
+   "p": "Indonesian man, about 50 years old, garment workshop owner, short grey hair, thick mustache, navy short-sleeve shirt, a yellow tailor tape measure around the neck. Expression and pose: disappointed sad expression, eyes looking down, shoulders slumped. Single character only: one 3D clay figurine shown from the top of the head down to the knees, standing upright, three-quarter view with body and face turned toward the left side of the image, the figure fills about 90 percent of the image height and is centered, eye-level camera at chest height, warm late-afternoon golden hour key light coming from the upper left, soft cool bluish fill light from the right, gentle soft shadows, the whole figure in sharp focus. Isolated on a solid flat pure green background #00FF00, no floor, no ground shadow, no props on the ground, no other objects, crisp clean edges with no green tint on the character. Keep exactly the same face, hairstyle, outfit and colors as in this character's other images. Vertical 2:3 portrait, 3D claymation style, handcrafted plasticine and polymer clay look, soft rounded chunky shapes, matte clay texture with subtle fingerprint and sculpting marks, slightly stylized cute proportions, simple expressive faces with glossy bead-like eyes, miniature stop-motion feel, warm saturated pastel palette, high-quality render, no text, no letters, no readable writing, no logo, no watermark, no signature"
+  }
+ ],
+ "musik": {
+  "menu": "warm cozy acoustic instrumental, soft nylon guitar and ukulele, light marimba, gentle piano, subtle Indonesian gamelan bell texture, mellow brushed drums, hopeful late afternoon mood, small neighborhood shops, 88 bpm, clean mix, loopable, no vocals",
+  "cerita": "calm focus study instrumental, soft felt piano, pizzicato strings, light glockenspiel, kalimba, airy pads, thoughtful curious mood, problem solving, animated film underscore, 72 bpm, minimal, loopable, no vocals"
+ }
+}

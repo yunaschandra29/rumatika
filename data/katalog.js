@@ -142,17 +142,17 @@ window.RUMATIKA_KATALOG = {
     },
     {
       id: "konsultan-muda",
-      judul: "Konsultan Muda: Delapan Berkas Senja",
+      judul: "Konsultan Muda: Klinik Usaha",
       fase: "E",
       jenis: "Gim",
       topik: "Sistem pertidaksamaan linear dua variabel",
-      tujuan: "Menangani delapan klien Klinik Usaha: menyusun model pertidaksamaan dari cerita, menentukan daerah penyelesaian, menghitung titik pojok, dan menafsirkan hasilnya menjadi keputusan.",
+      tujuan: "Novel visual 11 episode: menjadi konsultan Klinik Usaha, menyusun model pertidaksamaan dari cerita klien, menentukan daerah penyelesaian dan titik pojok, lalu mengambil keputusan jujur yang berakibat pada kepercayaan klien. Bisa dimainkan mandiri atau berkelompok.",
       durasi: 90,
       perangkat: "Proyektor dan HP",
       simbol: "2x + 3y ≤ 12",
       url: "karya/fase-e/konsultan-muda/",
       sampul: "assets/img/konsultan-muda.webp",
-      ukuran: "1,0 MB",
+      ukuran: "9,6 MB",
       video: ""
     },
     {
