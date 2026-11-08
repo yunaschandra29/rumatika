@@ -127,9 +127,17 @@ def menit_baca(md_teks):
 
 E = html.escape
 
-LOGO = ('<svg class="merek-logo" viewBox="0 0 32 32" aria-hidden="true">'
-        '<path d="M3 14.5 16 3.5l13 11V29H3z" class="logo-rumah"/>'
-        '<path d="M8.5 19.5h2.6l3.2 5.2 5-11.2h4.7" class="logo-akar"/></svg>')
+def logo_merek(p):
+    """Logo Rumatika (versi terang dan gelap, ditukar lewat token CSS)."""
+    return (f'<img class="merek-logo merek-terang" src="{p}assets/merek/logo-rumatika.webp" width="600" height="195" alt="Rumatika">'
+            f'<img class="merek-logo merek-gelap" src="{p}assets/merek/logo-rumatika-gelap.webp" width="600" height="195" alt="" aria-hidden="true">')
+
+
+def ikon_situs(p):
+    return (f'<link rel="icon" href="{p}favicon.ico" sizes="48x48">\n'
+            f'<link rel="icon" href="{p}assets/merek/ikon-192.png" type="image/png" sizes="192x192">\n'
+            f'<link rel="apple-touch-icon" href="{p}assets/merek/apple-touch-icon.png">\n'
+            '<meta name="theme-color" content="#2554D6">\n')
 
 MENU = [("Beranda", "#beranda"), ("Semua Karya", "#semua-karya"), ("Teras Trik", "#teras-trik"),
         ("Pojok Baca", "artikel/"), ("Panduan Guru", "#panduan-guru"), ("Tentang", "#tentang"), ("Kontak", "#kontak")]
@@ -162,7 +170,7 @@ def kepala_html(p, judul, desk, kanonik, og_gambar, rumus, jenis_og="article", t
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-{tambahan}<link rel="preconnect" href="https://fonts.googleapis.com">
+{tambahan}{ikon_situs(p)}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Lexend:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="{p}assets/site.css">
@@ -171,7 +179,7 @@ def kepala_html(p, judul, desk, kanonik, og_gambar, rumus, jenis_og="article", t
 
 <header class="kepala">
   <div class="wrap kepala-isi">
-    <a class="merek" href="{p}#beranda" aria-label="Rumatika, ke beranda">{LOGO}<span>Rumatika</span></a>
+    <a class="merek" href="{p}#beranda" aria-label="Rumatika, ke beranda">{logo_merek(p)}</a>
     <nav class="menu" aria-label="Menu utama">
 """ + "".join(
         '      <a href="{}{}"{}>{}</a>\n'.format(p, h, ' aria-current="page"' if n == "Pojok Baca" else "", n) for n, h in MENU
@@ -198,7 +206,7 @@ def kaki_html(p, kontak, teks_wa):
 <footer class="kaki">
   <div class="wrap kaki-isi">
     <div>
-      <a class="merek" href="{p}#beranda">{LOGO}<span>Rumatika</span></a>
+      <a class="merek" href="{p}#beranda">{logo_merek(p)}</a>
       <p class="kecil">Rumahnya Matematika Interaktif</p>
     </div>
     <nav class="kaki-menu" aria-label="Menu bawah">
