@@ -47,7 +47,7 @@ window.RUMATIKA_KATALOG = {
       simbol: "3/20 = 0,15 = 15%",
       url: "karya/fase-d/detektif-label-jajanan/",
       sampul: "assets/img/detektif-label-jajanan.webp",
-      ukuran: "1,4 MB",
+      ukuran: "1,8 MB",
       video: ""
     },
     {
