@@ -1,5 +1,15 @@
 [
  {
+  "id": "detektif-label-jajanan",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Detektif Label Jajanan",
+  "topik": "Aritmetika sosial: membaca label gizi",
+  "status": "Tayang",
+  "catatan": "1,4 MB"
+ },
+ {
   "id": "kota-seribu-cara",
   "fase": "F",
   "jenjang": "SMA",

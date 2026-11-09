@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "detektif-label-jajanan",
+      judul: "Detektif Label Jajanan",
+      fase: "D",
+      jenis: "MPI",
+      topik: "Aritmetika sosial: membaca label gizi",
+      tujuan: "Menjadi Detektif Label untuk Pekan Jajan Sehat di kantin sekolah: mengubah kadar gula pada label menjadi pecahan, desimal, dan persen, menghitung gula satu kemasan dan persennya dari batas harian 50 g, lalu menghitung batas aman pengawet dan pewarna (ADI × berat badan). Ada cek bekal diagnostik, tiga modul berbasis Discovery Learning, tiga lab maya (Bengkel Label, Nampan Jatah Gula, Kalkulator Batas Aman), Kartu Rujukan Kemenkes dan BPOM, uji keterampilan 10 soal acak, lima kasus, refleksi diri, dan laporan A4.",
+      durasi: 80,
+      perangkat: "Proyektor dan HP",
+      simbol: "3/20 = 0,15 = 15%",
+      url: "karya/fase-d/detektif-label-jajanan/",
+      sampul: "assets/img/detektif-label-jajanan.webp",
+      ukuran: "1,4 MB",
+      video: ""
+    },
+    {
       id: "kota-seribu-cara",
       judul: "Kota Seribu Cara",
       fase: "F",
