@@ -36,6 +36,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "kota-seribu-cara",
+      judul: "Kota Seribu Cara",
+      fase: "F",
+      jenis: "Gim",
+      topik: "Kaidah pencacahan: permutasi dan kombinasi",
+      tujuan: "Menjadi duta kota Arunika dalam 18 episode novel visual. Bagian 1 mengajarkan aturan penjumlahan dan perkalian, permutasi, kombinasi, unsur sama, dan permutasi siklis langsung di pujasera, sirkuit balap, kedai kopi, dan jalan lampion. Tiga musim berikutnya menuntut hitungan di meja kerja sebelum setiap keputusan sebagai pemandu tur, panitia festival, dan pemilik kedai. Ada mode kelompok, pretest, sumatif 20 soal, sembilan ending, laporan A4, dan LKPD.",
+      durasi: 135,
+      perangkat: "Proyektor, laptop, dan HP",
+      simbol: "C(n, r) = n! / r!(n − r)!",
+      url: "karya/fase-f/kota-seribu-cara/",
+      sampul: "assets/img/kota-seribu-cara.webp",
+      ukuran: "8,8 MB",
+      video: ""
+    },
+    {
       id: "dapur-kue-nusantara",
       judul: "Dapur Kue Nusantara",
       fase: "C",

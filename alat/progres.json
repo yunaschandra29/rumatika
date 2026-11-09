@@ -1,5 +1,15 @@
 [
  {
+  "id": "kota-seribu-cara",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Kota Seribu Cara",
+  "topik": "Kaidah pencacahan: permutasi dan kombinasi",
+  "status": "Tayang",
+  "catatan": "8,8 MB"
+ },
+ {
   "id": "dapur-kue-nusantara",
   "fase": "C",
   "jenjang": "SD",
