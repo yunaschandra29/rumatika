@@ -503,16 +503,6 @@
   "id": "rencana-10",
   "fase": "F",
   "jenjang": "SMA",
-  "jenis": "Gim",
-  "judul": "Escape Room Permutasi-Kombinasi",
-  "topik": "Kaidah pencacahan",
-  "status": "Belum masuk situs",
-  "catatan": "Belum dikirim ke repo"
- },
- {
-  "id": "rencana-11",
-  "fase": "F",
-  "jenjang": "SMA",
   "jenis": "Video",
   "judul": "Motion Graphic Anuitas",
   "topik": "Anuitas",
@@ -520,7 +510,7 @@
   "catatan": "Belum dikirim ke repo"
  },
  {
-  "id": "rencana-12",
+  "id": "rencana-11",
   "fase": "?",
   "jenjang": "-",
   "jenis": "?",
@@ -530,7 +520,7 @@
   "catatan": "Fase belum ditentukan"
  },
  {
-  "id": "rencana-13",
+  "id": "rencana-12",
   "fase": "?",
   "jenjang": "-",
   "jenis": "?",
