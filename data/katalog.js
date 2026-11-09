@@ -47,7 +47,7 @@ window.RUMATIKA_KATALOG = {
       simbol: "C(n, r) = n! / r!(n − r)!",
       url: "karya/fase-f/kota-seribu-cara/",
       sampul: "assets/img/kota-seribu-cara.webp",
-      ukuran: "8,8 MB",
+      ukuran: "11 MB",
       video: ""
     },
     {
