@@ -12,6 +12,10 @@
        "assets/img/nama-karya.webp". Tanpa sampul, kartu menampilkan rumusnya.
     5. Isi "ukuran" dengan besar berkasnya (misalnya "7 MB"). Angka ini tampil di
        tombol muat, supaya guru tahu kuota yang dipakai sebelum membuka di HP.
+    6. (Opsional) Isi "perangkatAjar" dengan berkas pendamping untuk guru (LKPD, RPM,
+       modul ajar). Simpan berkasnya di  karya/fase-x/nama-karya/perangkat/  lalu tulis
+       { nama, ket, format, ukuran, berkas }. Berkas ini diunduh terpisah dari karya
+       dan tampil di halaman karya sebagai blok "Perangkat Ajar Guru".
 
   Nilai "jenis" harus salah satu: "MPI", "Gim", "Lab Maya".
   Nilai "fase" harus salah satu: "A", "B", "C", "D", "E", "F".
@@ -177,13 +181,18 @@ window.RUMATIKA_KATALOG = {
       jenis: "Gim",
       topik: "Sistem pertidaksamaan linear dua variabel",
       tujuan: "Novel visual 11 episode: menjadi konsultan Klinik Usaha, menyusun model pertidaksamaan dari cerita klien, menentukan daerah penyelesaian dan titik pojok, lalu mengambil keputusan jujur yang berakibat pada kepercayaan klien. Bisa dimainkan mandiri atau berkelompok.",
-      durasi: "3 × 45",
+      durasi: "6 × 45",
       perangkat: "Proyektor dan HP",
       simbol: "2x + 3y ≤ 12",
       url: "karya/fase-e/konsultan-muda/",
       sampul: "assets/img/konsultan-muda.webp",
       ukuran: "9,5 MB",
-      video: ""
+      video: "",
+      perangkatAjar: [
+        { nama: "LKPD Komik Konsultan Muda", ket: "29 halaman A4 siap cetak: sampul, prolog, panduan, komik dan berkas kerja tiap episode, refleksi", format: "PDF", ukuran: "8,3 MB", berkas: "karya/fase-e/konsultan-muda/perangkat/lkpd-konsultan-muda.pdf" },
+        { nama: "Rencana Pembelajaran Mendalam (RPM)", ket: "3 pertemuan × 2 JP, Dimensi Profil Lulusan Kewargaan, dengan rubrik dan soal asesmen", format: "DOCX", ukuran: "11 KB", berkas: "karya/fase-e/konsultan-muda/perangkat/rpm-konsultan-muda.docx" },
+        { nama: "RPM versi cetak", ket: "Isi sama dengan versi DOCX, siap cetak tanpa diedit", format: "PDF", ukuran: "165 KB", berkas: "karya/fase-e/konsultan-muda/perangkat/rpm-konsultan-muda.pdf" }
+      ]
     },
     {
       id: "pulau-senja",

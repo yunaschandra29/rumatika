@@ -59,6 +59,23 @@
   function jumlahMain(id) { return STAT && STAT.main ? (STAT.main[id] || 0) : 0; }
 
   /* ---------- komponen ---------- */
+  function perangkatAjar(k) { return Array.isArray(k.perangkatAjar) ? k.perangkatAjar.filter(function (b) { return b && b.berkas; }) : []; }
+
+  function blokPerangkatAjar(k) {
+    var daftar = perangkatAjar(k);
+    if (!daftar.length) return '';
+    return '<section class="perangkat-ajar" aria-labelledby="judul-perangkat-ajar">' +
+      '<h2 id="judul-perangkat-ajar">Perangkat Ajar Guru</h2>' +
+      '<p class="kecil">Pendamping karya ini untuk dipakai di kelas. Diunduh terpisah, tidak perlu membuka karyanya.</p>' +
+      '<ul class="berkas-daftar">' + daftar.map(function (b) {
+        var nama = String(b.berkas).split("/").pop();
+        return '<li><a class="berkas" href="' + esc(b.berkas) + '" download="' + esc(nama) + '">' +
+          '<span class="berkas-format">' + esc(b.format || "") + '</span>' +
+          '<span class="berkas-isi"><b>' + esc(b.nama) + '</b>' + (b.ket ? '<small>' + esc(b.ket) + '</small>' : '') + '</span>' +
+          '<span class="berkas-unduh">Unduh' + (b.ukuran ? '<small>' + esc(b.ukuran) + '</small>' : '') + '</span></a></li>';
+      }).join('') + '</ul></section>';
+  }
+
   function kartuKarya(k) {
     var f = fase(k.fase);
     var j = jenisKelas(k.jenis);
@@ -71,7 +88,8 @@
       '</div>' +
       '<div class="kartu-isi">' +
         '<div class="chip-baris"><span class="chip" data-jenis="' + j + '">' + esc(k.jenis) + '</span>' +
-        '<span class="chip">Fase ' + esc(k.fase) + '</span></div>' +
+        '<span class="chip">Fase ' + esc(k.fase) + '</span>' +
+        (perangkatAjar(k).length ? '<span class="chip chip-ajar">LKPD &amp; RPM</span>' : '') + '</div>' +
         '<h3>' + esc(k.judul) + '</h3>' +
         '<p>' + esc(k.topik) + '</p>' +
         '<div class="kartu-kaki"><span>' + esc(k.durasi) + ' menit</span><span>' +
@@ -329,6 +347,7 @@
           '<div class="karya-aksi">' + aksi + '</div>' +
           '<div class="karya-aksi-kedua">' + kedua.join('<span aria-hidden="true">·</span>') + '</div>' +
           '<p class="pesan-salin" id="pesan-salin" aria-live="polite"></p>' +
+          blokPerangkatAjar(k) +
         '</div>' +
       '</div>' +
       (lain.length ? '<div class="karya-lain"><h2>Karya lain di Ruang Fase ' + esc(k.fase) + '</h2><div class="grid-kartu">' + lain.map(kartuKarya).join("") + '</div></div>' : '');
