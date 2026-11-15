@@ -45,7 +45,7 @@ window.RUMATIKA_KATALOG = {
       fase: "D",
       jenis: "Gim",
       topik: "Rasio: skala pada peta, denah, dan miniatur",
-      tujuan: "Novel visual 4 episode (19 chapter): menjadi konsultan muda di Biro Skala yang melayani tiga klien. Murid membaca skala peta rute rumah ke sekolah dengan penggaris virtual, merancang denah kelas impian 1 : 50, menyusun peta jalur evakuasi sekolah 1 : 500 saat musim hujan, dan menskalakan Rumah Kebaya atau Gedung Juang 45 Tambun menjadi miniatur. Setiap episode ditutup dengan tugas menggambar di LK yang diverifikasi dari hasil ukur murid sendiri. Ada tes awal, uji muat skala di kertas A3, audit draf rekan, Mode Pameran untuk menghitung persentase kesalahan karya, sumatif 15 soal, dan laporan A4.",
+      tujuan: "Novel visual 4 episode (19 chapter): menjadi konsultan muda di Biro Skala yang melayani tiga klien. Murid membaca skala peta rute rumah ke sekolah dengan penggaris virtual, merancang denah kelas impian 1 : 50, menyusun peta jalur evakuasi sekolah 1 : 500 saat musim hujan, dan menskalakan Rumah Kebaya atau Gedung Juang 45 Tambun menjadi miniatur. Setiap episode ditutup dengan tugas menggambar di LKM yang diverifikasi dari hasil ukur murid sendiri. Ada tes awal, uji muat skala di kertas A3, audit draf rekan, Mode Pameran untuk menghitung persentase kesalahan karya, sumatif 15 soal, dan laporan A4.",
       durasi: "10 × 40",
       perangkat: "Proyektor dan HP",
       simbol: "1 : 50",
@@ -54,7 +54,7 @@ window.RUMATIKA_KATALOG = {
       ukuran: "5,2 MB",
       video: "",
       perangkatAjar: [
-        { nama: "LK Biro Skala", ket: "5 halaman A4 siap cetak: skala garis, denah kelas impian, peta jalur evakuasi, tampak miniatur, dan lembar penilaian sejawat", format: "PDF", ukuran: "177 KB", berkas: "karya/fase-d/biro-skala/perangkat/lk-biro-skala.pdf" }
+        { nama: "LKM Konsultan Muda: Biro Skala", ket: "11 halaman siap cetak: sampul dan kartu konsultan, peta misi, komik dan misi tiap episode, lembar gambar berkotak milimeter (hlm. 8 A4 mendatar, hlm. 10 A3 mendatar, cetak ukuran 100%), uji ketepatan karya, dan refleksi", format: "PDF", ukuran: "7,5 MB", berkas: "karya/fase-d/biro-skala/perangkat/lkm-biro-skala.pdf" }
       ]
     },
     {

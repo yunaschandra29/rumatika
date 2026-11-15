@@ -307,7 +307,7 @@ const cmTxt = cm => cm >= 100 ? fmt(cm / 100) + ' m' : fmt(cm) + ' cm';
 /* ---------- LK: spesifikasi gambar + verifikasi ---------- */
 const LK = {
   e0: () => ({
-    t: 'Skala Garis 1 : 25.000', kertas: 'LK halaman 1 · kotak milimeter', ep: 0,
+    t: 'Skala Garis 1 : 25.000', kertas: 'LKM hlm. 4 · Misi 0.5 (kotak milimeter)', ep: 0,
     lang: ['Gambar garis lurus sepanjang 4 cm.', 'Bagi menjadi 4 ruas sama panjang (masing-masing 1 cm).', 'Tulis label jarak sebenarnya di setiap batas ruas, dalam meter (mulai dari 0).', 'Tulis skala angkanya di bawah garis: 1 : 25.000.'],
     cek: [
       { l: 'Panjang skala garis yang kamu gambar', u: 'cm', a: 4, tol: .1 },
@@ -317,7 +317,7 @@ const LK = {
     ]
   }),
   e1: () => ({
-    t: 'Denah Kelas Impian', kertas: 'Milimeter blok A3 · skala 1 : 50', ep: 1,
+    t: 'Denah Kelas Impian', kertas: 'LKM hlm. 6 · cetak A4 ukuran 100% · skala 1 : 50', ep: 1,
     lang: ['Dinding ruang 18 cm × 16 cm.', 'Pintu selebar 2 cm dan 2 jendela masing-masing 3 cm.', '28 meja murid 1,2 cm × 0,8 cm, ditata sesuai idemu.', 'Meja guru 2,4 cm × 1,2 cm dan pojok baca (rak 3 cm × 0,8 cm).', 'Sisakan lorong yang lega: minimal 1,2 cm (= 60 cm sebenarnya).', 'Judul, skala 1 : 50, mata angin, dan legenda simbol.'],
     cek: [
       { l: 'Panjang ruang di denahmu', u: 'cm', a: 18, tol: .2, h: '9 m = 900 cm, lalu ÷ 50.' },
@@ -329,7 +329,7 @@ const LK = {
     alasan: 'Jelaskan alasan tata letakmu (fungsi, kenyamanan, keindahan).'
   }),
   e2: () => ({
-    t: 'Peta Jalur Evakuasi Sekolah', kertas: 'Milimeter blok A3 · skala 1 : 500', ep: 2,
+    t: 'Peta Jalur Evakuasi Sekolah', kertas: 'LKM hlm. 8 · cetak A4 mendatar ukuran 100% · skala 1 : 500', ep: 2,
     lang: ['Batas area sekolah 24 cm × 16 cm.', 'Gedung, koridor, lapangan atas, dan area rawan genangan.', 'Jalur evakuasi B sepanjang 11 cm dengan tanda panah.', 'Titik kumpul di lapangan atas.', 'Skala angka 1 : 500 dan skala garis (setiap ruas 1 cm = 5 m).', 'Mata angin dan legenda simbol.'],
     cek: [
       { l: 'Panjang area sekolah di petamu', u: 'cm', a: 24, tol: .2, h: '120 m = 12.000 cm, lalu ÷ 500.' },
@@ -342,7 +342,7 @@ const LK = {
   e3: (key) => {
     const o = key ? OBJ[key] : objNow(), k = o.best;
     return {
-      t: 'Tampak Depan & Samping — ' + o.n, kertas: 'Milimeter blok A3 · skala 1 : ' + k, ep: 3,
+      t: 'Tampak Depan & Samping — ' + o.n, kertas: 'LKM hlm. 10 · cetak A3 mendatar ukuran 100% · skala 1 : ' + k, ep: 3,
       lang: ['Tampak depan: lebar ' + fmt(o.p / k) + ' cm, tinggi ' + fmt(o.t / k) + ' cm.', 'Tampak samping: lebar ' + fmt(o.l / k) + ' cm, tinggi ' + fmt(o.t / k) + ' cm.', 'Gambar ' + o.x[0] + ' setinggi ' + fmt(o.x[1] / k) + ' cm.', 'Tambahkan ciri khas bangunan (atap, teras, hiasan) secara proporsional.', 'Tulis skala 1 : ' + k + ' dan tabel “ukuran sebenarnya → ukuran model”.'],
       cek: [
         { l: 'Lebar tampak depan di gambarmu', u: 'cm', a: o.p / k, tol: .2, h: fmt(o.p) + ' cm ÷ ' + k + '.' },
@@ -1438,11 +1438,10 @@ function refer() {
     title: '📚 Referensi', back: () => menu(4), tabs: [
       { t: 'Sumber', h: () => `<h3>Daftar sumber</h3><ol>${SUMBER.map(s => `<li>${s}</li>`).join('')}</ol>` },
       { t: 'Galeri Aset', h: () => `<p>${codes.filter(has).length} dari ${codes.length} aset sudah tertanam. Ketuk gambar untuk melihat prompt-nya.</p><div class="gal">${codes.map(k => `<div class="gi" data-a="g" data-k="${k}"><div class="th ${has(k) ? '' : 'chk'}" style="${has(k) ? `background-image:url(${img(k)})` : ''}">${has(k) ? '' : '<div style="padding:2cqw;text-align:center;font-size:1cqw" class="mu">belum ada</div>'}</div><div class="c"><b>${k}</b> · ${ASETINFO[k]}</div></div>`).join('')}</div>` },
-      { t: 'Lembar Kerja (LK)', h: () => `<h3>LK Biro Skala</h3><p>LK berisi 5 halaman A4: satu halaman untuk setiap episode (data, langkah wajib, tabel ukuran, kolom verifikasi) dan satu lembar penilaian sejawat untuk Mode Pameran.</p>
-      <ul><li><b>Halaman 1</b> — Skala garis 1 : 25.000 (digambar langsung di kotak milimeter pada LK).</li><li><b>Halaman 2</b> — Denah kelas impian (gambar di milimeter blok A3, skala 1 : 50).</li><li><b>Halaman 3</b> — Peta jalur evakuasi + uji silang (milimeter blok A3, skala 1 : 500).</li><li><b>Halaman 4</b> — Tampak depan & samping miniatur (Rumah Kebaya 1 : 50 atau Gedung Juang 45 1 : 100).</li><li><b>Halaman 5</b> — Lembar penilaian sejawat Mode Pameran.</li></ul>
-      <button class="btn tk" data-a="lk">🖨 Cetak LK</button>` }
+      { t: 'Lembar Kerja (LKM)', h: () => `<h3>LKM Konsultan Muda: Biro Skala</h3><p>LKM berisi 11 halaman yang mengikuti urutan gim. Setiap episode punya komik, misi hitung, dan satu lembar gambar berkotak milimeter. Angka yang diverifikasi gim sama dengan kolom “cek ukuran” di LKM.</p>
+      <table class="t"><tr><th>Halaman</th><th>Isi</th><th>Kertas</th></tr><tr><td>1–2</td><td>Sampul, kartu konsultan, tujuan, peta misi, petunjuk</td><td>A4</td></tr><tr><td>3–4</td><td>Episode 0 · Misi 0.1–0.5, termasuk menggambar skala garis 1 : 25.000</td><td>A4</td></tr><tr><td>5–6</td><td>Episode 1 · Misi 1.1–1.4 dan lembar Denah Kelas Impian 1 : 50</td><td>A4</td></tr><tr><td>7–8</td><td>Episode 2 · Misi 2.1–2.4 dan lembar Peta Jalur Evakuasi 1 : 500</td><td>A4, hlm. 8 mendatar</td></tr><tr><td>9–10</td><td>Episode 3 · Misi 3.1–3.4 dan lembar Tampak Depan & Samping</td><td>A4, hlm. 10 A3 mendatar</td></tr><tr><td>11</td><td>Mode Pameran · lembar uji karya dan refleksi</td><td>A4</td></tr></table>
+      <p><b>Saat mencetak:</b> pilih ukuran 100% (bukan “fit to page”). Periksa penggaris cetak di tiap lembar gambar: panjangnya harus tepat 10 cm.</p><p>PDF LKM dapat diunduh di Rumatika, pada halaman gim ini, blok <b>Perangkat Ajar Guru</b>.</p>` }
     ], on: (k, a) => {
-      if (k === 'lk') cetakLK();
       if (k === 'g') { const c = a.dataset.k, pr = PROMPT[c] || ''; popup('sekar', c + ' · ' + ASETINFO[c], `${has(c) ? `<img src="${img(c)}" style="max-width:100%;max-height:14cqw;display:block;margin-bottom:.6cqw;border-radius:.6cqw" alt="">` : ''}<span style="display:block;max-height:10cqw;overflow:auto;font-size:1.05cqw;background:#fff;padding:.6cqw;border-radius:.6cqw">${esc(pr) || '<i>Prompt belum tersedia.</i>'}</span>`, [{ t: '📋 Salin prompt', c: 'tk', f: () => { try { navigator.clipboard.writeText(pr).then(() => toast('Prompt disalin', c)); } catch (e) { toast('Gagal menyalin', 'Salin manual dari teks.'); } } }, { t: 'Tutup', c: 'lt' }]); }
     }
   });
@@ -1452,7 +1451,7 @@ function panduan() {
     title: '🧭 Panduan', back: () => menu(5), tabs: [
       { t: 'Cara Bermain', h: () => `<h3>Alur bermain</h3><ol><li>Isi kartu konsultan (nama, kelas, tokoh), lalu kerjakan <b>tes awal</b> 8 soal.</li><li>Mainkan <b>Episode 0 · Pelatihan</b>, lalu tiga proyek klien secara berurutan.</li><li>Ketuk kotak dialog (atau tekan Spasi/Enter) untuk melanjutkan cerita.</li><li>Setiap soal punya tiga kesempatan: keliru pertama → coba lagi, kedua → petunjuk, ketiga → kunci ditampilkan. Benar di percobaan pertama = ★★★.</li><li>Pada <b>keputusan konsultan</b>, coba setiap pilihan untuk melihat akibatnya, lalu putuskan. Pilihan terbaik mendapat ★★★.</li><li>Chapter bertanda ✏️ meminta kamu <b>menggambar di LK</b>. Gim menunggu. Setelah selesai, ukur gambarmu dan isi verifikasi.</li><li>Setelah Episode 1 selesai, <b>Mode Pameran</b> terbuka. Setelah Episode 3, gelar dan <b>Sumatif</b> terbuka.</li></ol>` },
       { t: 'Tombol & Ikon', h: () => `<table class="t"><tr><th>Tombol</th><th>Fungsi</th></tr><tr><td>Roda menu</td><td>Gulir dengan roda tetikus, usap ke atas/bawah, atau tombol ↑ ↓. Ketuk kartu tengah atau tekan Enter untuk memilih.</td></tr><tr><td>📜 Riwayat</td><td>Membaca ulang percakapan.</td></tr><tr><td>Auto ▷</td><td>Dialog berjalan sendiri.</td></tr><tr><td>🔊</td><td>Musik nyala/mati.</td></tr><tr><td>🖨</td><td>Cetak laporan belajar A4.</td></tr><tr><td>⌂</td><td>Kembali ke sampul.</td></tr><tr><td>★</td><td>Bintang tantangan: 3 = benar di percobaan pertama.</td></tr><tr><td>C3–C6</td><td>Level berpikir soal (menerapkan, menganalisis, mengevaluasi, mencipta).</td></tr></table>` },
-      { t: 'Untuk Guru', h: () => `<h3>Pemakaian dalam 5 pertemuan</h3><table class="t"><tr><th>Pertemuan</th><th>Di gim</th><th>Di kelas</th></tr><tr><td>1 (2 JP)</td><td>Tes awal + Episode 0</td><td>Mengukur peta rute cetak, membandingkan dengan aplikasi peta; LK hal. 1</td></tr><tr><td>2 (2 JP)</td><td>Episode 1</td><td>Mengukur ruang kelas dengan meteran; menggambar denah di A3</td></tr><tr><td>3 (2 JP)</td><td>Episode 2</td><td>Kalibrasi langkah, investigasi lapangan, peta evakuasi, uji silang</td></tr><tr><td>4 (2 JP + luar jam)</td><td>Episode 3</td><td>Gambar tampak, membuat miniatur kardus & stik es krim</td></tr><tr><td>5 (2 JP)</td><td>Mode Pameran + Sumatif</td><td>Gallery walk, penilaian sejawat, refleksi</td></tr></table>
+      { t: 'Untuk Guru', h: () => `<h3>Pemakaian dalam 5 pertemuan</h3><table class="t"><tr><th>Pertemuan</th><th>Di gim</th><th>Di kelas</th></tr><tr><td>1 (2 JP)</td><td>Tes awal + Episode 0</td><td>Mengukur peta rute cetak, membandingkan dengan aplikasi peta; LKM hlm. 3–4</td></tr><tr><td>2 (2 JP)</td><td>Episode 1</td><td>Mengukur ruang kelas dengan meteran; LKM hlm. 5–6 (denah)</td></tr><tr><td>3 (2 JP)</td><td>Episode 2</td><td>Kalibrasi langkah, investigasi lapangan, LKM hlm. 7–8 (peta, uji silang)</td></tr><tr><td>4 (2 JP + luar jam)</td><td>Episode 3</td><td>Gambar tampak, LKM hlm. 9–10 (tampak, A3); membuat miniatur kardus & stik es krim</td></tr><tr><td>5 (2 JP)</td><td>Mode Pameran + Sumatif</td><td>Gallery walk, LKM hlm. 11 (uji karya, refleksi)</td></tr></table>
       <h4>PIN guru</h4><p>Aktifkan di Pengaturan. Bila aktif, murid harus memasukkan PIN sebelum verifikasi LK, sehingga guru dapat melihat gambar terlebih dahulu.</p><h4>Data contoh</h4><p>Ukuran kelas (9 m × 8 m) dan area sekolah (120 m × 80 m) adalah data contoh. Di kelas, murid tetap mengukur ruangan nyata; angka gim menjadi latihan penghitungan.</p>` }
     ]
   });
