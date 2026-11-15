@@ -40,6 +40,24 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "biro-skala",
+      judul: "Konsultan Muda: Biro Skala",
+      fase: "D",
+      jenis: "Gim",
+      topik: "Rasio: skala pada peta, denah, dan miniatur",
+      tujuan: "Novel visual 4 episode (19 chapter): menjadi konsultan muda di Biro Skala yang melayani tiga klien. Murid membaca skala peta rute rumah ke sekolah dengan penggaris virtual, merancang denah kelas impian 1 : 50, menyusun peta jalur evakuasi sekolah 1 : 500 saat musim hujan, dan menskalakan Rumah Kebaya atau Gedung Juang 45 Tambun menjadi miniatur. Setiap episode ditutup dengan tugas menggambar di LK yang diverifikasi dari hasil ukur murid sendiri. Ada tes awal, uji muat skala di kertas A3, audit draf rekan, Mode Pameran untuk menghitung persentase kesalahan karya, sumatif 15 soal, dan laporan A4.",
+      durasi: "10 × 40",
+      perangkat: "Proyektor dan HP",
+      simbol: "1 : 50",
+      url: "karya/fase-d/biro-skala/",
+      sampul: "assets/img/biro-skala.webp",
+      ukuran: "5,2 MB",
+      video: "",
+      perangkatAjar: [
+        { nama: "LK Biro Skala", ket: "5 halaman A4 siap cetak: skala garis, denah kelas impian, peta jalur evakuasi, tampak miniatur, dan lembar penilaian sejawat", format: "PDF", ukuran: "177 KB", berkas: "karya/fase-d/biro-skala/perangkat/lk-biro-skala.pdf" }
+      ]
+    },
+    {
       id: "detektif-label-jajanan",
       judul: "Detektif Label Jajanan",
       fase: "D",
