@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "panah-kendali",
+      judul: "Panah Kendali: Misi Drone Siaga",
+      fase: "F",
+      jenis: "Gim",
+      topik: "Vektor pada bidang datar (Tingkat Lanjut)",
+      tujuan: "Menjadi pilot drone logistik sekolah: menyusun kartu vektor ujung ke pangkal, mengatur tuas skalar, menghitung sudut, proyeksi, dan melawan angin agar drone mendarat tepat di posko.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "a · b",
+      url: "karya/fase-f/panah-kendali/",
+      sampul: "assets/img/panah-kendali.webp",
+      ukuran: "2,7 MB",
+      video: ""
+    },
+    {
       id: "biro-skala",
       judul: "Konsultan Muda: Biro Skala",
       fase: "D",

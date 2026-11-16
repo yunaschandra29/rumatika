@@ -1,5 +1,15 @@
 [
  {
+  "id": "panah-kendali",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Panah Kendali: Misi Drone Siaga",
+  "topik": "Vektor pada bidang datar (Tingkat Lanjut)",
+  "status": "Tayang",
+  "catatan": "2,7 MB"
+ },
+ {
   "id": "biro-skala",
   "fase": "D",
   "jenjang": "SMP",
