@@ -1,5 +1,15 @@
 [
  {
+  "id": "pabrik-kemasan",
+  "fase": "C",
+  "jenjang": "SD",
+  "jenis": "Lab Maya",
+  "judul": "Pabrik Kemasan",
+  "topik": "Bangun ruang dan jaring-jaringnya: kubus, balok, prisma segitiga, limas segi empat, tabung, dan kerucut",
+  "status": "Tayang",
+  "catatan": "0,8 MB"
+ },
+ {
   "id": "juragan-stok",
   "fase": "F",
   "jenjang": "SMA",

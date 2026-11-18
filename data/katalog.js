@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "pabrik-kemasan",
+      judul: "Pabrik Kemasan",
+      fase: "C",
+      jenis: "Lab Maya",
+      topik: "Bangun ruang dan jaring-jaringnya: kubus, balok, prisma segitiga, limas segi empat, tabung, dan kerucut",
+      tujuan: "Bekerja sebagai desainer di pabrik kemasan kardus. Murid merancang jaring-jaring kubus sendiri di papan petak lalu melipatnya dalam 3D. Jika gagal, sisi yang bertumpuk dan bagian yang bolong langsung ditandai. Setiap jaring yang berhasil masuk Album 11 Jaring Kubus. Di Bengkel Rakit, murid merangkai persegi panjang, persegi, dan segitiga menjadi balok, prisma segitiga, dan limas segi empat. Lab Lengkung membuktikan bahwa selimut tabung dan kerucut harus sepanjang keliling lingkaran alasnya. Detektif Dadu melatih sisi berhadapan, dan Ruang Pamer menampilkan sisi, rusuk, serta titik sudut keenam bangun. Ditutup Misi Pesanan berisi 10 soal dengan lima jenis interaksi dan bukti lipatan 3D, lalu laporan kerja.",
+      durasi: 70,
+      perangkat: "Proyektor dan HP",
+      simbol: "6 sisi · 12 rusuk",
+      url: "karya/fase-c/pabrik-kemasan/",
+      sampul: "assets/img/pabrik-kemasan.webp",
+      ukuran: "0,8 MB",
+      video: ""
+    },
+    {
       id: "juragan-stok",
       judul: "Juragan Stok",
       fase: "F",
