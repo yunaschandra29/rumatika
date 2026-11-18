@@ -1264,13 +1264,19 @@ function layarKasus(i) {
   const el = tampil(kepala('Meja Kasus') + `<div class="badan"><div class="kasus"><div>${wgb(k.img)}<div class="daftarK">${KASUS.map((_, j) => `<button data-k="${j}" class="${j === i ? 'on' : ''} ${S.kasus[j] != null ? 'sdh' : ''}">${j + 1}</button>`).join('')}</div></div>
     <div><small style="color:var(--abu);font-weight:700">BERKAS ${i + 1} DARI 6</small><h3 style="font-size:2.1cqw;color:var(--teal);margin-bottom:.6cqw">${k.judul}</h3><p style="font-size:1.45cqw;margin-bottom:1cqw">${k.teks}</p><b style="font-size:1.45cqw">${k.tanya}</b>
     <div class="opsi" style="grid-template-columns:1fr;margin-top:.8cqw">${k.opsi.map((o, j) => `<button data-o="${j}" class="${sdh ? (j === k.jawab ? 'benar' : (j === S.kasus[i] ? 'salah' : '')) : ''}">${o}</button>`).join('')}</div>
-    <div class="umpan ${sdh ? 'on kunci' : ''}">${sdh ? k.bahas : ''}</div></div></div></div>`);
+    <div class="umpan ${sdh ? 'on kunci' : ''}">${sdh ? `<b>Dugaanmu sebelumnya: ${k.opsi[S.kasus[i]]}.</b> ${k.bahas}` : ''}</div>
+    <div class="aksiSoal" id="aksiK">${sdh ? '<button class="tbl putih" id="tebakUlang">↻ Tebak ulang</button>' : ''}${i < KASUS.length - 1 ? `<button class="tbl" id="kasusLanjut" ${sdh ? '' : 'style="display:none"'}>Berkas ${i + 2} →</button>` : ''}</div></div></div></div>`);
   $$('[data-k]', el).forEach(b => b.onclick = () => { AU.klik(); layarKasus(+b.dataset.k); });
   $$('[data-o]', el).forEach(b => b.onclick = () => {
     if (S.kasus[i] != null) return; const j = +b.dataset.o; S.kasus[i] = j; simpan();
     b.classList.add(j === k.jawab ? 'benar' : 'salah'); $(`[data-o="${k.jawab}"]`, el).classList.add('benar');
     const u = $('.umpan', el); u.className = 'umpan on kunci'; u.innerHTML = `<b>${j === k.jawab ? 'Dugaanmu tepat.' : 'Mari lihat lagi.'}</b> ${k.bahas}`; j === k.jawab ? AU.berhasil() : AU.klik();
+    $('#aksiK', el).insertAdjacentHTML('afterbegin', '<button class="tbl putih" id="tebakUlang">↻ Tebak ulang</button>'); pasangUlang();
+    const nx = $('#kasusLanjut', el); if (nx) nx.style.display = '';
   });
+  function pasangUlang() { const t = $('#tebakUlang', el); if (t) t.onclick = () => { AU.klik(); delete S.kasus[i]; simpan(); layarKasus(i); }; }
+  pasangUlang();
+  const nx = $('#kasusLanjut', el); if (nx) nx.onclick = () => { AU.klik(); layarKasus(i + 1); };
 }
 function layarRangkuman() {
   tampil(kepala('Papan Rangkuman — 10 Kartu') + `<div class="badan"><div class="rgk">${RANGKUMAN.map((r, i) => `<div class="krg ${r[0]}" style="animation-delay:${i * .06}s"><b>${r[0]}</b>${r[1]}</div>`).join('')}</div></div>`);
