@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "kalkir-cermin",
+      judul: "Kalkir & Cermin",
+      fase: "F",
+      jenis: "MPI",
+      topik: "Transformasi Fungsi: pergeseran, pencerminan, peregangan dan pemampatan, pemodelan",
+      tujuan: "Buku sketsa matematika bernuansa kertas berpetak, goresan pensil bersuara, dan musik latar. Pemanasan tiga langkah dengan ilustrasi sketsa: kegunaan transformasi di sekitar murid, trik kertas kalkir untuk menggeser parabola, dan pertanyaan pemantik tentang membalik grafik. Empat materi (pergeseran, pencerminan, peregangan dan pemampatan, pemodelan) dengan grafik yang digambar pensil langkah demi langkah, 12 latihan dengan tiga kesempatan, empat lab sketsa (Geser Kalkir, Cermin Dua Sumbu, Karet Grafik, Pas Data), tiga kasus terapan (suhu °F, lompatan karakter gim, gerbang lengkung), dan asesmen 12 soal. Ditutup gim Meja Kalkir: murid menyusun urutan kartu transformasi sampai kertas kalkir berimpit dengan pesanan, lalu menuliskan fungsinya. Dilengkapi laporan belajar A4.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "y = a·f(b(x − h)) + k",
+      url: "karya/fase-f/kalkir-cermin/",
+      sampul: "assets/img/kalkir-cermin.webp",
+      ukuran: "3 MB",
+      video: ""
+    },
+    {
       id: "jangka-benang",
       judul: "Jangka & Benang",
       fase: "F",

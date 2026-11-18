@@ -1,5 +1,15 @@
 [
  {
+  "id": "kalkir-cermin",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Kalkir & Cermin",
+  "topik": "Transformasi Fungsi: pergeseran, pencerminan, peregangan dan pemampatan, pemodelan",
+  "status": "Tayang",
+  "catatan": "3 MB"
+ },
+ {
   "id": "jangka-benang",
   "fase": "F",
   "jenjang": "SMA",
