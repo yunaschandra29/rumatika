@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "jangka-benang",
+      judul: "Jangka & Benang",
+      fase: "F",
+      jenis: "MPI",
+      topik: "Lingkaran, Elips, dan Garis Singgung Lingkaran (Tingkat Lanjut)",
+      tujuan: "Buku sketsa matematika bernuansa kertas berpetak dan goresan pensil. Pemanasan tiga langkah: kegunaan lingkaran dan elips di sekitar murid, apersepsi tali dan patok, serta pertanyaan pemantik tentang garis singgung. Empat materi (lingkaran, elips, kedudukan titik dan garis, garis singgung) dengan gambar yang digambar pensil langkah demi langkah, 12 latihan dengan tiga kesempatan, empat lab sketsa (Jangka Digital, Benang dan Paku, Garis Penyelidik, Penggaris Singgung), tiga kasus terapan (radar, terowongan, orbit komet), dan asesmen 12 soal. Ditutup gim Studio Jangka: murid menyeret titik untuk menggambar pesanan lalu menuliskan persamaannya. Dilengkapi laporan belajar A4.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "(x − a)² + (y − b)² = r²",
+      url: "karya/fase-f/jangka-benang/",
+      sampul: "assets/img/jangka-benang.webp",
+      ukuran: "0,1 MB",
+      video: ""
+    },
+    {
       id: "lab-pecahan-senilai",
       judul: "Lab Maya Pecahan",
       fase: "B",

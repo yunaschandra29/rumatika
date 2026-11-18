@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jangka & Benang — Lingkaran, Elips, dan Garis Singgung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbf8ef;--grid:#d6e4f4;--ink:#1f4e9c;--red:#c8372d;--lead:#33383d;--hl:#fff07a;--grn:#2c8a57;--soft:#6b7280;--org:#d9822b}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#2b2926;overflow:hidden;font-family:'Kalam','Segoe Print','Comic Sans MS',cursive;color:var(--lead)}
+#stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;background-color:var(--paper);
+ background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;overflow:hidden;box-shadow:0 12px 50px #000a}
+.scr{position:absolute;inset:0;display:none}
+.scr.on{display:block;animation:fadein .35s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1,h2,h3,.hand{font-family:'Caveat','Segoe Print','Comic Sans MS',cursive;font-weight:700;margin:0}
+p{margin:.35em 0;line-height:1.45}
+.sk{position:relative;background:#fffef9;border-radius:6px}
+.sk::before{content:'';position:absolute;inset:-1px;border:2.2px solid var(--lead);border-radius:inherit;filter:url(#wob);pointer-events:none}
+.tape{position:absolute;width:96px;height:26px;background:rgba(255,226,110,.62);top:-13px;left:50%;transform:translateX(-50%) rotate(-3deg);box-shadow:0 1px 2px #0002}
+.tape.b{background:rgba(140,190,240,.55);transform:translateX(-50%) rotate(4deg)}
+.tape.r{background:rgba(240,140,130,.5)}
+.btn{font-family:'Caveat',cursive;font-weight:700;font-size:25px;padding:4px 22px;background:#fff;color:var(--lead);border:2.5px solid var(--lead);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;cursor:pointer;box-shadow:3px 3px 0 var(--lead);transition:transform .12s,box-shadow .12s}
+.btn:hover:not(:disabled){transform:translate(-1px,-2px);box-shadow:4px 5px 0 var(--lead)}
+.btn:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--lead)}
+.btn.ink{background:var(--ink);color:#fff}
+.btn.red{background:var(--red);color:#fff}
+.btn.grn{background:var(--grn);color:#fff}
+.btn.sm{font-size:20px;padding:2px 14px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.hl{background:linear-gradient(transparent 55%,var(--hl) 55%);padding:0 2px}
+.f{font-family:'Kalam',cursive;color:var(--ink);font-size:22px;font-weight:700;background:#eef4fc;border-left:4px solid var(--ink);padding:4px 12px;margin:6px 0;display:block;border-radius:3px}
+.f.r{color:var(--red);border-color:var(--red);background:#fdf0ee}
+.f.g{color:var(--grn);border-color:var(--grn);background:#eef8f2}
+.red{color:var(--red)}.inkc{color:var(--ink)}.grnc{color:var(--grn)}
+.lined::after{content:'';position:absolute;left:62px;top:0;bottom:0;width:2px;background:#e9a8a1;pointer-events:none}
+.topbar{position:absolute;left:0;right:0;top:0;height:74px;display:flex;align-items:center;gap:16px;padding:0 26px 0 84px;z-index:3}
+.topbar h2{font-size:44px;color:var(--lead)}
+.topbar .sub{font-size:18px;color:var(--soft);margin-top:10px}
+.topbar .sp{flex:1}
+.back{position:absolute;left:10px;top:18px;z-index:4}
+.back ~ .topbar{padding-left:190px}
+input.tx{font-family:'Kalam';font-size:22px;border:none;border-bottom:2.5px dashed var(--lead);background:transparent;padding:2px 6px;outline:none;color:var(--ink)}
+input.tx:focus{border-bottom-style:solid;border-color:var(--ink)}
+input.bl{width:78px;text-align:center;font-family:'Kalam';font-size:22px;font-weight:700;color:var(--ink);border:2px solid var(--lead);border-radius:6px;background:#fff;padding:0 4px;margin:0 3px}
+input.bl.ok{border-color:var(--grn);background:#eaf7ef}
+input.bl.no{border-color:var(--red);background:#fdeceb}
+canvas{display:block;touch-action:none}
+.toast{position:absolute;left:50%;bottom:26px;transform:translateX(-50%) rotate(-1deg);background:#fffbe0;border:2px solid var(--lead);padding:8px 22px;font-size:20px;border-radius:4px;box-shadow:3px 3px 0 #0003;z-index:50;display:none}
+#modal{position:absolute;inset:0;background:rgba(40,38,34,.45);display:none;align-items:center;justify-content:center;z-index:60}
+#modal .box{width:620px;padding:28px 34px;text-align:center}
+#modal h3{font-size:40px}
+/* doodle draw */
+.draw path,.draw circle,.draw ellipse,.draw line{stroke-dasharray:1200;stroke-dashoffset:1200;animation:drawln 2.4s ease forwards}
+@keyframes drawln{to{stroke-dashoffset:0}}
+/* home */
+#s-home .title{position:absolute;left:0;right:0;top:150px;text-align:center}
+#s-home h1{font-size:132px;line-height:1;color:var(--lead);letter-spacing:1px}
+#s-home h1 span{color:var(--red)}
+#s-home .tag{font-size:28px;color:var(--ink);margin-top:6px}
+#s-home .meta{font-size:20px;color:var(--soft);margin-top:4px}
+/* loading */
+#s-load .wrap{position:absolute;left:340px;top:280px;width:600px;text-align:center}
+#loadbar{height:16px;border:2px solid var(--lead);border-radius:8px;margin:18px 0;overflow:hidden;background:#fff}
+#loadbar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,#555 0 3px,#999 3px 6px)}
+/* identity */
+#s-id .card{position:absolute;left:340px;top:110px;width:600px;height:480px;padding:34px 44px;transform:rotate(-1deg);background:#fff;
+ background-image:linear-gradient(transparent 47px,#bcd2ee 47px,#bcd2ee 48px,transparent 48px);background-size:100% 48px}
+#s-id .card h2{font-size:48px;color:var(--red)}
+#s-id label{display:block;font-size:22px;margin-top:20px}
+#s-id input.tx{width:100%}
+/* apersepsi */
+#s-aper .story{position:absolute;left:86px;top:88px;width:580px;padding:12px 22px;font-size:17px}
+#s-aper .story h3{font-size:34px;color:var(--ink)}
+#aperCv{position:absolute;left:690px;top:96px}
+.astep{position:absolute;inset:0 0 70px 0;display:none}.astep.on{display:block}
+.ugrid{position:absolute;left:86px;top:112px;right:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px 26px}
+.use{height:240px;padding:10px 16px;cursor:pointer;background:#fff;transition:transform .15s}
+.use:hover{transform:translateY(-3px) rotate(-.6deg)}
+.use svg{display:block;margin:0 auto}
+.use b{font-family:'Caveat',cursive;font-size:27px;display:block;line-height:1.05}
+.use .u1{font-size:16px;color:var(--soft);line-height:1.3}
+.use .u2{display:none;font-size:16px;line-height:1.3;color:var(--ink)}
+.use.open{background:#f1f6fd}.use.open .u1{display:none}.use.open .u2{display:block}
+.use .seen{position:absolute;right:10px;top:6px;color:var(--grn);font-size:15px;display:none}.use.open .seen{display:block}
+#s-aper .q{position:absolute;left:86px;top:418px;width:580px;height:226px;overflow:auto;padding:12px 22px}
+/* menu */
+.col{position:absolute;top:96px}
+.col h3{font-size:32px;margin:0 0 8px 6px}
+.mc{width:270px;height:100px;margin-bottom:18px;padding:8px 12px 6px 64px;cursor:pointer;transition:transform .15s;background:#fff}
+.mc:hover{transform:rotate(-1.2deg) translateY(-3px)}
+.mc .ic{position:absolute;left:10px;top:16px;width:44px;height:44px;border-radius:50%;border:2px solid var(--lead);display:flex;align-items:center;justify-content:center;font-family:'Caveat';font-weight:700;font-size:28px;background:#fff8d6}
+.mc b{font-family:'Caveat';font-size:26px;display:block;line-height:1}
+.mc small{font-size:15px;color:var(--soft);display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;line-height:1.25;margin-top:3px}
+.mc .st{display:inline-block;margin-top:3px;font-size:14px;color:var(--grn);background:#eaf7ef;border:1.5px solid var(--grn);border-radius:10px;padding:0 8px;line-height:1.4}
+.mc.lock{cursor:not-allowed;background:#f1efe8;color:#8b8f94}
+.mc.lock .ic{background:#e5e2d8}
+.mbar{position:absolute;left:84px;right:30px;bottom:18px;display:flex;gap:14px;align-items:center}
+/* materi */
+#mText{position:absolute;left:86px;top:92px;width:600px;height:520px;padding:22px 28px;font-size:19px;overflow:auto}
+#mText h3{font-size:36px;color:var(--ink);margin-bottom:4px}
+#mFig{position:absolute;left:712px;top:104px}
+.mnav{position:absolute;left:86px;right:40px;bottom:22px;display:flex;align-items:center;gap:12px}
+.dots{display:flex;gap:8px;flex:1;justify-content:center}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--lead);display:block}
+.dots i.on{background:var(--lead)}
+.dots i.seen{background:#b9c4d2}
+/* questions */
+.qwrap{font-size:20px}
+.qq{font-size:22px;margin-bottom:10px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:6px 12px;margin:6px 0;border:2px solid #c8c3b5;border-radius:10px;cursor:pointer;background:#fff;font-size:20px}
+.opt:hover{border-color:var(--lead)}
+.opt .l{font-family:'Caveat';font-weight:700;font-size:24px;width:28px;height:28px;border:2px solid var(--lead);border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.opt.sel{border-color:var(--ink);background:#eef4fc}
+.opt.ok{border-color:var(--grn);background:#eaf7ef}
+.opt.no{border-color:var(--red);background:#fdeceb;text-decoration:line-through}
+.fb{margin-top:10px;font-size:19px;min-height:30px}
+.fb .card{padding:10px 14px;border-radius:8px;border:2px dashed}
+.fb .g{border-color:var(--grn);background:#f1faf4}
+.fb .w{border-color:var(--org);background:#fff7ec}
+.fb .k{border-color:var(--red);background:#fdf1ef}
+.note{display:block;margin-top:6px;font-size:17px;color:#444}
+.note::before{content:'✎ Catatan belajar: ';font-weight:700;color:var(--ink)}
+/* lab */
+#labCv{position:absolute;left:40px;top:92px}
+#labPanel{position:absolute;left:830px;top:88px;width:420px;height:612px;padding:16px 18px;font-size:17px;overflow:auto}
+.ctl{margin:8px 0}
+.ctl label{display:flex;justify-content:space-between;font-size:19px}
+.ctl input[type=range]{width:100%;accent-color:var(--ink)}
+.info{background:#f6f9fd;border:1.5px dashed var(--ink);border-radius:8px;padding:8px 12px;margin:10px 0;font-size:18px;line-height:1.4}
+.mis li{margin:4px 0;list-style:none;padding-left:26px;position:relative}
+.mis li::before{content:'☐';position:absolute;left:0;font-size:20px;top:-3px}
+.mis li.d{color:var(--grn);text-decoration:line-through}
+.mis li.d::before{content:'☑'}
+.mis{padding:0;margin:4px 0}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+/* gim */
+#gimCv{position:absolute;left:40px;top:150px}
+#gimPanel{position:absolute;left:770px;top:142px;width:480px;height:556px;padding:16px 20px;font-size:18px;overflow:auto}
+.sheets{position:absolute;left:84px;top:80px;display:flex;gap:12px}
+.sheet{width:118px;height:52px;border:2px solid var(--lead);background:#fff;border-radius:4px;font-family:'Caveat';font-size:20px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;line-height:1;transform:rotate(-1deg)}
+.sheet:nth-child(even){transform:rotate(1.2deg)}
+.sheet.on{background:#fff6c9;box-shadow:3px 3px 0 var(--lead)}
+.sheet.lock{opacity:.45;cursor:not-allowed}
+.sheet small{font-size:16px;color:var(--org)}
+/* asesmen */
+#aBox{position:absolute;left:86px;top:96px;width:820px;height:520px;padding:24px 30px;overflow:auto}
+#aNav{position:absolute;left:940px;top:96px;width:300px;padding:16px}
+#aNav .g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+#aNav .g i{font-style:normal;border:2px solid var(--lead);border-radius:6px;text-align:center;font-family:'Caveat';font-weight:700;font-size:24px;cursor:pointer;background:#fff}
+#aNav .g i.a{background:#dfe9f7}
+#aNav .g i.c{outline:3px solid var(--red)}
+/* generic sheet */
+.paper{position:absolute;left:86px;top:92px;right:40px;bottom:30px;padding:22px 30px;overflow:auto;font-size:19px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.box{padding:12px 16px}
+.box h3{font-size:30px;color:var(--ink)}
+/* print */
+#print{position:fixed;inset:0;background:#55534f;overflow:auto;display:none;z-index:9999;font-family:'Kalam',cursive}
+#ptool{position:sticky;top:0;background:#2b2926;padding:10px;text-align:center;z-index:2}
+#ptool .btn{margin:0 6px}
+.a4{width:210mm;min-height:297mm;margin:16px auto;background:#fff;padding:16mm 16mm;color:#222;font-size:12pt;box-shadow:0 4px 18px #0006}
+.a4 h1{font-family:'Caveat';font-size:30pt;margin:0}
+.a4 h2{font-family:'Caveat';font-size:20pt;margin:12px 0 4px;color:#1f4e9c}
+.a4 table{width:100%;border-collapse:collapse;font-size:11pt}
+.a4 td,.a4 th{border:1px solid #888;padding:4px 6px;text-align:left}
+@media print{
+ body{background:#fff;overflow:visible}
+ #stage{display:none}
+ #print{position:static;display:block!important;background:#fff;overflow:visible}
+ #ptool{display:none}
+ .a4{box-shadow:none;margin:0;width:auto;min-height:0;padding:0}
+ @page{size:A4;margin:14mm}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+ <filter id="wob"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter>
+</svg>
+<div id="stage">
+
+<!-- HOME -->
+<section class="scr on" id="s-home">
+ <svg class="draw" style="position:absolute;left:0;top:0" width="1280" height="720" fill="none" stroke-linecap="round">
+  <circle cx="190" cy="560" r="96" stroke="#1f4e9c" stroke-width="3"/>
+  <circle cx="190" cy="560" r="4" fill="#1f4e9c"/>
+  <line x1="190" y1="560" x2="258" y2="492" stroke="#33383d" stroke-width="2" stroke-dasharray="6 6"/>
+  <line x1="148" y1="382" x2="378" y2="612" stroke="#c8372d" stroke-width="3"/>
+  <ellipse cx="1060" cy="170" rx="160" ry="90" stroke="#c8372d" stroke-width="3"/>
+  <circle cx="936" cy="170" r="5" fill="#33383d"/><circle cx="1184" cy="170" r="5" fill="#33383d"/>
+  <path d="M936 170 L1110 87 L1184 170" stroke="#33383d" stroke-width="2"/>
+  <path d="M1040 600 q40 -60 90 -20 t90 -10" stroke="#2c8a57" stroke-width="3"/>
+  <path d="M70 90 l40 0 m-20 -20 l0 40" stroke="#33383d" stroke-width="2"/>
+ </svg>
+ <div class="title">
+  <div class="hand" style="font-size:26px;color:var(--soft)">buku sketsa matematika</div>
+  <h1>Jangka <span>&amp;</span> Benang</h1>
+  <div class="tag hand" style="font-size:34px">Lingkaran, Elips, dan Garis Singgung Lingkaran</div>
+  <div class="meta">Matematika Tingkat Lanjut · Fase F · Kelas XII · Bab 1</div>
+  <div style="margin-top:34px"><button class="btn ink" style="font-size:32px;padding:6px 36px" onclick="startApp()">Buka Buku Sketsa ✎</button></div>
+ </div>
+</section>
+
+<!-- LOADING -->
+<section class="scr" id="s-load">
+ <div class="wrap">
+  <h2 style="font-size:46px">Meruncingkan pensil…</h2>
+  <div id="loadbar"><i></i></div>
+  <div id="loadtip" style="font-size:20px;color:var(--soft)">Jangka menggambar lingkaran. Dua paku dan seutas benang menggambar elips.</div>
+ </div>
+</section>
+
+<!-- IDENTITY -->
+<section class="scr" id="s-id">
+ <div class="card sk"><div class="tape"></div>
+  <h2>Kartu Pemilik Buku Sketsa</h2>
+  <div style="font-size:18px;color:var(--soft)">Isi dulu, ya. Namamu akan tercetak di laporan belajar.</div>
+  <label>Nama lengkap<input class="tx" id="inNama" maxlength="40" autocomplete="off"></label>
+  <label>Kelas<input class="tx" id="inKelas" maxlength="12" placeholder="contoh: XII-1" autocomplete="off"></label>
+  <label>Nomor absen<input class="tx" id="inAbsen" maxlength="4" autocomplete="off"></label>
+  <div style="margin-top:28px;text-align:right"><span id="idWarn" class="red" style="margin-right:14px"></span><button class="btn ink" onclick="saveId()">Lanjut →</button></div>
+ </div>
+</section>
+
+<!-- APERSEPSI -->
+<section class="scr lined" id="s-aper">
+ <div class="topbar"><h2 id="aperTitle"></h2><div class="sub" id="aperSub"></div><div class="sp"></div></div>
+ <div class="astep" id="ap1">
+  <div class="hand" style="position:absolute;left:86px;top:74px;font-size:24px;color:var(--soft)">Ketuk tiap kartu untuk melihat matematikanya.</div>
+  <div class="ugrid" id="useGrid"></div>
+ </div>
+ <div class="astep" id="ap2">
+  <div class="story sk"><div class="tape"></div>
+   <h3>Bagaimana tukang taman menggambar kolam?</h3>
+   <p>Tanpa jangka raksasa, tukang taman menancapkan <b>satu patok</b>, mengikat tali, lalu berjalan memutar sambil menarik tali tetap tegang. Hasilnya: <span class="hl">lingkaran</span>.</p>
+   <p>Untuk kolam oval, ia memakai <b>dua patok</b> dan tali yang ujungnya diikat ke keduanya. Hasilnya: <span class="hl">elips</span>.</p>
+   <p>Keduanya bergantung pada <b>jarak antara dua titik</b>. Kita cek dulu bekalmu.</p>
+  </div>
+  <canvas id="aperCv" width="540" height="500" class="sk"></canvas>
+  <div class="q sk" id="aperQ"></div>
+ </div>
+ <div class="astep" id="ap3">
+  <div class="sk" id="aperQ3" style="position:absolute;left:86px;top:96px;width:580px;height:540px;padding:18px 24px;overflow:auto"></div>
+  <canvas id="aperCv3" width="540" height="300" class="sk" style="position:absolute;left:690px;top:96px"></canvas>
+  <div class="sk" style="position:absolute;left:690px;top:416px;width:540px;padding:12px 20px;font-size:17px;transform:rotate(.6deg);background:#fffbe6"><div class="tape b"></div>
+   <div class="hand" style="font-size:28px">Setelah bab ini, kamu mampu:</div>
+   1. menyusun persamaan lingkaran dan elips dari unsur-unsurnya;<br>2. menentukan unsur lingkaran dan elips dari persamaannya;<br>3. menentukan kedudukan titik dan garis terhadap lingkaran;<br>4. menentukan persamaan garis singgung lingkaran dan memakainya dalam masalah nyata.
+  </div>
+ </div>
+ <div class="mnav"><button class="btn sm" id="aPrev">← Sebelumnya</button><div class="dots" id="aDots"></div><button class="btn sm ink" id="aNext">Berikutnya →</button></div>
+</section>
+
+<!-- MENU -->
+<section class="scr lined" id="s-menu">
+ <div class="topbar"><h2>Daftar Isi Buku Sketsa</h2><div class="sub" id="menuHello"></div><div class="sp"></div></div>
+ <div class="col" style="left:86px"><h3>✎ Materi</h3><div id="colM"></div></div>
+ <div class="col" style="left:390px"><h3>⚙ Lab Sketsa</h3><div id="colL"></div></div>
+ <div class="col" style="left:694px"><h3>★ Uji &amp; Terapkan</h3><div id="colU"></div></div>
+ <div class="col" style="left:996px;width:250px" >
+  <div class="sk" style="padding:14px 16px;transform:rotate(1.5deg);background:#fffbe6"><div class="tape b"></div>
+   <div class="hand" style="font-size:28px">Aturan buku ini</div>
+   <div style="font-size:16px;line-height:1.35">• Lab terbuka setelah materinya dibaca sampai halaman terakhir.<br>• Asesmen terbuka setelah minimal 1 lab tuntas.<br>• Gim terbuka setelah skor asesmen ≥ 70.</div>
+  </div>
+  <div class="sk" style="padding:14px 16px;margin-top:22px;background:#fff" id="progBox"></div>
+ </div>
+ <div class="mbar">
+  <button class="btn sm" onclick="go('s-sum')">Rangkuman</button>
+  <button class="btn sm" onclick="openReport()">Laporan Belajar</button>
+  <button class="btn sm" onclick="go('s-about')">Tentang</button>
+  <button class="btn sm" onclick="go('s-ref')">Referensi</button>
+  <div style="flex:1"></div>
+  <button class="btn sm" id="sfxBtn" onclick="toggleSfx()">🔇 Suara</button>
+ </div>
+</section>
+
+<!-- MATERI -->
+<section class="scr lined" id="s-materi">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2 id="mTitle"></h2><div class="sub" id="mSub"></div><div class="sp"></div></div>
+ <div id="mText" class="sk"></div>
+ <canvas id="mFig" width="520" height="440" class="sk" title="Ketuk untuk mempercepat / mengulang gambar"></canvas>
+ <button class="btn sm" id="mReplay" style="position:absolute;left:1064px;top:556px">↻ Gambar ulang</button>
+ <div class="mnav"><button class="btn sm" id="mPrev">← Sebelumnya</button><div class="dots" id="mDots"></div><button class="btn sm ink" id="mNext">Berikutnya →</button></div>
+</section>
+
+<!-- LAB -->
+<section class="scr" id="s-lab">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2 id="labTitle"></h2><div class="sub" id="labSub"></div></div>
+ <canvas id="labCv" width="760" height="600" class="sk"></canvas>
+ <div id="labPanel" class="sk"></div>
+</section>
+
+<!-- TERAPAN -->
+<section class="scr lined" id="s-ter">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2>Terapan: Sketsa di Dunia Nyata</h2><div class="sp"></div><div class="tabs" id="terTabs"></div></div>
+ <div id="terText" class="sk" style="position:absolute;left:86px;top:96px;width:600px;height:596px;padding:20px 26px;font-size:19px;overflow:auto"></div>
+ <canvas id="terCv" width="520" height="440" class="sk" style="position:absolute;left:712px;top:104px"></canvas>
+</section>
+
+<!-- RANGKUMAN -->
+<section class="scr lined" id="s-sum">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2>Rangkuman: Satu Halaman Catatan</h2></div>
+ <div class="paper" style="padding:0;overflow:visible;background:transparent">
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr;gap:20px">
+   <div class="sk box" style="transform:rotate(-.8deg)"><div class="tape"></div><h3>Lingkaran</h3>
+    <div class="f">x² + y² = r²</div><div class="f">(x − a)² + (y − b)² = r²</div><div class="f">x² + y² + Ax + By + C = 0</div>
+    <p style="font-size:17px">Pusat (−A/2, −B/2), r = √(A²/4 + B²/4 − C)</p></div>
+   <div class="sk box" style="transform:rotate(.6deg)"><div class="tape b"></div><h3>Elips</h3>
+    <div class="f r">x²/a² + y²/b² = 1 &nbsp;(a &gt; b)</div>
+    <p style="font-size:17px">Mayor tegak: a² di bawah y². Pusat (h,k): ganti x → x − h, y → y − k.</p>
+    <div class="f r">c² = a² − b², e = c/a</div><p style="font-size:17px">Jumlah jarak ke dua fokus selalu 2a.</p></div>
+   <div class="sk box" style="transform:rotate(-.4deg)"><div class="tape r"></div><h3>Kedudukan</h3>
+    <p style="font-size:17px"><b>Titik:</b> hitung K = (p − a)² + (q − b)² − r².<br>K &lt; 0 dalam · K = 0 pada · K &gt; 0 luar</p>
+    <p style="font-size:17px"><b>Garis:</b> substitusi → D, atau jarak d pusat ke garis.<br>D &gt; 0 / d &lt; r memotong · D = 0 / d = r menyinggung · D &lt; 0 / d &gt; r terpisah</p></div>
+  </div>
+  <div class="sk box" style="margin-top:20px;transform:rotate(.3deg)"><div class="tape"></div><h3>Garis Singgung Lingkaran</h3>
+   <div class="grid2" style="grid-template-columns:1fr 1fr 1fr;gap:14px;font-size:17px">
+    <div><b>Titik T(x₁, y₁) pada lingkaran</b><div class="f g">x₁x + y₁y = r²</div>(x₁ − a)(x − a) + (y₁ − b)(y − b) = r²</div>
+    <div><b>Gradien m diketahui</b><div class="f g">y = mx ± r√(1 + m²)</div>y − b = m(x − a) ± r√(1 + m²)</div>
+    <div><b>Titik P di luar</b><div class="f g">y − y₁ = m(x − x₁), syarat d = r</div>Panjang PT = √(|PO|² − r²)</div>
+   </div></div>
+ </div>
+</section>
+
+<!-- ASESMEN -->
+<section class="scr lined" id="s-ases">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2>Asesmen Sumatif Bab 1</h2><div class="sub">12 soal · pilih satu jawaban</div></div>
+ <div id="aBox" class="sk"></div>
+ <div id="aNav" class="sk"></div>
+</section>
+
+<!-- GIM -->
+<section class="scr lined" id="s-gim">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2>Gim: Studio Jangka</h2><div class="sub">6 lembar pesanan · seret titik, tinta, lalu tulis persamaannya</div><div class="sp"></div><div class="hand" id="gimStars" style="font-size:30px;color:var(--org)"></div></div>
+ <div class="sheets" id="gimSheets"></div>
+ <canvas id="gimCv" width="700" height="540" class="sk"></canvas>
+ <div id="gimPanel" class="sk"></div>
+</section>
+
+<!-- TENTANG -->
+<section class="scr lined" id="s-about">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2>Tentang Pengembang</h2></div>
+ <div class="sk" style="position:absolute;left:220px;top:130px;width:840px;padding:30px 40px;font-size:20px;transform:rotate(-.6deg)"><div class="tape"></div>
+  <div style="display:flex;gap:30px;align-items:center">
+   <svg width="150" height="150" viewBox="0 0 150 150" fill="none" stroke="#33383d" stroke-width="3" stroke-linecap="round"><circle cx="75" cy="75" r="70" stroke="#1f4e9c"/><circle cx="75" cy="58" r="24"/><path d="M30 124 q45 -50 90 0"/><path d="M62 56 h0 M88 56 h0" stroke-width="5"/><path d="M66 68 q9 7 18 0"/></svg>
+   <div>
+    <h3 style="font-size:40px">Yunas Chandra Perdana, M.Pd.</h3>
+    <p>Guru Matematika · Unit Kerja: SMPIT–SMAIT Nurul Ilmi</p>
+    <p>Surel: <b>yunaschandra29@gmail.com</b></p>
+    <p>YouTube &amp; Instagram: <b>@yunascp</b></p>
+   </div>
+  </div>
+  <p style="margin-top:18px">Media pembelajaran interaktif ini dikembangkan untuk Matematika Tingkat Lanjut Fase F, Bab 1 Lingkaran, Elips, dan Garis Singgung Lingkaran. Dipakai untuk pembelajaran di kelas dan belajar mandiri.</p>
+ </div>
+</section>
+
+<!-- REFERENSI -->
+<section class="scr lined" id="s-ref">
+ <button class="btn sm back" onclick="go('s-menu')">← Menu</button>
+ <div class="topbar"><h2>Referensi</h2></div>
+ <div class="sk paper" style="left:120px;right:120px;top:110px;bottom:60px;font-size:19px"><div class="tape"></div>
+  <ol style="line-height:1.6">
+   <li>Kementerian Pendidikan Dasar dan Menengah. <i>Buku Siswa Matematika Tingkat Lanjut untuk SMA/MA Kelas XII</i>, Bab 1 Lingkaran, Elips, dan Garis Singgung Lingkaran. Jakarta: Pusat Perbukuan. buku.kemendikdasmen.go.id.</li>
+   <li>Utami, W. B., dkk. (2022). <i>Matematika Tingkat Lanjut untuk SMA/MA Kelas XII</i>. Jakarta: Pusat Perbukuan, Badan Standar, Kurikulum, dan Asesmen Pendidikan, Kemendikbudristek.</li>
+   <li>Capaian Pembelajaran Matematika Tingkat Lanjut Fase F, Kurikulum Merdeka. Badan Standar, Kurikulum, dan Asesmen Pendidikan.</li>
+   <li>Stewart, J., Redlin, L., &amp; Watson, S. (2016). <i>Precalculus: Mathematics for Calculus</i> (7th ed.). Boston: Cengage Learning.</li>
+   <li>Larson, R. (2018). <i>Precalculus</i> (10th ed.). Boston: Cengage Learning.</li>
+   <li>Huruf: Caveat dan Kalam (Google Fonts, SIL Open Font License).</li>
+  </ol>
+ </div>
+</section>
+
+<div class="toast" id="toast"></div>
+<div id="modal"><div class="box sk" id="modalBox"></div></div>
+</div>
+
+<div id="print"><div id="ptool"><button class="btn ink" onclick="doPrint()">🖨 Cetak / Simpan PDF</button><button class="btn" onclick="closeReport()">Tutup</button><div id="pmsg" style="color:#fff;font-size:15px;margin-top:6px"></div></div><div id="printBody"></div></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const S={nama:'',kelas:'',absen:'',read:{A:0,B:0,C:0,D:0},drill:{},sim:{1:0,2:0,3:0,4:0},simM:{1:{},2:{},3:{},4:{}},ter:{},ases:null,gim:{stars:[0,0,0,0,0,0]},mis:[],tries:0,sfx:false,aper:0};
+
+/* ---------- stage ---------- */
+function fit(){const s=Math.min(innerWidth/1280,innerHeight/720);$('#stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
+addEventListener('resize',fit);fit();
+const onEnter={};let cur='s-home';
+function go(id){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));$('#'+id).classList.add('on');cur=id;if(onEnter[id])onEnter[id]();}
+function toast(m,ms){const t=$('#toast');t.innerHTML=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',ms||2600);}
+function modal(html,btns){$('#modalBox').innerHTML='<div class="tape"></div>'+html+'<div style="margin-top:20px;display:flex;gap:12px;justify-content:center" id="mBtns"></div>';
+ (btns||[['Oke',null,'ink']]).forEach(([t,f,c])=>{const b=document.createElement('button');b.className='btn '+(c||'');b.textContent=t;b.onclick=()=>{$('#modal').style.display='none';f&&f();};$('#mBtns').appendChild(b);});
+ $('#modal').style.display='flex';}
+
+/* ---------- audio (default senyap) ---------- */
+let AC=null;
+function beep(type){if(!S.sfx)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const seq=type==='ok'?[523,659,784]:type==='no'?[300,220]:[440];
+ seq.forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.0001,AC.currentTime+i*.09);g.gain.exponentialRampToValueAtTime(.12,AC.currentTime+i*.09+.02);g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+i*.09+.2);o.connect(g).connect(AC.destination);o.start(AC.currentTime+i*.09);o.stop(AC.currentTime+i*.09+.22);});}catch(e){}}
+function toggleSfx(){S.sfx=!S.sfx;$('#sfxBtn').textContent=S.sfx?'🔊 Suara':'🔇 Suara';if(S.sfx)beep('tap');}
+
+/* ---------- utils ---------- */
+function fmt(v,d){if(d===undefined)d=2;let s=(Math.round(v*Math.pow(10,d))/Math.pow(10,d)).toString();if(s==='-0')s='0';return s.replace('.',',').replace('-','−');}
+function num(s){s=(s||'').toString().trim().replace(/\s/g,'').replace(/,/g,'.').replace(/−/g,'-');if(!s)return NaN;if(s.includes('/')){const[a,b]=s.split('/');return parseFloat(a)/parseFloat(b);}return Number(s);}
+function sh(v,ch){if(v===0)return ch+'²';return '('+ch+(v>0?' − ':' + ')+fmt(Math.abs(v))+')²';}
+function term(c,v,first){if(c===0)return '';const s=c<0?' − ':(first?'':' + ');const a=Math.abs(c);return s+(a===1&&v?'':fmt(a))+v;}
+function addMis(t){if(t&&!S.mis.includes(t))S.mis.push(t);}
+
+/* ---------- Plot (gaya pensil) ---------- */
+class Plot{
+ constructor(cv,u){this.cv=cv;this.c=cv.getContext('2d');this.u=u||40;this.ox=cv.width/2;this.oy=cv.height/2;}
+ X(x){return this.ox+x*this.u}Y(y){return this.oy-y*this.u}
+ wx(px){return(px-this.ox)/this.u}wy(py){return(this.oy-py)/this.u}
+ get x0(){return this.wx(0)}get x1(){return this.wx(this.cv.width)}get y0(){return this.wy(this.cv.height)}get y1(){return this.wy(0)}
+ _op(L,draw,tip){if(this.rec)this.rec.push({L:Math.max(L,0),draw,tip});else draw(1);}
+ clear(noAxis){this._op(0,()=>this._clear(noAxis));}
+ _clear(noAxis){const c=this.c,W=this.cv.width,H=this.cv.height;c.setLineDash([]);c.fillStyle='#fffdf7';c.fillRect(0,0,W,H);c.lineWidth=1;
+  for(let i=Math.ceil(this.x0);i<=this.x1;i++){c.strokeStyle=i%5===0?'#b9d0ee':'#e1eaf6';c.beginPath();c.moveTo(Math.round(this.X(i))+.5,0);c.lineTo(Math.round(this.X(i))+.5,H);c.stroke();}
+  for(let j=Math.ceil(this.y0);j<=this.y1;j++){c.strokeStyle=j%5===0?'#b9d0ee':'#e1eaf6';c.beginPath();c.moveTo(0,Math.round(this.Y(j))+.5);c.lineTo(W,Math.round(this.Y(j))+.5);c.stroke();}
+  if(noAxis)return;
+  this.seg(this.x0+.2,0,this.x1-.2,0,'#50565c',1.5);this.seg(0,this.y0+.2,0,this.y1-.2,'#50565c',1.5);
+  c.fillStyle='#50565c';c.font='16px Kalam, "Segoe Print", "Comic Sans MS", cursive';c.textAlign='center';c.fillText('x',W-12,this.Y(0)-8);c.fillText('y',this.X(0)+12,14);
+  c.font='13px Kalam, "Segoe Print", "Comic Sans MS", cursive';c.fillStyle='#8a9097';const st=this.u<34?2:1;
+  for(let i=Math.ceil(this.x0+.5);i<=this.x1-.5;i++){if(i!==0&&i%st===0)c.fillText(i<0?'−'+(-i):i,this.X(i),this.Y(0)+15);}
+  c.textAlign='right';for(let j=Math.ceil(this.y0+.5);j<=this.y1-.5;j++){if(j!==0&&j%st===0)c.fillText(j<0?'−'+(-j):j,this.X(0)-5,this.Y(j)+4);}
+  c.fillText('O',this.X(0)-5,this.Y(0)+15);c.textAlign='left';}
+ _st(path,col,w,dash){const c=this.c;c.save();c.strokeStyle=col;c.lineWidth=w;c.lineCap='round';c.lineJoin='round';c.setLineDash(dash||[]);c.beginPath();path(0);c.stroke();c.globalAlpha=.32;c.lineWidth=Math.max(1,w*.6);c.beginPath();path(1);c.stroke();c.restore();}
+ seg(x1,y1,x2,y2,col,w,dash){const L=Math.hypot(x2-x1,y2-y1)*this.u;
+  this._op(L,f=>{const xe=x1+(x2-x1)*f,ye=y1+(y2-y1)*f;this._st(k=>{this.c.moveTo(this.X(x1)+k*.9,this.Y(y1)-k*.8);this.c.lineTo(this.X(xe)-k*.6,this.Y(ye)+k*.9);},col||'#33383d',w||2,dash);},
+   f=>[this.X(x1+(x2-x1)*f),this.Y(y1+(y2-y1)*f)]);}
+ circ(a,b,r,col,w,dash){const T=Math.PI*2;this._op(T*r*this.u,f=>{this._st(k=>{this.c.arc(this.X(a)+k*.7,this.Y(b)-k*.5,r*this.u+k*1.1,0,-T*f,true);},col||'#1f4e9c',w||2.6,dash);},
+   f=>[this.X(a+r*Math.cos(T*f)),this.Y(b+r*Math.sin(T*f))]);}
+ ell(h,k0,p,q,col,w,dash){const T=Math.PI*2;this._op(T*Math.sqrt((p*p+q*q)/2)*this.u,f=>{this._st(k=>{this.c.ellipse(this.X(h)+k*.7,this.Y(k0)-k*.5,p*this.u+k*1.1,q*this.u+k*.8,0,0,-T*f,true);},col||'#c8372d',w||2.6,dash);},
+   f=>[this.X(h+p*Math.cos(T*f)),this.Y(k0+q*Math.sin(T*f))]);}
+ line(A,B,C,col,w,dash){/* Ax+By=C */const pad=.3;if(Math.abs(B)>1e-9){const xa=this.x0-pad,xb=this.x1+pad;this.seg(xa,(C-A*xa)/B,xb,(C-A*xb)/B,col,w,dash);}else if(Math.abs(A)>1e-9){const x=C/A;this.seg(x,this.y0-pad,x,this.y1+pad,col,w,dash);}}
+ pt(x,y,col,lab,r,dx,dy){this._op(25,f=>{const c=this.c;c.save();c.fillStyle=col||'#33383d';c.strokeStyle='#33383d';c.lineWidth=1.5;c.beginPath();c.arc(this.X(x),this.Y(y),Math.max(.5,(r||5)*Math.min(1,f*1.4)),0,7);c.fill();c.stroke();
+  if(lab){c.globalAlpha=f;c.font='bold 17px Kalam, "Segoe Print", "Comic Sans MS", cursive';c.fillStyle=col||'#33383d';c.textAlign='left';c.fillText(lab,this.X(x)+(dx===undefined?8:dx),this.Y(y)+(dy===undefined?-8:dy));}c.restore();},()=>[this.X(x),this.Y(y)]);}
+ handle(x,y,col,lab){this._op(25,f=>{const c=this.c;c.save();c.globalAlpha=f;c.fillStyle='#fff';c.strokeStyle=col;c.lineWidth=3;c.beginPath();c.arc(this.X(x),this.Y(y),10,0,7);c.fill();c.stroke();c.fillStyle=col;c.beginPath();c.arc(this.X(x),this.Y(y),4,0,7);c.fill();
+  if(lab){c.font='bold 16px Kalam, "Segoe Print", "Comic Sans MS", cursive';c.textAlign='left';c.fillText(lab,this.X(x)+13,this.Y(y)-11);}c.restore();},()=>[this.X(x),this.Y(y)]);}
+ txt(x,y,s,col,size,al){this._op(25,f=>{const c=this.c;c.save();c.globalAlpha=f;c.font=(size||17)+'px Kalam, "Segoe Print", "Comic Sans MS", cursive';c.fillStyle=col||'#33383d';c.textAlign=al||'left';c.fillText(s,this.X(x),this.Y(y));c.restore();},()=>[this.X(x),this.Y(y)]);}
+ note(s,col){this._op(30,f=>{const c=this.c;c.save();c.globalAlpha=f;c.font='bold 18px Kalam, "Segoe Print", "Comic Sans MS", cursive';c.fillStyle='rgba(255,253,240,.92)';const w=c.measureText(s).width+20;c.fillRect(10,this.cv.height-40,w,30);c.strokeStyle='#33383d';c.lineWidth=1.5;c.strokeRect(10,this.cv.height-40,w,30);c.fillStyle=col||'#33383d';c.textAlign='left';c.fillText(s,20,this.cv.height-19);c.restore();},null);}
+}
+function drawPencil(c,x,y){c.save();c.translate(x,y);c.rotate(-0.75);c.setLineDash([]);c.globalAlpha=1;
+ c.fillStyle='rgba(0,0,0,.12)';c.fillRect(22,4,78,10);
+ c.fillStyle='#3a3a3a';c.beginPath();c.moveTo(0,0);c.lineTo(7,-2.7);c.lineTo(7,2.7);c.closePath();c.fill();
+ c.fillStyle='#f3d7a8';c.beginPath();c.moveTo(7,-2.7);c.lineTo(18,-7);c.lineTo(18,7);c.lineTo(7,2.7);c.closePath();c.fill();
+ c.fillStyle='#f2c230';c.fillRect(18,-7,62,14);c.fillStyle='#d9a514';c.fillRect(18,-1.2,62,2.4);
+ c.fillStyle='#b8bcc2';c.fillRect(80,-7,8,14);c.fillStyle='#e88a9a';c.fillRect(88,-7,10,14);
+ c.strokeStyle='#33383d';c.lineWidth=1.3;c.strokeRect(18,-7,80,14);c.beginPath();c.moveTo(0,0);c.lineTo(18,-7);c.moveTo(0,0);c.lineTo(18,7);c.stroke();c.restore();}
+let AFID=0;
+function animFig(cv,u,fn){const p=new Plot(cv,u);p.rec=[];fn(p);const ops=p.rec;p.rec=null;
+ ops.forEach(o=>o.d=o.L===0?0:Math.min(1.2,Math.max(.25,o.L/620)));
+ const total=ops.reduce((s,o)=>s+o.d,0),id=++AFID,t0=performance.now();let last=null;cv._skip=false;cv._anim=true;
+ cv.onclick=()=>{if(cv._anim)cv._skip=true;else animFig(cv,u,fn);};
+ function fr(now){if(id!==AFID){cv._anim=false;return;}const t=cv._skip?1e9:(now-t0)/1000;let acc=0,tip=null;
+  for(const o of ops){if(t>=acc+o.d){o.draw(1);acc+=o.d;continue;}const f=o.d?(t-acc)/o.d:1;o.draw(f);if(o.tip)tip=o.tip(f);break;}
+  if(t<total){if(tip)last=tip;if(last)drawPencil(p.c,last[0],last[1]);requestAnimationFrame(fr);}else cv._anim=false;}
+ requestAnimationFrame(fr);}
+function cvPos(cv,e){const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*cv.width/r.width,(e.clientY-r.top)*cv.height/r.height];}
+
+/* ---------- komponen soal (skema 3 percobaan) ---------- */
+const ENC=['Belum pas, tapi kamu sudah berani mencoba. Telusuri lagi langkahmu dari awal.','Hampir! Periksa tanda dan kuadratnya sekali lagi.','Belum tepat. Coba gambar sketsa kecil di kertas, lalu cek ulang.'];
+const PRAISE=['Tepat!','Mantap, tepat!','Benar, langkahmu rapi!','Tepat sekali!'];
+function renderQ(box,q,done){
+ let tries=0,fin=false,sel=-1;
+ const L='ABCDE';
+ let body='';
+ if(q.t==='mc')body=q.o.map((o,i)=>`<div class="opt" data-i="${i}"><span class="l">${L[i]}</span><span>${o}</span></div>`).join('');
+ else if(q.t==='num')body=`<div>Jawaban: <input class="bl" style="width:120px" id="qn"> ${q.unit||''}</div>`;
+ else if(q.t==='fill'){let k=0;body='<div class="f" style="font-size:24px">'+q.tpl.replace(/\{\}/g,()=>`<input class="bl" data-k="${k++}">`)+'</div>';}
+ box.innerHTML=`<div class="qwrap"><div class="qq">${q.q}</div><div class="qb">${body}</div><div style="margin-top:10px"><button class="btn ink sm qchk">Periksa</button></div><div class="fb"></div></div>`;
+ const fb=box.querySelector('.fb'),chk=box.querySelector('.qchk');
+ if(q.t==='mc')box.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{if(fin)return;box.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel','no'));o.classList.add('sel');sel=+o.dataset.i;beep('tap');});
+ chk.onclick=()=>{
+  if(fin)return;let ok=false,misT=null;
+  if(q.t==='mc'){if(sel<0){fb.innerHTML='<span class="red">Pilih satu jawaban dulu, ya.</span>';return;}ok=sel===q.a;if(!ok&&q.mis)misT=q.mis[sel];}
+  else if(q.t==='num'){const v=num(box.querySelector('#qn').value);if(isNaN(v)){fb.innerHTML='<span class="red">Isi jawaban berupa angka (boleh pakai koma).</span>';return;}ok=Math.abs(v-q.a)<=(q.tol||1e-6);if(!ok)misT=q.misT;}
+  else{const ins=[...box.querySelectorAll('input.bl')];const vs=ins.map(i=>num(i.value));if(vs.some(isNaN)){fb.innerHTML='<span class="red">Lengkapi semua kotak dengan angka.</span>';return;}
+   ok=true;ins.forEach((i,k)=>{const g=Math.abs(vs[k]-q.a[k])<=(q.tol||1e-6);i.classList.toggle('ok',g);i.classList.toggle('no',!g);if(!g)ok=false;});if(!ok)misT=q.misT;}
+  S.tries++;
+  if(ok){fin=true;beep('ok');if(q.t==='mc')box.querySelector(`.opt[data-i="${sel}"]`).classList.add('ok');
+   fb.innerHTML=`<div class="card g"><b class="grnc">${PRAISE[tries%4]}</b> ${tries?`Kamu menemukannya setelah ${tries+1} kali mencoba — itu bukti proses berpikirmu.`:''}<span class="note">${q.note}</span></div>`;done&&done(true,tries+1);return;}
+  tries++;beep('no');addMis(misT);
+  if(q.t==='mc')box.querySelector(`.opt[data-i="${sel}"]`).classList.add('no');
+  if(tries===1)fb.innerHTML=`<div class="card w">${ENC[Math.floor(Math.random()*3)]}</div>`;
+  else if(tries===2)fb.innerHTML=`<div class="card w"><b>Petunjuk:</b> ${q.hint}</div>`;
+  else{fin=true;let key;if(q.t==='mc'){key=L[q.a]+'. '+q.o[q.a];box.querySelector(`.opt[data-i="${q.a}"]`).classList.add('ok');}else if(q.t==='num')key=fmt(q.a,4)+' '+(q.unit||'');else key=q.a.map(v=>fmt(v,4)).join(' ; ');
+   fb.innerHTML=`<div class="card k"><b>Kunci:</b> ${key}<span class="note">${q.note}</span><div style="margin-top:4px;font-size:16px">Langkah berikutnya: baca ulang catatan di atas, lalu coba soal berikutnya dengan pola yang sama.</div></div>`;done&&done(false,4);}
+ };
+}
+
+/* ---------- alur awal ---------- */
+function startApp(){go('s-load');let p=0;const tips=['Jangka menggambar lingkaran. Dua paku dan seutas benang menggambar elips.','Garis singgung selalu tegak lurus jari-jari di titik singgungnya.','Elips punya dua fokus; lingkaran adalah elips dengan e = 0.'];let ti=0;
+ const iv=setInterval(()=>{p+=4;$('#loadbar i').style.width=p+'%';if(p%36===0){ti=(ti+1)%3;$('#loadtip').textContent=tips[ti];}if(p>=100){clearInterval(iv);go('s-id');}},70);}
+function saveId(){const n=$('#inNama').value.trim(),k=$('#inKelas').value.trim();if(!n||!k){$('#idWarn').textContent='Nama dan kelas wajib diisi.';return;}S.nama=n;S.kelas=k;S.absen=$('#inAbsen').value.trim();go('s-aper');}
+
+/* apersepsi (3 langkah) */
+let aperAnim=null,AP=1,apDone={2:0,3:0},apInit={};
+const USES=[
+ {t:'Roda & Gir',u1:'Sepeda, motor, jam dinding.',u2:'Tiap titik di tepi roda berjarak sama dari poros → itulah definisi lingkaran: (x − a)² + (y − b)² = r².',
+  s:'<circle cx="80" cy="52" r="40" stroke="#1f4e9c" stroke-width="3"/><circle cx="80" cy="52" r="5" fill="#33383d"/><path d="M80 12 V92 M40 52 H120 M52 24 L108 80 M108 24 L52 80" stroke="#33383d" stroke-width="1.5"/><path d="M20 94 H140" stroke="#33383d" stroke-width="2"/>'},
+ {t:'Jangkauan Sinyal',u1:'Menara BTS, radar cuaca, wifi.',u2:'Daerah jangkauan berbentuk lingkaran berpusat di menara. Rumahmu di dalam, pada, atau di luar? → kedudukan titik.',
+  s:'<path d="M80 60 L70 98 M80 60 L90 98 M73 86 H87" stroke="#33383d" stroke-width="2.5"/><circle cx="80" cy="56" r="4" fill="#c8372d"/><circle cx="80" cy="56" r="20" stroke="#1f4e9c" stroke-width="2" stroke-dasharray="5 5"/><circle cx="80" cy="56" r="36" stroke="#1f4e9c" stroke-width="2" stroke-dasharray="5 5"/><circle cx="80" cy="56" r="50" stroke="#1f4e9c" stroke-width="2" stroke-dasharray="5 5"/><rect x="128" y="74" width="16" height="14" stroke="#d9822b" stroke-width="2"/>'},
+ {t:'Orbit Planet & Satelit',u1:'Bumi, komet, satelit GPS.',u2:'Lintasannya elips dengan Matahari di salah satu fokus. Jarak terdekat ke Matahari = a − c.',
+  s:'<ellipse cx="80" cy="55" rx="64" ry="34" stroke="#c8372d" stroke-width="3"/><circle cx="110" cy="55" r="10" fill="#f2c230" stroke="#d9822b" stroke-width="2"/><circle cx="34" cy="31" r="6" fill="#1f4e9c"/>'},
+ {t:'Lengkung Terowongan',u1:'Terowongan, jembatan lengkung, gerbang.',u2:'Lengkung setengah elips menentukan tinggi maksimum kendaraan yang aman lewat.',
+  s:'<path d="M20 96 A60 70 0 0 1 140 96" stroke="#c8372d" stroke-width="3"/><path d="M8 96 H152" stroke="#33383d" stroke-width="2.5"/><rect x="62" y="58" width="36" height="38" stroke="#1f4e9c" stroke-width="2.5"/><path d="M80 26 V58" stroke="#d9822b" stroke-width="2" stroke-dasharray="4 4"/>'},
+ {t:'Lempar Martil',u1:'Atlet memutar martil lalu melepasnya.',u2:'Saat dilepas, martil melesat lurus searah garis singgung lingkaran putarannya.',
+  s:'<circle cx="62" cy="58" r="36" stroke="#1f4e9c" stroke-width="2" stroke-dasharray="5 5"/><circle cx="62" cy="58" r="4" fill="#33383d"/><path d="M62 58 L62 22" stroke="#33383d" stroke-width="2"/><circle cx="62" cy="22" r="6" fill="#33383d"/><path d="M68 22 H146 M136 15 L146 22 L136 29" stroke="#2c8a57" stroke-width="3"/>'},
+ {t:'Ban di Jalan',u1:'Ban mobil, rel kereta, sabuk mesin.',u2:'Jalan menyentuh ban tepat di satu titik → jalan adalah garis singgung ban, tegak lurus jari-jarinya.',
+  s:'<circle cx="80" cy="50" r="38" stroke="#33383d" stroke-width="4"/><circle cx="80" cy="50" r="14" stroke="#33383d" stroke-width="2"/><path d="M80 50 V88" stroke="#c8372d" stroke-width="2" stroke-dasharray="4 4"/><path d="M10 88 H150" stroke="#2c8a57" stroke-width="3"/><circle cx="80" cy="88" r="4" fill="#c8372d"/>'}
+];
+const APT={1:['Pemanasan 1/3: Lingkaran di Sekitarmu','Kegunaan sehari-hari'],2:['Pemanasan 2/3: Tali & Patok','Apersepsi: jarak dua titik'],3:['Pemanasan 3/3: Pertanyaan Pemantik','Garis singgung di dunia nyata']};
+onEnter['s-aper']=function(){showAp(AP);};
+function showAp(n){AP=n;document.querySelectorAll('.astep').forEach(e=>e.classList.remove('on'));$('#ap'+n).classList.add('on');
+ $('#aperTitle').textContent=APT[n][0];$('#aperSub').textContent=APT[n][1];
+ $('#aDots').innerHTML=[1,2,3].map(i=>`<i class="${i===n?'on':i<n?'seen':''}"></i>`).join('');
+ $('#aPrev').disabled=n===1;const nx=$('#aNext');nx.className='btn sm '+(n===3?'grn':'ink');nx.textContent=n===3?'Buka Daftar Isi →':'Berikutnya →';
+ cancelAnimationFrame(aperAnim);
+ if(n===1){$('#useGrid').innerHTML=USES.map((u,i)=>`<div class="use sk" style="transform:rotate(${[-.8,.6,-.4,.7,-.6,.4][i]}deg)" onclick="this.classList.toggle('open');beep('tap')"><div class="tape ${i%2?'b':''}"></div><span class="seen">✓</span><svg class="draw" width="160" height="104" viewBox="0 0 160 104" fill="none" stroke-linecap="round" style="animation-delay:${i*.25}s">${u.s}</svg><b>${u.t}</b><div class="u1">${u.u1}</div><div class="u2">${u.u2}</div></div>`).join('');
+  document.querySelectorAll('#useGrid svg.draw').forEach((s,i)=>s.querySelectorAll('*').forEach(e=>e.style.animationDelay=(i*.3)+'s'));}
+ if(n===2)apStep2();
+ if(n===3)apStep3();}
+$('#aPrev').onclick=()=>{if(AP>1)showAp(AP-1);};
+$('#aNext').onclick=()=>{if(AP<3){showAp(AP+1);return;}
+ if(!apDone[2]){toast('Jawab dulu soal jarak di langkah 2, ya.');return;}if(!apDone[3]){toast('Jawab dulu pertanyaan pemantik di halaman ini.');return;}go('s-menu');};
+function apStep2(){const cv=$('#aperCv'),p=new Plot(cv,32);let t=0;
+ function fr(){t+=0.012;const ph=t%4;p.clear();let tx,ty;
+  if(ph<2){const a=Math.min(ph/1.6,1)*Math.PI*2;p.pt(0,0,'#33383d','patok',6);const c=p.c;c.save();c.strokeStyle='#1f4e9c';c.lineWidth=3;c.beginPath();c.arc(p.X(0),p.Y(0),4*p.u,0,-a,true);c.stroke();c.restore();
+   tx=4*Math.cos(a);ty=4*Math.sin(a);p.seg(0,0,tx,ty,'#d9822b',2,[6,5]);p.note('Satu patok, tali tetap 4 → lingkaran','#1f4e9c');}
+  else{const a=Math.min((ph-2)/1.6,1)*Math.PI*2;const A=5,B=3,C=4;p.pt(-C,0,'#33383d','F₁',6,-10,-12);p.pt(C,0,'#33383d','F₂',6,-6,-12);const c=p.c;c.save();c.strokeStyle='#c8372d';c.lineWidth=3;c.beginPath();c.ellipse(p.X(0),p.Y(0),A*p.u,B*p.u,0,0,-a,true);c.stroke();c.restore();
+   tx=A*Math.cos(a);ty=B*Math.sin(a);p.seg(-C,0,tx,ty,'#d9822b',2,[6,5]);p.seg(C,0,tx,ty,'#d9822b',2,[6,5]);p.note('Dua patok, total tali 10 → elips','#c8372d');}
+  drawPencil(p.c,p.X(tx),p.Y(ty));
+  if(cur==='s-aper'&&AP===2)aperAnim=requestAnimationFrame(fr);}
+ fr();
+ if(!apInit[2]){apInit[2]=1;renderQ($('#aperQ'),{t:'num',q:'Berapa jarak titik A(1, 2) ke titik B(4, 6)?',a:5,unit:'satuan',hint:'Gunakan d = √((x₂ − x₁)² + (y₂ − y₁)²) = √(3² + 4²).',note:'Jarak dua titik adalah "panjang tali". Rumus inilah yang nanti melahirkan persamaan lingkaran.',misT:'Rumus jarak dua titik belum lancar'},
+  ()=>{apDone[2]=1;S.aper=1;toast('Bagus! Lanjut ke langkah 3 →');});}}
+function apStep3(){const cv=$('#aperCv3'),p=new Plot(cv,32);let t=0;
+ function fr(){t+=1/60;const ph=t%4.2;p.clear();const r=3;p.pt(0,0,'#33383d','',5);
+  if(ph<2.6){const a=ph/2.6*Math.PI*2*1.25;const x=r*Math.cos(a),y=r*Math.sin(a);p.circ(0,0,r,'#1f4e9c',1.5,[5,6]);p.seg(0,0,x,y,'#33383d',2);p.pt(x,y,'#33383d','',8);p.note('Batu berputar melingkar…');}
+  else{const s=(ph-2.6)*3.2;p.circ(0,0,r,'#1f4e9c',1.5,[5,6]);p.seg(0,0,0,r,'#c8372d',1.6,[4,4]);p.seg(0,r,-s,r,'#2c8a57',2.4,[7,6]);p.pt(-s,r,'#33383d','',8);p.pt(0,r,'#c8372d','titik lepas',4,6,-8);p.note('Tali dilepas! Ke mana arahnya?','#2c8a57');}
+  if(cur==='s-aper'&&AP===3)aperAnim=requestAnimationFrame(fr);}
+ fr();
+ if(!apInit[3]){apInit[3]=1;renderQ($('#aperQ3'),{t:'mc',q:'<div class="hand" style="font-size:30px;color:var(--red)">Coba tebak!</div>Batu diikat tali lalu diputar melingkar. Saat tali dilepas, ke arah mana batu melesat?',
+  o:['Lurus menjauhi pusat, searah tali (jari-jari)','Lurus searah garis singgung di titik saat dilepas','Tetap melingkar beberapa saat','Lurus menuju pusat putaran','Langsung jatuh tegak lurus ke bawah'],a:1,
+  mis:{0:'Arah gerak dikira searah jari-jari (bukan garis singgung)',2:'Mengira benda tetap melingkar tanpa tali',3:'Arah gerak dikira menuju pusat'},
+  hint:'Bayangkan percikan api dari gerinda yang berputar. Arahnya menyentuh lingkaran, bukan menembus pusat.',
+  note:'Benda yang berputar selalu bergerak searah garis singgung, yang tegak lurus jari-jari. Di Materi D kamu akan menuliskan persamaannya.'},
+  ()=>{apDone[3]=1;toast('Siap! Tekan “Buka Daftar Isi →”.');});}}
+</script>
+<script>
+/* ================= MATERI ================= */
+const MOD={
+A:{name:'A. Lingkaran',sub:'Definisi, persamaan baku, dan bentuk umum',cards:[
+ {h:'Apa itu lingkaran?',t:`<p>Bayangkan jangka: satu kaki diam di satu titik, kaki pensil berputar dengan bukaan tetap.</p>
+  <p><b>Lingkaran</b> adalah <span class="hl">himpunan semua titik pada bidang yang berjarak sama terhadap satu titik tetap</span>.</p>
+  <p>Titik tetap itu disebut <b class="inkc">pusat</b>, jarak tetapnya disebut <b class="red">jari-jari (r)</b>.</p>
+  <p>Jadi, setiap titik P(x, y) di lingkaran memenuhi: <span class="hl">jarak P ke pusat = r</span>.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,4);[20,95,160,230,300].forEach(d=>{const a=d*Math.PI/180;p.seg(0,0,4*Math.cos(a),4*Math.sin(a),'#d9822b',2,[6,5]);p.pt(4*Math.cos(a),4*Math.sin(a),'#1f4e9c');});p.pt(0,0,'#33383d','pusat');p.txt(1.6,2.2,'r','#c8372d',22);p.note('Semua titik berjarak r dari pusat');}},
+ {h:'Pusat di O(0, 0)',t:`<p>Ambil titik P(x, y) di lingkaran berpusat O(0, 0) dan berjari-jari r. Dengan rumus jarak:</p>
+  <div class="f">√(x² + y²) = r</div><p>Kuadratkan kedua ruas:</p><div class="f">x² + y² = r²</div>
+  <p><b>Contoh:</b> lingkaran berpusat O dengan r = 4 → <span class="hl">x² + y² = 16</span>.</p>
+  <p>Perhatikan segitiga siku-siku pada gambar: ini Teorema Pythagoras yang sedang “berputar”.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,4);const x=4*Math.cos(.7),y=4*Math.sin(.7);p.seg(0,0,x,0,'#d9822b',2.4);p.seg(x,0,x,y,'#d9822b',2.4);p.seg(0,0,x,y,'#c8372d',2.6);p.pt(x,y,'#1f4e9c','P(x, y)');p.txt(x/2,-.6,'x','#d9822b',20,'center');p.txt(x+.3,y/2,'y','#d9822b',20);p.txt(1,2.1,'r','#c8372d',22);p.note('x² + y² = r²','#1f4e9c');}},
+ {h:'Pusat di P(a, b)',t:`<p>Jika pusatnya digeser ke (a, b), jarak titik (x, y) ke pusat menjadi √((x − a)² + (y − b)²) = r. Jadi:</p>
+  <div class="f">(x − a)² + (y − b)² = r²</div>
+  <p><b>Contoh:</b> pusat (2, −1), r = 3 → <span class="hl">(x − 2)² + (y + 1)² = 9</span>.</p>
+  <p class="red">Hati-hati tanda: b = −1 menjadi (y − (−1)) = (y + 1).</p>`,
+  fig:p=>{p.clear();p.circ(2,-1,3);p.pt(2,-1,'#33383d','(2, −1)');p.seg(2,-1,5,-1,'#c8372d',2.4,[6,5]);p.txt(3.5,-.7,'r = 3','#c8372d',18,'center');p.note('(x − 2)² + (y + 1)² = 9','#1f4e9c');}},
+ {h:'Bentuk umum',t:`<p>Jabarkan bentuk baku, maka diperoleh bentuk umum:</p>
+  <div class="f">x² + y² + Ax + By + C = 0</div>
+  <p>dengan <b>pusat</b> dan <b>jari-jari</b>:</p><div class="f r">P(−A/2, −B/2) ,  r = √(A²/4 + B²/4 − C)</div>
+  <p><b>Contoh:</b> x² + y² − 4x + 2y − 4 = 0 → A = −4, B = 2, C = −4.<br>Pusat (2, −1), r = √(4 + 1 + 4) = 3.</p>
+  <p>Syarat lingkaran nyata: A²/4 + B²/4 − C &gt; 0.</p>`,
+  fig:p=>{p.clear();p.circ(2,-1,3,'#2c8a57');p.pt(2,-1,'#33383d','(−A/2, −B/2)');p.note('x² + y² − 4x + 2y − 4 = 0','#2c8a57');}}],
+ drill:[
+ {id:'A1',t:'fill',q:'Lengkapi persamaan lingkaran berpusat (2, −3) dengan jari-jari 5.',tpl:'(x − {})² + (y + {})² = {}',a:[2,3,25],hint:'Bentuknya (x − a)² + (y − b)² = r². Karena b = −3, maka y − (−3) = y + 3. Ruas kanan adalah r², bukan r.',note:'Angka di dalam kurung selalu berlawanan tanda dengan koordinat pusat, dan ruas kanan adalah kuadrat jari-jari.',misT:'Tanda koordinat pusat / r dan r² tertukar'},
+ {id:'A2',t:'mc',q:'Pusat dan jari-jari lingkaran x² + y² − 6x + 8y − 11 = 0 adalah …',o:['Pusat (3, −4), r = 6','Pusat (−3, 4), r = 6','Pusat (3, −4), r = 36','Pusat (6, −8), r = 6','Pusat (3, −4), r = √14'],a:0,mis:{1:'Tanda pusat dari bentuk umum terbalik (pusat = (−A/2, −B/2))',2:'Lupa menarik akar saat menghitung r',3:'Koefisien A dan B tidak dibagi 2',4:'Tanda C salah: r = √(A²/4 + B²/4 − C)'},hint:'A = −6, B = 8, C = −11. Pusat (−A/2, −B/2); r = √(9 + 16 − (−11)).',note:'−C pada rumus jari-jari membuat C negatif justru menambah nilai di bawah akar.'},
+ {id:'A3',t:'num',q:'Lingkaran berpusat (1, 2) melalui titik (4, 6). Berapakah r²?',a:25,hint:'r adalah jarak pusat ke titik yang dilalui: (4 − 1)² + (6 − 2)².',note:'Jika lingkaran melalui suatu titik, jarak titik itu ke pusat adalah jari-jarinya.',misT:'Belum menghubungkan "melalui titik" dengan jarak ke pusat'}]},
+B:{name:'B. Elips',sub:'Definisi, unsur-unsur, dan persamaan elips',cards:[
+ {h:'Definisi elips',t:`<p>Tancapkan dua paku F₁ dan F₂, ikat seutas benang, lalu tarik pensil sambil benang tetap tegang.</p>
+  <p><b>Elips</b> adalah <span class="hl">himpunan titik yang jumlah jaraknya ke dua titik tetap selalu sama</span>.</p>
+  <p>Kedua titik tetap itu disebut <b class="red">fokus</b>. Jumlah jaraknya = panjang sumbu mayor:</p>
+  <div class="f r">PF₁ + PF₂ = 2a</div>`,
+  fig:p=>{p.clear();p.ell(0,0,5,3);p.pt(-4,0,'#33383d','F₁',5,-8,-12);p.pt(4,0,'#33383d','F₂',5,-8,-12);const x=5*Math.cos(1.1),y=3*Math.sin(1.1);p.seg(-4,0,x,y,'#d9822b',2.2,[6,5]);p.seg(4,0,x,y,'#1f4e9c',2.2,[6,5]);p.pt(x,y,'#c8372d','P');p.note('PF₁ + PF₂ = 2a = 10','#c8372d');}},
+ {h:'Unsur-unsur elips',t:`<p>Untuk elips berpusat O dengan sumbu mayor mendatar:</p>
+  <p>• Puncak: (±a, 0) dan (0, ±b), dengan a &gt; b<br>• Sumbu mayor = 2a, sumbu minor = 2b<br>• Fokus: (±c, 0)</p>
+  <div class="f r">c² = a² − b²</div>
+  <p>• Eksentrisitas (kelonjongan): <b>e = c/a</b>, dengan 0 &lt; e &lt; 1<br>• Panjang latus rectum = 2b²/a</p>
+  <p>Makin dekat e ke 0, elips makin mirip lingkaran.</p>`,
+  fig:p=>{p.clear();p.ell(0,0,5,3);p.seg(-5,0,5,0,'#c8372d',2.4);p.seg(0,-3,0,3,'#1f4e9c',2.4);p.pt(-4,0,'#33383d','−c',4,-10,16);p.pt(4,0,'#33383d','c',4,-4,16);p.pt(5,0,'#c8372d','a',4,6,-6);p.pt(0,3,'#1f4e9c','b',4,6,-6);p.seg(4,0,0,3,'#2c8a57',2,[5,5]);p.txt(2.4,1.8,'a','#2c8a57',20);p.note('a² = b² + c²');}},
+ {h:'Persamaan elips pusat O',t:`<p><b>Sumbu mayor mendatar</b> (a² di bawah x²):</p><div class="f r">x²/a² + y²/b² = 1</div>
+  <p><b>Sumbu mayor tegak</b> (a² di bawah y²):</p><div class="f r">x²/b² + y²/a² = 1</div>
+  <p><b>Contoh:</b> 9x² + 25y² = 225 → bagi 225 → x²/25 + y²/9 = 1.<br>a = 5, b = 3, c = √(25 − 9) = 4, fokus (±4, 0), e = 4/5 = 0,8.</p>
+  <p class="red">Kunci: penyebut yang lebih besar menentukan arah sumbu mayor.</p>`,
+  fig:p=>{p.clear();p.ell(0,0,5,3);p.ell(0,0,2,4,'#1f4e9c',2,[7,6]);p.pt(-4,0,'#c8372d');p.pt(4,0,'#c8372d');p.pt(0,2*Math.sqrt(3),'#1f4e9c');p.pt(0,-2*Math.sqrt(3),'#1f4e9c');p.note('merah: x²/25 + y²/9 = 1 · biru: x²/4 + y²/16 = 1');}},
+ {h:'Pusat di (h, k)',t:`<p>Geser pusat ke (h, k): ganti x dengan (x − h) dan y dengan (y − k).</p>
+  <div class="f r">(x − h)²/a² + (y − k)²/b² = 1</div>
+  <p>Fokus berada di (h ± c, k) untuk mayor mendatar, atau (h, k ± c) untuk mayor tegak.</p>
+  <p><b>Contoh:</b> (x − 1)²/25 + (y + 2)²/9 = 1<br>Pusat (1, −2), c = 4, fokus (−3, −2) dan (5, −2).</p>`,
+  fig:p=>{p.clear();p.ell(1,-2,5,3);p.pt(1,-2,'#33383d','(1, −2)');p.pt(-3,-2,'#c8372d','F₁',5,-8,16);p.pt(5,-2,'#c8372d','F₂',5,-8,16);p.note('(x − 1)²/25 + (y + 2)²/9 = 1','#c8372d');}}],
+ drill:[
+ {id:'B1',t:'mc',q:'Koordinat fokus elips x²/25 + y²/9 = 1 adalah …',o:['(±4, 0)','(0, ±4)','(±5, 0)','(±3, 0)','(±√34, 0)'],a:0,mis:{1:'Arah sumbu mayor elips belum dikenali dari penyebut terbesar',2:'Fokus tertukar dengan puncak elips',3:'Nilai b dipakai sebagai c',4:'Memakai c² = a² + b² (rumus hiperbola) untuk elips'},hint:'Penyebut terbesar (25) di bawah x², jadi mayor mendatar. c² = a² − b² = 25 − 9.',note:'Fokus selalu berada di sumbu mayor dan lebih dekat ke pusat daripada puncak (c < a).'},
+ {id:'B2',t:'num',q:'Eksentrisitas elips x²/25 + y²/9 = 1 adalah … (tulis desimal, mis. 0,5)',a:.8,tol:.001,hint:'e = c/a. Hitung c = √(25 − 9), lalu bagi dengan a = 5.',note:'e = 0,8 berarti elips ini cukup lonjong; lingkaran memiliki e = 0.',misT:'Rumus eksentrisitas e = c/a belum dikuasai'},
+ {id:'B3',t:'mc',q:'Elips berpusat (1, −2), sumbu mayor mendatar sepanjang 10, sumbu minor sepanjang 6. Persamaannya …',o:['(x − 1)²/25 + (y + 2)²/9 = 1','(x + 1)²/25 + (y − 2)²/9 = 1','(x − 1)²/100 + (y + 2)²/36 = 1','(x − 1)²/9 + (y + 2)²/25 = 1','(x − 1)²/5 + (y + 2)²/3 = 1'],a:0,mis:{1:'Tanda pusat elips terbalik',2:'Panjang sumbu (2a) dipakai langsung, bukan setengahnya',3:'Penyebut a² diletakkan pada arah yang salah',4:'Lupa mengkuadratkan a dan b'},hint:'Sumbu mayor 10 → a = 5 → a² = 25; sumbu minor 6 → b = 3 → b² = 9.',note:'Panjang sumbu mayor = 2a. Yang masuk ke penyebut adalah a², yaitu kuadrat setengah sumbu.'}]},
+C:{name:'C. Kedudukan Titik & Garis',sub:'Di dalam, pada, atau di luar? Memotong, menyinggung, atau terpisah?',cards:[
+ {h:'Kedudukan titik',t:`<p>Substitusikan titik (p, q) ke ruas kiri persamaan lingkaran, lalu bandingkan:</p>
+  <div class="f">K = (p − a)² + (q − b)² − r²</div>
+  <p>• K &lt; 0 → titik <b>di dalam</b> lingkaran<br>• K = 0 → titik <b>pada</b> lingkaran<br>• K &gt; 0 → titik <b>di luar</b> lingkaran</p>
+  <p><b>Contoh</b> x² + y² = 25: (1, 2) → 5 &lt; 25 dalam; (3, 4) → 25 pada; (6, 1) → 37 &gt; 25 luar.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,5);p.pt(1,2,'#2c8a57','(1, 2) dalam');p.pt(3,4,'#1f4e9c','(3, 4) pada');p.pt(6,1,'#c8372d','(6, 1) luar',5,-60,-12);p.note('x² + y² = 25');}},
+ {h:'Kedudukan garis: diskriminan',t:`<p>Substitusikan garis y = mx + n ke persamaan lingkaran sehingga muncul persamaan kuadrat dalam x. Lihat diskriminannya:</p>
+  <p>• D &gt; 0 → garis <b>memotong</b> di dua titik<br>• D = 0 → garis <b>menyinggung</b><br>• D &lt; 0 → garis <b>tidak memotong</b></p>
+  <p><b>Contoh:</b> y = x + 1 dan x² + y² = 4:<br>x² + (x + 1)² = 4 → 2x² + 2x − 3 = 0<br>D = 2² − 4(2)(−3) = 28 &gt; 0 → memotong di dua titik.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,2.5);p.line(-1,1,1,'#2c8a57',2.4);p.line(0,1,2.5,'#1f4e9c',2.4);p.line(-1,1,4.6,'#c8372d',2.4);p.note('hijau D>0 · biru D=0 · merah D<0');}},
+ {h:'Kedudukan garis: metode jarak',t:`<p>Cara cepat: hitung jarak pusat (a, b) ke garis Ax + By + C = 0:</p>
+  <div class="f">d = |Aa + Bb + C| / √(A² + B²)</div>
+  <p>• d &lt; r → memotong · d = r → menyinggung · d &gt; r → tidak memotong</p>
+  <p><b>Contoh:</b> 3x + 4y − 10 = 0 dan x² + y² = 4:<br>d = |−10| / √(9 + 16) = 10/5 = 2 = r → <span class="hl">menyinggung</span>.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,2);p.line(3,4,10,'#1f4e9c',2.4);p.seg(0,0,1.2,1.6,'#c8372d',2.4,[6,5]);p.pt(1.2,1.6,'#c8372d','titik singgung');p.txt(.2,1.1,'d','#c8372d',22);p.note('3x + 4y − 10 = 0, d = 2 = r');}}],
+ drill:[
+ {id:'C1',t:'mc',q:'Kedudukan titik (3, 4) terhadap lingkaran x² + y² = 16 adalah …',o:['di dalam lingkaran','pada lingkaran','di luar lingkaran','tepat di pusat lingkaran','tidak dapat ditentukan'],a:2,mis:{0:'Arah perbandingan K dengan r² terbalik',1:'Membandingkan dengan 25, bukan dengan r² = 16',3:'Belum memakai substitusi titik ke persamaan',4:'Belum memakai substitusi titik ke persamaan'},hint:'Hitung 3² + 4² lalu bandingkan dengan 16.',note:'25 > 16 berarti titik lebih jauh dari pusat dibanding jari-jarinya (r = 4).'},
+ {id:'C2',t:'mc',q:'Kedudukan garis y = x + 1 terhadap lingkaran x² + y² = 4 adalah …',o:['memotong di dua titik','menyinggung','tidak memotong','memotong di dua titik dan melalui pusat','sejajar sumbu X'],a:0,mis:{1:'Salah menghitung diskriminan hasil substitusi',2:'Salah menghitung diskriminan hasil substitusi',3:'Belum mengecek apakah pusat memenuhi persamaan garis'},hint:'Substitusi: x² + (x + 1)² = 4 → 2x² + 2x − 3 = 0. Hitung D = b² − 4ac.',note:'D = 28 > 0, jadi ada dua titik potong. Pusat (0, 0) tidak memenuhi y = x + 1.'},
+ {id:'C3',t:'num',q:'Garis y = x + k menyinggung lingkaran x² + y² = 8. Nilai k positif adalah …',a:4,hint:'Syarat menyinggung: jarak pusat ke garis x − y + k = 0 sama dengan r = √8. |k|/√2 = √8.',note:'|k| = √8 · √2 = 4. Ada dua garis singgung sejajar: k = 4 dan k = −4.',misT:'Syarat menyinggung (D = 0 atau d = r) belum dipakai'}]},
+D:{name:'D. Garis Singgung Lingkaran',sub:'Titik pada lingkaran · gradien diketahui · titik di luar',cards:[
+ {h:'Titik singgung diketahui',t:`<p>Garis singgung di titik T selalu <b>tegak lurus jari-jari</b> OT. Dari sifat itu diperoleh rumus “bagi adil”:</p>
+  <div class="f g">x₁x + y₁y = r²</div>
+  <div class="f g">(x₁ − a)(x − a) + (y₁ − b)(y − b) = r²</div>
+  <p>Bentuk umum: x₁x + y₁y + (A/2)(x + x₁) + (B/2)(y + y₁) + C = 0.</p>
+  <p><b>Contoh:</b> x² + y² = 25 di T(3, 4) → <span class="hl">3x + 4y = 25</span>.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,5);p.seg(0,0,3,4,'#c8372d',2.4,[6,5]);p.line(3,4,25,'#2c8a57',2.6);p.pt(3,4,'#2c8a57','T(3, 4)',5,10,10);p.note('3x + 4y = 25','#2c8a57');}},
+ {h:'Gradien diketahui',t:`<p>Jika gradiennya m, selalu ada <b>dua</b> garis singgung yang sejajar:</p>
+  <div class="f g">y = mx ± r√(1 + m²)</div>
+  <div class="f g">y − b = m(x − a) ± r√(1 + m²)</div>
+  <p><b>Contoh:</b> x² + y² = 9, m = 2 → y = 2x ± 3√5.</p>
+  <p>Ingat: garis <b>sejajar</b> → gradien sama; garis <b>tegak lurus</b> gradien m₀ → m = −1/m₀.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,3);const c=3*Math.sqrt(5);p.line(-2,1,c,'#2c8a57',2.4);p.line(-2,1,-c,'#2c8a57',2.4);p.note('y = 2x ± 3√5','#2c8a57');}},
+ {h:'Titik di luar lingkaran',t:`<p>Dari titik P(x₁, y₁) di luar lingkaran ada <b>dua</b> garis singgung.</p>
+  <p>1) Tulis garis melalui P: y − y₁ = m(x − x₁).<br>2) Pakai syarat menyinggung: d = r (atau D = 0).<br>3) Selesaikan, diperoleh dua nilai m.</p>
+  <p><b>Contoh:</b> P(5, 0), x² + y² = 9: |−5m|/√(1 + m²) = 3 → m = ±3/4.<br>Garis: <span class="hl">3x − 4y = 15</span> dan <span class="hl">3x + 4y = 15</span>.</p>
+  <div class="f g">Panjang PT = √(|PO|² − r²) = √(25 − 9) = 4</div>
+  <p style="font-size:16px">Jika hanya muncul satu m, garis kedua mungkin tegak: x = x₁.</p>`,
+  fig:p=>{p.clear();p.circ(0,0,3);p.line(3,-4,15,'#2c8a57',2.4);p.line(3,4,15,'#2c8a57',2.4);p.pt(5,0,'#c8372d','P(5, 0)',5,4,20);p.pt(9/5,12/5,'#2c8a57','T₁');p.pt(9/5,-12/5,'#2c8a57','T₂',5,8,18);p.note('PT = 4');}}],
+ drill:[
+ {id:'D1',t:'mc',q:'Persamaan garis singgung lingkaran x² + y² = 25 di titik (3, 4) adalah …',o:['3x + 4y = 25','4x + 3y = 25','3x − 4y = 25','3x + 4y = 5','3x + 4y = −25'],a:0,mis:{1:'Posisi x₁ dan y₁ tertukar pada rumus bagi adil',2:'Tanda y₁ salah saat substitusi',3:'Memakai r, bukan r², di ruas kanan',4:'Tanda ruas kanan salah'},hint:'Rumus bagi adil: x₁x + y₁y = r² dengan (x₁, y₁) = (3, 4) dan r² = 25.',note:'Cek cepat: titik (3, 4) harus memenuhi garis singgungnya: 9 + 16 = 25 ✓.'},
+ {id:'D2',t:'mc',q:'Persamaan garis singgung lingkaran x² + y² = 9 yang bergradien 2 adalah …',o:['y = 2x ± 3√5','y = 2x ± 3','y = 2x ± 9','y = 2x ± √5','y = −½x ± 3√5'],a:0,mis:{1:'Lupa faktor √(1 + m²)',2:'Memakai r² sebagai pengganti r',3:'Lupa mengalikan dengan r',4:'Gradien sejajar tertukar dengan gradien tegak lurus'},hint:'y = mx ± r√(1 + m²) dengan r = 3, m = 2.',note:'r√(1 + m²) = 3√5. Kedua garis sejajar, menyinggung dari dua sisi.'},
+ {id:'D3',t:'mc',q:'Persamaan garis singgung dari titik (5, 0) ke lingkaran x² + y² = 9 adalah …',o:['3x − 4y = 15 dan 3x + 4y = 15','4x − 3y = 20 dan 4x + 3y = 20','3x − 4y = 9 dan 3x + 4y = 9','x = 3 dan y = 0','3x − 4y = −15 dan 3x + 4y = −15'],a:0,mis:{1:'Nilai m dari syarat d = r salah hitung',2:'Rumus bagi adil dipakai untuk titik di luar lingkaran',3:'Garis yang dipilih tidak melalui titik P',4:'Garis yang dipilih tidak melalui titik P'},hint:'Garis y = m(x − 5). Syarat: |−5m|/√(1 + m²) = 3 → 25m² = 9 + 9m².',note:'m = ±3/4. Rumus bagi adil hanya untuk titik yang terletak PADA lingkaran.'}]}
+};
+
+/* ================= MENU ================= */
+const LABS={1:{need:'A',name:'Jangka Digital',d:'Geser pusat & jari-jari'},2:{need:'B',name:'Benang & Paku',d:'Bentuk elips, amati fokus'},3:{need:'C',name:'Garis Penyelidik',d:'Uji kedudukan titik & garis'},4:{need:'D',name:'Penggaris Singgung',d:'Tiga cara garis singgung'}};
+function card(ic,title,small,st,lock,fn,rot){return `<div class="mc sk${lock?' lock':''}" style="transform:rotate(${rot}deg)" onclick="${lock?`toast('${lock}')`:fn}"><span class="ic">${ic}</span><b>${title}</b><small>${lock?'🔒 '+lock:small}</small>${st?`<span class="st">${st}</span>`:''}</div>`;}
+onEnter['s-menu']=function(){
+ $('#menuHello').textContent=`Pemilik: ${S.nama} · ${S.kelas}`;
+ let m='';['A','B','C','D'].forEach((k,i)=>{const M=MOD[k];const dn=M.drill.filter(q=>S.drill[q.id]).length;m+=card(k,['Lingkaran','Elips','Kedudukan','Garis Singgung'][i],M.sub,S.read[k]?`✓ dibaca · latihan ${dn}/3`:'',null,`openMod('${k}')`,i%2?.6:-.6);});$('#colM').innerHTML=m;
+ let l='';[1,2,3,4].forEach(n=>{const L=LABS[n];const lk=S.read[L.need]?null:`Baca Materi ${L.need} dulu`;l+=card(n,L.name,L.d,S.sim[n]?'✓ tuntas':'',lk,`openLab(${n})`,n%2?-.5:.7);});$('#colL').innerHTML=l;
+ const anySim=[1,2,3,4].some(n=>S.sim[n]);const tdone=Object.keys(S.ter).length;
+ let u=card('T','Terapan','Radar, terowongan, orbit komet',tdone?`✓ ${tdone}/3`:'',null,'openTer(0)',.5);
+ u+=card('Σ','Rangkuman','Satu halaman catatan rumus','',null,"go('s-sum')",-.6);
+ u+=card('?','Asesmen','12 soal pilihan ganda',S.ases?`skor ${S.ases.score}`:'',anySim?null:'Tuntaskan minimal 1 lab','openAses()',.4);
+ const gs=S.gim.stars.reduce((a,b)=>a+b,0);
+ u+=card('★','Gim: Studio Jangka','6 lembar pesanan',gs?`★ ${gs}/18`:'',(S.ases&&S.ases.score>=70)?null:'Butuh skor asesmen ≥ 70','openGim()',-.4);
+ $('#colU').innerHTML=u;
+ const rd=Object.values(S.read).filter(Boolean).length,sd=Object.values(S.sim).filter(Boolean).length,dd=Object.keys(S.drill).length;
+ $('#progBox').innerHTML=`<div class="hand" style="font-size:26px">Jejak belajarmu</div><div style="font-size:17px;line-height:1.5">Materi dibaca: <b>${rd}/4</b><br>Latihan: <b>${dd}/12</b><br>Lab tuntas: <b>${sd}/4</b><br>Terapan: <b>${tdone}/3</b><br>Asesmen: <b>${S.ases?S.ases.score:'–'}</b><br>Bintang gim: <b>${gs}/18</b></div>`;
+};
+
+/* ================= LAYAR MATERI ================= */
+let MK='A',MI=0,MDrill=-1;
+function openMod(k){MK=k;MI=0;MDrill=-1;go('s-materi');}
+onEnter['s-materi']=renderMat;
+function renderMat(){const M=MOD[MK];const n=M.cards.length;$('#mTitle').textContent=M.name;
+ const fig=$('#mFig');
+ if(MDrill<0){const C=M.cards[MI];$('#mSub').textContent=`Halaman ${MI+1} dari ${n}`;
+  $('#mText').innerHTML=`<div class="tape"></div><h3>${C.h}</h3>${C.t}`;fig.style.display='block';const u=MK==='B'?40:36;animFig(fig,u,C.fig);$('#mReplay').onclick=()=>animFig(fig,u,C.fig);
+  if(MI===n-1&&!S.read[MK]){S.read[MK]=1;toast(`Materi ${MK} selesai dibaca — Lab ${'ABCD'.indexOf(MK)+1} kini terbuka!`);}
+ }else{$('#mSub').textContent=`Latihan ${MDrill+1} dari 3`;const q=M.drill[MDrill];
+  $('#mText').innerHTML=`<div class="tape r"></div><h3>Latihan ${MK}${MDrill+1}</h3><div id="qbox"></div>`;
+  const ff=M.cards[Math.min(MDrill+1,n-1)].fig,uu=MK==='B'?40:36;animFig(fig,uu,ff);$('#mReplay').onclick=()=>animFig(fig,uu,ff);
+  renderQ($('#qbox'),q,(ok,t)=>{S.drill[q.id]={ok,t};});
+ }
+ const tot=n+3,idx=MDrill<0?MI:n+MDrill;
+ $('#mDots').innerHTML=Array.from({length:tot},(_,i)=>`<i class="${i===idx?'on':i<idx?'seen':''}" style="${i>=n?'border-color:#c8372d':''}"></i>`).join('');
+ $('#mPrev').disabled=idx===0;
+ $('#mNext').textContent=idx===tot-1?'Kembali ke Menu ✓':(idx===n-1?'Mulai Latihan →':'Berikutnya →');
+}
+$('#mPrev').onclick=()=>{if(MDrill>0)MDrill--;else if(MDrill===0){MDrill=-1;MI=MOD[MK].cards.length-1;}else if(MI>0)MI--;renderMat();};
+$('#mNext').onclick=()=>{const n=MOD[MK].cards.length;
+ if(MDrill<0){if(MI<n-1)MI++;else MDrill=0;}
+ else{if(!S.drill[MOD[MK].drill[MDrill].id]){toast('Selesaikan soal ini dulu (sampai benar atau kunci muncul).');return;}if(MDrill<2)MDrill++;else{go('s-menu');return;}}
+ renderMat();};
+</script>
+<script>
+/* ================= LAB SKETSA ================= */
+let LN=1,LS={},labAnim=null,labMode=0;
+const LABDEF={
+1:{title:'Lab 1 · Jangka Digital',sub:'Geser pusat (a, b) dan jari-jari r. Amati bentuk baku dan bentuk umumnya.',
+ init:()=>({a:0,b:0,r:3}),
+ ctl:[['a','Pusat a',-6,6,1],['b','Pusat b',-4,4,1],['r','Jari-jari r',1,6,1]],
+ mis:[{t:'Buat lingkaran berpusat (2, −1) dengan jari-jari 3.',ok:s=>s.a===2&&s.b===-1&&s.r===3},
+      {t:'Wujudkan lingkaran x² + y² + 4x − 6y − 3 = 0.',ok:s=>s.a===-2&&s.b===3&&s.r===4},
+      {t:'Buat lingkaran berpusat O yang melalui titik Q(3, 4).',ok:s=>s.a===0&&s.b===0&&s.r===5}],
+ draw(p,s){p.clear();p.pt(3,4,'#d9822b','Q(3, 4)');p.circ(s.a,s.b,s.r);p.seg(s.a,s.b,s.a+s.r,s.b,'#c8372d',2.2,[6,5]);p.pt(s.a,s.b,'#33383d',`(${fmt(s.a)}, ${fmt(s.b)})`);p.txt(s.a+s.r/2,s.b+.25,'r = '+s.r,'#c8372d',17,'center');},
+ info(s){const A=-2*s.a,B=-2*s.b,C=s.a*s.a+s.b*s.b-s.r*s.r;
+  return `<b>Bentuk baku</b><div class="f">${sh(s.a,'x')} + ${sh(s.b,'y')} = ${s.r*s.r}</div><b>Bentuk umum</b><div class="f g">x² + y²${term(A,'x')}${term(B,'y')}${term(C,'')} = 0</div><span style="font-size:16px">A = −2a = ${fmt(A)}, B = −2b = ${fmt(B)}, C = a² + b² − r² = ${fmt(C)}</span>`;}},
+2:{title:'Lab 2 · Benang & Paku',sub:'Atur setengah sumbu mendatar p dan tegak q. Benang oranye selalu berjumlah 2a.',
+ init:()=>({p:4,q:2.5}),
+ ctl:[['p','Setengah sumbu mendatar p',1,7,.5],['q','Setengah sumbu tegak q',1,6,.5]],
+ mis:[{t:'Buat elips dengan a = 5 dan fokus (±4, 0).',ok:s=>s.p===5&&s.q===3},
+      {t:'Buat elips bermayor tegak dengan a = 5 dan e = 0,6.',ok:s=>s.q===5&&s.p===4},
+      {t:'Buat elips dengan e = 0. Bangun apa yang terbentuk?',ok:s=>s.p===s.q}],
+ draw(p,s,t){p.clear();const a=Math.max(s.p,s.q),b=Math.min(s.p,s.q),c=Math.sqrt(a*a-b*b),hor=s.p>=s.q;
+  p.ell(0,0,s.p,s.q);const F1=hor?[-c,0]:[0,-c],F2=hor?[c,0]:[0,c];
+  const x=s.p*Math.cos(t),y=s.q*Math.sin(t);p.seg(F1[0],F1[1],x,y,'#d9822b',2.2,[6,5]);p.seg(F2[0],F2[1],x,y,'#1f4e9c',2.2,[6,5]);
+  p.pt(F1[0],F1[1],'#33383d','F₁',5,-8,18);p.pt(F2[0],F2[1],'#33383d','F₂',5,-8,18);p.pt(x,y,'#c8372d','P');
+  const d1=Math.hypot(x-F1[0],y-F1[1]),d2=Math.hypot(x-F2[0],y-F2[1]);p.note(`PF₁ = ${fmt(d1)}  +  PF₂ = ${fmt(d2)}  =  ${fmt(d1+d2)}  ( = 2a )`,'#c8372d');},
+ info(s){const a=Math.max(s.p,s.q),b=Math.min(s.p,s.q),c=Math.sqrt(a*a-b*b),hor=s.p>=s.q;
+  return `<div class="f r">x²/${fmt(s.p*s.p)} + y²/${fmt(s.q*s.q)} = 1</div>Sumbu mayor: <b>${s.p===s.q?'— (lingkaran)':hor?'mendatar':'tegak'}</b><br>a = ${fmt(a)}, b = ${fmt(b)}, c = √(a² − b²) = <b>${fmt(c)}</b><br>Fokus: <b>${hor?`(±${fmt(c)}, 0)`:`(0, ±${fmt(c)})`}</b><br>Eksentrisitas e = c/a = <b>${fmt(c/a,3)}</b>`;}},
+3:{title:'Lab 3 · Garis Penyelidik',sub:'Seret titik P (oranye). Atur garis y = mx + n. Lingkaran: x² + y² = 25.',
+ init:()=>({m:.5,n:2,px:2,py:-1}),
+ ctl:[['m','Gradien m',-3,3,.25],['n','Konstanta n',-10,10,.25]],
+ mis:[{t:'Seret P sehingga tepat PADA lingkaran.',ok:s=>s.px*s.px+s.py*s.py===25},
+      {t:'Atur garis bergradien tidak nol agar MENYINGGUNG lingkaran.',ok:s=>s.m!==0&&Math.abs(s.n*s.n-25*(1+s.m*s.m))<1e-9},
+      {t:'Atur garis agar TIDAK memotong lingkaran.',ok:s=>s.n*s.n>25*(1+s.m*s.m)+1e-9}],
+ drag:true,
+ draw(p,s){p.clear();p.circ(0,0,5);p.line(-s.m,1,s.n,'#2c8a57',2.6);p.handle(s.px,s.py,'#d9822b','P');
+  const d=Math.abs(s.n)/Math.sqrt(1+s.m*s.m);const fx=-s.m*s.n/(1+s.m*s.m),fy=s.n/(1+s.m*s.m);p.seg(0,0,fx,fy,'#c8372d',2,[5,5]);p.txt(fx/2+.2,fy/2,'d','#c8372d',20);},
+ info(s){const K=s.px*s.px+s.py*s.py-25;const D4=25*(1+s.m*s.m)-s.n*s.n;const d=Math.abs(s.n)/Math.sqrt(1+s.m*s.m);
+  const kp=K<0?'di dalam':K===0?'PADA lingkaran':'di luar';const kg=Math.abs(D4)<1e-9?'MENYINGGUNG':D4>0?'memotong di 2 titik':'tidak memotong';
+  return `<b>Titik P(${fmt(s.px)}, ${fmt(s.py)})</b><br>K = ${fmt(s.px)}² + ${fmt(s.py)}² − 25 = <b>${fmt(K)}</b> → <span class="hl">${kp}</span><hr style="border:none;border-top:1.5px dashed #aaa">
+  <b>Garis y = ${fmt(s.m)}x ${s.n<0?'−':'+'} ${fmt(Math.abs(s.n))}</b><br>Substitusi: (1 + m²)x² + 2mn·x + (n² − 25) = 0<br>D = 4[25(1 + m²) − n²] = <b>${fmt(4*D4)}</b><br>d = |n|/√(1 + m²) = <b>${fmt(d)}</b> vs r = 5<br>→ <span class="hl">${kg}</span>`;}},
+4:{title:'Lab 4 · Penggaris Singgung',sub:'Tiga kasus garis singgung pada lingkaran x² + y² = 25.',
+ init:()=>({th:30,m:1,px:7,py:3}),
+ modes:['Titik pada lingkaran','Gradien diketahui','Titik di luar'],
+ ctlM:[[['th','Sudut posisi T (°)',0,359,1]],[['m','Gradien m',-3,3,.25]],[]],
+ mis:[{t:'(Mode 1) Geser T hingga garis singgungnya mendatar.',ok:s=>s.th===90||s.th===270},
+      {t:'(Mode 2) Pilih m agar garis singgungnya y = mx ± 6,25.',ok:s=>Math.abs(Math.abs(s.m)-.75)<1e-9},
+      {t:'(Mode 3) Seret P agar panjang garis singgung PT tepat 5.',ok:s=>s.px*s.px+s.py*s.py===50}],
+ drag:true,
+ draw(p,s){p.clear();p.circ(0,0,5);
+  if(labMode===0){const a=s.th*Math.PI/180,x=5*Math.cos(a),y=5*Math.sin(a);p.seg(0,0,x,y,'#c8372d',2.2,[6,5]);p.line(x,y,25,'#2c8a57',2.6);p.pt(x,y,'#2c8a57','T');}
+  else if(labMode===1){const c=5*Math.sqrt(1+s.m*s.m);p.line(-s.m,1,c,'#2c8a57',2.6);p.line(-s.m,1,-c,'#2c8a57',2.6);}
+  else{const d2=s.px*s.px+s.py*s.py;p.handle(s.px,s.py,'#d9822b','P');
+   if(d2>25){const ph=Math.atan2(s.py,s.px),al=Math.acos(5/Math.sqrt(d2));[ph+al,ph-al].forEach((g,i)=>{const x=5*Math.cos(g),y=5*Math.sin(g);p.seg(s.px,s.py,x,y,'#2c8a57',2.6);p.seg(0,0,x,y,'#c8372d',1.8,[5,5]);p.pt(x,y,'#2c8a57','T'+(i+1));});}
+   else if(d2===25){p.line(s.px,s.py,25,'#2c8a57',2.6);}}},
+ info(s){if(labMode===0){const a=s.th*Math.PI/180,x=5*Math.cos(a),y=5*Math.sin(a);return `T(x₁, y₁) = (${fmt(x)}, ${fmt(y)})<div class="f g">${fmt(x)}x ${y<0?'−':'+'} ${fmt(Math.abs(y))}y = 25</div>Rumus: x₁x + y₁y = r²<br>Gradien garis singgung = −x₁/y₁ ${Math.abs(y)<1e-9?'(tak terdefinisi: garis tegak)':'= '+fmt(-x/y)}`;}
+  if(labMode===1){const c=5*Math.sqrt(1+s.m*s.m);return `<div class="f g">y = ${fmt(s.m)}x ± ${fmt(c)}</div>Rumus: y = mx ± r√(1 + m²)<br>r√(1 + m²) = 5√(1 + ${fmt(s.m*s.m,4)}) = <b>${fmt(c,4)}</b>`;}
+  const d2=s.px*s.px+s.py*s.py;return `P(${fmt(s.px)}, ${fmt(s.py)}), |PO|² = <b>${d2}</b><br>`+(d2>25?`Ada <b>dua</b> garis singgung.<div class="f g">PT = √(|PO|² − r²) = √(${d2} − 25) = ${fmt(Math.sqrt(d2-25))}</div>`:d2===25?'P tepat pada lingkaran → hanya <b>satu</b> garis singgung.':'P di dalam lingkaran → <b>tidak ada</b> garis singgung.');}}
+};
+function openLab(n){LN=n;LS=LABDEF[n].init();labMode=0;go('s-lab');}
+onEnter['s-lab']=function(){const D=LABDEF[LN];$('#labTitle').textContent=D.title;$('#labSub').textContent=D.sub;buildLabPanel();labLoop();};
+function buildLabPanel(){const D=LABDEF[LN];let h='<div class="tape b"></div>';
+ if(D.modes)h+=`<div class="tabs">${D.modes.map((m,i)=>`<button class="btn sm ${i===labMode?'ink':''}" style="font-size:17px;padding:2px 8px" onclick="labMode=${i};buildLabPanel()">${m}</button>`).join('')}</div>`;
+ const ctl=D.modes?D.ctlM[labMode]:D.ctl;
+ ctl.forEach(([k,lab,mn,mx,st])=>{h+=`<div class="ctl"><label><span>${lab}</span><b id="v_${k}">${fmt(LS[k])}</b></label><input type="range" min="${mn}" max="${mx}" step="${st}" value="${LS[k]}" data-k="${k}"></div>`;});
+ if(D.modes&&labMode===2)h+='<p style="font-size:16px">Seret titik P di kanvas (bilangan bulat).</p>';
+ h+=`<div class="info" id="labInfo"></div><div class="hand" style="font-size:24px">Misi</div><ul class="mis" id="labMis">${D.mis.map((m,i)=>`<li class="${S.simM[LN][i]?'d':''}">${m.t}</li>`).join('')}</ul>`;
+ if(LN===3)h+='<p style="font-size:15px;color:#666">Tip misi 2: coba m = 0,75 lalu cari n.</p>';
+ $('#labPanel').innerHTML=h;
+ $('#labPanel').querySelectorAll('input[type=range]').forEach(r=>r.oninput=()=>{LS[r.dataset.k]=+r.value;$('#v_'+r.dataset.k).textContent=fmt(+r.value);labCheck();});
+ labCheck();}
+function labCheck(){const D=LABDEF[LN];$('#labInfo').innerHTML=D.info(LS);
+ D.mis.forEach((m,i)=>{if(!S.simM[LN][i]&&m.ok(LS)&&(!D.modes||i===labMode)){S.simM[LN][i]=1;beep('ok');toast('Misi tercapai: '+m.t.replace(/\(Mode \d\) /,''));
+  const li=$('#labMis').children[i];li.classList.add('d');
+  if(D.mis.every((_,j)=>S.simM[LN][j])&&!S.sim[LN]){S.sim[LN]=1;setTimeout(()=>modal(`<h3>Lab ${LN} tuntas! ✎</h3><p>Semua misi ${D.title.split('· ')[1]} selesai. ${Object.values(S.sim).filter(Boolean).length===1?'Asesmen kini terbuka.':''}</p>`,[['Lanjut bereksplorasi',null,''],['Ke Menu',()=>go('s-menu'),'ink']]),600);}}});}
+function labLoop(){cancelAnimationFrame(labAnim);const cv=$('#labCv'),p=new Plot(cv,40);let t=0;
+ function fr(){t+=.015;LABDEF[LN].draw(p,LS,t);if(cur==='s-lab')labAnim=requestAnimationFrame(fr);}fr();}
+(function(){const cv=$('#labCv');let drag=false;const p=new Plot(cv,40);
+ cv.addEventListener('pointerdown',e=>{if(!LABDEF[LN].drag||(LN===4&&labMode!==2))return;const[x,y]=cvPos(cv,e);if(Math.hypot(p.wx(x)-LS.px,p.wy(y)-LS.py)<.8){drag=true;cv.setPointerCapture(e.pointerId);}});
+ cv.addEventListener('pointermove',e=>{if(!drag)return;const[x,y]=cvPos(cv,e);const nx=Math.max(-9,Math.min(9,Math.round(p.wx(x)))),ny=Math.max(-7,Math.min(7,Math.round(p.wy(y))));if(nx!==LS.px||ny!==LS.py){LS.px=nx;LS.py=ny;labCheck();}});
+ cv.addEventListener('pointerup',()=>drag=false);cv.addEventListener('pointercancel',()=>drag=false);})();
+</script>
+<script>
+/* ================= TERAPAN ================= */
+const TER=[
+ {h:'Radar Cuaca Desa',t:`<p>Sebuah menara radar cuaca berada di koordinat (2, 3) pada peta (satuan km). Jangkauannya 5 km ke segala arah.</p><p>Rumah Pak Darto berada di (6, 6). Batas jangkauan radar membentuk lingkaran <b>(x − 2)² + (y − 3)² = 25</b>.</p>`,
+  q:{t:'mc',q:'Bagaimana posisi rumah Pak Darto terhadap jangkauan radar?',o:['Di dalam jangkauan, cukup jauh dari batas','Tepat di batas jangkauan','Di luar jangkauan','Tidak bisa ditentukan tanpa peta asli','Di dalam jangkauan, berjarak 3 km dari menara'],a:1,mis:{0:'Kedudukan titik: K = 0 ditafsirkan sebagai di dalam',2:'Salah menghitung K pada konteks radar',4:'Jarak dihitung dari selisih satu koordinat saja'},hint:'K = (6 − 2)² + (6 − 3)² − 25. Bandingkan dengan 0.',note:'K = 16 + 9 − 25 = 0: rumah tepat berada pada lingkaran batas, sinyal bisa lemah.'},
+  fig:p=>{p.ox=150;p.oy=p.cv.height-70;p.clear();p.circ(2,3,5,'#1f4e9c',2.6,[8,6]);p.pt(2,3,'#33383d','radar');p.pt(6,6,'#c8372d','rumah');}},
+ {h:'Terowongan Setengah Elips',t:`<p>Mulut terowongan berbentuk setengah elips: lebar 10 m, tinggi puncak 4 m. Dengan pusat di tengah jalan, lengkungnya mengikuti <b>x²/25 + y²/16 = 1</b> (y ≥ 0).</p><p>Sebuah truk selebar 4 m melintas tepat di tengah. Sisi truk berada di x = ±2.</p>`,
+  q:{t:'num',q:'Berapa tinggi maksimum truk agar sudut atasnya tidak menyentuh terowongan? (meter, 2 desimal)',a:3.67,tol:.011,unit:'m',hint:'Substitusi x = 2: y² = 16(1 − 4/25) = 16 · 21/25. Lalu tarik akar.',note:'y = 4√21/5 ≈ 3,67 m. Dalam praktik, truk harus lebih rendah lagi agar ada ruang aman.',misT:'Belum memodelkan masalah kontekstual dengan persamaan elips'},
+  fig:p=>{p.oy=p.cv.height-60;p.clear();const c=p.c;c.save();c.strokeStyle='#c8372d';c.lineWidth=3;c.beginPath();c.ellipse(p.X(0),p.Y(0),5*p.u,4*p.u,0,Math.PI,2*Math.PI);c.stroke();c.restore();
+   const h=4*Math.sqrt(21)/5;c.save();c.fillStyle='rgba(31,78,156,.15)';c.fillRect(p.X(-2),p.Y(h),4*p.u,h*p.u);c.restore();p.seg(-2,0,-2,h,'#1f4e9c',2.4);p.seg(2,0,2,h,'#1f4e9c',2.4);p.seg(-2,h,2,h,'#1f4e9c',2.4);p.pt(2,h,'#c8372d','(2, ?)');p.txt(0,1.5,'truk','#1f4e9c',20,'center');}},
+ {h:'Orbit Komet',t:`<p>Lintasan komet berbentuk elips dengan <b>Matahari di salah satu fokus</b>. Setengah sumbu mayornya a = 10 SA dan eksentrisitasnya e = 0,6.</p><p>Titik terdekat ke Matahari disebut <b>perihelion</b>, jaraknya a − c.</p>`,
+  q:{t:'num',q:'Berapa jarak perihelion komet ke Matahari? (SA)',a:4,unit:'SA',hint:'c = e · a = 0,6 × 10. Perihelion = a − c.',note:'c = 6, sehingga perihelion = 10 − 6 = 4 SA dan aphelion = 10 + 6 = 16 SA.',misT:'Hubungan e = c/a belum dipakai dalam konteks'},
+  fig:p=>{p.clear(true);p.ell(0,0,10,8);p.pt(6,0,'#d9822b','Matahari',9,-40,-14);p.pt(10,0,'#1f4e9c','perihelion',5,-60,22);p.pt(-10,0,'#1f4e9c','aphelion',5,6,22);p.seg(6,0,10,0,'#c8372d',2.4,[5,4]);}}
+];
+let TI=0;
+function openTer(i){TI=i;go('s-ter');}
+onEnter['s-ter']=function(){$('#terTabs').innerHTML=TER.map((x,i)=>`<button class="btn sm ${i===TI?'ink':''}" onclick="TI=${i};onEnter['s-ter']()">${S.ter[i]?'✓ ':''}${i+1}. ${x.h.split(' ')[0]}</button>`).join('');
+ const T=TER[TI];$('#terText').innerHTML=`<div class="tape"></div><h3 class="hand" style="font-size:36px;color:var(--ink)">${T.h}</h3>${T.t}<div id="terQ"></div>`;
+ T.fig(new Plot($('#terCv'),TI===2?22:(TI===0?30:40)));
+ renderQ($('#terQ'),T.q,ok=>{S.ter[TI]={ok};$('#terTabs').children[TI].textContent='✓ '+(TI+1)+'. '+T.h.split(' ')[0];});};
+
+/* ================= ASESMEN ================= */
+const AQ=[
+ {q:'Persamaan lingkaran berpusat (−1, 4) dengan jari-jari 3 adalah …',o:['(x − 1)² + (y + 4)² = 9','(x + 1)² + (y − 4)² = 9','(x + 1)² + (y − 4)² = 3','(x − 1)² + (y − 4)² = 9','(x + 1)² + (y + 4)² = 9'],a:1,m:'Persamaan lingkaran pusat (a, b)'},
+ {q:'Pusat dan jari-jari lingkaran x² + y² + 4x − 10y + 13 = 0 adalah …',o:['(−2, 5) dan 4','(2, −5) dan 4','(−2, 5) dan 16','(−4, 10) dan 4','(2, −5) dan √13'],a:0,m:'Pusat & jari-jari dari bentuk umum'},
+ {q:'Lingkaran berpusat (2, 1) menyinggung sumbu Y. Persamaannya …',o:['x² + y² − 4x − 2y + 1 = 0','x² + y² − 4x − 2y + 4 = 0','x² + y² + 4x + 2y + 1 = 0','x² + y² − 4x − 2y − 4 = 0','x² + y² − 2x − 4y + 1 = 0'],a:0,m:'Lingkaran menyinggung sumbu'},
+ {q:'Panjang sumbu mayor elips 9x² + 25y² = 225 adalah …',o:['10','6','8','5','3'],a:0,m:'Unsur elips (sumbu mayor)'},
+ {q:'Koordinat fokus elips x²/16 + y²/25 = 1 adalah …',o:['(0, ±3)','(±3, 0)','(0, ±4)','(±4, 0)','(0, ±5)'],a:0,m:'Fokus elips bermayor tegak'},
+ {q:'Elips berpusat O memiliki fokus (±4, 0) dan sumbu mayor sepanjang 10. Persamaannya …',o:['x²/25 + y²/9 = 1','x²/25 + y²/16 = 1','x²/9 + y²/25 = 1','x²/100 + y²/84 = 1','x²/16 + y²/9 = 1'],a:0,m:'Menyusun persamaan elips dari unsurnya'},
+ {q:'Eksentrisitas elips (x − 2)²/36 + (y + 1)²/20 = 1 adalah …',o:['2/3','1/3','4/5','3/2','√5/3'],a:0,m:'Eksentrisitas elips'},
+ {q:'Kedudukan titik (1, −2) terhadap lingkaran x² + y² − 4x + 2y − 4 = 0 adalah …',o:['di dalam lingkaran','pada lingkaran','di luar lingkaran','tepat di pusat lingkaran','tidak dapat ditentukan'],a:0,m:'Kedudukan titik terhadap lingkaran'},
+ {q:'Garis 3x + 4y = k menyinggung lingkaran x² + y² = 4. Nilai k adalah …',o:['±10','±5','±20','±2','±8'],a:0,m:'Syarat garis menyinggung lingkaran'},
+ {q:'Persamaan garis singgung lingkaran x² + y² = 13 di titik (2, −3) adalah …',o:['2x − 3y = 13','2x + 3y = 13','3x − 2y = 13','2x − 3y = −13','3x + 2y = 13'],a:0,m:'Garis singgung di titik pada lingkaran (pusat O)'},
+ {q:'Persamaan garis singgung lingkaran (x − 1)² + (y + 2)² = 10 di titik (2, 1) adalah …',o:['x + 3y = 5','x + 3y = 10','3x + y = 7','x − 3y = −1','x + 3y = −5'],a:0,m:'Garis singgung di titik pada lingkaran (pusat (a, b))'},
+ {q:'Persamaan garis singgung lingkaran x² + y² = 20 yang bergradien 2 adalah …',o:['y = 2x ± 10','y = 2x ± 20','y = 2x ± 2√5','y = 2x ± 5','y = −½x ± 10'],a:0,m:'Garis singgung dengan gradien diketahui'}
+];
+let AI=0,AANS=[];
+function openAses(){if(S.ases){showAsesResult();go('s-ases');return;}AI=0;AANS=new Array(AQ.length).fill(-1);go('s-ases');renderAses();}
+function renderAses(){const q=AQ[AI],L='ABCDE';
+ $('#aBox').innerHTML=`<div class="tape"></div><div class="hand" style="font-size:30px;color:var(--red)">Soal ${AI+1}</div><div class="qq">${q.q}</div>`+q.o.map((o,i)=>`<div class="opt ${AANS[AI]===i?'sel':''}" onclick="AANS[${AI}]=${i};beep('tap');renderAses()"><span class="l">${L[i]}</span><span>${o}</span></div>`).join('')+
+ `<div style="margin-top:16px;display:flex;gap:12px"><button class="btn sm" ${AI===0?'disabled':''} onclick="AI--;renderAses()">← Sebelumnya</button><button class="btn sm ink" ${AI===AQ.length-1?'disabled':''} onclick="AI++;renderAses()">Berikutnya →</button></div>`;
+ const n=AANS.filter(x=>x>=0).length;
+ $('#aNav').innerHTML=`<div class="hand" style="font-size:26px">Peta soal</div><div class="g">${AQ.map((_,i)=>`<i class="${AANS[i]>=0?'a':''} ${i===AI?'c':''}" onclick="AI=${i};renderAses()">${i+1}</i>`).join('')}</div><div style="font-size:17px">Terjawab: <b>${n}/${AQ.length}</b></div><button class="btn red" style="margin-top:12px;width:100%" ${n<AQ.length?'disabled':''} onclick="submitAses()">Kumpulkan</button>${n<AQ.length?'<div style="font-size:15px;color:#777;margin-top:6px">Jawab semua soal untuk mengumpulkan.</div>':''}`;}
+function submitAses(){modal('<h3>Kumpulkan jawaban?</h3><p>Setelah dikumpulkan, jawaban tidak bisa diubah.</p>',[['Periksa lagi',null,''],['Ya, kumpulkan',()=>{
+ let c=0;const wrong=[];AQ.forEach((q,i)=>{if(AANS[i]===q.a)c++;else{wrong.push(i);addMis('Asesmen: '+q.m);}});
+ S.ases={score:Math.round(c/AQ.length*100),correct:c,ans:AANS.slice(),wrong};beep(S.ases.score>=70?'ok':'tap');showAsesResult();},'red']]);}
+function showAsesResult(){const A=S.ases,L='ABCDE';const pass=A.score>=70;
+ const good=AQ.filter((q,i)=>!A.wrong.includes(i)).map(q=>q.m);const bad=A.wrong.map(i=>AQ[i].m);
+ $('#aBox').innerHTML=`<div class="tape"></div><div class="hand" style="font-size:40px">Skor kamu: <span class="${pass?'grnc':'red'}">${A.score}</span> <span style="font-size:24px">(${A.correct} dari ${AQ.length} benar)</span></div>
+ <p>${good.length?`<b>Yang sudah kuat:</b> ${[...new Set(good)].slice(0,3).join('; ')}.`:'Kamu sudah menyelesaikan seluruh asesmen — itu langkah pertama yang penting.'}</p>
+ ${bad.length?`<p><b>Arah perbaikan:</b> ${[...new Set(bad)].join('; ')}.</p>`:'<p>Semua benar. Luar biasa rapi!</p>'}
+ <p>${pass?'Gim <b>Studio Jangka</b> sudah terbuka. Selamat menguji keterampilanmu!':'Langkah berikutnya: buka kembali materi dan lab yang terkait dengan nomor yang belum tepat, lalu ulangi asesmen. Gim terbuka di skor ≥ 70.'}</p>
+ <div class="hand" style="font-size:26px;margin-top:6px">Pembahasan singkat</div>`+AQ.map((q,i)=>`<div style="font-size:16px;margin:4px 0">${A.wrong.includes(i)?'✗':'✓'} <b>${i+1}.</b> Jawabanmu ${L[A.ans[i]]}, kunci <b>${L[q.a]}</b> (${q.o[q.a]}) — ${q.m}</div>`).join('');
+ $('#aNav').innerHTML=`<div class="hand" style="font-size:26px">Selanjutnya</div><button class="btn ink" style="width:100%;margin:8px 0" onclick="go('s-menu')">Ke Menu</button>${pass?`<button class="btn grn" style="width:100%;margin:8px 0" onclick="openGim()">Main Gim ★</button>`:''}<button class="btn" style="width:100%;margin:8px 0" onclick="S.ases=null;openAses()">Ulangi Asesmen</button><button class="btn" style="width:100%;margin:8px 0" onclick="openReport()">Laporan Belajar</button>`;}
+
+/* ================= GIM: STUDIO JANGKA ================= */
+const LAT=[[5,0],[4,3],[3,4],[0,5],[-3,4],[-4,3],[-5,0],[-4,-3],[-3,-4],[0,-5],[3,-4],[4,-3]];
+function snapLat(x,y){let b=LAT[0],bd=1e9;LAT.forEach(q=>{const d=(q[0]-x)**2+(q[1]-y)**2;if(d<bd){bd=d;b=q;}});return b;}
+const d2=(a,b)=>(a.x-b.x)**2+(a.y-b.y)**2;
+const GST=[
+ {name:'Logo Kafe',brief:'Pemilik kafe ingin logo bundar <b>berpusat di (−2, 1)</b> yang <b>melewati titik pintu D(1, 5)</b>. Seret titik pusat C (biru) dan titik jari-jari R (merah).',
+  hs:()=>[{id:'C',x:0,y:0,col:'#1f4e9c',lab:'C'},{id:'R',x:3,y:0,col:'#c8372d',lab:'R'}],
+  move(h,x,y,H){if(h.id==='C'){const dx=x-h.x,dy=y-h.y;h.x=x;h.y=y;H[1].x+=dx;H[1].y+=dy;}else{h.x=x;h.y=y;}},
+  draw(p,H){p.pt(1,5,'#d9822b','D(1, 5)');const r=Math.sqrt(d2(H[0],H[1]));p.circ(H[0].x,H[0].y,r);p.seg(H[0].x,H[0].y,H[1].x,H[1].y,'#c8372d',2,[5,5]);},
+  check(H){const C=H[0];if(C.x!==-2||C.y!==1)return'Pusatnya belum di (−2, 1). Cek lagi koordinat titik C.';if(d2(C,H[1])!==25)return'Pusat sudah tepat! Sekarang atur R agar lingkaran melewati D. Hitung jarak C ke D.';return'';},
+  hint:'Jarak C(−2, 1) ke D(1, 5) = √(3² + 4²) = 5. Letakkan R, misalnya, di (3, 1).',
+  fill:{tpl:'(x + 2)² + (y − 1)² = {}',ans:()=>[25],note:'r = 5, sehingga r² = 25.'}},
+ {name:'Kolam Taman',brief:'Kolam bundar <b>berpusat di (4, −3)</b> harus <b>menyinggung sumbu X</b> (tepi jalan setapak).',
+  hs:()=>[{id:'C',x:0,y:0,col:'#1f4e9c',lab:'C'},{id:'R',x:2,y:0,col:'#c8372d',lab:'R'}],
+  move(h,x,y,H){GST[0].move(h,x,y,H);},
+  draw(p,H){p.seg(-8.5,0,8.5,0,'#2c8a57',4);p.txt(-8,.35,'jalan setapak','#2c8a57',15);const r=Math.sqrt(d2(H[0],H[1]));p.circ(H[0].x,H[0].y,r);p.seg(H[0].x,H[0].y,H[1].x,H[1].y,'#c8372d',2,[5,5]);},
+  check(H){const C=H[0];if(C.x!==4||C.y!==-3)return'Letakkan pusat C tepat di (4, −3).';if(d2(C,H[1])!==9)return'Pusat tepat! Lingkaran harus menyentuh sumbu X di satu titik saja. Berapa jarak pusat ke sumbu X?';return'';},
+  hint:'Jarak (4, −3) ke sumbu X = |−3| = 3. Jadi r = 3.',
+  fill:{tpl:'x² + y² − 8x + 6y + {} = 0',ans:()=>[16],note:'C = a² + b² − r² = 16 + 9 − 9 = 16.'}},
+ {name:'Meja Oval',brief:'Meja oval (berpusat O, mayor mendatar) dengan <b>paku fokus di (±3, 0)</b> dan <b>panjang meja 10</b>. Seret titik A (sumbu X) dan B (sumbu Y).',
+  hs:()=>[{id:'A',x:3,y:0,col:'#c8372d',lab:'A'},{id:'B',x:0,y:2,col:'#1f4e9c',lab:'B'}],
+  move(h,x,y){if(h.id==='A'){h.x=Math.max(1,x);h.y=0;}else{h.y=Math.max(1,y);h.x=0;}},
+  draw(p,H){p.pt(-3,0,'#d9822b','',6);p.pt(3,0,'#d9822b','paku',6,-14,22);p.ell(0,0,H[0].x,H[1].y);const a=Math.max(H[0].x,H[1].y),b=Math.min(H[0].x,H[1].y),c=Math.sqrt(a*a-b*b);if(H[0].x>=H[1].y){p.pt(-c,0,'#c8372d','',3);p.pt(c,0,'#c8372d','',3);}},
+  check(H){if(H[0].x!==5)return'Panjang meja = 2a = 10. Di mana titik A seharusnya?';const b=H[1].y;if(25-b*b!==9)return'Panjang meja tepat! Fokus (titik merah kecil) belum berimpit dengan paku. Ingat c² = a² − b².';return'';},
+  hint:'a = 5 dan c = 3, sehingga b² = a² − c² = 16, b = 4.',
+  fill:{tpl:'Eksentrisitas e = {}',ans:()=>[.6],note:'e = c/a = 3/5 = 0,6.'}},
+ {name:'Cermin Tegak',brief:'Cermin oval tegak <b>berpusat di (1, 0)</b>, <b>tinggi 8</b> dan <b>lebar 4</b>. Seret pusat P, titik L (lebar), dan T (tinggi).',
+  hs:()=>[{id:'P',x:-2,y:0,col:'#33383d',lab:'P'},{id:'L',x:0,y:0,col:'#1f4e9c',lab:'L'},{id:'T',x:-2,y:2,col:'#c8372d',lab:'T'}],
+  move(h,x,y,H){const P=H[0];if(h.id==='P'){const dx=x-P.x,dy=y-P.y;P.x=x;P.y=y;H[1].x+=dx;H[1].y+=dy;H[2].x+=dx;H[2].y+=dy;}else if(h.id==='L'){h.x=Math.max(P.x+1,x);h.y=P.y;}else{h.y=Math.max(P.y+1,y);h.x=P.x;}},
+  draw(p,H){const P=H[0];p.ell(P.x,P.y,H[1].x-P.x,H[2].y-P.y);p.seg(P.x,P.y,H[1].x,H[1].y,'#1f4e9c',2,[5,5]);p.seg(P.x,P.y,H[2].x,H[2].y,'#c8372d',2,[5,5]);},
+  check(H){const P=H[0];if(P.x!==1||P.y!==0)return'Pusat cermin harus di (1, 0).';if(H[1].x-P.x!==2)return'Lebar 4 berarti setengah lebarnya 2. Periksa titik L.';if(H[2].y-P.y!==4)return'Tinggi 8 berarti setengah tingginya 4. Periksa titik T.';return'';},
+  hint:'Setengah lebar = 2, setengah tinggi = 4. Mayor tegak, jadi a = 4 (di bawah y²).',
+  fill:{tpl:'(x − 1)²/{} + y²/{} = 1',ans:()=>[4,16],note:'Penyebut terbesar (16) berada di bawah y² karena sumbu mayornya tegak.'}},
+ {name:'Rel Singgung',brief:'Roda berbentuk x² + y² = 25. Rel lurus <b>bergradien 3/4</b> harus <b>menyinggung</b> roda. Seret titik singgung T di tepi roda.',
+  hs:()=>[{id:'T',x:5,y:0,col:'#2c8a57',lab:'T',lat:1}],
+  move(h,x,y){const q=snapLat(x,y);h.x=q[0];h.y=q[1];},
+  draw(p,H){p.circ(0,0,5,'#33383d');const T=H[0];p.seg(0,0,T.x,T.y,'#c8372d',2,[5,5]);p.line(T.x,T.y,25,'#2c8a57',2.6);},
+  check(H){const T=H[0];if(T.y===0||Math.abs(-T.x/T.y-.75)>1e-9)return`Gradien garis singgung di T saat ini ${T.y===0?'tak terdefinisi (tegak)':'= '+fmt(-T.x/T.y)}. Garis singgung tegak lurus jari-jari: m = −x₁/y₁.`;return'';},
+  hint:'Butuh −x₁/y₁ = 3/4. Coba titik dengan x₁ dan y₁ berlawanan tanda, misalnya (−3, 4).',
+  fill:{tpl:'y = ¾x + {}',ans:H=>[25/H[0].y],note:'Dari x₁x + y₁y = 25 → y = (−x₁/y₁)x + 25/y₁. Cocok dengan r√(1 + m²) = 5 · 5/4 = 6,25.'}},
+ {name:'Tali Kubah',brief:'Dua tali dari patok <b>P(7, 1)</b> diikat <b>menyinggung</b> kubah x² + y² = 25. Seret titik singgung T₁ dan T₂ ke posisi yang tepat.',
+  hs:()=>[{id:'T1',x:0,y:5,col:'#2c8a57',lab:'T₁',lat:1},{id:'T2',x:0,y:-5,col:'#1f4e9c',lab:'T₂',lat:1}],
+  move(h,x,y){const q=snapLat(x,y);h.x=q[0];h.y=q[1];},
+  draw(p,H){p.circ(0,0,5,'#33383d');p.pt(7,1,'#d9822b','P(7, 1)',6);H.forEach(T=>{p.seg(7,1,T.x,T.y,T.col||'#2c8a57',2.4);p.seg(0,0,T.x,T.y,'#c8372d',1.6,[5,5]);});},
+  check(H){const ok=T=>7*T.x+T.y===25;const a=ok(H[0]),b=ok(H[1]);if(H[0].x===H[1].x&&H[0].y===H[1].y)return'Kedua titik singgung harus berbeda.';if(!a&&!b)return'Belum ada tali yang menyinggung. Tali PT menyinggung jika OT ⊥ PT, yaitu P memenuhi x₁x + y₁y = 25.';if(!a||!b)return'Satu tali sudah menyinggung! Cari titik singgung yang kedua.';return'';},
+  hint:'Cari (x₁, y₁) di tepi kubah dengan 7x₁ + y₁ = 25. Uji (3, 4) dan (4, −3).',
+  fill:{tpl:'Panjang setiap tali PT = {} m',ans:()=>[5],note:'PT = √(|PO|² − r²) = √(49 + 1 − 25) = √25 = 5.'}}
+];
+const G={i:0,ph:'build',wb:0,wf:0,H:[],drag:null};
+function openGim(){go('s-gim');}
+onEnter['s-gim']=function(){const first=S.gim.stars.findIndex(s=>!s);loadStage(first<0?0:first);
+ if(!S.gim.seen){S.gim.seen=1;modal('<h3>Studio Jangka ✎</h3><p>Kamu juru gambar di studio desain. Setiap lembar pesanan punya syarat. <b>Seret titik-titik</b> di kertas, tekan <b>Tinta!</b> untuk mengecek, lalu tuliskan persamaannya.</p><p style="font-size:17px">★★★ tanpa salah · ★★ maksimal 2 kali salah · ★ selebihnya</p>',[['Mulai',null,'ink']]);}};
+function loadStage(i){G.i=i;G.ph='build';G.wb=0;G.wf=0;G.H=GST[i].hs();renderSheets();renderGimPanel();drawGim();}
+function renderSheets(){$('#gimSheets').innerHTML=GST.map((g,i)=>{const lk=i>0&&!S.gim.stars[i-1];return `<div class="sheet ${i===G.i?'on':''} ${lk?'lock':''}" onclick="${lk?"toast('Selesaikan lembar sebelumnya dulu.')":`loadStage(${i})`}">${i+1}. ${g.name}<small>${'★'.repeat(S.gim.stars[i])||'·'}</small></div>`;}).join('');
+ $('#gimStars').textContent='★ '+S.gim.stars.reduce((a,b)=>a+b,0)+'/18';}
+function renderGimPanel(msg){const g=GST[G.i];let h=`<div class="tape r"></div><div class="hand" style="font-size:32px;color:var(--red)">Lembar ${G.i+1}: ${g.name}</div><p>${g.brief}</p>`;
+ if(G.ph==='build'){h+=`<div style="display:flex;gap:10px;margin:10px 0"><button class="btn ink" onclick="gimInk()">Tinta! ✒</button><button class="btn sm" onclick="loadStage(${G.i})">Atur ulang</button></div><div class="fb">${msg||''}</div>`;}
+ else if(G.ph==='fill'){h+=`<div class="fb"><div class="card g">Gambarmu sesuai pesanan! Sekarang tuliskan hasilnya.</div></div><div class="f" style="font-size:24px;margin-top:10px">${g.fill.tpl.replace(/\{\}/g,()=>'<input class="bl gf">')}</div><button class="btn ink sm" style="margin-top:8px" onclick="gimFill()">Periksa</button><div class="fb" id="gfb">${msg||''}</div>`;}
+ else{const st=S.gim.stars[G.i];h+=`<div class="fb"><div class="card g"><b class="grnc">Lembar selesai! ${'★'.repeat(st)}</b><span class="note">${g.fill.note}</span>${G.wb+G.wf?`<div style="font-size:16px;margin-top:4px">Kamu memperbaiki ${G.wb+G.wf} kali — setiap perbaikan adalah latihan nyata.</div>`:''}</div></div>`+
+  (G.i<5?`<button class="btn grn" style="margin-top:10px" onclick="loadStage(${G.i+1})">Lembar berikutnya →</button>`:`<button class="btn grn" style="margin-top:10px" onclick="gimEnd()">Lihat hasil akhir ★</button>`);}
+ $('#gimPanel').innerHTML=h;}
+function gimInk(){const e=GST[G.i].check(G.H);if(!e){beep('ok');G.ph='fill';renderGimPanel();return;}
+ G.wb++;beep('no');let m=`<div class="card w">${e}</div>`;if(G.wb>=2)m+=`<div class="card w" style="margin-top:6px"><b>Petunjuk:</b> ${GST[G.i].hint}</div>`;renderGimPanel(m);}
+function gimFill(){const g=GST[G.i],ans=g.fill.ans(G.H),ins=[...document.querySelectorAll('.gf')],vs=ins.map(i=>num(i.value));
+ if(vs.some(isNaN)){$('#gfb').innerHTML='<span class="red">Isi semua kotak dengan angka.</span>';return;}
+ let ok=true;ins.forEach((i,k)=>{const t=Math.abs(vs[k]-ans[k])<1e-6;i.classList.toggle('ok',t);i.classList.toggle('no',!t);if(!t)ok=false;});
+ if(ok||G.wf>=2){if(!ok){G.wf++;addMis('Gim: '+g.name+' — menuliskan persamaan dari sketsa');}const w=G.wb+G.wf;const st=ok?(w===0?3:w<=2?2:1):1;S.gim.stars[G.i]=Math.max(S.gim.stars[G.i],st);G.ph='done';beep(ok?'ok':'tap');renderSheets();renderGimPanel();
+  if(!ok)$('#gimPanel .card').insertAdjacentHTML('afterbegin',`<b>Kunci:</b> ${ans.map(v=>fmt(v,4)).join(' ; ')}<br>`);return;}
+ G.wf++;beep('no');$('#gfb').innerHTML=G.wf===1?`<div class="card w">${ENC[1]}</div>`:`<div class="card w"><b>Petunjuk:</b> ${g.hint}</div>`;}
+function gimEnd(){const s=S.gim.stars.reduce((a,b)=>a+b,0);modal(`<h3>Semua pesanan selesai!</h3><p class="hand" style="font-size:44px;color:var(--org)">★ ${s} / 18</p><p>${s>=15?'Gambarmu presisi seperti juru gambar profesional.':s>=10?'Sketsamu sudah kokoh. Ulangi lembar berbintang sedikit untuk mengejar ★★★.':'Kamu menuntaskan keenam lembar — itu pencapaian. Ulangi lembar yang bintangnya sedikit setelah membaca rangkuman.'}</p>`,[['Ke Menu',()=>go('s-menu'),'ink'],['Laporan',openReport,'']]);}
+function drawGim(){const p=new Plot($('#gimCv'),40);p.clear();GST[G.i].draw(p,G.H);G.H.forEach(h=>p.handle(h.x,h.y,h.col,h.lab));}
+(function(){const cv=$('#gimCv'),p=new Plot(cv,40);
+ cv.addEventListener('pointerdown',e=>{if(G.ph!=='build')return;const[x,y]=cvPos(cv,e);const wx=p.wx(x),wy=p.wy(y);let b=null,bd=.8;G.H.forEach(h=>{const d=Math.hypot(h.x-wx,h.y-wy);if(d<bd){bd=d;b=h;}});if(b){G.drag=b;cv.setPointerCapture(e.pointerId);}});
+ cv.addEventListener('pointermove',e=>{if(!G.drag)return;const[x,y]=cvPos(cv,e);let wx=p.wx(x),wy=p.wy(y);if(!G.drag.lat){wx=Math.max(-8,Math.min(8,Math.round(wx)));wy=Math.max(-6,Math.min(6,Math.round(wy)));}GST[G.i].move(G.drag,wx,wy,G.H);drawGim();});
+ const up=()=>{G.drag=null;};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);})();
+
+/* ================= LAPORAN (pratinjau A4) ================= */
+function openReport(){const dl=['A','B','C','D'];const now=new Date();
+ const drillRows=dl.map(k=>{const qs=MOD[k].drill;const done=qs.filter(q=>S.drill[q.id]);const first=done.filter(q=>S.drill[q.id].ok&&S.drill[q.id].t===1).length;return `<tr><td>${MOD[k].name}</td><td>${S.read[k]?'Selesai':'Belum'}</td><td>${done.length}/3</td><td>${first}</td><td>${S.sim['ABCD'.indexOf(k)+1]?'Tuntas':'Belum'}</td></tr>`;}).join('');
+ const strong=dl.filter(k=>MOD[k].drill.every(q=>S.drill[q.id]&&S.drill[q.id].ok&&S.drill[q.id].t===1)).map(k=>MOD[k].name.slice(3));
+ const gs=S.gim.stars.reduce((a,b)=>a+b,0);
+ const weakMod=dl.map(k=>({k,w:MOD[k].drill.reduce((s,q)=>s+(S.drill[q.id]?S.drill[q.id].t-1:0),0)})).sort((a,b)=>b.w-a.w)[0];
+ let open=strong.length?`Kamu menguasai <b>${strong.join(', ')}</b> dengan rapi: semua latihan di bagian itu benar pada percobaan pertama.`:(S.ases?`Kamu sudah menuntaskan asesmen dengan ${S.ases.correct} jawaban benar.`:`Kamu sudah memulai perjalanan di buku sketsa ini dan mencoba ${S.tries} kali menjawab soal.`);
+ let dir=S.mis.length?`Arah penguatan berikutnya: ${S.mis.slice(0,3).join('; ')}.`:'Belum ada pola keliru yang tercatat — pertahankan ketelitianmu.';
+ let proc=S.tries?`Kamu tercatat mencoba menjawab ${S.tries} kali. Setiap percobaan ulang adalah bukti proses berpikirmu, bukan kekurangan.`:'';
+ let next=weakMod&&weakMod.w>0?`Langkah konkret: buka kembali ${MOD[weakMod.k].name}, kerjakan Lab ${'ABCD'.indexOf(weakMod.k)+1}, lalu ulangi latihannya.`:(!S.ases?'Langkah konkret: tuntaskan satu lab, lalu kerjakan asesmen.':'Langkah konkret: kejar ★★★ di setiap lembar gim Studio Jangka.');
+ $('#printBody').innerHTML=`<div class="a4"><h1>Laporan Belajar · Jangka &amp; Benang</h1><div>Bab 1 Lingkaran, Elips, dan Garis Singgung Lingkaran · Matematika Tingkat Lanjut Fase F</div>
+ <table style="margin-top:10px"><tr><th>Nama</th><td>${S.nama||'-'}</td><th>Kelas / Absen</th><td>${S.kelas||'-'} / ${S.absen||'-'}</td></tr><tr><th>Tanggal</th><td colspan="3">${now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</td></tr></table>
+ <h2>Materi, Latihan, dan Lab</h2><table><tr><th>Bagian</th><th>Materi</th><th>Latihan</th><th>Benar percobaan pertama</th><th>Lab</th></tr>${drillRows}</table>
+ <h2>Terapan &amp; Asesmen</h2><table><tr><th>Terapan selesai</th><td>${Object.keys(S.ter).length}/3</td><th>Skor asesmen</th><td>${S.ases?S.ases.score+' ('+S.ases.correct+'/12 benar)':'Belum dikerjakan'}</td></tr><tr><th>Bintang gim</th><td>${gs}/18</td><th>Lembar gim tuntas</th><td>${S.gim.stars.filter(Boolean).length}/6</td></tr></table>
+ <h2>Catatan Umpan Balik</h2><p>${open}</p><p>${dir}</p><p>${proc}</p><p><b>${next}</b></p>
+ <h2>Catatan Pola Keliru (untuk guru)</h2>${S.mis.length?'<ul>'+S.mis.map(m=>`<li>${m}</li>`).join('')+'</ul>':'<p>Tidak ada catatan.</p>'}
+ <div style="margin-top:28px;display:flex;justify-content:space-between"><div>Paraf guru: ____________</div><div>Paraf orang tua: ____________</div></div></div>`;
+ $('#print').style.display='block';$('#pmsg').textContent='';}
+function closeReport(){$('#print').style.display='none';}
+function doPrint(){try{window.print();}catch(e){}setTimeout(()=>{$('#pmsg').textContent='Jika dialog cetak tidak muncul (mis. di pratinjau artefak), unduh berkas HTML lalu buka di browser untuk mencetak.';},800);}
+
+/* ================= INIT ================= */
+document.fonts&&document.fonts.ready.then(()=>{if(cur==='s-materi')renderMat();});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&cur==='s-id')saveId();});
+</script>
+</body>
+</html>
