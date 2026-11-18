@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "kapten-ubin",
+      judul: "Kapten Ubin: Misi Lantai Kota Garis",
+      fase: "B",
+      jenis: "MPI",
+      topik: "Luas Daerah Bangun Datar: konsep luas, persegi dan persegi panjang, segitiga, bangun gabungan, hubungan keliling dan luas",
+      tujuan: "Lanjutan komik Kapten Keliling dengan musik latar. Si Penghapus menghapus ubin lantai Kota Garis, dan murid membantu Kapten Ubin menghitung luas agar ubin bisa dipasang lagi. Apersepsi menutup dua tikar dengan ubin, lalu lima episode: tepi dan daerah, menutup meja dengan buku dan kartu, persegi satuan, ubin dipasang baris demi baris hingga muncul rumus panjang × lebar, persegi panjang dipotong diagonal untuk luas segitiga, bangun gabungan dengan cara dibagi dan cara dikurangi, serta 12 ubin yang disusun ulang untuk membandingkan keliling dan luas. Dilengkapi Lab Ubin Ajaib, Misi Pahlawan 8 soal (pilihan ganda, mewarnai petak, seret angka, isian, mengurutkan), Ujian Pahlawan 10 soal, dan rapor berlencana. Murid bisa memilih tokoh putra atau putri.",
+      durasi: 70,
+      perangkat: "Proyektor dan HP",
+      simbol: "L = p × l",
+      url: "karya/fase-b/kapten-ubin/",
+      sampul: "assets/img/kapten-ubin.webp",
+      ukuran: "2,3 MB",
+      video: ""
+    },
+    {
       id: "kapten-keliling",
       judul: "Kapten Keliling: Patroli Kota Garis",
       fase: "B",
