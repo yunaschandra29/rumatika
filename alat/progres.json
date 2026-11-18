@@ -1,5 +1,15 @@
 [
  {
+  "id": "kapten-keliling",
+  "fase": "B",
+  "jenjang": "SD",
+  "jenis": "MPI",
+  "judul": "Kapten Keliling: Patroli Kota Garis",
+  "topik": "Keliling Bangun Datar: arti keliling, keliling segitiga, segi empat, segi banyak, dan bangun gabungan",
+  "status": "Tayang",
+  "catatan": "2,3 MB"
+ },
+ {
   "id": "kalkir-cermin",
   "fase": "F",
   "jenjang": "SMA",

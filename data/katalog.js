@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "kapten-keliling",
+      judul: "Kapten Keliling: Patroli Kota Garis",
+      fase: "B",
+      jenis: "MPI",
+      topik: "Keliling Bangun Datar: arti keliling, keliling segitiga, segi empat, segi banyak, dan bangun gabungan",
+      tujuan: "Komik matematika bergaya pahlawan super dengan musik latar. Si Penghapus menghapus pagar Kota Garis, dan murid membantu Kapten Keliling menghitung panjang tepi agar pagar bisa dipasang lagi. Apersepsi lari mengelilingi lapangan, lalu lima episode: semut menyusuri tepi kebun, mengukur dengan batang korek dan sentimeter, animasi Buka Sisi yang meluruskan sisi bangun menjadi satu garis, penggeser ukuran persegi panjang dan segi banyak, serta bangun gabungan dengan sisi dalam yang tidak dihitung. Dilengkapi Lab Papan Petak, Misi Pahlawan 8 soal (pilihan ganda, klik sisi, seret angka, isian, mengurutkan), Ujian Pahlawan 10 soal, dan rapor berlencana.",
+      durasi: 70,
+      perangkat: "Proyektor dan HP",
+      simbol: "K = p + l + p + l",
+      url: "karya/fase-b/kapten-keliling/",
+      sampul: "assets/img/kapten-keliling.webp",
+      ukuran: "2,3 MB",
+      video: ""
+    },
+    {
       id: "kalkir-cermin",
       judul: "Kalkir & Cermin",
       fase: "F",
