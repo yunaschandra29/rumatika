@@ -1,5 +1,15 @@
 [
  {
+  "id": "lab-pecahan-senilai",
+  "fase": "B",
+  "jenjang": "SD",
+  "jenis": "Lab Maya",
+  "judul": "Lab Maya Pecahan",
+  "topik": "Pecahan dengan model batang: mengenal, senilai, membandingkan dan mengurutkan, penjumlahan, pengurangan, perkalian, dan pembagian",
+  "status": "Tayang",
+  "catatan": "2,3 MB"
+ },
+ {
   "id": "bengkel-kemas",
   "fase": "F",
   "jenjang": "SMA",
@@ -338,16 +348,6 @@
   "topik": "Aritmetika sosial",
   "status": "Tayang",
   "catatan": "7 MB"
- },
- {
-  "id": "lab-pecahan-senilai",
-  "fase": "B",
-  "jenjang": "SD",
-  "jenis": "Lab Maya",
-  "judul": "Lab Pecahan Senilai",
-  "topik": "Pecahan senilai",
-  "status": "Tayang",
-  "catatan": "10 KB"
  },
  {
   "id": "operasi-sigap",

@@ -1,195 +1,632 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lab Pecahan Senilai</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab Maya Pecahan · Model Batang</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500&family=Lexend:wght@400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* Contoh karya Rumatika: satu berkas HTML, bisa dibuka offline. */
-:root {
-  --kertas: #F3F6FC; --permukaan: #FFFFFF; --tinta: #0F1E45; --tinta-2: #4B5A7C;
-  --garis: #D5DFF2; --kisi: rgba(37, 84, 214, .08); --biru: #2554D6; --biru-muda: #E4ECFD;
-  --arsir: #3E44B8; --arsir-2: #0B7896; --di-biru: #FFFFFF;
-  --f-tampil: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --f-teks: "Lexend", "Segoe UI", system-ui, sans-serif;
-  --f-ukur: "IBM Plex Mono", ui-monospace, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --kertas: #0A1530; --permukaan: #101E3F; --tinta: #E7EEFF; --tinta-2: #A3B4DA;
-    --garis: #24386A; --kisi: rgba(132, 165, 255, .09); --biru: #7097FF; --biru-muda: #18295A;
-    --arsir: #7C82FF; --arsir-2: #3FB4D6; --di-biru: #0A1530; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --kertas: #0A1530; --permukaan: #101E3F; --tinta: #E7EEFF; --tinta-2: #A3B4DA;
-  --garis: #24386A; --kisi: rgba(132, 165, 255, .09); --biru: #7097FF; --biru-muda: #18295A;
-  --arsir: #7C82FF; --arsir-2: #3FB4D6; --di-biru: #0A1530; color-scheme: dark;
-}
-* { box-sizing: border-box; }
-html, body { min-height: 100%; }
-body {
-  margin: 0; background: var(--kertas); color: var(--tinta); font: 400 16px/1.55 var(--f-teks);
-  background-image: linear-gradient(var(--kisi) 1px, transparent 1px), linear-gradient(90deg, var(--kisi) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-.lab {
-  max-width: 1040px; margin-inline: auto; padding-block: 28px 40px;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
-  display: grid; gap: 20px;
-}
-.atas { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-.kembali { color: var(--biru); font-weight: 600; text-decoration: none; font-size: .92rem; }
-.alis { margin: 0; font: 500 .74rem var(--f-ukur); letter-spacing: .12em; text-transform: uppercase; color: var(--biru); }
-h1 { margin: 4px 0 0; font: 800 clamp(1.8rem, 4vw, 2.6rem)/1.05 var(--f-tampil); letter-spacing: -.03em; }
-.panel { background: var(--permukaan); border: 1px solid var(--garis); border-radius: 14px; padding: 22px; }
-.persamaan {
-  display: flex; align-items: center; justify-content: center; gap: 22px; flex-wrap: wrap;
-  font: 700 2.6rem/1 var(--f-tampil); font-variant-numeric: tabular-nums;
-}
-.pecahan { display: inline-grid; justify-items: center; gap: 6px; }
-.pecahan span:first-child { padding-inline: 10px; border-bottom: 3px solid currentColor; }
-.pecahan.a { color: var(--arsir); }
-.pecahan.b { color: var(--arsir-2); }
-.sama { color: var(--tinta-2); font-size: 2rem; }
-.pita-wadah { display: grid; gap: 16px; margin-top: 22px; }
-.pita-label { font: 500 .78rem var(--f-ukur); color: var(--tinta-2); margin-bottom: 6px; }
-.pita { display: flex; height: 54px; border: 2px solid var(--tinta); border-radius: 4px; overflow: hidden; }
-.pita div { flex: 1; border-right: 1.5px solid var(--tinta); transition: background-color .25s; }
-.pita div:last-child { border-right: 0; }
-.pita.a .isi { background: var(--arsir); }
-.pita.b .isi { background: var(--arsir-2); }
-.kendali { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.kontrol { display: grid; gap: 8px; }
-.kontrol label { font-weight: 600; font-size: .95rem; }
-.langkah { display: flex; align-items: center; gap: 10px; }
-.langkah button {
-  width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--garis); background: var(--kertas);
-  color: var(--tinta); font: 700 1.2rem var(--f-teks); cursor: pointer;
-}
-.langkah button:hover { border-color: var(--biru); }
-.langkah output { min-width: 2ch; text-align: center; font: 700 1.5rem var(--f-tampil); font-variant-numeric: tabular-nums; }
-input[type="range"] { width: 100%; accent-color: var(--biru); }
-.tanya { display: grid; gap: 10px; }
-.tanya h2 { margin: 0; font: 700 1.2rem var(--f-tampil); }
-.tanya p { margin: 0; color: var(--tinta-2); }
-.tombol {
-  justify-self: start; padding: 10px 18px; border-radius: 999px; border: 0; background: var(--biru);
-  color: var(--di-biru); font: 600 .95rem var(--f-teks); cursor: pointer;
-}
-.jawaban { padding: 14px 16px; border-radius: 10px; background: var(--biru-muda); color: var(--tinta); }
-:focus-visible { outline: 3px solid var(--biru); outline-offset: 2px; }
-@media (max-width: 700px) {
-  .kendali { grid-template-columns: minmax(0, 1fr); }
-  .persamaan { font-size: 2rem; gap: 14px; }
-}
-@media (prefers-reduced-motion: reduce) { .pita div { transition: none; } }
+:root{--ink:#3d3a35;--mut:#7a6f62;--paper:#fffaf0;--edge:#eadfc8;--sky:#5b9bd5;--sun:#e8a33d;--leaf:#6aaa5a;--rose:#d9788a;--lav:#9b7ec8;--teal:#58b5b0}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:#26382c}
+#app{position:absolute;left:50%;top:50%;width:1280px;height:720px;overflow:hidden;transform:translate(-50%,-50%);transform-origin:center;background:#cfe9f3;box-shadow:0 0 40px rgba(0,0,0,.4)}
+button,select,input{font-family:inherit;color:inherit}
+.serif{font-family:'Kiwi Maru','Nunito',serif}
+
+/* ===== scenery ===== */
+#scene{position:absolute;inset:0;z-index:0}
+#scene svg{width:100%;height:100%;display:block}
+.cloud{animation:drift 90s linear infinite alternate}
+.cloud.c2{animation-duration:120s;animation-direction:alternate-reverse}
+.cloud.c3{animation-duration:150s}
+@keyframes drift{from{transform:translateX(-120px)}to{transform:translateX(160px)}}
+.sway{transform-origin:50% 100%;transform-box:fill-box;animation:sway 6s ease-in-out infinite alternate}
+@keyframes sway{to{transform:rotate(2.5deg)}}
+.smoke{animation:smoke 5s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes smoke{from{opacity:.7;transform:translate(0,0) scale(.6)}to{opacity:0;transform:translate(30px,-90px) scale(1.6)}}
+.leaf{position:absolute;top:-30px;width:14px;height:9px;border-radius:14px 0;background:#8cc37a;opacity:.85;z-index:1;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate(0,0) rotate(0)}100%{transform:translate(-220px,780px) rotate(720deg)}}
+#veil{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(255,250,240,.35),rgba(255,250,240,.75));opacity:0;transition:opacity .6s;pointer-events:none}
+body.inlab #veil{opacity:1}
+
+/* ===== screens ===== */
+.screen{position:absolute;inset:0;z-index:2;display:none}
+.screen.on{display:flex;animation:fadein .5s}
+@keyframes fadein{from{opacity:0}}
+
+/* splash */
+#splash{align-items:center;justify-content:center;padding:20px}
+.sp-card{text-align:center;padding:34px 38px 30px;border-radius:28px;background:rgba(255,250,240,.82);backdrop-filter:blur(6px);box-shadow:0 18px 50px rgba(60,80,60,.25);border:2px solid rgba(255,255,255,.8);max-width:560px;width:100%}
+.sp-bars{display:flex;flex-direction:column;gap:9px;width:min(360px,74vw);margin:0 auto 18px}
+.sp-bar{height:26px;border:3px solid var(--ink);border-radius:7px;display:flex;overflow:hidden;background:#fffdf6}
+.sp-bar i{flex:1;border-right:2px solid #6b5e50}.sp-bar i:last-child{border:none}
+.sp-bar i.f{animation:grow .7s cubic-bezier(.3,1.4,.5,1) backwards}
+@keyframes grow{from{transform:scaleX(0);transform-origin:left}}
+.sp-card h1{font-family:'Kiwi Maru',serif;font-weight:500;font-size:54px;margin:4px 0;color:#3b5d3a;letter-spacing:.02em}
+.sp-card .sub{font-weight:800;color:var(--mut);margin:0 0 4px;font-size:17px}
+.sp-card .tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0 4px}
+.tag{font-size:12px;font-weight:800;padding:4px 10px;border-radius:99px;background:#f1e7d0;color:#6b5e50}
+.big-btn{margin-top:20px;border:none;border-radius:999px;padding:15px 34px;font-size:18px;font-weight:900;cursor:pointer;color:#fff;
+ background:linear-gradient(180deg,#7cc06a,#4f8a48);box-shadow:0 6px 0 #3b6b36,0 12px 24px rgba(60,100,60,.3);transition:transform .15s;animation:appear .6s 1.3s backwards}
+.big-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #3b6b36}
+@keyframes appear{from{opacity:0;transform:translateY(12px)}}
+.credit{font-size:11.5px;color:var(--mut);font-weight:700;margin-top:16px}
+
+/* menu */
+#menu{flex-direction:column;overflow-y:auto;padding:20px 48px 20px;align-items:center}
+.mn-head{text-align:center;margin-bottom:18px;background:rgba(255,250,240,.78);backdrop-filter:blur(5px);padding:14px 26px;border-radius:22px;box-shadow:0 8px 24px rgba(60,80,60,.15)}
+.mn-head h2{font-family:'Kiwi Maru',serif;font-weight:500;margin:0;font-size:32px;color:#3b5d3a}
+.mn-head p{margin:4px 0 0;font-weight:800;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;width:min(1100px,100%)}
+.mcard{text-align:left;border:none;cursor:pointer;background:var(--paper);border-radius:22px;padding:0;overflow:hidden;box-shadow:0 8px 22px rgba(60,80,60,.16);
+ transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column;animation:appear .5s backwards;border:2px solid #fff}
+.mcard:hover{transform:translateY(-5px) rotate(-.4deg);box-shadow:0 14px 30px rgba(60,80,60,.24)}
+.mc-art{height:78px;display:flex;flex-direction:column;justify-content:center;gap:7px;padding:0 22px;position:relative}
+.mini{height:16px;border:2.5px solid var(--ink);border-radius:5px;display:flex;background:#fffdf6;overflow:hidden}
+.mini i{flex:1;border-right:1.5px solid #6b5e50}.mini i:last-child{border:none}
+.mc-sym{position:absolute;right:14px;top:10px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:'Kiwi Maru',serif;font-size:22px;color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.15)}
+.mc-body{padding:12px 18px 16px}
+.mc-body b{font-family:'Kiwi Maru',serif;font-weight:500;font-size:19px;display:block}
+.mc-body span{font-size:13px;font-weight:700;color:var(--mut);display:block;margin-top:3px;line-height:1.4}
+.mc-body em{font-style:normal;font-size:11px;font-weight:900;display:inline-block;margin-top:8px;padding:3px 9px;border-radius:99px;background:#f1e7d0;color:#6b5e50}
+.mn-foot{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;justify-content:center}
+.soft{border:none;border-radius:999px;padding:10px 18px;font-weight:900;cursor:pointer;background:rgba(255,250,240,.9);box-shadow:0 4px 12px rgba(60,80,60,.15)}
+
+/* lab */
+#lab{flex-direction:column}
+.lb-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,250,240,.88);backdrop-filter:blur(6px);border-bottom:1px solid var(--edge)}
+.home{border:none;border-radius:14px;padding:9px 14px;font-weight:900;cursor:pointer;background:#e9f2df;color:#3b5d3a;white-space:nowrap}
+.lb-title{display:flex;align-items:center;gap:10px;min-width:0}
+.lb-title .sym{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;font-family:'Kiwi Maru',serif;font-size:20px;flex:none}
+.lb-title b{font-family:'Kiwi Maru',serif;font-weight:500;font-size:19px;display:block;white-space:nowrap}
+.lb-title small{font-weight:800;color:var(--mut);font-size:12px}
+nav{display:flex;gap:6px;margin-left:auto;overflow-x:auto}
+nav button{width:36px;height:36px;border-radius:50%;border:2px solid var(--edge);background:#fff;font-family:'Kiwi Maru',serif;font-size:17px;cursor:pointer;flex:none}
+nav button.on{color:#fff;border-color:transparent}
+.lb-main{flex:1;display:grid;grid-template-columns:1fr 300px;gap:14px;padding:14px;min-height:0}
+.card{background:rgba(255,250,240,.94);border-radius:22px;box-shadow:0 8px 26px rgba(60,80,60,.14);border:2px solid #fff}
+.stage-card{display:flex;flex-direction:column;min-height:0;overflow:hidden;
+ background-image:radial-gradient(circle at 0 0,rgba(232,163,61,.06),transparent 40%),radial-gradient(circle at 100% 100%,rgba(106,170,90,.07),transparent 45%)}
+.eq{min-height:66px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;padding:8px 14px;border-bottom:2px dashed var(--edge);flex-wrap:wrap;gap:6px;text-align:center}
+.stage{flex:1;min-height:0;padding:4px 8px}
+.stage svg{width:100%;height:100%;display:block}
+.narr{border-top:2px dashed var(--edge);padding:12px 18px;background:rgba(241,231,208,.35)}
+.step{font-size:12px;font-weight:900;color:#5f8f4f;letter-spacing:.08em;text-transform:uppercase}
+.say{font-size:17px;font-weight:700;line-height:1.6;min-height:56px;margin:4px 0 10px}
+.ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border:none;border-radius:14px;padding:10px 15px;font-weight:900;font-size:14px;cursor:pointer;background:#efe5cf;color:var(--ink);box-shadow:0 3px 0 #d8c9a8}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #d8c9a8}
+.btn.pri{background:var(--sky);color:#fff;box-shadow:0 3px 0 #3f7cb5}.btn.go{background:var(--leaf);color:#fff;box-shadow:0 3px 0 #4a8040}
+.btn:disabled{opacity:.4;cursor:default}
+#dots{display:flex;gap:6px;margin:0 6px}
+#dots i{width:12px;height:12px;border-radius:50%;background:#e3d6b8;cursor:pointer;transition:.2s}
+#dots i.on{background:var(--leaf);transform:scale(1.3)}#dots i.done{background:#b5d4a6}
+select{border:2px solid var(--edge);border-radius:12px;padding:7px;font-weight:800;margin-left:auto;background:#fff}
+aside{padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+aside h3{margin:0;font-family:'Kiwi Maru',serif;font-weight:500;font-size:15px;color:#3b5d3a}
+#modes{display:flex;gap:6px;background:#f1e7d0;padding:4px;border-radius:14px}
+#modes button{flex:1;border:none;background:transparent;border-radius:11px;padding:8px 6px;font-weight:900;font-size:13px;cursor:pointer;color:var(--mut)}
+#modes button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.prm{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;border-radius:14px;background:#fff;border:1.5px solid var(--edge)}
+.prm span{font-size:13px;font-weight:800}
+.stp{display:flex;align-items:center;gap:4px}
+.stp button{width:32px;height:32px;border-radius:10px;border:none;background:#e9f2df;color:#3b5d3a;font-weight:900;font-size:18px;cursor:pointer}
+.stp b{min-width:30px;text-align:center;font-size:19px}
+.prev{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:4px;font-size:22px;font-weight:900;padding:8px;background:#eef5fb;border-radius:14px;min-height:56px}
+#try{border-top:2px dashed var(--edge);padding-top:12px;display:flex;flex-direction:column;gap:9px}
+#tryQ{margin:0;font-size:14px;font-weight:700;line-height:1.45}
+.frin{display:flex;align-items:center;gap:12px}
+.frbox{display:flex;flex-direction:column;align-items:center;gap:4px}
+.frbox input{width:64px;text-align:center;font-size:20px;font-weight:900;border:2px solid var(--edge);border-radius:12px;padding:5px;background:#fff}
+.frbox hr{width:70px;border:none;border-top:3px solid var(--ink);margin:0}
+.symbtns{display:flex;gap:8px}
+.symbtns button{flex:1;font-size:26px;font-weight:900;padding:8px;border-radius:14px;border:2px solid var(--edge);background:#fff;cursor:pointer}
+.symbtns button.sel{border-color:var(--leaf);background:#e9f2df}
+.ordwrap{display:flex;gap:8px;align-items:stretch}
+.ordaxis{display:flex;flex-direction:column;justify-content:space-between;font-size:11px;font-weight:900;color:var(--mut);writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+#ord{position:relative;display:flex;flex-direction:column;gap:7px;flex:1}
+.chip{touch-action:none;user-select:none;cursor:grab;display:flex;align-items:center;gap:10px;padding:3px 12px;background:#fff;border-radius:12px;border:2px solid var(--edge);font-size:15px;box-shadow:0 2px 0 var(--edge);position:relative}
+.chip::before{content:'⠿';color:#c4b48f;font-size:16px}
+.chip.drag{z-index:5;cursor:grabbing;box-shadow:0 10px 22px rgba(0,0,0,.18);border-color:var(--leaf)}
+#fbk{font-size:14px;font-weight:800;min-height:20px;line-height:1.4}
+.ok{color:#3f7a35}.no{color:#b5523f}
+.fr{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .14em;line-height:1.05;font-weight:900}
+.fr b:first-child{border-bottom:.09em solid currentColor;padding:0 .18em}
+.say .fr{font-size:.92em}
+.qbox{display:inline-grid;place-items:center;width:1.4em;height:1.4em;border:3px dashed #c4b48f;border-radius:10px;color:#b09c70}
+.symb{font-size:1.4em;color:#3f7a35;margin:0 .2em}
+.cA{color:#3f7cb5}.cB{color:#c9772b}.cR{color:#4a8a3f}.cP{color:#7b5fb0}
+
+#bMusic{display:grid;place-items:center;position:absolute;right:14px;bottom:14px;z-index:9;width:44px;height:44px;border-radius:50%;border:2px solid #fff;background:rgba(255,250,240,.9);font-size:20px;cursor:pointer;box-shadow:0 4px 12px rgba(60,80,60,.2)}
+#bMusic.off{opacity:.55;filter:grayscale(1)}
+body.inlab #bMusic{bottom:auto;top:12px;right:auto;left:50%;transform:translateX(-50%)}
+/* modal */
+#modal{position:absolute;inset:0;z-index:10;background:rgba(40,50,40,.35);display:none;align-items:center;justify-content:center;padding:20px}
+#modal.on{display:flex}
+#modal .card{max-width:520px;padding:24px 26px}
+#modal h3{font-family:'Kiwi Maru',serif;font-weight:500;margin:0 0 10px;font-size:22px;color:#3b5d3a}
+#modal ol{margin:0 0 16px;padding-left:20px;font-weight:700;line-height:1.7}
+
 </style>
 </head>
 <body>
-<main class="lab">
-  <div class="atas">
-    <div>
-      <p class="alis">Laboratorium · Fase B</p>
-      <h1>Lab Pecahan Senilai</h1>
-    </div>
-    <a class="kembali" href="../../../#karya-lab-pecahan-senilai">← Kembali ke Rumatika</a>
+<div id="app">
+<!-- ===== scenery (lukisan pedesaan) ===== -->
+<div id="scene">
+<svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+ <defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fbfe6"/><stop offset=".55" stop-color="#c7e6f2"/><stop offset="1" stop-color="#fbefd2"/></linearGradient>
+  <radialGradient id="sun"><stop offset="0" stop-color="#fffbe8"/><stop offset=".35" stop-color="#fff3c4" stop-opacity=".9"/><stop offset="1" stop-color="#fff3c4" stop-opacity="0"/></radialGradient>
+  <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9cfb2"/><stop offset="1" stop-color="#9cc3a4"/></linearGradient>
+  <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ccb7f"/><stop offset="1" stop-color="#7fb466"/></linearGradient>
+  <linearGradient id="h3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#78b25f"/><stop offset="1" stop-color="#5b9449"/></linearGradient>
+  <linearGradient id="h4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5d9a4b"/><stop offset="1" stop-color="#457a3a"/></linearGradient>
+  <g id="cl"><ellipse cx="0" cy="0" rx="90" ry="46" fill="#fff"/><ellipse cx="-70" cy="18" rx="70" ry="36" fill="#fff"/><ellipse cx="80" cy="16" rx="78" ry="38" fill="#fff"/><ellipse cx="20" cy="-34" rx="60" ry="44" fill="#fff"/><ellipse cx="0" cy="40" rx="150" ry="18" fill="#dcebf3"/></g>
+ </defs>
+ <rect width="1600" height="900" fill="url(#sky)"/>
+ <circle cx="1240" cy="190" r="260" fill="url(#sun)"/><circle cx="1240" cy="190" r="58" fill="#fffbea"/>
+ <g class="cloud" opacity=".95"><use href="#cl" x="260" y="150"/></g>
+ <g class="cloud c2" opacity=".9"><use href="#cl" x="820" y="110" transform="scale(.8)"/></g>
+ <g class="cloud c3" opacity=".85"><use href="#cl" x="1450" y="320" transform="scale(.7)"/></g>
+ <g class="cloud" opacity=".7"><use href="#cl" x="1150" y="560" transform="scale(.55)"/></g>
+ <path d="M0 560 Q160 470 330 520 T680 500 Q860 440 1040 510 T1380 480 Q1500 460 1600 500 V900 H0Z" fill="url(#h1)"/>
+ <path d="M0 620 Q220 540 460 600 T900 590 Q1120 540 1320 600 T1600 580 V900 H0Z" fill="url(#h2)"/>
+ <path d="M820 700 Q900 640 1000 660 Q1060 640 1100 600 L1104 610 Q1150 640 1180 650 Q1300 700 1600 690 V900 H700Z" fill="#e9d9a6" opacity=".55"/>
+ <path d="M0 700 Q260 630 520 690 T1000 700 Q1250 650 1600 700 V900 H0Z" fill="url(#h3)"/>
+ <!-- rumah kecil -->
+ <g transform="translate(1090 560)">
+  <rect x="0" y="22" width="78" height="54" fill="#f4e6c8" stroke="#8a6d4f" stroke-width="2"/>
+  <path d="M-10 26 L39 -16 L88 26Z" fill="#c8553d" stroke="#8f3a2a" stroke-width="2"/>
+  <rect x="56" y="-12" width="10" height="22" fill="#8a6d4f"/>
+  <circle class="smoke" cx="61" cy="-20" r="9" fill="#fff" opacity=".7"/>
+  <circle class="smoke" cx="61" cy="-20" r="9" fill="#fff" opacity=".7" style="animation-delay:2.5s"/>
+  <rect x="12" y="36" width="18" height="16" fill="#fde9a8" stroke="#8a6d4f" stroke-width="2"/>
+  <rect x="44" y="44" width="18" height="32" fill="#a8774f"/>
+ </g>
+ <!-- pohon besar -->
+ <g transform="translate(250 470)" class="sway">
+  <path d="M60 260 Q66 160 52 110 L82 110 Q74 170 92 260Z" fill="#6b4f3a"/>
+  <circle cx="70" cy="80" r="80" fill="#4b8a45"/><circle cx="10" cy="110" r="58" fill="#5a9a4f"/><circle cx="130" cy="105" r="62" fill="#5a9a4f"/>
+  <circle cx="75" cy="20" r="58" fill="#62a556"/><circle cx="40" cy="60" r="34" fill="#74b462" opacity=".8"/>
+ </g>
+ <path d="M0 780 Q300 720 640 770 T1250 770 Q1450 740 1600 780 V900 H0Z" fill="url(#h4)"/>
+ <g fill="#fff6d8"><circle cx="140" cy="820" r="5"/><circle cx="420" cy="800" r="4"/><circle cx="760" cy="830" r="5"/><circle cx="1010" cy="808" r="4"/><circle cx="1320" cy="826" r="5"/><circle cx="1520" cy="800" r="4"/></g>
+ <g fill="#f2a7b5"><circle cx="300" cy="840" r="4"/><circle cx="600" cy="815" r="4"/><circle cx="1180" cy="845" r="4"/><circle cx="1450" cy="835" r="4"/></g>
+</svg>
+</div>
+<div id="leaves"></div>
+<div id="veil"></div>
+<audio id="bgm" src="audio/curious-focus.mp3" loop preload="auto"></audio>
+<button id="bMusic" title="Musik latar"></button>
+
+<!-- ===== SPLASH ===== -->
+<section class="screen on" id="splash">
+ <div class="sp-card">
+  <div class="sp-bars">
+   <div class="sp-bar"><i class="f" style="background:#5b9bd5;animation-delay:.2s"></i><i></i></div>
+   <div class="sp-bar"><i class="f" style="background:#e8a33d;animation-delay:.5s"></i><i class="f" style="background:#e8a33d;animation-delay:.6s"></i><i></i><i></i></div>
+   <div class="sp-bar"><i class="f" style="background:#6aaa5a;animation-delay:.9s"></i><i class="f" style="background:#6aaa5a;animation-delay:1s"></i><i class="f" style="background:#6aaa5a;animation-delay:1.1s"></i><i class="f" style="background:#6aaa5a;animation-delay:1.2s"></i><i></i><i></i><i></i><i></i></div>
   </div>
+  <h1>Lab Maya Pecahan</h1>
+  <p class="sub">Bernalar dengan Model Batang · Pendekatan Singapore Math</p>
+  <div class="tags"><span class="tag">SD Kelas 2–6</span><span class="tag">7 materi</span><span class="tag">Animasi langkah bernalar</span></div>
+  <button class="big-btn" id="bStart">Mulai Petualangan ▶</button>
+  <div class="credit">Yunas Chandra Perdana · SMPIT–SMAIT Nurul Ilmi</div>
+ </div>
+</section>
 
-  <section class="panel" aria-label="Pecahan yang dibandingkan">
-    <div class="persamaan" aria-live="polite">
-      <span class="pecahan a"><span id="a1">1</span><span id="b1">2</span></span>
-      <span class="sama">=</span>
-      <span class="pecahan b"><span id="a2">2</span><span id="b2">4</span></span>
+<!-- ===== MENU ===== -->
+<section class="screen" id="menu">
+ <div class="mn-head"><h2>Pilih Materi Pecahan</h2><p>Setiap materi punya animasi langkah bernalar dan latihan "Coba Sendiri"</p></div>
+ <div class="grid" id="grid"></div>
+ <div class="mn-foot"><button class="soft" id="bHelp">Cara Belajar</button><button class="soft" id="bSplash">Halaman Awal</button></div>
+</section>
+
+<!-- ===== LAB ===== -->
+<section class="screen" id="lab">
+ <div class="lb-head">
+  <button class="home" id="bMenu">Menu</button>
+  <div class="lb-title"><span class="sym" id="lbSym"></span><div><b id="lbName"></b><small id="lbG"></small></div></div>
+  <nav id="tabs"></nav>
+ </div>
+ <div class="lb-main">
+  <section class="card stage-card">
+   <div class="eq" id="eq"></div>
+   <div class="stage"><svg id="svg" viewBox="0 0 1000 450" preserveAspectRatio="xMidYMid meet"><g id="layer"></g></svg></div>
+   <div class="narr">
+    <div class="step" id="stepLbl"></div>
+    <div class="say" id="say"></div>
+    <div class="ctrl">
+     <button class="btn" id="bPrev">◀ Kembali</button>
+     <button class="btn pri" id="bPlay">▶ Putar</button>
+     <button class="btn go" id="bNext">Lanjut ▶</button>
+     <div id="dots"></div>
+     <select id="spd" title="Kecepatan"><option value="0.6">Lambat</option><option value="1" selected>Normal</option><option value="1.6">Cepat</option></select>
     </div>
-    <div class="pita-wadah">
-      <div>
-        <div class="pita-label" id="label-1">Pita 1 · dibagi 2 bagian</div>
-        <div class="pita a" id="pita-1"></div>
-      </div>
-      <div>
-        <div class="pita-label" id="label-2">Pita 2 · setiap bagian dibagi lagi menjadi 2</div>
-        <div class="pita b" id="pita-2"></div>
-      </div>
-    </div>
+   </div>
   </section>
+  <aside class="card">
+   <div id="modes"></div>
+   <h3>Atur Soal</h3>
+   <div id="params" style="display:flex;flex-direction:column;gap:6px"></div>
+   <div class="prev" id="prev"></div>
+   <button class="btn" id="bRand">Soal Acak</button>
+   <div id="try">
+    <h3>Coba Sendiri</h3>
+    <p id="tryQ"></p>
+    <div id="tryBody"></div>
+    <div id="fbk"></div>
+   </div>
+  </aside>
+ </div>
+</section>
 
-  <section class="panel kendali" aria-label="Pengatur">
-    <div class="kontrol">
-      <label for="pembilang">Pembilang</label>
-      <div class="langkah">
-        <button type="button" data-ubah="pembilang" data-arah="-1" aria-label="Kurangi pembilang">−</button>
-        <output id="pembilang">1</output>
-        <button type="button" data-ubah="pembilang" data-arah="1" aria-label="Tambah pembilang">+</button>
-      </div>
-    </div>
-    <div class="kontrol">
-      <label for="penyebut">Penyebut</label>
-      <div class="langkah">
-        <button type="button" data-ubah="penyebut" data-arah="-1" aria-label="Kurangi penyebut">−</button>
-        <output id="penyebut">2</output>
-        <button type="button" data-ubah="penyebut" data-arah="1" aria-label="Tambah penyebut">+</button>
-      </div>
-    </div>
-    <div class="kontrol">
-      <label for="pengali">Pengali: <span id="pengali-teks">2</span></label>
-      <input id="pengali" type="range" min="1" max="5" step="1" value="2">
-    </div>
-  </section>
+<div id="modal"><div class="card">
+ <h3>Cara Belajar dengan Model Batang</h3>
+ <ol>
+  <li>Pilih materi di menu.</li>
+  <li>Atur angka soal dengan tombol − / +, atau tekan <b>Soal Acak</b>.</li>
+  <li>Tebak jawabannya dulu di <b>Coba Sendiri</b>.</li>
+  <li>Tekan <b>▶ Putar</b> atau <b>Lanjut</b> untuk melihat batang bergerak, langkah demi langkah.</li>
+  <li>Perhatikan: pecahan hanya bisa dihitung bersama jika <b>ukuran bagiannya sama</b>.</li>
+ </ol>
+ <button class="btn go" id="bClose">Mengerti!</button>
+</div></div>
 
-  <section class="panel tanya">
-    <h2>Amati</h2>
-    <p>Geser pengali dari 1 sampai 5. Apa yang berubah pada Pita 2, dan apa yang tetap sama?</p>
-    <button class="tombol" type="button" id="tombol-jawab">Lihat penjelasan</button>
-    <div class="jawaban" id="jawaban" hidden>
-      Jumlah potongan dan angkanya berubah, tetapi panjang bagian yang diarsir tetap sama. Membagi setiap potongan menjadi beberapa bagian kecil tidak mengubah besar bagian yang diambil. Karena itu pembilang dan penyebut boleh dikali bilangan yang sama.
-    </div>
-  </section>
-</main>
-
+</div>
 <script>
-(function () {
-  var s = { pembilang: 1, penyebut: 2, pengali: 2 };
-  function el(id) { return document.getElementById(id); }
-  function pita(wadah, bagian, terisi) {
-    var html = "";
-    for (var i = 0; i < bagian; i++) html += '<div class="' + (i < terisi ? "isi" : "") + '"></div>';
-    wadah.innerHTML = html;
-  }
-  function gambar() {
-    var k = s.pengali;
-    el("pembilang").textContent = s.pembilang;
-    el("penyebut").textContent = s.penyebut;
-    el("pengali-teks").textContent = k;
-    el("a1").textContent = s.pembilang; el("b1").textContent = s.penyebut;
-    el("a2").textContent = s.pembilang * k; el("b2").textContent = s.penyebut * k;
-    el("label-1").textContent = "Pita 1 · dibagi " + s.penyebut + " bagian, " + s.pembilang + " diarsir";
-    el("label-2").textContent = k === 1
-      ? "Pita 2 · sama persis dengan Pita 1"
-      : "Pita 2 · setiap bagian dibagi lagi menjadi " + k + ", " + (s.pembilang * k) + " diarsir";
-    pita(el("pita-1"), s.penyebut, s.pembilang);
-    pita(el("pita-2"), s.penyebut * k, s.pembilang * k);
-  }
-  document.addEventListener("click", function (e) {
-    var b = e.target.closest("[data-ubah]");
-    if (b) {
-      var kunci = b.getAttribute("data-ubah"), arah = Number(b.getAttribute("data-arah"));
-      if (kunci === "penyebut") s.penyebut = Math.min(8, Math.max(2, s.penyebut + arah));
-      if (kunci === "pembilang") s.pembilang = s.pembilang + arah;
-      s.pembilang = Math.min(s.penyebut, Math.max(1, s.pembilang));
-      gambar();
-    }
-  });
-  el("pengali").addEventListener("input", function (e) { s.pengali = Number(e.target.value); gambar(); });
-  el("tombol-jawab").addEventListener("click", function () {
-    var j = el("jawaban"); j.hidden = !j.hidden;
-    this.textContent = j.hidden ? "Lihat penjelasan" : "Sembunyikan penjelasan";
-  });
-  gambar();
-})();
+/* ===== util ===== */
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a), lcm=(a,b)=>a/gcd(a,b)*b;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const key=(j,n)=>{const g=gcd(j,n);return (j/g)+'_'+(n/g)};
+const fr=(n,d)=>`<span class="fr"><b>${n}</b><b>${d}</b></span>`;
+const fw=(n,d)=>d===1?`${n}`:fr(n,d);
+const mixed=(N,D)=>`${Math.floor(N/D)}${fr(N%D,D)}`;
+function chain(n,d){if(n===0)return '0';const g=gcd(n,d),N=n/g,D=d/g,p=[fr(n,d)];
+ if(D===1){p.push(`${N}`);return p.join(' = ')} if(g>1)p.push(fr(N,D)); if(N>D)p.push(mixed(N,D)); return p.join(' = ')}
+const C={A:'#5b9bd5',B:'#e8a33d',B2:'#c9772b',R:'#6aaa5a',P:'#9b7ec8',T:'#58b5b0',K:'#d9788a',ink:'#4a4036'};
+const X0=200;
+
+/* ===== renderer + tween ===== */
+const layer=document.getElementById('layer');
+const NUM=['x','y','width','height','x1','y1','x2','y2','cx','cy','r','opacity'];
+const cur=new Map(), tweens=new Map(); let speed=1, raf=0;
+const mk=t=>document.createElementNS('http://www.w3.org/2000/svg',t);
+function applyNum(el,v){for(const k in v)el.setAttribute(k,v[k])}
+function tweenTo(id,rec,tgt,dur,delay,now,done){
+ if(dur<=0){Object.assign(rec.v,tgt);applyNum(rec.el,rec.v);tweens.delete(id);done&&done();return}
+ tweens.set(id,{rec,from:{...rec.v},tgt,start:now+delay,dur,done}); if(!raf)raf=requestAnimationFrame(tick)}
+function tick(t){raf=0;for(const [id,tw] of tweens){let p=(t-tw.start)/tw.dur;if(p<0)continue;if(p>1)p=1;
+ const e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+ for(const k in tw.tgt){const a=tw.from[k]??tw.tgt[k];tw.rec.v[k]=a+(tw.tgt[k]-a)*e}
+ applyNum(tw.rec.el,tw.rec.v); if(p===1){tweens.delete(id);tw.done&&tw.done()}}
+ if(tweens.size)raf=requestAnimationFrame(tick)}
+function render(shapes,instant){
+ const seen=new Set(),now=performance.now();
+ for(const s of shapes){seen.add(s.id);let rec=cur.get(s.id);
+  const tgt={};NUM.forEach(k=>{if(s[k]!=null)tgt[k]=s[k]});if(tgt.opacity==null)tgt.opacity=1;
+  if(!rec){const el=mk(s.t);rec={el,v:{...tgt,opacity:0,...(s.enter||{})}};applyNum(el,rec.v);cur.set(s.id,rec)}
+  rec.dying=false;const el=rec.el;
+  if(s.t==='text'){el.textContent=s.text;el.setAttribute('font-size',s.size||18);el.setAttribute('text-anchor',s.anchor||'middle');
+   el.setAttribute('dominant-baseline','central');el.setAttribute('font-weight',s.weight||800);el.setAttribute('fill',s.fill||C.ink);el.setAttribute('font-family','Nunito,system-ui,sans-serif')}
+  else{el.setAttribute('fill',s.fill||'none');el.setAttribute('stroke',s.stroke||'none');el.setAttribute('stroke-width',s.sw||0);
+   el.setAttribute('stroke-dasharray',s.dash||'');el.setAttribute('stroke-linecap','round');if(s.rx)el.setAttribute('rx',s.rx)}
+  layer.appendChild(el);
+  tweenTo(s.id,rec,tgt,instant?0:(s.dur||750)/speed,(s.delay||0)/speed,now)}
+ for(const [id,rec] of cur){if(!seen.has(id)&&!rec.dying){rec.dying=true;
+  tweenTo(id,rec,{opacity:0},instant?0:320/speed,0,now,()=>{if(rec.dying){rec.el.remove();cur.delete(id)}})}}}
+function clearAll(){tweens.clear();cur.clear();layer.innerHTML=''}
+
+/* ===== shape builders ===== */
+const R=(id,x,y,w,h,o={})=>({t:'rect',id,x,y,width:w,height:h,...o});
+const L=(id,x1,y1,x2,y2,o={})=>({t:'line',id,x1,y1,x2,y2,stroke:C.ink,sw:2,...o});
+const T=(id,x,y,text,o={})=>({t:'text',id,x,y,text:String(text),...o});
+const Ci=(id,cx,cy,r,o={})=>({t:'circle',id,cx,cy,r,...o});
+function bar(p,o){const {y,U,units=1,n=1,fills=[],h=56,coarse=0,enterY}=o,out=[];
+ for(let u=0;u<units;u++)out.push(R(`${p}-bg${u}`,X0+u*U,y,U,h,{fill:'#fffdf6'}));
+ for(const f of fills)out.push(R(f.id,X0+f.from*U,y,Math.max(0,(f.to-f.from)*U),h,{fill:f.color,opacity:f.op??1,enter:f.enter,delay:f.delay}));
+ for(let u=0;u<units;u++)for(let j=1;j<n;j++){const x=X0+(u+j/n)*U,fine=coarse&&((j*coarse)%n!==0);
+  out.push(L(`${p}-d${u}-${key(j,n)}`,x,y,x,y+h,{stroke:fine?'#4a4036':'#8a7b68',sw:fine?1.8:2.2,dash:fine?'5 4':''}))}
+ for(let u=0;u<units;u++)out.push(R(`${p}-o${u}`,X0+u*U,y,U,h,{stroke:C.ink,sw:3,rx:2}));
+ if(enterY!=null)out.forEach(s=>{if(!s.enter)s.enter=s.t==='line'?{y1:enterY,y2:enterY+h}:{y:enterY}});
+ return out}
+function counts(p,y,U,start,len,count,h,o={}){const w=len*U;if(w<15||count<=0)return [];const sz=Math.min(20,w*.55);
+ return Array.from({length:count},(_,i)=>T(`${p}${i}`,X0+(start+(i+.5)*len)*U,y+h/2,i+1,{fill:o.fill||'#fff',size:sz,delay:(o.d0||0)+i*Math.min(90,1200/count)}))}
+function sf(id,x,y,n,d,color,size=26){if(d===1)return [T(id+'w',x,y,n,{fill:color,size:size*1.25})];
+ return [T(id+'n',x,y-size*.62,n,{fill:color,size}),L(id+'l',x-size*.75,y,x+size*.75,y,{stroke:color,sw:3}),T(id+'d',x,y+size*.62,d,{fill:color,size})]}
+function brk(id,x1,x2,y,label,color,size=17){const o={stroke:color,sw:2.5};
+ return [L(id+'a',x1,y,x1,y+9,o),L(id+'b',x1,y,x2,y,o),L(id+'c',x2,y,x2,y+9,o),...(label!==''?[T(id+'t',(x1+x2)/2,y-13,label,{fill:color,size})]:[])]}
+function nline(p,y,U,units,n){const out=[L(p+'m',X0-16,y,X0+units*U+16,y,{stroke:C.ink,sw:3})];
+ for(let i=0;i<=units*n;i++){const x=X0+i/n*U,maj=i%n===0;
+  out.push(L(`${p}t${i}`,x,y-(maj?13:8),x,y+(maj?13:8),{stroke:C.ink,sw:maj?3:2}));
+  if(maj)out.push(T(`${p}l${i}`,x,y+32,i/n,{size:19}));else if(U/n>=40)out.push(T(`${p}l${i}`,x,y+30,`${i}/${n}`,{size:13,fill:'#7a6f62',weight:700}))}
+ return out}
+const st=(say,eq,...parts)=>({say,eq,shapes:parts.flat(Infinity).filter(Boolean)});
+
+
+
+const MODS=[
+
+{name:'Mengenal',g:'Kls 2–3',
+ params:()=>[{k:'a',l:'Pembilang (diarsir)',min:0,max:12},{k:'b',l:'Penyebut (bagian)',min:1,max:12}],
+ def:()=>({a:3,b:5}),fix:P=>{P.a=clamp(P.a,0,P.b)},rand:()=>{const b=ri(2,10);return{a:ri(1,b),b}},
+ build({a,b}){const U=700,y=100,h=70,A=a/b,ny=335;
+  const ul=U/b>=46&&b>1?Array.from({length:b},(_,i)=>T('ul'+i,X0+(i+.5)*U/b,y+h+22,`1/${b}`,{size:15,fill:'#7a6f62'})):[];
+  const fill=[{id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}}],S=[];
+  S.push(st(`Ini <b>1 batang utuh</b>. Bayangkan sebatang cokelat atau seutas pita.`,`1 utuh`,bar('A',{y,U,h}),brk('bw',X0,X0+U,y-16,'1 utuh',C.ink)));
+  S.push(st(b===1?`Batang tidak dipotong, hanya 1 bagian: ${fr(1,1)} = 1 utuh.`:`Batang dipotong menjadi <b>${b} bagian sama besar</b>. Setiap bagian bernilai ${fr(1,b)} (satu per ${b}).`,`tiap bagian = ${fr(1,b)}`,bar('A',{y,U,h,n:b}),ul));
+  S.push(st(a===0?`Tidak ada bagian yang diarsir, jadi nilainya 0.`:`Arsir <b>${a} bagian</b>. Hitung bagian biru satu per satu: 1, 2, … sampai ${a}.`,`${a} dari ${b} bagian sama besar`,bar('A',{y,U,h,n:b,fills:fill}),counts('c',y,U,0,1/b,a,h),ul));
+  S.push(st(`${fr(a,b)} dibaca "<b>${a} per ${b}</b>". <b>Pembilang</b> ${a} = banyak bagian yang diambil; <b>penyebut</b> ${b} = banyak bagian sama besar dalam 1 utuh. Di garis bilangan, ${fr(a,b)} tepat di bawah ujung arsiran.`,`<span class="cA">${fr(a,b)}</span>`,
+   bar('A',{y,U,h,n:b,fills:fill}),counts('c',y,U,0,1/b,a,h),ul,a>0&&brk('ba',X0,X0+A*U,y-16,`${a}/${b}`,C.A),sf('la',X0-70,y+h/2,a,b,C.A),
+   nline('nl',ny,U,1,b),L('cn',X0+A*U,y+h,X0+A*U,ny,{stroke:C.A,sw:2.5,dash:'5 5'}),Ci('dot',X0+A*U,ny,10,{fill:C.A,stroke:'#fff',sw:3})));
+  return {steps:S,ans:null}}},
+
+{name:'Senilai',g:'Kls 3–4',
+ params:()=>[{k:'a',l:'Pembilang',min:1,max:9},{k:'b',l:'Penyebut',min:2,max:10},{k:'k',l:'Dikali (k)',min:2,max:5}],
+ def:()=>({a:2,b:4,k:2}),fix:P=>{P.a=clamp(P.a,1,P.b)},rand:()=>{const b=ri(2,8);return{a:ri(1,b-1),b,k:ri(2,4)}},
+ build({a,b,k}){const U=700,h=56,yA=70,yB=200,yC=345,A=a/b,n2=b*k,g=gcd(a,b),S=[];
+  const fa=[{id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}}],fb=[{id:'fb',from:0,to:A,color:C.R}];
+  const BA=bar('A',{y:yA,U,n:b,h,fills:fa}),LA=sf('la',X0-70,yA+h/2,a,b,C.A);
+  S.push(st(`Mulai dari ${fr(a,b)}: 1 utuh dibagi ${b} bagian sama besar, diarsir ${a} bagian.`,`<span class="cA">${fr(a,b)}</span>`,BA,LA));
+  S.push(st(`Buat <b>salinan</b> batang yang sama persis di bawahnya.`,`${fr(a,b)} = ${fr(a,b)}`,BA,LA,bar('B',{y:yB,U,n:b,h,fills:fb,enterY:yA}),sf('lb',X0-70,yB+h/2,a,b,C.R)));
+  const BB=bar('B',{y:yB,U,n:n2,h,fills:fb,coarse:b,enterY:yA});
+  S.push(st(`Potong <b>setiap</b> bagian menjadi <b>${k}</b> bagian kecil (garis putus-putus). Sekarang 1 utuh = ${b} × ${k} = <b>${n2}</b> bagian.`,`${fr(a,b)} = ${fr('?',n2)}`,BA,LA,BB,sf('lb',X0-70,yB+h/2,'?',n2,C.R)));
+  const CB=counts('cb',yB,U,0,1/n2,a*k,h);
+  S.push(st(`Hitung bagian hijau yang diarsir: ${a} × ${k} = <b>${a*k}</b> bagian.`,`${fr(a,b)} = ${fr(a*k,n2)}`,BA,LA,BB,CB,sf('lb',X0-70,yB+h/2,a*k,n2,C.R)));
+  const GD=x=>L('gd',X0+A*U,yA-14,X0+A*U,x,{stroke:C.P,sw:2.5,dash:'6 5'});
+  S.push(st(`Panjang arsiran <b>tidak berubah</b>, jadi nilainya sama: ${fr(a,b)} = ${fr(a*k,n2)}. Pecahan senilai didapat dengan mengalikan pembilang <b>dan</b> penyebut dengan bilangan yang sama.`,`${fr(a,b)} = ${fr(a+'×'+k,b+'×'+k)} = <span class="cR">${fr(a*k,n2)}</span>`,BA,LA,BB,CB,sf('lb',X0-70,yB+h/2,a*k,n2,C.R),GD(yB+h+14)));
+  if(g>1)S.push(st(`Sebaliknya, bagian bisa <b>dikelompokkan</b>. Bagi pembilang dan penyebut dengan FPB(${a}, ${b}) = ${g}: ${fr(a,b)} = ${fr(a/g,b/g)} (bentuk paling sederhana).`,`${fr(a*k,n2)} = ${fr(a,b)} = <span style="color:${C.K}">${fr(a/g,b/g)}</span>`,
+   BA,LA,BB,CB,sf('lb',X0-70,yB+h/2,a*k,n2,C.R),GD(yC+h+14),bar('C',{y:yC,U,n:b/g,h,fills:[{id:'fc',from:0,to:A,color:C.K}],enterY:yB}),sf('lc',X0-70,yC+h/2,a/g,b/g,C.K)));
+  else S.push(st(`${fr(a,b)} sudah <b>paling sederhana</b> karena FPB(${a}, ${b}) = 1 — bagiannya tidak bisa dikelompokkan sama rata lagi. Ubah nilai k untuk melihat pecahan senilai lainnya!`,`${fr(a,b)} = ${fr(a*k,n2)}`,BA,LA,BB,CB,sf('lb',X0-70,yB+h/2,a*k,n2,C.R),GD(yB+h+14)));
+  return {steps:S,ans:{type:'frac',n:a,d:b,any:true}}}},
+
+{name:'Bandingkan & Urutkan',ic:'⋚',g:'Kls 3–4',modes:['Bandingkan','Urutkan'],
+ params:m=>m===0?[{k:'a',l:'Pembilang 1',min:1,max:11},{k:'b',l:'Penyebut 1',min:2,max:12},{k:'c',l:'Pembilang 2',min:1,max:11},{k:'d',l:'Penyebut 2',min:2,max:12}]
+  :[{k:'k',l:'Banyak pecahan',min:3,max:4}],
+ def:m=>m===0?{a:2,b:3,c:3,d:5}:{k:4,list:[[2,3],[1,2],[3,4],[5,12]]},
+ fix:(P,m)=>{if(m===0){P.a=clamp(P.a,1,P.b);P.c=clamp(P.c,1,P.d)}else if(!P.list||P.list.length!==P.k)P.list=genList(P.k)},
+ rand:m=>{if(m===0){const b=ri(2,10),d=ri(2,10);return{a:ri(1,b-1),b,c:ri(1,d-1),d}}return{k:ri(3,4)}},
+ build(P,mode){const S=[];
+  if(mode===0){const {a,b,c,d}=P,A=a/b,B=c/d,m=lcm(b,d),a2=a*m/b,c2=c*m/d,sym=a2<c2?'<':a2>c2?'>':'=',U=700,h=58,yA=80,yB=215,same=b===d;
+   const fa={id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}},fb={id:'fb',from:0,to:B,color:C.B,enter:{width:0,opacity:1}};
+   const Q=`<span class="cA">${fr(a,b)}</span> <span class="qbox">?</span> <span class="cB">${fr(c,d)}</span>`;
+   const bA=n=>bar('A',{y:yA,U,n,h,fills:[fa],coarse:n===m&&!same?b:0}),bB=n=>bar('B',{y:yB,U,n,h,fills:[fb],coarse:n===m&&!same?d:0});
+   const lA=(p,q)=>sf('la',X0-70,yA+h/2,p,q,C.A),lB=(p,q)=>sf('lb',X0-70,yB+h/2,p,q,C.B);
+   const G=[L('gA',X0+A*U,yA-14,X0+A*U,yB+h+14,{stroke:C.A,sw:2.5,dash:'6 5'}),L('gB',X0+B*U,yA-14,X0+B*U,yB+h+14,{stroke:C.B2,sw:2.5,dash:'6 5'})];
+   const big=a2===c2?'sama panjang':a2>c2?`arsiran <b class="cA">biru</b> lebih panjang`:`arsiran <b class="cB">oranye</b> lebih panjang`;
+   S.push(st(`Mana yang lebih besar? Gambar ${fr(a,b)} sebagai batang <b class="cA">biru</b>.`,Q,bA(b),lA(a,b)));
+   S.push(st(`Gambar ${fr(c,d)} sebagai batang <b class="cB">oranye</b> yang <b>sama panjang</b>, dimulai dari titik yang sama.`,Q,bA(b),lA(a,b),bB(d),lB(c,d)));
+   S.push(st(`Tarik garis dari ujung setiap arsiran. Terlihat ${big}.`,Q,bA(b),lA(a,b),bB(d),lB(c,d),G));
+   if(!same)S.push(st(`Buktikan dengan menyamakan penyebut: KPK(${b}, ${d}) = <b>${m}</b>. ${fr(a,b)} = ${fr(a2,m)} dan ${fr(c,d)} = ${fr(c2,m)}. Ukuran bagian sudah sama, cukup bandingkan <b>banyak bagiannya</b>: ${a2} dan ${c2}.`,`${fr(a2,m)} <span class="qbox">?</span> ${fr(c2,m)}`,bA(m),lA(a2,m),bB(m),lB(c2,m),G));
+   const lastA=same?[bA(b),lA(a,b),bB(d),lB(c,d)]:[bA(m),lA(a2,m),bB(m),lB(c2,m)];
+   S.push(st(`Karena ${a2} ${sym} ${c2}, maka <b>${fr(a,b)} ${sym} ${fr(c,d)}</b>.${same?' Jika penyebutnya sama, pecahan dengan pembilang lebih besar adalah yang lebih besar.':''}`,`<span class="cA">${fr(a,b)}</span> <span class="symb">${sym}</span> <span class="cB">${fr(c,d)}</span>`,
+    lastA,G,T('sy',X0+U/2,yB+h+80,`${a}/${b}   ${sym}   ${c}/${d}`,{size:38,fill:C.ink})));
+   return {steps:S,ans:{type:'sym',v:sym}}}
+  const Lst=P.list,k=Lst.length,m=Lst.reduce((x,[,q])=>lcm(x,q),1),U=660,h=k===4?48:56,gap=k===4?100:128,y0=k===4?30:45;
+  const cols=[C.A,C.B,C.R,C.K],ord=Lst.map((_,i)=>i).sort((i,j)=>Lst[i][0]*Lst[j][1]-Lst[j][0]*Lst[i][1]);
+  const rows=(n,pos,lab,co)=>Lst.map(([a,b],i)=>{const y=y0+pos(i)*gap;return [bar('u'+i,{y,U,n:n(b),h,coarse:co?b:0,fills:[{id:'uf'+i,from:0,to:a/b,color:cols[i],enter:{width:0,opacity:1},delay:i*150}]}),lab(i,y,a,b)]});
+  const lab0=(i,y,a,b)=>sf('ul'+i,X0-70,y+h/2,a,b,cols[i],22),labM=(i,y,a,b)=>sf('ul'+i,X0-70,y+h/2,a*m/b,m,cols[i],22);
+  const G=Lst.map(([a,b],i)=>L('ug'+i,X0+a/b*U,y0-10,X0+a/b*U,y0+(k-1)*gap+h+10,{stroke:cols[i],sw:2.2,dash:'6 5'}));
+  const list=Lst.map(([a,b],i)=>`<span style="color:${cols[i]}">${fr(a,b)}</span>`).join(' , ');
+  S.push(st(`Urutkan dari <b>terkecil</b> ke <b>terbesar</b>. Gambar setiap pecahan sebagai batang yang sama panjang.`,list,rows(b=>b,i=>i,lab0)));
+  S.push(st(`Tarik garis dari ujung setiap arsiran. Garis yang <b>paling kiri</b> menunjukkan pecahan terkecil.`,list,rows(b=>b,i=>i,lab0),G));
+  S.push(st(`Buktikan dengan menyamakan penyebut: KPK semua penyebut = <b>${m}</b>. Sekarang cukup bandingkan banyak bagiannya.`,Lst.map(([a,b],i)=>`<span style="color:${cols[i]}">${fr(a*m/b,m)}</span>`).join(' , '),rows(()=>m,i=>i,labM,true),G));
+  const rank=i=>ord.indexOf(i);
+  S.push(st(`Susun ulang batang dari arsiran terpendek ke terpanjang: ${ord.map(i=>fr(...Lst[i])).join(' &lt; ')}.`,ord.map(i=>`<span style="color:${cols[i]}">${fr(...Lst[i])}</span>`).join(' &lt; '),
+   rows(()=>m,rank,labM,true),Lst.map((_,i)=>T('rk'+i,X0+U+38,y0+rank(i)*gap+h/2,rank(i)+1,{size:24,fill:cols[i]}))));
+  return {steps:S,ans:{type:'order',items:Lst,ord}}}},
+
+{name:'Penjumlahan',g:'Kls 4–5',
+ params:()=>[{k:'a',l:'Pembilang 1',min:1,max:11},{k:'b',l:'Penyebut 1',min:2,max:12},{k:'c',l:'Pembilang 2',min:1,max:11},{k:'d',l:'Penyebut 2',min:2,max:12}],
+ def:()=>({a:1,b:2,c:1,d:3}),fix:P=>{P.a=clamp(P.a,1,P.b);P.c=clamp(P.c,1,P.d)},
+ rand:()=>{const b=ri(2,8),d=ri(2,8);return{a:ri(1,b-1),b,c:ri(1,d-1),d}},
+ build({a,b,c,d}){const A=a/b,B=c/d,m=lcm(b,d),a2=a*m/b,c2=c*m/d,Sm=a2+c2,units=Sm>m?2:1,U=units>1?370:700,h=54,yA=60,yB=175,yR=330,S=[];
+  const fa={id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}},fb={id:'fb',from:0,to:B,color:C.B,enter:{width:0,opacity:1}};
+  const bA=(n,co)=>bar('A',{y:yA,U,n,h,fills:[fa],coarse:co}),bB=(n,co)=>bar('B',{y:yB,U,n,h,fills:[fb],coarse:co});
+  const lA=(p,q)=>sf('la',X0-70,yA+h/2,p,q,C.A),lB=(p,q)=>sf('lb',X0-70,yB+h/2,p,q,C.B),diff=b!==d;
+  const Q=`<span class="cA">${fr(a,b)}</span> + <span class="cB">${fr(c,d)}</span>`;
+  S.push(st(`Batang <b class="cA">biru</b> menunjukkan ${fr(a,b)}.`,`${Q} = ?`,bA(b),lA(a,b)));
+  S.push(st(`Batang <b class="cB">oranye</b> menunjukkan ${fr(c,d)}. Kita ingin menggabungkan keduanya.`,`${Q} = ?`,bA(b),lA(a,b),bB(d),lB(c,d)));
+  const hl=w=>[R('hA',X0,yA-5,w(b),h+10,{stroke:C.P,sw:4,rx:6}),R('hB',X0,yB-5,w(d),h+10,{stroke:C.P,sw:4,rx:6})];
+  if(diff){S.push(st(`Perhatikan ukuran satu bagian: ${fr(1,b)} dan ${fr(1,d)} <b>tidak sama besar</b>. Bagian yang berbeda ukuran tidak bisa langsung dihitung bersama.`,`${fr(1,b)} ≠ ${fr(1,d)}`,bA(b),lA(a,b),bB(d),lB(c,d),hl(q=>U/q)));
+   S.push(st(`Samakan ukuran bagian. KPK(${b}, ${d}) = <b>${m}</b>, jadi potong kedua batang menjadi ${m} bagian sama besar. Sekarang ${fr(a,b)} = ${fr(a2,m)} dan ${fr(c,d)} = ${fr(c2,m)}.`,`<span class="cA">${fr(a2,m)}</span> + <span class="cB">${fr(c2,m)}</span> = ?`,bA(m,b),lA(a2,m),bB(m,d),lB(c2,m),hl(()=>U/m)))}
+  else S.push(st(`Penyebutnya sama (${b}), jadi <b>ukuran setiap bagian sudah sama</b>. Tinggal menggabungkan bagian-bagiannya.`,`${Q} = ?`,bA(b),lA(a,b),bB(d),lB(c,d),hl(q=>U/q)));
+  const base=[bA(m,diff?b:0),lA(a2,m),bB(m,diff?d:0),lB(c2,m)];
+  const RB=bar('R',{y:yR,U,units,n:m,h,fills:[{id:'mA',from:0,to:A,color:C.A,enter:{y:yA,opacity:1}},{id:'mB',from:A,to:A+B,color:C.B,enter:{y:yB,x:X0,opacity:1},delay:600}]});
+  S.push(st(`Pindahkan kedua arsiran ke <b>satu batang baru</b>, disambung ujung ke ujung.`,`${fr(a2,m)} + ${fr(c2,m)} = ?`,base,RB,T('rq',X0-70,yR+h/2,'?',{size:34,fill:C.R})));
+  S.push(st(`Hitung semua bagian: ${a2} + ${c2} = <b>${Sm}</b> bagian dari ${m}. Hasilnya ${chain(Sm,m)}.${Sm>m?' Lebih dari 1 utuh, maka bisa ditulis sebagai pecahan campuran.':''}`,`${Q} = ${diff?fr(a2,m)+' + '+fr(c2,m)+' = ':''}<span class="cR">${chain(Sm,m)}</span>`,
+   base,RB,counts('cr',yR,U,0,1/m,Sm,h),sf('lr',X0-70,yR+h/2,Sm,m,C.R),brk('br',X0,X0+(A+B)*U,yR-14,`${Sm}/${m}`,C.R)));
+  return {steps:S,ans:{type:'frac',n:Sm,d:m}}}},
+
+{name:'Pengurangan',g:'Kls 4–5',
+ params:()=>[{k:'a',l:'Pembilang 1',min:1,max:11},{k:'b',l:'Penyebut 1',min:2,max:12},{k:'c',l:'Pembilang 2',min:1,max:11},{k:'d',l:'Penyebut 2',min:2,max:12}],
+ def:()=>({a:3,b:4,c:1,d:3}),fix:P=>{P.a=clamp(P.a,1,P.b);P.c=clamp(P.c,1,P.d)},
+ rand:()=>{let b=ri(2,8),d=ri(2,8),a=ri(1,b),c=ri(1,d-1);if(a*d<c*b)[a,b,c,d]=[c,d,a,b];return{a,b,c,d}},
+ build(P){let {a,b,c,d}=P,sw=false;if(a*d<c*b){[a,b,c,d]=[c,d,a,b];sw=true}
+  const A=a/b,B=c/d,m=lcm(b,d),a2=a*m/b,c2=c*m/d,D=a2-c2,U=700,h=54,yA=70,yB=180,yR=330,diff=b!==d,S=[];
+  const fa={id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}},fb={id:'fb',from:0,to:B,color:C.B,enter:{width:0,opacity:1}};
+  const Q=`<span class="cA">${fr(a,b)}</span> − <span class="cB">${fr(c,d)}</span>`;
+  S.push(st(`${sw?'Pecahan pertama lebih kecil, jadi urutannya ditukar agar hasilnya tidak negatif. ':''}Batang <b class="cA">biru</b> = ${fr(a,b)}.`,`${Q} = ?`,bar('A',{y:yA,U,n:b,h,fills:[fa]}),sf('la',X0-70,yA+h/2,a,b,C.A)));
+  S.push(st(`Batang <b class="cB">oranye</b> = ${fr(c,d)}, diletakkan sejajar di bawahnya (<b>model perbandingan</b>). Berapa selisih panjangnya?`,`${Q} = ?`,bar('A',{y:yA,U,n:b,h,fills:[fa]}),sf('la',X0-70,yA+h/2,a,b,C.A),bar('B',{y:yB,U,n:d,h,fills:[fb]}),sf('lb',X0-70,yB+h/2,c,d,C.B)));
+  if(diff)S.push(st(`Ukuran bagiannya berbeda. Samakan dengan KPK(${b}, ${d}) = <b>${m}</b>: ${fr(a,b)} = ${fr(a2,m)} dan ${fr(c,d)} = ${fr(c2,m)}.`,`${fr(a2,m)} − ${fr(c2,m)} = ?`,bar('A',{y:yA,U,n:m,h,fills:[fa],coarse:b}),sf('la',X0-70,yA+h/2,a2,m,C.A),bar('B',{y:yB,U,n:m,h,fills:[fb],coarse:d}),sf('lb',X0-70,yB+h/2,c2,m,C.B)));
+  const df={id:'df',from:B,to:A,color:C.R,enter:{width:0,opacity:1}};
+  const base=[bar('A',{y:yA,U,n:m,h,fills:[fa,df],coarse:diff?b:0}),sf('la',X0-70,yA+h/2,a2,m,C.A),bar('B',{y:yB,U,n:m,h,fills:[fb],coarse:diff?d:0}),sf('lb',X0-70,yB+h/2,c2,m,C.B),
+   L('gd',X0+B*U,yA-12,X0+B*U,yB+h+12,{stroke:C.P,sw:2.5,dash:'6 5'})];
+  if(D===0){S.push(st(`Kedua batang sama panjang, jadi selisihnya <b>0</b>.`,`${Q} = 0`,base));return {steps:S,ans:{type:'frac',n:0,d:1}}}
+  S.push(st(`Tarik garis dari ujung batang oranye. Bagian biru yang <b>lebih panjang</b> (hijau) adalah selisihnya.`,`${fr(a2,m)} − ${fr(c2,m)} = ?`,base,brk('bd',X0+B*U,X0+A*U,yA-14,'?',C.R)));
+  S.push(st(`Pindahkan bagian hijau, lalu hitung: ${a2} − ${c2} = <b>${D}</b> bagian dari ${m}. Hasilnya ${chain(D,m)}.`,`${Q} = ${diff?fr(a2,m)+' − '+fr(c2,m)+' = ':''}<span class="cR">${chain(D,m)}</span>`,
+   base,brk('bd',X0+B*U,X0+A*U,yA-14,`${D}/${m}`,C.R),bar('R',{y:yR,U,n:m,h,fills:[{id:'mD',from:0,to:A-B,color:C.R,enter:{y:yA,x:X0+B*U,opacity:1}}]}),counts('cr',yR,U,0,1/m,D,h,{d0:600}),sf('lr',X0-70,yR+h/2,D,m,C.R)));
+  return {steps:S,ans:{type:'frac',n:D,d:m}}}},
+
+{name:'Perkalian',g:'Kls 5–6',modes:['Bulat × Pecahan','Pecahan × Pecahan'],
+ params:m=>m===0?[{k:'n',l:'Bilangan bulat',min:2,max:5},{k:'a',l:'Pembilang',min:1,max:9},{k:'b',l:'Penyebut',min:2,max:10}]
+  :[{k:'a',l:'Pembilang 1',min:1,max:5},{k:'b',l:'Penyebut 1',min:2,max:6},{k:'c',l:'Pembilang 2',min:1,max:7},{k:'d',l:'Penyebut 2',min:2,max:8}],
+ def:m=>m===0?{n:3,a:2,b:5}:{a:2,b:3,c:3,d:4},
+ fix:(P,m)=>{P.a=clamp(P.a,1,P.b);if(m===1)P.c=clamp(P.c,1,P.d)},
+ rand:m=>{if(m===0){const b=ri(2,8);return{n:ri(2,5),a:ri(1,b-1),b}}const b=ri(2,5),d=ri(2,6);return{a:ri(1,b),b,c:ri(1,d),d}},
+ build(P,mode){const S=[];
+  if(mode===0){const {n,a,b}=P,A=a/b,tot=n*a,units=Math.max(1,Math.ceil(tot/b)),U=Math.min(700,740/units),h=54,yA=70,yR=250;
+   const BA=[bar('A',{y:yA,U,n:b,h,fills:[{id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}}]}),sf('la',X0-70,yA+h/2,a,b,C.A)];
+   const Q=`${n} × <span class="cA">${fr(a,b)}</span>`,rep=Array(n).fill(fr(a,b)).join(' + ');
+   S.push(st(`Satu kelompok = ${fr(a,b)} (batang biru).`,`${Q} = ?`,BA));
+   S.push(st(`${n} × ${fr(a,b)} artinya ${fr(a,b)} diambil sebanyak <b>${n} kali</b> — penjumlahan berulang. Siapkan batang hasil.`,`${Q} = ${rep}`,BA,bar('R',{y:yR,U,units,n:b,h})));
+   const cp=i=>Array.from({length:i},(_,j)=>({id:'cp'+j,from:j*A,to:(j+1)*A,color:j%2?C.T:C.A,enter:{y:yA,x:X0,opacity:1}}));
+   const cl=i=>A*U>=40?Array.from({length:i},(_,j)=>T('cl'+j,X0+(j+.5)*A*U,yR+h+20,`ke-${j+1}`,{size:14,fill:'#7a6f62'})):[];
+   for(let i=1;i<=n;i++)S.push(st(`Tempelkan kelompok <b>ke-${i}</b>. Terkumpul ${i} × ${a} = <b>${i*a}</b> bagian ${fr(1,b)}.`,`${Q} = ${rep}`,BA,bar('R',{y:yR,U,units,n:b,h,fills:cp(i)}),cl(i)));
+   S.push(st(`Total ada ${n} × ${a} = <b>${tot}</b> bagian ${fr(1,b)}, yaitu ${chain(tot,b)}. Jadi cukup kalikan bilangan bulat dengan pembilangnya; penyebut tetap.`,`${Q} = ${fr(n+'×'+a,b)} = <span class="cR">${chain(tot,b)}</span>`,
+    BA,bar('R',{y:yR,U,units,n:b,h,fills:cp(n)}),cl(n),counts('cr',yR,U,0,1/b,tot,h),sf('lr',X0-70,yR+h/2,tot,b,C.R),brk('br',X0,X0+tot/b*U,yR-14,`${tot}/${b}`,C.R)));
+   return {steps:S,ans:{type:'frac',n:tot,d:b}}}
+  const {a,b,c,d}=P,Cc=c/d,n2=b*d,tk=a*c,gl=c/n2,U=700,h=60,yA=110,yR=320;
+  const fc={id:'fc',from:0,to:Cc,color:C.B,enter:{width:0,opacity:1}},LA=sf('la',X0-70,yA+h/2,c,d,C.B);
+  const Q=`<span class="cP">${fr(a,b)}</span> × <span class="cB">${fr(c,d)}</span>`;
+  S.push(st(`${fr(a,b)} × ${fr(c,d)} dibaca "<b>${fr(a,b)} dari ${fr(c,d)}</b>". Mulai dari ${fr(c,d)} (oranye).`,`${Q} = ?`,bar('A',{y:yA,U,n:d,h,fills:[fc]}),LA));
+  S.push(st(`Bagian oranye harus dibagi menjadi <b>${b} kelompok</b> sama besar. Caranya, potong setiap bagian menjadi ${b}. Sekarang 1 utuh = ${d} × ${b} = <b>${n2}</b> bagian kecil.`,`${Q} = ?`,bar('A',{y:yA,U,n:n2,h,fills:[fc],coarse:d}),LA));
+  const G=Array.from({length:b},(_,i)=>brk('g'+i,X0+i*gl*U+3,X0+(i+1)*gl*U-3,yA-14,i+1,i%2?C.K:C.P));
+  S.push(st(`Bagi bagian oranye menjadi <b>${b} kelompok</b>; tiap kelompok berisi ${c} bagian kecil.`,`${Q} = ?`,bar('A',{y:yA,U,n:n2,h,fills:[fc],coarse:d}),LA,G));
+  const tkF={id:'tk',from:0,to:a*gl,color:C.P,enter:{width:0,opacity:1}},BA=bar('A',{y:yA,U,n:n2,h,fills:[fc,tkF],coarse:d});
+  S.push(st(`Ambil <b>${a} kelompok</b> (ungu): ${a} × ${c} = <b>${tk}</b> bagian kecil.`,`${Q} = ?`,BA,LA,G,counts('ct',yA,U,0,1/n2,tk,h)));
+  S.push(st(`Pindahkan ke batang 1 utuh. Dari <b>${n2}</b> bagian kecil, kita mendapat <b>${tk}</b>. Hasilnya ${chain(tk,n2)}. Pola: pembilang × pembilang, penyebut × penyebut.`,`${Q} = ${fr(a+'×'+c,b+'×'+d)} = <span class="cP">${chain(tk,n2)}</span>`,
+   BA,LA,G,counts('ct',yA,U,0,1/n2,tk,h),bar('R',{y:yR,U,n:n2,h,fills:[{id:'mT',from:0,to:a*gl,color:C.P,enter:{y:yA,opacity:1}}]}),counts('cr',yR,U,0,1/n2,tk,h,{d0:600}),sf('lr',X0-70,yR+h/2,tk,n2,C.P)));
+  return {steps:S,ans:{type:'frac',n:tk,d:n2}}}},
+
+{name:'Pembagian',g:'Kls 5–6',modes:['Pecahan ÷ Bulat','Dibagi Pecahan'],
+ params:m=>m===0?[{k:'a',l:'Pembilang',min:1,max:7},{k:'b',l:'Penyebut',min:2,max:8},{k:'n',l:'Dibagi (bulat)',min:2,max:5}]
+  :[{k:'a',l:'Pembilang 1',min:1,max:24},{k:'b',l:'Penyebut 1',min:1,max:8},{k:'c',l:'Pembilang 2',min:1,max:7},{k:'d',l:'Penyebut 2',min:2,max:8}],
+ def:m=>m===0?{a:2,b:3,n:4}:{a:2,b:1,c:2,d:3},
+ fix:(P,m)=>{if(m===0)P.a=clamp(P.a,1,P.b);else{P.a=clamp(P.a,1,3*P.b);P.c=clamp(P.c,1,P.d)}},
+ rand:m=>{if(m===0){const b=ri(2,6);return{a:ri(1,b),b,n:ri(2,4)}}const b=ri(1,4),d=ri(2,6);return{a:ri(1,2*b),b,c:ri(1,d-1),d}},
+ build(P,mode){const S=[];
+  if(mode===0){const {a,b,n}=P,A=a/b,n2=b*n,gl=A/n,U=700,h=60,yA=110,yR=320;
+   const fa={id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}},LA=sf('la',X0-70,yA+h/2,a,b,C.A),Q=`<span class="cA">${fr(a,b)}</span> ÷ ${n}`;
+   S.push(st(`Kita punya ${fr(a,b)} yang akan <b>dibagi rata</b> untuk ${n} orang.`,`${Q} = ?`,bar('A',{y:yA,U,n:b,h,fills:[fa]}),LA));
+   S.push(st(`Potong setiap bagian menjadi <b>${n}</b> supaya bisa dibagi rata. Sekarang 1 utuh = ${n2} bagian kecil, dan ${fr(a,b)} = ${a*n} bagian kecil.`,`${Q} = ?`,bar('A',{y:yA,U,n:n2,h,fills:[fa],coarse:b}),LA));
+   const G=Array.from({length:n},(_,i)=>brk('g'+i,X0+i*gl*U+3,X0+(i+1)*gl*U-3,yA-14,`Orang ${i+1}`,i%2?C.K:C.P,15));
+   S.push(st(`Bagikan menjadi <b>${n} kelompok</b> sama besar. Setiap orang mendapat <b>${a}</b> bagian kecil.`,`${Q} = ?`,bar('A',{y:yA,U,n:n2,h,fills:[fa],coarse:b}),LA,G));
+   const BA=bar('A',{y:yA,U,n:n2,h,fills:[fa,{id:'tk',from:0,to:gl,color:C.P,enter:{width:0,opacity:1}}],coarse:b});
+   S.push(st(`Bagian satu orang (ungu) dipindah ke batang 1 utuh: ${a} bagian dari ${n2}, yaitu ${chain(a,n2)}. Sama saja dengan ${fr(a,b)} × ${fr(1,n)}.`,`${Q} = ${fr(a,b+'×'+n)} = <span class="cP">${chain(a,n2)}</span>`,
+    BA,LA,G,bar('R',{y:yR,U,n:n2,h,fills:[{id:'mT',from:0,to:gl,color:C.P,enter:{y:yA,opacity:1}}]}),counts('cr',yR,U,0,1/n2,a,h,{d0:600}),sf('lr',X0-70,yR+h/2,a,n2,C.P)));
+   return {steps:S,ans:{type:'frac',n:a,d:n2}}}
+  const {a,b,c,d}=P,A=a/b,B=c/d,m=lcm(b,d),a2=a*m/b,c2=c*m/d,q=Math.floor(a2/c2),r=a2%c2,units=Math.max(1,Math.ceil(A)),U=Math.min(700,740/units),h=50,yA=60,yB=170,yR=320;
+  const fa={id:'fa',from:0,to:A,color:C.A,enter:{width:0,opacity:1}},fb={id:'fb',from:0,to:B,color:C.B,enter:{width:0,opacity:1}};
+  const fA=fw(a,b),Q=`<span class="cA">${fA}</span> ÷ <span class="cB">${fr(c,d)}</span>`,same=b===m&&d===m;
+  S.push(st(`Pertanyaan pembagian: <b>berapa banyak ${fr(c,d)} yang muat di dalam ${fA}?</b> Batang biru = ${fA}.`,`${Q} = ?`,bar('A',{y:yA,U,units,n:b,h,fills:[fa]}),sf('la',X0-70,yA+h/2,a,b,C.A)));
+  S.push(st(`Batang oranye = ${fr(c,d)}. Inilah <b>takaran</b> yang akan kita tempelkan berulang-ulang.`,`${Q} = ?`,bar('A',{y:yA,U,units,n:b,h,fills:[fa]}),sf('la',X0-70,yA+h/2,a,b,C.A),bar('B',{y:yB,U,n:d,h,fills:[fb]}),sf('lb',X0-70,yB+h/2,c,d,C.B)));
+  const base=[bar('A',{y:yA,U,units,n:m,h,fills:[fa],coarse:same?0:b}),sf('la',X0-70,yA+h/2,a2,m,C.A),bar('B',{y:yB,U,n:m,h,fills:[fb],coarse:same?0:d}),sf('lb',X0-70,yB+h/2,c2,m,C.B)];
+  if(!same)S.push(st(`Samakan ukuran bagian dengan KPK(${b}, ${d}) = <b>${m}</b>: ${fA} = ${fr(a2,m)} dan ${fr(c,d)} = ${fr(c2,m)}. Pertanyaannya menjadi: <b>berapa kali ${c2} bagian muat di ${a2} bagian?</b>`,`${fr(a2,m)} ÷ ${fr(c2,m)} = ?`,base));
+  const dl=Math.min(260,2600/Math.max(q,1)),bw=B*U;
+  const ch=[{id:'gh',from:0,to:A,color:C.A,op:.2},...Array.from({length:q},(_,i)=>({id:'k'+i,from:i*B,to:(i+1)*B,color:i%2?C.B2:C.B,enter:{y:yB,x:X0,opacity:1},delay:i*dl}))];
+  if(r)ch.push({id:'kr',from:q*B,to:A,color:C.B,op:.45,enter:{y:yB,x:X0,opacity:0},delay:q*dl});
+  const nums=bw>=16?Array.from({length:q},(_,i)=>T('kn'+i,X0+(i+.5)*bw,yR+h/2,i+1,{fill:'#fff',size:Math.min(22,bw*.5),delay:i*dl+600})):[];
+  if(r)nums.push(T('krn',X0+(q*B+(A-q*B)/2)*U,yR+h+20,`${r}/${c2} takaran`,{size:14,fill:C.B2,delay:q*dl+600}));
+  const MR=[bar('R',{y:yR,U,units,n:m,h,fills:ch}),nums];
+  S.push(st(`Tempelkan takaran ${fr(c,d)} berulang-ulang di sepanjang ${fA}: muat <b>${q} kali penuh</b>${r?`, lalu tersisa ${r} dari ${c2} bagian takaran = ${fr(r,c2)} takaran lagi.`:', pas tanpa sisa.'}`,`${Q} = ?`,base,MR));
+  S.push(st(`Jadi ${fA} ÷ ${fr(c,d)} = ${chain(a2,c2)}. Cara cepat: <b>kalikan dengan kebalikannya</b> → ${fA} × ${fr(d,c)} = ${fr(a*d,b*c)} — hasilnya sama!`,`${Q} = ${fr(a2,m)} ÷ ${fr(c2,m)} = <span class="cR">${chain(a2,c2)}</span>`,
+   base,MR,T('rr',X0-70,yR+h/2,'=',{size:30,fill:C.R}),brk('br',X0,X0+A*U,yR-14,`${chain(a2,c2).replace(/<[^>]+>/g,'').split(' = ').pop()} kali`,C.R)));
+  return {steps:S,ans:{type:'frac',n:a2,d:c2}}}}
+];
+function genList(k){const fams=[[2,4,8],[2,3,6,12],[2,5,10],[3,6,9],[2,3,4,6,12],[2,4,3,6]];
+ for(;;){const f=fams[ri(0,fams.length-1)],L=[],seen=new Set();let t=0;
+  while(L.length<k&&t++<200){const b=f[ri(0,f.length-1)],a=ri(1,b-1),g=gcd(a,b),kk=a/g+'/'+b/g;if(seen.has(kk))continue;seen.add(kk);L.push([a,b])}
+  if(L.length===k&&new Set(L.map(x=>x[1])).size>1&&!L.every((x,i)=>!i||L[i-1][0]*x[1]<x[0]*L[i-1][1]))return L}}
+
+/* ===== APP ===== */
+const META=[
+ {sym:'½',col:'#5b9bd5',d:'Apa arti pembilang dan penyebut? Lihat di batang dan garis bilangan.',mini:[[1,1],[3,5]]},
+ {sym:'=',col:'#6aaa5a',d:'Potong bagian menjadi lebih kecil, nilainya tetap sama.',mini:[[1,2],[2,4]]},
+ {sym:'⋚',col:'#9b7ec8',d:'Mana yang lebih besar? Susun dari terkecil ke terbesar.',mini:[[2,3],[3,5]]},
+ {sym:'+',col:'#e8a33d',d:'Samakan ukuran bagian, lalu gabungkan arsirannya.',mini:[[1,2],[1,3]]},
+ {sym:'−',col:'#d9788a',d:'Model perbandingan untuk menemukan selisih.',mini:[[3,4],[1,3]]},
+ {sym:'×',col:'#58b5b0',d:'Penjumlahan berulang dan makna "a/b dari c/d".',mini:[[2,3],[3,4]]},
+ {sym:'÷',col:'#c9772b',d:'Bagi rata, dan hitung berapa takaran yang muat.',mini:[[2,3],[1,6]]}];
+const $=id=>document.getElementById(id);
+let mi=0,mode=0,P={},steps=[],si=0,ans=null,timer=null,playing=false;
+
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));document.body.classList.toggle('inlab',id==='lab');if(id!=='lab')stop()}
+function buildMenu(){$('grid').innerHTML=MODS.map((M,i)=>{const m=META[i];
+ const mini=m.mini.map(([a,b],r)=>`<div class="mini">${Array.from({length:b},(_,j)=>`<i style="${j<a?`background:${m.col};opacity:${r?.75:1}`:''}"></i>`).join('')}</div>`).join('');
+ return `<button class="mcard" data-i="${i}" style="animation-delay:${i*.07}s"><div class="mc-art" style="background:${m.col}22">${mini}<span class="mc-sym" style="background:${m.col}">${m.sym}</span></div>
+  <div class="mc-body"><b>${M.name}</b><span>${m.d}</span><em>${M.g.replace('Kls','Kelas')}</em></div></button>`}).join('');
+ $('grid').querySelectorAll('.mcard').forEach(b=>b.onclick=()=>{go('lab');load(+b.dataset.i)})}
+function buildTabs(){$('tabs').innerHTML=MODS.map((M,i)=>`<button class="${i===mi?'on':''}" title="${M.name}" data-i="${i}" style="${i===mi?`background:${META[i].col}`:''}">${META[i].sym}</button>`).join('');
+ $('tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>load(+b.dataset.i));
+ $('lbSym').textContent=META[mi].sym;$('lbSym').style.background=META[mi].col;$('lbName').textContent=MODS[mi].name;$('lbG').textContent=MODS[mi].g.replace('Kls','Kelas')}
+function buildModes(){const M=MODS[mi];$('modes').style.display=M.modes?'flex':'none';
+ if(M.modes){$('modes').innerHTML=M.modes.map((t,i)=>`<button class="${i===mode?'on':''}" data-i="${i}">${t}</button>`).join('');
+  $('modes').querySelectorAll('button').forEach(b=>b.onclick=()=>{mode=+b.dataset.i;P={...M.def(mode)};buildModes();buildParams();rebuild()})}}
+function buildParams(){const M=MODS[mi];$('params').innerHTML=M.params(mode).map(p=>`<div class="prm"><span>${p.l}</span><div class="stp"><button data-k="${p.k}" data-v="-1">−</button><b id="v_${p.k}"></b><button data-k="${p.k}" data-v="1">+</button></div></div>`).join('');
+ $('params').querySelectorAll('button').forEach(b=>b.onclick=()=>{const p=M.params(mode).find(x=>x.k===b.dataset.k);const nv=clamp(P[p.k]+ +b.dataset.v,p.min,p.max);if(nv===P[p.k])return;P[p.k]=nv;rebuild()})}
+function sync(){MODS[mi].params(mode).forEach(p=>{$('v_'+p.k).textContent=P[p.k]})}
+function load(i){mi=i;mode=0;P={...MODS[i].def(0)};stop();clearAll();buildTabs();buildModes();buildParams();rebuild()}
+function rebuild(){const M=MODS[mi];M.fix&&M.fix(P,mode);sync();const r=M.build(JSON.parse(JSON.stringify(P)),mode);steps=r.steps;ans=r.ans;si=0;stop();
+ $('prev').innerHTML=steps[0].eq;buildTry();show()}
+function show(instant){const s=steps[si];render(s.shapes,instant);$('eq').innerHTML=s.eq;$('say').innerHTML=s.say;
+ $('stepLbl').textContent=`Langkah ${si+1} dari ${steps.length}`;
+ $('dots').innerHTML=steps.map((_,i)=>`<i class="${i===si?'on':i<si?'done':''}" data-i="${i}"></i>`).join('');
+ $('dots').querySelectorAll('i').forEach(d=>d.onclick=()=>{stop();si=+d.dataset.i;show()});
+ $('bPrev').disabled=si===0;$('bNext').disabled=si===steps.length-1}
+function stop(){playing=false;clearTimeout(timer);$('bPlay').textContent='▶ Putar'}
+function sched(){if(!playing)return;if(si>=steps.length-1){stop();return}
+ const len=$('say').textContent.length;timer=setTimeout(()=>{si++;show();sched()},(2300+len*28)/speed)}
+
+/* ===== Coba Sendiri: 3 jenis interaksi ===== */
+const say=(ok,html)=>{const f=$('fbk');f.className=ok?'ok':'no';f.innerHTML=html;f.scrollIntoView({block:'nearest',behavior:'smooth'})};
+function buildTry(){const b=$('tryBody'),q=$('tryQ');$('fbk').textContent='';
+ if(!ans){$('try').style.display='none';return}$('try').style.display='flex';
+ if(ans.type==='frac'){
+  q.innerHTML=ans.any?`Tulis pecahan lain yang senilai dengan ${fr(ans.n,ans.d)}:`:`Hitung dulu sebelum melihat langkah terakhir. Berapa hasil ${$('prev').innerHTML.replace(/=\s*\?|<span class="qbox">\?<\/span>/g,'')}?`;
+  b.innerHTML=`<div class="frin"><div class="frbox"><input id="inN" inputmode="numeric" aria-label="pembilang"><hr><input id="inD" inputmode="numeric" aria-label="penyebut"></div><button class="btn pri" id="bCek">Cek</button></div>`;
+  $('bCek').onclick=()=>{const n=parseInt($('inN').value),dv=$('inD').value.trim(),d=dv===''?1:parseInt(dv);
+   if(isNaN(n)||isNaN(d)||d===0)return say(0,'Isi pembilang dan penyebut dengan benar ya.');
+   const eq=n*ans.d===d*ans.n;
+   if(ans.any)return eq&&!(n===ans.n&&d===ans.d)?say(1,'Tepat! Itu pecahan senilai.'):eq?say(0,'Itu pecahan yang sama. Coba pecahan lain!'):say(0,'Belum senilai. Kalikan pembilang dan penyebut dengan bilangan yang sama.');
+   if(eq){const g=gcd(n,d);say(1,g>1?`Benar! Masih bisa disederhanakan menjadi ${fw(n/g,d/g)}.`:'Benar sekali! Putar animasi untuk melihat alasannya.')}
+   else say(0,'Belum tepat. Putar animasinya untuk melihat cara bernalarnya.')}}
+ else if(ans.type==='sym'){
+  q.innerHTML=`Pilih tanda yang tepat: ${fr(P.a,P.b)} <span class="qbox">?</span> ${fr(P.c,P.d)}`;
+  b.innerHTML=`<div class="symbtns">${['<','=','>'].map(s=>`<button data-s="${s}">${s}</button>`).join('')}</div>`;
+  b.querySelectorAll('button').forEach(x=>x.onclick=()=>{b.querySelectorAll('button').forEach(y=>y.classList.toggle('sel',y===x));
+   x.dataset.s===ans.v?say(1,`Tepat! ${fr(P.a,P.b)} ${ans.v} ${fr(P.c,P.d)}`):say(0,'Belum tepat. Lihat langkah "tarik garis" pada animasi.')})}
+ else{
+  q.innerHTML='Seret kartu sampai urut: <b>terkecil di atas</b>, terbesar di bawah.';
+  let idx=ans.items.map((_,i)=>i);
+  b.innerHTML=`<div style="font-size:12px;font-weight:900;color:var(--mut)">▲ terkecil</div><div id="ord">${idx.map(i=>`<div class="chip" data-i="${i}">${fr(...ans.items[i])}</div>`).join('')}</div><div style="font-size:12px;font-weight:900;color:var(--mut)">▼ terbesar</div><button class="btn pri" id="bCek">Cek Urutan</button>`;
+  makeSortable($('ord'));
+  $('bCek').onclick=()=>{const cur=[...$('ord').children].map(c=>+c.dataset.i);
+   cur.join()===ans.ord.join()?say(1,'Urutanmu tepat! '+cur.map(i=>fr(...ans.items[i])).join(' &lt; ')):say(0,'Belum urut. Putar animasi untuk membandingkan panjang arsirannya.')}}}
+function makeSortable(box){box.querySelectorAll('.chip').forEach(ch=>{
+ ch.onpointerdown=e=>{e.preventDefault();ch.setPointerCapture(e.pointerId);ch.classList.add('drag');
+  const off=e.clientY-ch.getBoundingClientRect().top;
+  const move=ev=>{const others=[...box.children].filter(c=>c!==ch);
+   const n=others.filter(c=>{const r=c.getBoundingClientRect();return r.top+r.height/2<ev.clientY}).length,ref=others[n]||null;
+   if(ch.nextElementSibling!==ref)box.insertBefore(ch,ref);
+   ch.style.transform=`translateY(${(ev.clientY-off-box.getBoundingClientRect().top)/SC-ch.offsetTop}px)`};
+  const up=()=>{ch.classList.remove('drag');ch.style.transform='';ch.removeEventListener('pointermove',move);ch.removeEventListener('pointerup',up);ch.removeEventListener('pointercancel',up)};
+  ch.addEventListener('pointermove',move);ch.addEventListener('pointerup',up);ch.addEventListener('pointercancel',up)}})}
+
+/* ===== events ===== */
+$('bPlay').onclick=()=>{if(playing){stop();return}playing=true;$('bPlay').textContent='Jeda';if(si>=steps.length-1){si=0;show()}sched()};
+$('bNext').onclick=()=>{stop();if(si<steps.length-1){si++;show()}};
+$('bPrev').onclick=()=>{stop();if(si>0){si--;show()}};
+$('spd').onchange=e=>{speed=+e.target.value};
+$('bRand').onclick=()=>{P={...MODS[mi].rand(mode)};rebuild()};
+const MUS='<svg viewBox="0 0 24 24" width="20" height="20" fill="#3b5d3a"><path d="M9 18V5l11-2v13" fill="none" stroke="#3b5d3a" stroke-width="2"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>';const bgm=$('bgm');bgm.volume=.35;let musicOn=true;
+function setMusic(on){musicOn=on;$('bMusic').classList.toggle('off',!on);$('bMusic').innerHTML=MUS;if(on)bgm.play().catch(()=>{});else bgm.pause()}
+$('bMusic').onclick=()=>setMusic(!musicOn);$('bMusic').innerHTML=MUS;
+$('bStart').onclick=()=>{go('menu');if(musicOn)bgm.play().catch(()=>{})};
+$('bMenu').onclick=()=>go('menu');
+$('bSplash').onclick=()=>go('splash');
+$('bHelp').onclick=()=>$('modal').classList.add('on');
+$('bClose').onclick=()=>$('modal').classList.remove('on');
+document.addEventListener('keydown',e=>{if(!document.body.classList.contains('inlab')||e.target.tagName==='INPUT')return;
+ if(e.key==='ArrowRight')$('bNext').click();if(e.key==='ArrowLeft')$('bPrev').click();if(e.key===' '){e.preventDefault();$('bPlay').click()}});
+(function(){const box=$('leaves'),cs=['#8cc37a','#a7d18f','#f2b8c4','#e9c46a'];
+ for(let i=0;i<9;i++){const l=document.createElement('i');l.className='leaf';l.style.left=(120+Math.random()*1200)+'px';l.style.background=cs[i%4];
+  l.style.animationDuration=(14+Math.random()*12)+'s';l.style.animationDelay=(-Math.random()*20)+'s';box.appendChild(l)}})();
+buildMenu();
+let SC=1;function fit(){SC=Math.min(innerWidth/1280,innerHeight/720);$('app').style.transform=`translate(-50%,-50%) scale(${SC})`}addEventListener('resize',fit);fit();
+
 </script>
 </body>
 </html>

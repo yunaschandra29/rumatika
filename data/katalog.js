@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "lab-pecahan-senilai",
+      judul: "Lab Maya Pecahan",
+      fase: "B",
+      jenis: "Lab Maya",
+      topik: "Pecahan dengan model batang: mengenal, senilai, membandingkan dan mengurutkan, penjumlahan, pengurangan, perkalian, dan pembagian",
+      tujuan: "Bernalar tentang pecahan lewat model batang ala Singapore Math. Tujuh materi, dari mengenal pembilang dan penyebut sampai pembagian dengan pecahan, masing-masing dengan animasi langkah bernalar yang bisa diputar atau dijalankan per langkah: batang dipotong, disalin, digeser, dan disusun ulang sambil narasi menjelaskan alasannya. Soal bisa diatur atau diacak, dan bagian Coba Sendiri memakai isian pecahan, pilihan tanda lebih dari atau kurang dari, serta seret-lepas kartu untuk mengurutkan. Bernuansa lukisan pedesaan dengan musik latar.",
+      durasi: 60,
+      perangkat: "Proyektor dan HP",
+      simbol: "1/2 + 1/3",
+      url: "karya/fase-b/lab-pecahan-senilai/",
+      sampul: "assets/img/lab-pecahan-senilai.webp",
+      ukuran: "2,3 MB",
+      video: "kenapa-penyebut-disamakan"
+    },
+    {
       id: "bengkel-kemas",
       judul: "Bengkel Kemas",
       fase: "F",
@@ -559,20 +574,6 @@ window.RUMATIKA_KATALOG = {
       sampul: "assets/img/bendahara-baru.webp",
       ukuran: "7 MB",
       video: ""
-    },
-    {
-      id: "lab-pecahan-senilai",
-      judul: "Lab Pecahan Senilai",
-      fase: "B",
-      jenis: "Lab Maya",
-      topik: "Pecahan senilai",
-      tujuan: "Menunjukkan dua pecahan senilai dengan membandingkan panjang arsiran pada dua pita pecahan.",
-      durasi: 15,
-      perangkat: "Proyektor dan HP",
-      simbol: "1/2 = 2/4",
-      url: "karya/fase-b/lab-pecahan-senilai/",
-      ukuran: "10 KB",
-      video: "kenapa-penyebut-disamakan"
     },
     {
       id: "operasi-sigap",
