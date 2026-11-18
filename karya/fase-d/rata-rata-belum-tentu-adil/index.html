@@ -76,8 +76,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .kmenu.utama .lbl{background:var(--teal);color:#fff}.kmenu.utama .lbl small{color:#cfe8ec}
 .kmenu.gim .lbl{background:var(--tera);color:#fff}.kmenu.gim .lbl small{color:#f6d8cc}
 .kmenu .lencana{position:absolute;top:.8cqw;right:.8cqw;background:var(--kuning);color:var(--tinta);font-weight:800;font-size:1cqw;padding:.2cqw .7cqw;border-radius:1cqw;z-index:2}
-.kunci{position:absolute;inset:0;background:rgba(20,30,28,.62);z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.15cqw;text-align:center;padding:1cqw}
-.kunci .gembok{font-size:3cqw}
+.lapisKunci{position:absolute;inset:0;background:rgba(20,30,28,.62);z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.15cqw;text-align:center;padding:1cqw}
+.lapisKunci .gembok{font-size:3cqw}
 .bilahmaju{width:14cqw;height:1cqw;background:rgba(255,255,255,.25);border-radius:1cqw;overflow:hidden}.bilahmaju i{display:block;height:100%;background:var(--kuning)}
 /* daftar modul */
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5cqw}
@@ -709,7 +709,7 @@ function jam() { const d = new Date(); return String(d.getHours()).padStart(2, '
 function layarMenu() {
   const m = hitungMaju();
   const tLat = `${m.tuntas}/${m.total} soal tuntas`;
-  const kartu = (id, img, judul, sub, kelas, kunci, lencana) => `<button class="kmenu ${kelas}" data-buka="${id}">${lencana ? `<span class="lencana">${lencana}</span>` : ''}${wgb(img)}<div class="lbl"><b>${judul}</b><small>${sub}</small></div>${kunci ? `<div class="kunci"><span class="gembok">🔒</span>${kunci}</div>` : ''}</button>`;
+  const kartu = (id, img, judul, sub, kelas, kunci, lencana) => `<button class="kmenu ${kelas}" data-buka="${id}">${lencana ? `<span class="lencana">${lencana}</span>` : ''}${wgb(img)}<div class="lbl"><b>${judul}</b><small>${sub}</small></div>${kunci ? `<div class="lapisKunci"><span class="gembok">🔒</span>${kunci}</div>` : ''}</button>`;
   const ujiL = S.uji.terbaik == null ? 'Belum dikerjakan' : `Nilai terbaik ${S.uji.terbaik}`;
   const el = tampil(`<div class="kepala"><h2>${PRODUK.judul}</h2><span class="kecil">Kemajuan</span><div class="bilahmaju"><i style="width:${m.persen}%"></i></div><b>${m.persen}%</b><span class="kecil" id="jam">🕒 ${jam()}</span>
       <button class="tbl kuning" data-buka="cetak">🖨 Cetak</button><button class="tbl putih" data-buka="reset" title="Atur ulang">↺</button><button class="tbl putih" data-suara>${S.suara ? '♪' : '♪̸'}</button></div>
@@ -1057,7 +1057,7 @@ function layarHasilLatihan(id) {
 
 /* ================= LAB MAYA ================= */
 function layarLabDaftar() {
-  const el = tampil(kepala('Lab Maya — 4 Laboratorium') + `<div class="badan"><div class="grid4">${LAB.map(l => `<button class="kmod" data-l="${l.id}">${wgb(l.img)}<div class="lbl"><small>Lab ${l.id} · ${l.tp}</small><b>${l.judul}</b><small>${S.lab[l.id] ? '✓ sudah dijelajahi' : 'belum dijelajahi'}</small></div>${labTerbuka(l.id) ? '' : `<div class="kunci"><span class="gembok">🔒</span>Selesaikan latihan Modul ${l.modul}</div>`}</button>`).join('')}</div>
+  const el = tampil(kepala('Lab Maya — 4 Laboratorium') + `<div class="badan"><div class="grid4">${LAB.map(l => `<button class="kmod" data-l="${l.id}">${wgb(l.img)}<div class="lbl"><small>Lab ${l.id} · ${l.tp}</small><b>${l.judul}</b><small>${S.lab[l.id] ? '✓ sudah dijelajahi' : 'belum dijelajahi'}</small></div>${labTerbuka(l.id) ? '' : `<div class="lapisKunci"><span class="gembok">🔒</span>Selesaikan latihan Modul ${l.modul}</div>`}</button>`).join('')}</div>
   <div class="ringkas" style="margin-top:2cqw;display:flex;gap:1.6cqw;align-items:center"><div class="wadahgb" style="width:22cqw;aspect-ratio:16/9;border-radius:1cqw;flex:0 0 auto">${gb('lab_induk')}</div><p>Di Lab Maya, kamu mengubah data sendiri lalu melihat akibatnya pada mean, median, modus, dan jangkauan. Setiap lab terbuka setelah latihan modul yang berkaitan selesai dikerjakan.</p></div></div>`);
   $$('[data-l]', el).forEach(b => b.onclick = () => { AU.klik(); const id = +b.dataset.l; if (!labTerbuka(id)) { popup(LAB[id - 1].tokoh, 'Lab masih terkunci', `Kerjakan dulu latihan Modul ${LAB[id - 1].modul}, ya. Setelah itu lab ini langsung terbuka.`, `Ke Modul ${LAB[id - 1].modul}`, () => layarModul(LAB[id - 1].modul, 0)); return; } layarLabPengantar(id); });
 }
@@ -1302,7 +1302,7 @@ function layarGim() {
   const tot = S.gim.reduce((a, g) => a + g.bintang, 0);
   const el = tampil(kepala('Gim · Racik Pesanan Data', 'menu', `<span class="bintang">★ ${tot}/18</span>`) + `<div class="badan"><div class="babakList">${BABAK.map((b, i) => {
     const g = S.gim[i], buka = i === 0 || S.gim[i - 1].selesai;
-    return `<button class="kbabak" data-b="${i}">${wgb('babak' + (i + 1))}<div class="lbl"><small>Babak ${i + 1} · ${b.tp}</small><b>${b.judul}</b><div class="bintang">${[1, 2, 3].map(s => `<span class="${s <= g.bintang ? '' : 'k'}">★</span>`).join('')}</div></div>${buka ? '' : '<div class="kunci"><span class="gembok">🔒</span>Selesaikan babak sebelumnya</div>'}</button>`;
+    return `<button class="kbabak" data-b="${i}">${wgb('babak' + (i + 1))}<div class="lbl"><small>Babak ${i + 1} · ${b.tp}</small><b>${b.judul}</b><div class="bintang">${[1, 2, 3].map(s => `<span class="${s <= g.bintang ? '' : 'k'}">★</span>`).join('')}</div></div>${buka ? '' : '<div class="lapisKunci"><span class="gembok">🔒</span>Selesaikan babak sebelumnya</div>'}</button>`;
   }).join('')}</div>
   <div style="display:flex;gap:1cqw;justify-content:center;margin-top:1.4cqw"><button class="tbl putih" id="lagiBuka">Lihat pembuka lagi</button>${S.gim.every(g => g.selesai) ? '<button class="tbl kuning" id="tutupG">Laporan akhir lomba →</button>' : ''}</div></div>`);
   $$('[data-b]', el).forEach(b => b.onclick = () => { const i = +b.dataset.b; if (i && !S.gim[i - 1].selesai) return; AU.klik(); mainBabak(i); });
