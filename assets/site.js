@@ -89,7 +89,7 @@
       '<div class="kartu-isi">' +
         '<div class="chip-baris"><span class="chip" data-jenis="' + j + '">' + esc(k.jenis) + '</span>' +
         '<span class="chip">Fase ' + esc(k.fase) + '</span>' +
-        (perangkatAjar(k).length ? '<span class="chip chip-ajar">LKPD &amp; RPM</span>' : '') + '</div>' +
+        (perangkatAjar(k).length ? '<span class="chip chip-ajar">' + (perangkatAjar(k).some(function (p) { return /LKPD|LKM|RPM/.test(p.nama); }) ? 'LKPD &amp; RPM' : 'Perangkat guru') + '</span>' : '') + '</div>' +
         '<h3>' + esc(k.judul) + '</h3>' +
         '<p>' + esc(k.topik) + '</p>' +
         '<div class="kartu-kaki"><span>' + esc(k.durasi) + ' menit</span><span>' +

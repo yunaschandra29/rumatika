@@ -40,6 +40,24 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "bengkel-kemas",
+      judul: "Bengkel Kemas",
+      fase: "F",
+      jenis: "Gim",
+      topik: "Polinomial (Tingkat Lanjut): operasi, skema Horner, pembagian, teorema sisa, teorema faktor, dan identitas",
+      tujuan: "Menjadi teknisi di unit produksi kemasan UMKM bersama Pak Hendra, Nayla, dan Rafi. Volume kardus dari karton yang sudut-sudutnya dipotong dimodelkan sebagai polinomial. Pos Latih (5 kartu materi dan 5 soal, minimal 4 benar) membuka tujuh stasiun di jalur konveyor: Meja Ukur, Mesin Horner tempat murid mengisi sendiri baris kali dan baris hasil, Potong Lembar, Uji Sisa, Cari Faktor, Cetak Presisi, dan Pesanan Besar yang menolak akar tak wajar karena ukuran kardus menjadi negatif. 35 tugas dengan tiga kesempatan, pemeriksa jawaban aljabar yang menerima urutan suku bebas, catatan miskonsepsi, dan Lembar QC A4.",
+      durasi: "6 × 45",
+      perangkat: "Proyektor dan HP",
+      simbol: "P(k) = sisa",
+      url: "karya/fase-f/bengkel-kemas/",
+      sampul: "assets/img/bengkel-kemas.webp",
+      ukuran: "1,2 MB",
+      video: "",
+      perangkatAjar: [
+        { nama: "Kunci Jawaban dan Pembahasan", ket: "8 halaman A4: kunci dan pembahasan 40 soal (Pos Latih dan 7 stasiun), isian lengkap Mesin Horner, kode miskonsepsi M1–M8, dan batas predikat Lembar QC", format: "DOCX", ukuran: "22 KB", berkas: "karya/fase-f/bengkel-kemas/perangkat/kunci-jawaban-bengkel-kemas.docx" }
+      ]
+    },
+    {
       id: "simpang-kendali",
       judul: "Simpang Kendali",
       fase: "E",

@@ -1,5 +1,15 @@
 [
  {
+  "id": "bengkel-kemas",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Gim",
+  "judul": "Bengkel Kemas",
+  "topik": "Polinomial (Tingkat Lanjut): operasi, skema Horner, pembagian, teorema sisa, teorema faktor, dan identitas",
+  "status": "Tayang",
+  "catatan": "1,2 MB"
+ },
+ {
   "id": "simpang-kendali",
   "fase": "E",
   "jenjang": "SMA",
