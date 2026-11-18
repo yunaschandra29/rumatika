@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "rata-rata-belum-tentu-adil",
+      judul: "Rata-rata Belum Tentu Adil",
+      fase: "D",
+      jenis: "MPI",
+      topik: "Statistika: mean, median, modus, dan jangkauan",
+      tujuan: "Menjadi analis data tim kebun hidroponik sekolah yang harus memilih angka paling jujur untuk Lomba Kebun Sekolah Lestari. Empat modul beranimasi (membagi rata, titik keseimbangan, mengurutkan kartu data, diagram titik, pita jangkauan, rak dengan pencilan), 12 latihan dengan tiga kesempatan, empat lab maya (Neraca Rata-rata, Barisan Urut, Diagram Titik, Pita Jangkauan), uji keterampilan 10 soal yang selalu baru, enam kasus terapan, dan gim Racik Pesanan Data: murid menyusun sendiri data yang memenuhi pesanan mean, median, modus, dan jangkauan dari juri. Dilengkapi laporan belajar A4.",
+      durasi: "10 × 40",
+      perangkat: "Proyektor dan HP",
+      simbol: "x̄",
+      url: "karya/fase-d/rata-rata-belum-tentu-adil/",
+      sampul: "assets/img/rata-rata-belum-tentu-adil.webp",
+      ukuran: "4,1 MB",
+      video: ""
+    },
+    {
       id: "panah-kendali",
       judul: "Panah Kendali: Misi Drone Siaga",
       fase: "F",

@@ -1,5 +1,15 @@
 [
  {
+  "id": "rata-rata-belum-tentu-adil",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Rata-rata Belum Tentu Adil",
+  "topik": "Statistika: mean, median, modus, dan jangkauan",
+  "status": "Tayang",
+  "catatan": "4,1 MB"
+ },
+ {
   "id": "panah-kendali",
   "fase": "F",
   "jenjang": "SMA",
