@@ -1,5 +1,15 @@
 [
  {
+  "id": "juragan-stok",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Juragan Stok",
+  "topik": "Matriks (Tingkat Lanjut): jenis, kesamaan, operasi, determinan, dan invers",
+  "status": "Tayang",
+  "catatan": "1,7 MB"
+ },
+ {
   "id": "rata-rata-belum-tentu-adil",
   "fase": "D",
   "jenjang": "SMP",

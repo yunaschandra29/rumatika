@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "juragan-stok",
+      judul: "Juragan Stok",
+      fase: "F",
+      jenis: "MPI",
+      topik: "Matriks (Tingkat Lanjut): jenis, kesamaan, operasi, determinan, dan invers",
+      tujuan: "Menjadi juragan stok koperasi siswa dua cabang yang menata data barang dengan matriks. Lima modul (jenis matriks dan transpos, kesamaan dua matriks, penjumlahan dan pengurangan, perkalian, determinan dan invers) dengan soal Cek Paham, tiga lab maya (Rak Susun, Mesin Kali yang menampilkan baris kali kolom langkah demi langkah, dan Gepeng atau Tidak? yang menggambarkan determinan sebagai luas jajargenjang), tiga kasus gudang, 15 latihan dengan tiga kesempatan, dan asesmen 12 soal. Menu berbentuk drum putar dengan tokoh yang menjelaskan isi tiap bagian. Dilengkapi laporan belajar A4.",
+      durasi: 90,
+      perangkat: "Proyektor dan HP",
+      simbol: "det A = ad − bc",
+      url: "karya/fase-f/juragan-stok/",
+      sampul: "assets/img/juragan-stok.webp",
+      ukuran: "1,7 MB",
+      video: ""
+    },
+    {
       id: "rata-rata-belum-tentu-adil",
       judul: "Rata-rata Belum Tentu Adil",
       fase: "D",
