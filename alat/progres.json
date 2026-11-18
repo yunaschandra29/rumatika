@@ -1,5 +1,15 @@
 [
  {
+  "id": "simpang-kendali",
+  "fase": "E",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Simpang Kendali",
+  "topik": "Peluang: distribusi peluang, aturan penjumlahan, dan aturan perkalian",
+  "status": "Tayang",
+  "catatan": "5 MB"
+ },
+ {
   "id": "pabrik-kemasan",
   "fase": "C",
   "jenjang": "SD",

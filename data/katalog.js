@@ -40,6 +40,21 @@ window.RUMATIKA_KATALOG = {
 
   karya: [
     {
+      id: "simpang-kendali",
+      judul: "Simpang Kendali",
+      fase: "E",
+      jenis: "MPI",
+      topik: "Peluang: distribusi peluang, aturan penjumlahan, dan aturan perkalian",
+      tujuan: "Magang di ruang kendali lalu lintas kota bersama Pak Hendra, Nayla, dan Rafi. Murid membaca rekaman CCTV untuk menyusun ruang sampel, distribusi peluang, dan frekuensi harapan, memilah kendaraan ke diagram Venn untuk kejadian saling lepas dan tidak saling lepas, lalu menguji kejadian saling bebas di koridor dua simpang dengan model luas. Setiap konsep diperagakan dengan animasi mobil. Tiga simulasi, tiga kasus terapan, dan Uji Lisensi 12 soal, ditutup gim arkade Jaga Simpang lima babak: ganti lampu tepat waktu, baca prakiraan arus, dan loloskan ambulans.",
+      durasi: 120,
+      perangkat: "Proyektor dan HP",
+      simbol: "P(A ∪ B)",
+      url: "karya/fase-e/simpang-kendali/",
+      sampul: "assets/img/simpang-kendali.webp",
+      ukuran: "5 MB",
+      video: ""
+    },
+    {
       id: "pabrik-kemasan",
       judul: "Pabrik Kemasan",
       fase: "C",
