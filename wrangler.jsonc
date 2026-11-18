@@ -1,6 +1,7 @@
 // Pengaturan Cloudflare Workers untuk Rumatika.
 // Berkas situs disajikan langsung dari folder ini; hanya alamat /api/* yang dijalankan oleh worker/index.js.
 // Berkas kerja yang tidak ikut diunggah didaftarkan di .assetsignore.
+// Cron tiap 10 menit memeriksa konten baru dan mengirim notifikasi (worker/kabar.js).
 {
   "name": "rumatika",
   "main": "worker/index.js",
@@ -18,5 +19,6 @@
       "database_id": "ead0cf41-045c-4f65-acaa-265a268602f4"
     }
   ],
+  "triggers": { "crons": ["*/10 * * * *"] },
   "observability": { "enabled": true }
 }

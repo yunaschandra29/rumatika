@@ -137,6 +137,7 @@ def ikon_situs(p):
     return (f'<link rel="icon" href="{p}favicon.ico" sizes="48x48">\n'
             f'<link rel="icon" href="{p}assets/merek/ikon-192.png" type="image/png" sizes="192x192">\n'
             f'<link rel="apple-touch-icon" href="{p}assets/merek/apple-touch-icon.png">\n'
+            '<link rel="manifest" href="/manifest.webmanifest">\n'
             '<meta name="theme-color" content="#2554D6">\n')
 
 MENU = [("Beranda", "#beranda"), ("Semua Karya", "#semua-karya"), ("Teras Trik", "#teras-trik"),

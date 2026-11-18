@@ -6,7 +6,8 @@ Membuat, untuk setiap karya di data/katalog.js:
   - k/<id>/index.html     halaman kecil berisi tag pratinjau (judul, deskripsi, gambar)
                           yang langsung mengarahkan ke halaman karya di portal
   - assets/og/<id>.jpg    gambar pratinjau 1200 x 630 untuk WhatsApp, Facebook, dan lain-lain
-serta assets/og/rumatika.jpg dan tag pratinjau beranda di index.html.
+serta assets/og/rumatika.jpg, tag pratinjau beranda di index.html, dan data/kabar.json
+(daftar ringkas karya dan video yang dibaca worker untuk mengirim notifikasi konten baru).
 
 Jalankan dari folder utama proyek setiap kali katalog berubah:
     python alat/bagikan.py
@@ -14,6 +15,7 @@ Butuh Python 3 dengan Pillow dan json5:
     pip install pillow json5
 """
 import html
+import json
 import json5
 import pathlib
 import re
@@ -211,6 +213,18 @@ OG_BERANDA = """<!--OG:MULAI (dibuat otomatis oleh alat/bagikan.py; jangan diuba
 <!--OG:SELESAI-->"""
 
 
+def tulis_kabar(katalog):
+    """data/kabar.json: dibaca worker (worker/kabar.js) untuk mengenali konten baru."""
+    kabar = {
+        "karya": [{"id": k["id"], "judul": k["judul"], "jenis": k["jenis"], "fase": k["fase"],
+                   "siap": bool(k.get("url"))} for k in katalog["karya"]],
+        "video": [{"id": v["id"], "judul": v["judul"], "fase": v.get("fase", ""),
+                   "status": v.get("status", ""), "url": v.get("url", "")} for v in katalog.get("video", [])],
+    }
+    (AKAR / "data" / "kabar.json").write_text(
+        json.dumps(kabar, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+
 def main():
     katalog = baca_katalog()
     (AKAR / "assets" / "og").mkdir(parents=True, exist_ok=True)
@@ -235,6 +249,7 @@ def main():
             if og.exists():
                 og.unlink()
 
+    tulis_kabar(katalog)
     gambar_beranda(katalog)
     idx = AKAR / "index.html"
     teks = idx.read_text(encoding="utf-8")

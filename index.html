@@ -23,7 +23,10 @@
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="assets/merek/ikon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="assets/merek/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#2554D6">
+<meta name="apple-mobile-web-app-title" content="Rumatika">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Lexend:wght@400;500;600&display=swap">
@@ -126,6 +129,23 @@
           <a class="tautan-panah" href="#semua-karya">Lihat semua karya →</a>
         </div>
         <div class="grid-kartu" id="grid-baru"></div>
+      </div>
+    </div>
+
+    <div class="pita pita-putih" id="aplikasi">
+      <div class="wrap bagian aplikasi">
+        <img class="aplikasi-ikon" src="assets/merek/ikon-192.png" width="96" height="96" alt="" aria-hidden="true" loading="lazy">
+        <div class="aplikasi-teks">
+          <p class="alis">Aplikasi Rumatika</p>
+          <h2>Pasang di HP dan laptop, dapat kabar setiap ada karya baru</h2>
+          <p class="lead">Rumatika bisa dipasang seperti aplikasi: ikonnya ada di layar utama HP atau di desktop laptop, sekali ketuk langsung terbuka. Nyalakan notifikasi agar Anda tahu setiap ada MPI, gim, lab maya, video, atau artikel baru. Gratis, tanpa Play Store, tanpa login.</p>
+          <div class="aksi">
+            <button class="tombol tombol-utama" type="button" id="aplikasi-pasang" hidden>Pasang Aplikasi</button>
+            <button class="tombol tombol-garis" type="button" id="aplikasi-notif" aria-pressed="false" hidden>Nyalakan Notifikasi</button>
+          </div>
+          <p class="aplikasi-ios" id="aplikasi-ios" hidden>Di iPhone atau iPad: buka situs ini di Safari, ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas), lalu pilih <b>Tambahkan ke Layar Utama</b>. Setelah itu buka Rumatika dari layar utama untuk menyalakan notifikasi.</p>
+          <p class="kecil" id="aplikasi-status" aria-live="polite"></p>
+        </div>
       </div>
     </div>
 
@@ -436,5 +456,6 @@
 <script src="data/artikel.js"></script>
 <script src="assets/vendor/qrcode.js"></script>
 <script src="assets/site.js"></script>
+<script src="assets/aplikasi.js"></script>
 </body>
 </html>

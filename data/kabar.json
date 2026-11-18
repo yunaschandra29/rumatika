@@ -1,0 +1,370 @@
+{
+ "karya": [
+  {
+   "id": "kapten-ubin",
+   "judul": "Kapten Ubin: Misi Lantai Kota Garis",
+   "jenis": "MPI",
+   "fase": "B",
+   "siap": true
+  },
+  {
+   "id": "kapten-keliling",
+   "judul": "Kapten Keliling: Patroli Kota Garis",
+   "jenis": "MPI",
+   "fase": "B",
+   "siap": true
+  },
+  {
+   "id": "kalkir-cermin",
+   "judul": "Kalkir & Cermin",
+   "jenis": "MPI",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "jangka-benang",
+   "judul": "Jangka & Benang",
+   "jenis": "MPI",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "lab-pecahan-senilai",
+   "judul": "Lab Maya Pecahan",
+   "jenis": "Lab Maya",
+   "fase": "B",
+   "siap": true
+  },
+  {
+   "id": "bengkel-kemas",
+   "judul": "Bengkel Kemas",
+   "jenis": "Gim",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "simpang-kendali",
+   "judul": "Simpang Kendali",
+   "jenis": "MPI",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "pabrik-kemasan",
+   "judul": "Pabrik Kemasan",
+   "jenis": "Lab Maya",
+   "fase": "C",
+   "siap": true
+  },
+  {
+   "id": "juragan-stok",
+   "judul": "Juragan Stok",
+   "jenis": "MPI",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "rata-rata-belum-tentu-adil",
+   "judul": "Rata-rata Belum Tentu Adil",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "panah-kendali",
+   "judul": "Panah Kendali: Misi Drone Siaga",
+   "jenis": "Gim",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "biro-skala",
+   "judul": "Konsultan Muda: Biro Skala",
+   "jenis": "Gim",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "detektif-label-jajanan",
+   "judul": "Detektif Label Jajanan",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "kota-seribu-cara",
+   "judul": "Kota Seribu Cara",
+   "jenis": "Gim",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "dapur-kue-nusantara",
+   "judul": "Dapur Kue Nusantara",
+   "jenis": "MPI",
+   "fase": "C",
+   "siap": true
+  },
+  {
+   "id": "pasar-malam-bilangan",
+   "judul": "Pasar Malam Bilangan",
+   "jenis": "MPI",
+   "fase": "C",
+   "siap": true
+  },
+  {
+   "id": "resep-rahasia-x",
+   "judul": "Resep Rahasia x",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "maket-taman-kota",
+   "judul": "Maket Taman Kota",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "titik-puncak",
+   "judul": "Titik Puncak",
+   "jenis": "MPI",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "escape-room-statistik",
+   "judul": "Escape Room Statistik",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "meja-redaksi",
+   "judul": "Meja Redaksi",
+   "jenis": "Gim",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "konsultan-muda",
+   "judul": "Konsultan Muda: Klinik Usaha",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "pulau-senja",
+   "judul": "Misi Pulau Senja",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "misi-perkemahan",
+   "judul": "Misi Perkemahan: Jejak Bilangan Bulat",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "ragam-susun",
+   "judul": "Ragam Susun",
+   "jenis": "MPI",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "lab-trigonometri",
+   "judul": "Lab Trigonometri",
+   "jenis": "Lab Maya",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "sonar-teluk",
+   "judul": "Sonar Teluk",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "jadwal-kereta",
+   "judul": "Jadwal Kereta",
+   "jenis": "MPI",
+   "fase": "C",
+   "siap": true
+  },
+  {
+   "id": "jam-ajaib",
+   "judul": "Jam Ajaib",
+   "jenis": "MPI",
+   "fase": "B",
+   "siap": true
+  },
+  {
+   "id": "jaring-andal",
+   "judul": "Jaring Andal",
+   "jenis": "Gim",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "potong-pas",
+   "judul": "Potong Pas",
+   "jenis": "Gim",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "power-core",
+   "judul": "POWER CORE: Krisis Eksponen",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "delapan-sudut-kota",
+   "judul": "Delapan Sudut Kota",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "misteri-transaksi",
+   "judul": "Misteri Transaksi",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "brankas-menara-pola",
+   "judul": "Brankas Menara Pola",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "arena-juara",
+   "judul": "Arena Juara",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": true
+  },
+  {
+   "id": "porsenika",
+   "judul": "PORSENIKA",
+   "jenis": "Gim",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "warisan-cicilan",
+   "judul": "Warisan Cicilan",
+   "jenis": "Gim",
+   "fase": "F",
+   "siap": true
+  },
+  {
+   "id": "bendahara-baru",
+   "judul": "Bendahara Baru",
+   "jenis": "Gim",
+   "fase": "D",
+   "siap": true
+  },
+  {
+   "id": "operasi-sigap",
+   "judul": "Operasi SIGAP",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": false
+  },
+  {
+   "id": "duo-dagang",
+   "judul": "Duo Dagang",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": false
+  },
+  {
+   "id": "batik-transformasi",
+   "judul": "Batik Transformasi",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": false
+  },
+  {
+   "id": "langkah-penyusup",
+   "judul": "Langkah Penyusup",
+   "jenis": "Gim",
+   "fase": "E",
+   "siap": false
+  },
+  {
+   "id": "lab-anuitas",
+   "judul": "Lab Anuitas",
+   "jenis": "Lab Maya",
+   "fase": "F",
+   "siap": false
+  },
+  {
+   "id": "lab-regresi",
+   "judul": "Lab Regresi",
+   "jenis": "Lab Maya",
+   "fase": "F",
+   "siap": false
+  }
+ ],
+ "video": [
+  {
+   "id": "timbangan-persamaan",
+   "judul": "Timbangan Persamaan",
+   "fase": "D",
+   "status": "tayang",
+   "url": "https://www.youtube.com/shorts/38IczGNhlLg"
+  },
+  {
+   "id": "bahas-soal-tka",
+   "judul": "Bahas Soal TKA",
+   "fase": "D",
+   "status": "tayang",
+   "url": "https://www.youtube.com/shorts/ghVUGxmrYLE"
+  },
+  {
+   "id": "mengalikan-pecahan",
+   "judul": "Bagaimana cara mengalikan pecahan?",
+   "fase": "C",
+   "status": "tayang",
+   "url": "https://www.youtube.com/shorts/M7RE_m5rEMI"
+  },
+  {
+   "id": "kenapa-penyebut-disamakan",
+   "judul": "Kenapa harus samakan penyebut?",
+   "fase": "C",
+   "status": "tayang",
+   "url": "https://www.youtube.com/shorts/vRyYFs6cXrk"
+  },
+  {
+   "id": "negatif-kali-negatif",
+   "judul": "Kenapa negatif × negatif jadi positif?",
+   "fase": "D",
+   "status": "segera",
+   "url": "https://www.youtube.com/@yunascp"
+  },
+  {
+   "id": "pangkat-nol",
+   "judul": "Kenapa a⁰ = 1?",
+   "fase": "D",
+   "status": "segera",
+   "url": "https://www.youtube.com/@yunascp"
+  },
+  {
+   "id": "anuitas-90-detik",
+   "judul": "Anuitas dalam 90 detik",
+   "fase": "F",
+   "status": "segera",
+   "url": "https://www.youtube.com/@yunascp"
+  }
+ ]
+}

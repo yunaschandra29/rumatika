@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "Rumatika · Rumahnya Matematika Interaktif",
+  "short_name": "Rumatika",
+  "description": "MPI, gim edukasi, lab maya, dan video tips matematika untuk Fase A sampai F.",
+  "lang": "id",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F3F6FC",
+  "theme_color": "#2554D6",
+  "categories": ["education"],
+  "icons": [
+    { "src": "/assets/merek/ikon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/merek/ikon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/merek/ikon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/merek/ikon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Semua Karya", "url": "/#semua-karya", "icons": [{ "src": "/assets/merek/ikon-192.png", "sizes": "192x192" }] },
+    { "name": "Teras Trik", "url": "/#teras-trik", "icons": [{ "src": "/assets/merek/ikon-192.png", "sizes": "192x192" }] },
+    { "name": "Pojok Baca", "url": "/artikel/", "icons": [{ "src": "/assets/merek/ikon-192.png", "sizes": "192x192" }] }
+  ]
+}

@@ -76,6 +76,13 @@ Statusnya bisa dilihat di dasbor Cloudflare → Workers & Pages → rumatika →
 
 Berkas kerja (`alat/`, `CLAUDE.md`, `README.md`) tidak ikut diunggah; daftarnya ada di `.assetsignore`.
 
+## Aplikasi dan notifikasi
+
+Pengunjung bisa memasang Rumatika di HP atau laptop lewat blok "Aplikasi Rumatika" di beranda,
+lalu menyalakan notifikasi. Setiap 10 menit worker memeriksa `data/kabar.json` (dibuat `alat/bagikan.py`)
+dan `data/artikel.js`; karya, video, atau artikel yang baru tayang langsung dikirim sebagai notifikasi.
+Daftar pelanggan dan kunci notifikasi tersimpan di D1. Rincian ada di `worker/kabar.js`.
+
 ## Statistik pengunjung
 
 Beranda menampilkan jumlah kunjungan (total dan hari ini) serta karya yang paling sering dimainkan.

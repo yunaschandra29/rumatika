@@ -6,7 +6,10 @@
   POST /api/kunjungan          tambah 1 kunjungan (dikirim sekali per sesi browser)
   POST /api/main  {"id": ...}  tambah 1 permainan untuk karya tersebut
   GET  /api/statistik          baca semua angka
+  /api/kabar/*                 notifikasi konten baru, lihat worker/kabar.js
 */
+
+import { tanganiKabar, periksaKontenBaru } from "./kabar.js";
 
 const SKEMA = "CREATE TABLE IF NOT EXISTS hitungan (kunci TEXT PRIMARY KEY, jumlah INTEGER NOT NULL DEFAULT 0)";
 const TAMBAH = "INSERT INTO hitungan (kunci, jumlah) VALUES (?1, 1) ON CONFLICT(kunci) DO UPDATE SET jumlah = jumlah + 1";
@@ -67,6 +70,14 @@ export default {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
 
+    if (url.pathname.startsWith("/api/kabar/")) {
+      try {
+        return await tanganiKabar(request, env, url);
+      } catch (e) {
+        return json({ ok: false, pesan: "Notifikasi sedang tidak tersedia" }, 503);
+      }
+    }
+
     try {
       await pastikanSkema(env.DB);
 
@@ -95,5 +106,10 @@ export default {
     } catch (e) {
       return json({ ok: false, pesan: "Statistik sedang tidak tersedia" }, 503);
     }
+  },
+
+  /* Cron Trigger (lihat wrangler.jsonc): periksa konten baru dan kirim notifikasi. */
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(periksaKontenBaru(env).then((h) => console.log("kabar", JSON.stringify(h))));
   }
 };
