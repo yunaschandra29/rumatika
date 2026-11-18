@@ -1,0 +1,68 @@
+# Olah konten Rumatika
+# Berjalan setiap kali isi situs berubah (dari halaman /admin atau push biasa):
+# memindahkan unggahan, menyusun katalog, halaman berbagi, artikel, dan rekap progres,
+# lalu meng-commit hasilnya ke main. Cloudflare memperbarui situs dari commit itu.
+# Juga berjalan tiap pukul 00.05 WIB agar artikel terjadwal tayang pada tanggalnya.
+name: Olah konten
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/konten/**"
+      - "tulisan/**"
+      - "unggah/**"
+      - "alat/**"
+  schedule:
+    - cron: "5 17 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: olah-konten
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  olah:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pasang pustaka
+        run: pip install pillow json5 markdown pyyaml
+
+      - name: Susun katalog dan pindahkan unggahan
+        run: python alat/katalog.py
+
+      - name: Halaman berbagi dan bahan notifikasi
+        run: python alat/bagikan.py
+
+      - name: Artikel Pojok Baca
+        run: python alat/artikel.py
+
+      - name: Rekap progres
+        run: python alat/progres.py
+
+      - name: Simpan hasil
+        run: |
+          git config user.name "Rumatika Otomatis"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Tidak ada perubahan."
+            exit 0
+          fi
+          git commit -m "Olah konten otomatis"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep 5
+          done
+          exit 1

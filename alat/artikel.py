@@ -13,7 +13,7 @@ supaya bisa dibaca mesin pencari dan peninjau AdSense. Membuat:
 
 Jalankan dari folder utama proyek setiap kali ada artikel baru atau diubah:
     python alat/artikel.py
-Butuh: pip install markdown pillow json5
+Butuh: pip install markdown pillow json5 pyyaml
 
 Berkas tulisan yang namanya diawali garis bawah (misalnya _contoh.md) dilewati.
 """
@@ -48,16 +48,31 @@ JENIS_KELAS = {"MPI": "mpi", "Gim": "gim", "Lab Maya": "lab"}
 
 # ---------------------------------------------------------------- membaca tulisan
 
+def baca_kepala(teks):
+    """Kepala tulisan dibaca sebagai YAML (bentuk yang ditulis halaman /admin).
+    Jika gagal, dibaca baris per baris dengan pola 'kunci: nilai'."""
+    try:
+        import yaml
+        data = yaml.safe_load(teks) or {}
+        if isinstance(data, dict):
+            return {str(k): ("" if v is None else v.isoformat() if hasattr(v, "isoformat") else str(v)).strip()
+                    for k, v in data.items()}
+    except Exception:
+        pass
+    meta = {}
+    for baris in teks.splitlines():
+        if ":" in baris:
+            k, v = baris.split(":", 1)
+            meta[k.strip()] = v.strip()
+    return meta
+
+
 def baca_tulisan(berkas):
     teks = berkas.read_text(encoding="utf-8").replace("\r\n", "\n")
     m = re.match(r"^---\n(.*?)\n---\n(.*)$", teks, re.S)
     if not m:
         raise SystemExit(f"{berkas.name}: kepala tulisan (--- ... ---) tidak ditemukan")
-    meta = {}
-    for baris in m.group(1).splitlines():
-        if ":" in baris:
-            k, v = baris.split(":", 1)
-            meta[k.strip()] = v.strip()
+    meta = baca_kepala(m.group(1))
     kurang = [k for k in WAJIB if not meta.get(k)]
     if kurang:
         raise SystemExit(f"{berkas.name}: kolom wajib belum diisi: {', '.join(kurang)}")
@@ -476,7 +491,7 @@ def main():
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{E(u)}</loc><lastmod>{t}</lastmod></url>\n" for u, t in url) +
         "</urlset>\n", encoding="utf-8")
-    (AKAR / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITUS}/sitemap.xml\n", encoding="utf-8")
+    (AKAR / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /admin/\n\nSitemap: {SITUS}/sitemap.xml\n", encoding="utf-8")
     ads = AKAR / "ads.txt"
     if ADSENSE:
         ads.write_text(f"google.com, {ADSENSE.replace('ca-', '')}, DIRECT, f08c47fec0942fa0\n", encoding="utf-8")

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 
 Sitemap: https://rumatika.yunaschandra29.workers.dev/sitemap.xml

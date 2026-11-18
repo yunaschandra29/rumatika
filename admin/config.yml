@@ -1,0 +1,234 @@
+# Pengaturan halaman admin Rumatika (Sveltia CMS).
+# Setiap kali disimpan, admin membuat commit ke cabang main. GitHub Action
+# "Olah konten" lalu menjalankan alat/katalog.py, bagikan.py, artikel.py, dan progres.py,
+# dan Cloudflare memperbarui situs.
+
+backend:
+  name: github
+  repo: yunaschandra29/rumatika
+  branch: main
+  commit_messages:
+    create: 'Admin: tambah {{collection}} "{{slug}}"'
+    update: 'Admin: ubah {{collection}} "{{slug}}"'
+    delete: 'Admin: hapus {{collection}} "{{slug}}"'
+    uploadMedia: 'Admin: unggah "{{path}}"'
+    deleteMedia: 'Admin: hapus berkas "{{path}}"'
+
+site_url: https://rumatika.yunaschandra29.workers.dev
+display_url: https://rumatika.yunaschandra29.workers.dev
+logo:
+  src: /assets/merek/ikon-192.png
+
+# Alamat artikel dibuat dari judul: huruf kecil, tanpa aksen, maksimal 60 karakter.
+slug:
+  encoding: ascii
+  clean_accents: true
+  maxlength: 60
+
+# Semua unggahan masuk ke folder unggah/ dulu, lalu dipindahkan ke tempatnya oleh alat/katalog.py.
+media_folder: unggah
+public_folder: /unggah
+
+collections:
+  # ------------------------------------------------------------------ KATALOG
+  - name: katalog
+    label: Katalog
+    description: Karya, video Teras Trik, kontak, dan keterangan fase.
+    editor: { preview: false }
+    files:
+      - name: karya
+        label: Karya (Kamar Belajar, Kamar Main, Laboratorium)
+        file: data/konten/karya.json
+        format: json
+        fields:
+          - name: karya
+            label: Daftar karya
+            label_singular: karya
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: '{{fields.fase}} · {{fields.jenis}} · {{fields.judul}}'
+            hint: Karya terbaru ditaruh paling atas. Tombol tambah otomatis menaruhnya di atas.
+            fields:
+              - name: id
+                label: ID karya
+                widget: string
+                pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'Hanya huruf kecil, angka, dan tanda hubung. Contoh: operasi-sigap']
+                hint: Dipakai untuk alamat dan nama berkas. Contoh operasi-sigap. Jangan diubah setelah tayang.
+              - { name: judul, label: Judul, widget: string }
+              - name: fase
+                label: Fase
+                widget: select
+                options:
+                  - { label: 'Fase A (SD kelas 1–2)', value: A }
+                  - { label: 'Fase B (SD kelas 3–4)', value: B }
+                  - { label: 'Fase C (SD kelas 5–6)', value: C }
+                  - { label: 'Fase D (SMP)', value: D }
+                  - { label: 'Fase E (SMA kelas 10)', value: E }
+                  - { label: 'Fase F (SMA kelas 11–12)', value: F }
+              - name: jenis
+                label: Jenis
+                widget: select
+                options:
+                  - { label: 'MPI (Kamar Belajar)', value: MPI }
+                  - { label: 'Gim (Kamar Main)', value: Gim }
+                  - { label: 'Lab Maya (Laboratorium)', value: Lab Maya }
+              - { name: topik, label: Topik / materi, widget: text, required: false }
+              - { name: tujuan, label: Deskripsi karya, widget: text, required: false, hint: Tampil di kartu dan halaman karya. }
+              - { name: durasi, label: Durasi (menit), widget: string, required: false, hint: 'Contoh 80 atau 6 × 45' }
+              - { name: perangkat, label: Perangkat, widget: string, required: false, default: Proyektor dan HP }
+              - { name: simbol, label: Simbol/rumus di kartu, widget: string, required: false, hint: 'Contoh a² + b² = c²' }
+              - name: berkasKarya
+                label: Unggah berkas karya
+                widget: file
+                required: false
+                accept: .html,.htm,.zip
+                hint: HTML satu berkas, atau .zip berisi index.html beserta asetnya. Diisi hanya saat menambah atau mengganti berkas; setelah diproses kolom ini kosong lagi dan Alamat karya terisi otomatis.
+              - name: url
+                label: Alamat karya
+                widget: string
+                required: false
+                hint: Terisi otomatis setelah berkas diunggah. Biarkan kosong agar kartu tampil sebagai "Segera hadir".
+              - name: sampul
+                label: Sampul
+                widget: image
+                required: false
+                hint: Gambar apa saja; otomatis dipotong 16:9, diperkecil ke lebar 960 px, dan disimpan sebagai assets/img/<id>.webp.
+              - { name: ukuran, label: Ukuran berkas, widget: string, required: false, hint: Terisi otomatis saat berkas karya diunggah. }
+              - { name: video, label: Tautan video pendamping, widget: string, required: false }
+              - name: perangkatAjar
+                label: Perangkat Ajar Guru
+                label_singular: berkas
+                widget: list
+                required: false
+                collapsed: true
+                summary: '{{fields.nama}} ({{fields.format}}, {{fields.ukuran}})'
+                fields:
+                  - { name: nama, label: Nama, widget: string, hint: 'Contoh: LKPD, RPM, Kunci Jawaban' }
+                  - { name: ket, label: Keterangan, widget: text, required: false }
+                  - { name: berkas, label: Berkas, widget: file, hint: Disimpan ke karya/fase-x/<id>/perangkat/. Format dan ukuran terisi otomatis. }
+                  - { name: format, label: Format, widget: string, required: false }
+                  - { name: ukuran, label: Ukuran, widget: string, required: false }
+
+      - name: teras-trik
+        label: Teras Trik (video)
+        file: data/konten/teras-trik.json
+        format: json
+        fields:
+          - name: video
+            label: Daftar video
+            label_singular: video
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: '{{fields.fase}} · {{fields.status}} · {{fields.judul}}'
+            fields:
+              - name: id
+                label: ID video
+                widget: string
+                pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'Hanya huruf kecil, angka, dan tanda hubung.']
+              - { name: judul, label: Judul, widget: string }
+              - name: fase
+                label: Fase
+                widget: select
+                options: [A, B, C, D, E, F]
+              - { name: detik, label: Durasi (detik), widget: number, value_type: int, required: false }
+              - { name: simbol, label: Simbol/rumus, widget: string, required: false }
+              - { name: ringkas, label: Ringkasan, widget: text, required: false }
+              - name: karya
+                label: Karya terkait
+                widget: relation
+                required: false
+                collection: katalog
+                file: karya
+                value_field: karya.*.id
+                display_fields: ['{{karya.*.judul}} (Fase {{karya.*.fase}})']
+                search_fields: ['{{karya.*.judul}}']
+              - { name: url, label: Tautan video, widget: string, required: false, hint: 'Contoh https://www.youtube.com/shorts/...' }
+              - name: status
+                label: Status
+                widget: select
+                default: segera
+                options:
+                  - { label: Tayang, value: tayang }
+                  - { label: Segera hadir, value: segera }
+
+      - name: umum
+        label: Kontak & keterangan fase
+        file: data/konten/umum.json
+        format: json
+        fields:
+          - name: kontak
+            label: Kontak Founder
+            widget: object
+            fields:
+              - { name: nama, label: Nama sapaan, widget: string }
+              - { name: wa, label: 'Nomor WA (kode negara, tanpa + dan tanpa 0 di depan)', widget: string, hint: 'Contoh 6282261578489' }
+              - { name: waTampil, label: Nomor WA yang ditampilkan, widget: string }
+              - { name: email, label: Email, widget: string }
+          - name: fase
+            label: Keterangan fase
+            widget: list
+            allow_add: false
+            allow_remove: false
+            allow_reorder: false
+            collapsed: true
+            summary: 'Fase {{fields.kode}} · {{fields.jenjang}} {{fields.kelas}}'
+            fields:
+              - { name: kode, label: Kode, widget: string }
+              - { name: jenjang, label: Jenjang, widget: string }
+              - { name: kelas, label: Kelas, widget: string }
+              - { name: ringkas, label: Ringkasan materi, widget: text }
+
+  # ------------------------------------------------------------------ POJOK BACA
+  - name: artikel
+    label: Pojok Baca (artikel)
+    label_singular: artikel
+    description: Artikel tampil di /artikel/. Berkas _contoh.md hanya contoh dan tidak tampil di situs.
+    folder: tulisan
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    identifier_field: judul
+    summary: '{{tanggal}} · Fase {{fase}} · {{judul}}'
+    sortable_fields:
+      fields: [tanggal, judul, fase]
+      default: { field: tanggal, direction: descending }
+    media_folder: /assets/img/artikel
+    public_folder: /assets/img/artikel
+    editor: { preview: false }
+    fields:
+      - { name: judul, label: Judul, widget: string, hint: Jelas dan memuat kata kunci materi. }
+      - { name: ringkasan, label: Ringkasan, widget: text, hint: 'Satu atau dua kalimat untuk kartu, Google, dan pratinjau WhatsApp.' }
+      - name: fase
+        label: Fase
+        widget: select
+        options: [A, B, C, D, E, F]
+      - name: kategori
+        label: Kategori
+        widget: select
+        options: [Konsep, Tips Mengajar, Soal dan Pembahasan, Kegiatan Kelas]
+      - { name: topik, label: Topik, widget: string, required: false }
+      - name: karya
+        label: Karya terkait
+        widget: relation
+        required: false
+        collection: katalog
+        file: karya
+        value_field: karya.*.id
+        display_fields: ['{{karya.*.judul}} (Fase {{karya.*.fase}})']
+        search_fields: ['{{karya.*.judul}}']
+      - name: tanggal
+        label: Tanggal terbit
+        widget: datetime
+        time_format: false
+        format: YYYY-MM-DD
+        default: '{{now}}'
+        hint: Tanggal di masa depan berarti terjadwal; artikel tayang otomatis pada hari itu.
+      - { name: simbol, label: Simbol/rumus di kartu, widget: string, required: false }
+      - name: body
+        label: Isi artikel
+        widget: markdown
+        modes: [raw, rich_text]
+        hint: 'Rumus dalam kalimat ditulis $a^2 + b^2 = c^2$, rumus di baris sendiri $$c = \sqrt{a^2 + b^2}$$. Subjudul memakai Judul 2.'

@@ -1,0 +1,46 @@
+{
+  "kontak": {
+    "nama": "Pak Yunas",
+    "wa": "6282261578489",
+    "waTampil": "0822-6157-8489",
+    "email": "yunaschandra29@gmail.com"
+  },
+  "fase": [
+    {
+      "kode": "A",
+      "jenjang": "SD",
+      "kelas": "Kelas 1–2",
+      "ringkas": "Bilangan sampai 100, penjumlahan dan pengurangan, bentuk datar."
+    },
+    {
+      "kode": "B",
+      "jenjang": "SD",
+      "kelas": "Kelas 3–4",
+      "ringkas": "Perkalian dan pembagian, pecahan, pengukuran."
+    },
+    {
+      "kode": "C",
+      "jenjang": "SD",
+      "kelas": "Kelas 5–6",
+      "ringkas": "Pecahan dan desimal, bangun ruang, penyajian data."
+    },
+    {
+      "kode": "D",
+      "jenjang": "SMP",
+      "kelas": "Kelas 7–9",
+      "ringkas": "Aljabar, persamaan linear, geometri, statistika dan peluang."
+    },
+    {
+      "kode": "E",
+      "jenjang": "SMA",
+      "kelas": "Kelas 10",
+      "ringkas": "Eksponen dan logaritma, trigonometri, peluang, data dua variabel."
+    },
+    {
+      "kode": "F",
+      "jenjang": "SMA",
+      "kelas": "Kelas 11–12",
+      "ringkas": "Lingkaran, peluang majemuk dan bersyarat, matematika keuangan, model linear data."
+    }
+  ]
+}
