@@ -609,19 +609,6 @@ window.RUMATIKA_KATALOG = {
       video: "pangkat-nol"
     },
     {
-      id: "lab-peluang",
-      judul: "Lab Peluang",
-      fase: "E",
-      jenis: "Lab Maya",
-      topik: "Peluang empirik dan teoretik",
-      tujuan: "Membandingkan peluang teoretik dengan hasil percobaan yang diulang ratusan kali.",
-      durasi: 25,
-      perangkat: "Proyektor dan HP",
-      simbol: "P(A) = n(A) / n(S)",
-      url: "",
-      video: ""
-    },
-    {
       id: "lab-anuitas",
       judul: "Lab Anuitas",
       fase: "F",

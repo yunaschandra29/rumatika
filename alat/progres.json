@@ -380,16 +380,6 @@
   "catatan": "Kartu sudah ada, berkas belum dikirim"
  },
  {
-  "id": "lab-peluang",
-  "fase": "E",
-  "jenjang": "SMA",
-  "jenis": "Lab Maya",
-  "judul": "Lab Peluang",
-  "topik": "Peluang empirik dan teoretik",
-  "status": "Segera hadir",
-  "catatan": "Kartu sudah ada, berkas belum dikirim"
- },
- {
   "id": "lab-anuitas",
   "fase": "F",
   "jenjang": "SMA",
