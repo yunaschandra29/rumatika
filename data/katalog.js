@@ -50,6 +50,21 @@ window.RUMATIKA_KATALOG = {
   ],
   "karya": [
     {
+      "id": "lapis-lereng",
+      "judul": "Lapis Lereng",
+      "fase": "F",
+      "jenis": "MPI",
+      "topik": "Turunan Fungsi: limit dan kontinuitas, konsep turunan, aturan turunan, garis singgung, fungsi naik/turun, titik ekstrem, dan aplikasi (Tingkat Lanjut)",
+      "tujuan": "Diorama bukit dari kertas guntingan bernuansa paper art. Apersepsi rambu tanjakan, speedometer, dan kotak kemasan, lalu empat modul berisi 17 kartu bergrafik yang muncul seperti digunting: dari tali busur ke pita singgung, stempel turunan (pangkat, perkalian, pembagian, rantai, trigonometri, eksponensial), membaca lekuk (garis singgung, naik/turun, puncak dan lembah, optimasi), serta turunan lintas ilmu (fisika, ekonomi, biologi, kimia). Dilengkapi 12 latihan dengan tiga kesempatan, tiga simulasi (Lensa Tali Busur, Bayangan Lereng, Kotak Lipat), gim Pita Singgung 6 babak, asesmen 15 soal pilihan ganda, dan laporan belajar A4 dengan catatan miskonsepsi.",
+      "durasi": 90,
+      "perangkat": "Proyektor dan HP",
+      "simbol": "f ′(x) = lim (f(x+h) − f(x))/h",
+      "url": "karya/fase-f/lapis-lereng/",
+      "sampul": "assets/img/lapis-lereng.webp",
+      "ukuran": "2,4 MB",
+      "video": ""
+    },
+    {
       "id": "lab-anuitas",
       "judul": "Lab Anuitas",
       "fase": "F",

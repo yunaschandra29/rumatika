@@ -1,5 +1,15 @@
 [
  {
+  "id": "lapis-lereng",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Lapis Lereng",
+  "topik": "Turunan Fungsi: limit dan kontinuitas, konsep turunan, aturan turunan, garis singgung, fungsi naik/turun, titik ekstrem, dan aplikasi (Tingkat Lanjut)",
+  "status": "Tayang",
+  "catatan": "2,4 MB"
+ },
+ {
   "id": "lab-anuitas",
   "fase": "F",
   "jenjang": "SMA",
