@@ -1,5 +1,15 @@
 [
  {
+  "id": "operasi-sigap",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "Gim",
+  "judul": "Operasi SIGAP",
+  "topik": "Teorema Pythagoras",
+  "status": "Tayang",
+  "catatan": "4,9 MB"
+ },
+ {
   "id": "piksel-tak-hingga",
   "fase": "F",
   "jenjang": "SMA",
@@ -418,16 +428,6 @@
   "topik": "Aritmetika sosial",
   "status": "Tayang",
   "catatan": "7 MB"
- },
- {
-  "id": "operasi-sigap",
-  "fase": "D",
-  "jenjang": "SMP",
-  "jenis": "MPI",
-  "judul": "Operasi SIGAP",
-  "topik": "Teorema Pythagoras",
-  "status": "Segera hadir",
-  "catatan": "Kartu sudah ada, berkas belum dikirim"
  },
  {
   "id": "duo-dagang",

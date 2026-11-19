@@ -1,6 +1,13 @@
 {
  "karya": [
   {
+   "id": "operasi-sigap",
+   "judul": "Operasi SIGAP",
+   "jenis": "Gim",
+   "fase": "D",
+   "siap": true
+  },
+  {
    "id": "piksel-tak-hingga",
    "judul": "Piksel Tak Hingga",
    "jenis": "MPI",
@@ -293,13 +300,6 @@
    "jenis": "Gim",
    "fase": "D",
    "siap": true
-  },
-  {
-   "id": "operasi-sigap",
-   "judul": "Operasi SIGAP",
-   "jenis": "MPI",
-   "fase": "D",
-   "siap": false
   },
   {
    "id": "duo-dagang",

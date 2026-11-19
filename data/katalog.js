@@ -50,6 +50,21 @@ window.RUMATIKA_KATALOG = {
   ],
   "karya": [
     {
+      "id": "operasi-sigap",
+      "judul": "Operasi SIGAP",
+      "fase": "D",
+      "jenis": "Gim",
+      "topik": "Teorema Pythagoras",
+      "tujuan": "Novel visual 7 episode bergaya paper cutout: bersama Tim SIGAP, murid memulihkan Kota Arunika setelah angin puting beliung. Tiap episode punya tantangan bangun-dan-hitung dengan mekanik berbeda: memindahkan kotak ke persegi sisi miring, memasang tangga sesuai panjang yang diketik, menyeret pasak tenda, membentuk segitiga 3-4-5 dari tali 12 ruas, menimbang a² + b² dengan c² untuk memilah tiang miring, menghitung rute drone di bidang koordinat, dan merancang ramp serta jembatan darurat. Menu drum roll, peta kota yang menyala per distrik, tiga kesempatan dengan petunjuk bertingkat, Uji Kenaikan Pangkat 10 soal acak, Mode Guru, dan Laporan Misi A4.",
+      "durasi": "3 × 40",
+      "perangkat": "Proyektor dan HP",
+      "simbol": "a² + b² = c²",
+      "url": "karya/fase-d/operasi-sigap/",
+      "sampul": "assets/img/operasi-sigap.webp",
+      "ukuran": "4,9 MB",
+      "video": ""
+    },
+    {
       "id": "piksel-tak-hingga",
       "judul": "Piksel Tak Hingga",
       "fase": "F",
@@ -718,19 +733,6 @@ window.RUMATIKA_KATALOG = {
       "url": "karya/fase-d/bendahara-baru/",
       "sampul": "assets/img/bendahara-baru.webp",
       "ukuran": "7 MB",
-      "video": ""
-    },
-    {
-      "id": "operasi-sigap",
-      "judul": "Operasi SIGAP",
-      "fase": "D",
-      "jenis": "MPI",
-      "topik": "Teorema Pythagoras",
-      "tujuan": "Menemukan dan menerapkan hubungan sisi-sisi segitiga siku-siku.",
-      "durasi": 40,
-      "perangkat": "Proyektor dan HP",
-      "simbol": "a² + b² = c²",
-      "url": "",
       "video": ""
     },
     {
