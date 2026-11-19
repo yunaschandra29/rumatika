@@ -1,6 +1,13 @@
 {
  "karya": [
   {
+   "id": "piksel-tak-hingga",
+   "judul": "Piksel Tak Hingga",
+   "jenis": "MPI",
+   "fase": "F",
+   "siap": true
+  },
+  {
    "id": "lapis-lereng",
    "judul": "Lapis Lereng",
    "jenis": "MPI",

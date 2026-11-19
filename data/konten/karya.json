@@ -1,6 +1,21 @@
 {
   "karya": [
     {
+      "id": "piksel-tak-hingga",
+      "judul": "Piksel Tak Hingga",
+      "fase": "F",
+      "jenis": "MPI",
+      "topik": "Integral: integral tak tentu, jumlahan Riemann, integral tentu, sifat-sifat dan Teorema Dasar Kalkulus, serta penerapan integral (Tingkat Lanjut)",
+      "tujuan": "MPI bergaya pixel art retro 8-bit dengan cerita Klub Pengembang Gim yang membuat gim Lembah Kurva. Apersepsi menaksir luas bukit dengan kolom piksel, lalu empat modul berisi 13 kartu: antiturunan sebagai tombol Undo turunan, jumlahan Riemann menuju integral tentu, sifat integral tentu dan Teorema Dasar Kalkulus, serta penerapan pada luas daerah, ekonomi, fisika, dan kesehatan. Dilengkapi 12 latihan dengan tiga kesempatan dan pemeriksa jawaban aljabar, tiga simulasi (Tombol Undo, Resolusi Riemann, Meteran Akumulasi), empat kasus terapan, gim Render Rapi 6 level dengan anggaran kolom piksel, asesmen 15 soal pilihan ganda, dan laporan belajar A4 dengan catatan miskonsepsi.",
+      "durasi": 90,
+      "perangkat": "Proyektor dan HP",
+      "simbol": "∫ₐᵇ f(x) dx = F(b) − F(a)",
+      "url": "karya/fase-f/piksel-tak-hingga/",
+      "sampul": "assets/img/piksel-tak-hingga.webp",
+      "ukuran": "1,4 MB",
+      "video": ""
+    },
+    {
       "id": "lapis-lereng",
       "judul": "Lapis Lereng",
       "fase": "F",

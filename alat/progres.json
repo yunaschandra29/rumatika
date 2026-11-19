@@ -1,5 +1,15 @@
 [
  {
+  "id": "piksel-tak-hingga",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "MPI",
+  "judul": "Piksel Tak Hingga",
+  "topik": "Integral: integral tak tentu, jumlahan Riemann, integral tentu, sifat-sifat dan Teorema Dasar Kalkulus, serta penerapan integral (Tingkat Lanjut)",
+  "status": "Tayang",
+  "catatan": "1,4 MB"
+ },
+ {
   "id": "lapis-lereng",
   "fase": "F",
   "jenjang": "SMA",
