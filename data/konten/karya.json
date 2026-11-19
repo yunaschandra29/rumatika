@@ -1,6 +1,21 @@
 {
   "karya": [
     {
+      "id": "lab-anuitas",
+      "judul": "Lab Anuitas",
+      "fase": "F",
+      "jenis": "Lab Maya",
+      "topik": "Anuitas, tabel angsuran, dan kredit sehat",
+      "tujuan": "Menyimulasikan kredit HP, laptop, motor, mobil, hingga rumah: atur harga, uang muka, bunga, dan tenor, lalu lihat angsuran, grafik porsi bunga dan pokok, tabel angsuran, serta perbandingan bunga flat dan efektif. Di Dompet Bulanan siswa mengalokasikan penghasilan dan memeriksa apakah cicilannya sehat lewat rasio cicilan (DSR). Dilengkapi empat kartu materi dengan Cek Paham, tiga Misi Bank membantu nasabah mengajukan kredit yang sehat, kuis 10 soal dengan tiga kesempatan, dan laporan belajar A4.",
+      "durasi": 90,
+      "perangkat": "Proyektor dan HP",
+      "simbol": "A = M·i / (1 − (1+i)⁻ⁿ)",
+      "url": "karya/fase-f/lab-anuitas/",
+      "video": "anuitas-90-detik",
+      "sampul": "assets/img/lab-anuitas.webp",
+      "ukuran": "1,6 MB"
+    },
+    {
       "id": "kapten-ubin",
       "judul": "Kapten Ubin: Misi Lantai Kota Garis",
       "fase": "B",
@@ -677,19 +692,6 @@
       "simbol": "²log 8 = 3",
       "url": "",
       "video": "pangkat-nol"
-    },
-    {
-      "id": "lab-anuitas",
-      "judul": "Lab Anuitas",
-      "fase": "F",
-      "jenis": "Lab Maya",
-      "topik": "Bunga majemuk dan anuitas",
-      "tujuan": "Menghitung angsuran dan melihat porsi bunga serta pokok di setiap periode.",
-      "durasi": 30,
-      "perangkat": "Proyektor dan HP",
-      "simbol": "A = b + a",
-      "url": "",
-      "video": "anuitas-90-detik"
     },
     {
       "id": "lab-regresi",

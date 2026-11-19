@@ -1,6 +1,13 @@
 {
  "karya": [
   {
+   "id": "lab-anuitas",
+   "judul": "Lab Anuitas",
+   "jenis": "Lab Maya",
+   "fase": "F",
+   "siap": true
+  },
+  {
    "id": "kapten-ubin",
    "judul": "Kapten Ubin: Misi Lantai Kota Garis",
    "jenis": "MPI",
@@ -299,13 +306,6 @@
    "judul": "Langkah Penyusup",
    "jenis": "Gim",
    "fase": "E",
-   "siap": false
-  },
-  {
-   "id": "lab-anuitas",
-   "judul": "Lab Anuitas",
-   "jenis": "Lab Maya",
-   "fase": "F",
    "siap": false
   },
   {

@@ -1,5 +1,15 @@
 [
  {
+  "id": "lab-anuitas",
+  "fase": "F",
+  "jenjang": "SMA",
+  "jenis": "Lab Maya",
+  "judul": "Lab Anuitas",
+  "topik": "Anuitas, tabel angsuran, dan kredit sehat",
+  "status": "Tayang",
+  "catatan": "1,6 MB"
+ },
+ {
   "id": "kapten-ubin",
   "fase": "B",
   "jenjang": "SD",
@@ -426,16 +436,6 @@
   "jenis": "Gim",
   "judul": "Langkah Penyusup",
   "topik": "Eksponen dan logaritma",
-  "status": "Segera hadir",
-  "catatan": "Kartu sudah ada, berkas belum dikirim"
- },
- {
-  "id": "lab-anuitas",
-  "fase": "F",
-  "jenjang": "SMA",
-  "jenis": "Lab Maya",
-  "judul": "Lab Anuitas",
-  "topik": "Bunga majemuk dan anuitas",
   "status": "Segera hadir",
   "catatan": "Kartu sudah ada, berkas belum dikirim"
  },
