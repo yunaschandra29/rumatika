@@ -50,6 +50,21 @@ window.RUMATIKA_KATALOG = {
   ],
   "karya": [
     {
+      "id": "akademi-sigap",
+      "judul": "Akademi SIGAP",
+      "fase": "D",
+      "jenis": "MPI",
+      "topik": "Teorema Pythagoras: kuadrat dan akar, pembuktian, sisi miring dan sisi siku-siku, tripel Pythagoras, jenis segitiga, serta penerapan di bidang dan ruang",
+      "tujuan": "MPI bergaya paper cutout pendamping gim Operasi SIGAP: Tika, Rafi, Sinta, dan Bu Ratna berlatih di Akademi Relawan sebelum menolong Kota Arunika. Enam sesi novel visual dengan 26 halaman papan tulis beranimasi dan interaktif: persegi yang tumbuh untuk kuadrat, kotak bersisa untuk akar, tiga bukti teorema (memindahkan kotak, empat segitiga Bhaskara, ukuran bebas), kalkulator langkah, pembangkit tripel, timbangan sudut untuk jenis segitiga, jarak dua titik, segitiga sama kaki yang dibelah, dan balok 3D yang bisa diputar. Dilengkapi 18 latihan dengan tiga kesempatan, lima laboratorium bermisi, delapan kasus nyata (TV 32 inci, ramp kursi roda, kabel BTS, rute feri, kuda-kuda atap, siku tukang, jalan semut, tongkat di lemari), Uji Keterampilan 12 soal acak C3–C6 empat tipe, Papan Rangkuman, Mode Guru, dan Laporan Belajar A4 dengan catatan miskonsepsi.",
+      "durasi": "5 × 80",
+      "perangkat": "Proyektor dan HP",
+      "simbol": "c² = a² + b²",
+      "url": "karya/fase-d/akademi-sigap/",
+      "sampul": "assets/img/akademi-sigap.webp",
+      "ukuran": "6,2 MB",
+      "video": ""
+    },
+    {
       "id": "operasi-sigap",
       "judul": "Operasi SIGAP",
       "fase": "D",

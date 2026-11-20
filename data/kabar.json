@@ -1,6 +1,13 @@
 {
  "karya": [
   {
+   "id": "akademi-sigap",
+   "judul": "Akademi SIGAP",
+   "jenis": "MPI",
+   "fase": "D",
+   "siap": true
+  },
+  {
    "id": "operasi-sigap",
    "judul": "Operasi SIGAP",
    "jenis": "Gim",

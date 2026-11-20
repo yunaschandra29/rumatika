@@ -1,5 +1,15 @@
 [
  {
+  "id": "akademi-sigap",
+  "fase": "D",
+  "jenjang": "SMP",
+  "jenis": "MPI",
+  "judul": "Akademi SIGAP",
+  "topik": "Teorema Pythagoras: kuadrat dan akar, pembuktian, sisi miring dan sisi siku-siku, tripel Pythagoras, jenis segitiga, serta penerapan di bidang dan ruang",
+  "status": "Tayang",
+  "catatan": "6,2 MB"
+ },
+ {
   "id": "operasi-sigap",
   "fase": "D",
   "jenjang": "SMP",
