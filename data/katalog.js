@@ -61,7 +61,7 @@ window.RUMATIKA_KATALOG = {
       "simbol": "a² + b² = c²",
       "url": "karya/fase-d/operasi-sigap/",
       "sampul": "assets/img/operasi-sigap.webp",
-      "ukuran": "4,9 MB",
+      "ukuran": "6,6 MB",
       "video": ""
     },
     {
