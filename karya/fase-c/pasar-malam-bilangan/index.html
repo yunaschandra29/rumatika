@@ -743,7 +743,7 @@ $('#btnMulai').onclick=()=>{bunyi('klik');putarMusik();splash()};
 async function splash(){go('s-splash');const id=RUN;const d=$('#deretBohlam');d.innerHTML='<i></i>'.repeat(10);
  const teks=['Menyalakan lampu pasar...','Memutar komidi putar...','Menyiapkan parsel...','Membuka loket tiket...'];
  for(let i=0;i<10;i++){if(id!==RUN)return;d.children[i].classList.add('on');$('#splashTeks').textContent=teks[Math.floor(i/2.6)];if(i%3===0)bunyi('pop');await W(280)}
- await W(400);if(id!==RUN)return;apersepsi()}
+ await W(400);if(id!==RUN)return;if(ST.nama){bukaMenu();return}apersepsi()}
 
 /* ---------- 3 Apersepsi ---------- */
 const APS=[
@@ -802,8 +802,8 @@ $('#btnTujuanMulai').onclick=()=>{bunyi('klik');bukaMateri('m1')};
 
 /* ================= MATERI ================= */
 let MAT={key:null,i:0};
-function bukaMateri(k){MAT={key:k,i:0};const m=MATERI[k];go('s-materi',`Wahana ${m.no} · ${m.nama}`);tampilLangkah()}
-function tampilLangkah(){const m=MATERI[MAT.key],st=m.steps[MAT.i];RUN++;const id=RUN;
+function bukaMateri(k){const rs=LANGKAH[k]||0;MAT={key:k,i:rs>=MATERI[k].steps.length-1?0:rs};const m=MATERI[k];go('s-materi',`Wahana ${m.no} · ${m.nama}`);tampilLangkah()}
+function tampilLangkah(){LANGKAH[MAT.key]=MAT.i;const m=MATERI[MAT.key],st=m.steps[MAT.i];RUN++;const id=RUN;
  $('#mBadge').textContent=`${m.topik} · Langkah ${MAT.i+1} dari ${m.steps.length}`;$('#mJudul').textContent=st.judul;$('#mTeks').innerHTML=st.teks;
  $('#mTitik').innerHTML=m.steps.map((_,i)=>`<i class="${i===MAT.i?'on':i<MAT.i?'lewat':''}"></i>`).join('');
  $('#mPrev').disabled=MAT.i===0;
@@ -1049,7 +1049,13 @@ const SOAL=[
  {t:'pg',jenis:'Pilihan ganda',tanya:'<b>20 apel</b> dan <b>30 jeruk</b> dimasukkan ke keranjang dengan isi sama banyak. Jika keranjangnya sebanyak-banyaknya, isi setiap keranjang adalah ...',ops:['2 apel dan 3 jeruk','4 apel dan 6 jeruk','5 apel dan 5 jeruk'],kunci:0,bahas:'FPB dari 20 dan 30 adalah 10, jadi ada 10 keranjang. Setiap keranjang berisi 20 : 10 = 2 apel dan 30 : 10 = 3 jeruk.'}
 ];
 let LAT={i:0,skor:0,hasil:[]},CUR=null;
-function mulaiLatihan(){LAT={i:0,skor:0,hasil:[]};go('s-latihan','Arena Tiket');tampilSoal()}
+/* Rumatika: simpan progres otomatis di perangkat ini */
+var RSIMPAN=(function(){var K='rumatika:pasar-malam-bilangan',T='',MATI=0;function baca(){try{return JSON.parse(localStorage.getItem(K)||'null')}catch(e){return null}}function pasang(ambil){function sv(){if(MATI)return;try{var d=ambil();if(!d)return;var s=JSON.stringify(d);if(s!==T){localStorage.setItem(K,s);T=s}}catch(e){}}setInterval(sv,2000);addEventListener('pagehide',sv);document.addEventListener('visibilitychange',function(){if(document.hidden)sv()});return sv}function hapus(){T='';try{localStorage.removeItem(K)}catch(e){}}function tawar(btn,teks,ekstra){if(!btn)return;btn.textContent=teks;var b=document.createElement('button');b.type='button';b.className=btn.className.replace(/\bdenyut\b/g,'');b.textContent='Mulai dari awal';b.style.cssText='margin:.4em .3em 0;font-size:.86em;padding:.6em 1.6em;opacity:.9;filter:saturate(.4)';b.onclick=function(e){e.stopPropagation();if(confirm('Hapus progres yang tersimpan di perangkat ini dan mulai dari awal?')){MATI=1;hapus();(ekstra||[]).forEach(function(k){try{localStorage.removeItem(k)}catch(e){}});location.reload()}};btn.insertAdjacentElement('afterend',b)}function benih(fn,b){var r=Math.random,s=b>>>0;Math.random=function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};try{return fn()}finally{Math.random=r}}function benihBaru(){return Math.floor(Math.random()*4294967295)}return{baca:baca,pasang:pasang,hapus:hapus,tawar:tawar,benih:benih,benihBaru:benihBaru}})();
+let LANGKAH={};
+(()=>{const d=RSIMPAN.baca();if(d){if(d.LAT&&Array.isArray(d.LAT.hasil))LAT=d.LAT;ST.refleksi=d.refleksi||{};LANGKAH=d.langkah||{};}
+  if(ST.nama)RSIMPAN.tawar($('#btnMulai'),'Lanjutkan belajar',['pmb-siswa']);})();
+RSIMPAN.pasang(()=>ST.nama?{LAT,refleksi:ST.refleksi,langkah:LANGKAH}:null);
+function mulaiLatihan(){if(!(LAT.i>0&&LAT.hasil.length<SOAL.length))LAT={i:0,skor:0,hasil:[]};go('s-latihan','Arena Tiket');tampilSoal()}
 function perbaruiTombol(){$('#btnPeriksa').disabled=!(CUR&&CUR.siap())}
 function tampilSoal(){RUN++;const q=SOAL[LAT.i];
  $('#tiketBaris').innerHTML=SOAL.map((_,i)=>`<div class="tiket ${i<LAT.i?(LAT.hasil[i]?'b':'s'):i===LAT.i?'kini':''}">${i+1}</div>`).join('');

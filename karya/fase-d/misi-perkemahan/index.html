@@ -848,6 +848,11 @@ function ulangKeadaan(){
   };
 }
 ulangKeadaan();
+/* Rumatika: simpan progres otomatis di perangkat ini */
+var RSIMPAN=(function(){var K='rumatika:misi-perkemahan',T='',MATI=0;function baca(){try{return JSON.parse(localStorage.getItem(K)||'null')}catch(e){return null}}function pasang(ambil){function sv(){if(MATI)return;try{var d=ambil();if(!d)return;var s=JSON.stringify(d);if(s!==T){localStorage.setItem(K,s);T=s}}catch(e){}}setInterval(sv,2000);addEventListener('pagehide',sv);document.addEventListener('visibilitychange',function(){if(document.hidden)sv()});return sv}function hapus(){T='';try{localStorage.removeItem(K)}catch(e){}}function tawar(btn,teks){if(!btn)return;btn.textContent=teks;var b=document.createElement('button');b.type='button';b.className=btn.className.replace(/\bdenyut\b/g,'');b.textContent='Mulai dari awal';b.style.cssText='margin:.4em .3em 0;font-size:.86em;padding:.6em 1.6em;opacity:.9;filter:saturate(.4)';b.onclick=function(e){e.stopPropagation();if(confirm('Hapus progres yang tersimpan di perangkat ini dan mulai dari awal?')){MATI=1;hapus();location.reload()}};btn.insertAdjacentElement('afterend',b)}function benih(fn,b){var r=Math.random,s=b>>>0;Math.random=function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};try{return fn()}finally{Math.random=r}}function benihBaru(){return Math.floor(Math.random()*4294967295)}return{baca:baca,pasang:pasang,hapus:hapus,tawar:tawar,benih:benih,benihBaru:benihBaru}})();
+var RS_DATA=(function(){var d=RSIMPAN.baca();return d&&d.S&&((d.S.selesai&&d.S.selesai.length)||(d.S.simpul&&d.S.simpul!=="mulai"))?d:null})();
+var RS_JALAN=false;
+RSIMPAN.pasang(function(){return RS_JALAN?{S:S,catatan:Catatan.baris}:null});
 
 /* ---------- HUD ---------- */
 var chipKas = document.getElementById("chip-kas");
@@ -2205,9 +2210,16 @@ function gambarHero(){
   brs.style.display = "flex"; brs.style.gap = "calc(var(--w)*1.4)"; brs.style.justifyContent = "flex-end";
   var b1 = E("button", "tombol", "Mulai misi");
   var b2 = E("button", "tombol sepi", "Cara bermain");
-  b1.addEventListener("click", function(){ Bunyi.siap(); Bunyi.gerbang(); ulangKeadaan(); Catatan.baris = []; Catatan.tulis("\u2013", "mulai", "permainan dimulai", ""); pergi("peta"); });
+  b1.addEventListener("click", function(){ RS_JALAN = true; RS_DATA = null; Bunyi.siap(); Bunyi.gerbang(); ulangKeadaan(); Catatan.baris = []; Catatan.tulis("\u2013", "mulai", "permainan dimulai", ""); pergi("peta"); });
   b2.addEventListener("click", function(){ Bunyi.klik(); caraBermain(); });
-  brs.appendChild(b2); brs.appendChild(b1);
+  brs.appendChild(b2);
+  if (RS_DATA){
+    b1.textContent = "Mulai dari awal"; b1.className = "tombol sepi";
+    var b3 = E("button", "tombol", "Lanjutkan misi");
+    b3.addEventListener("click", function(){ var d = RS_DATA; RS_DATA = null; RS_JALAN = true; Bunyi.siap(); Bunyi.gerbang();
+      ulangKeadaan(); for (var k in d.S) S[k] = d.S[k]; S.simpul = "mulai"; Catatan.baris = d.catatan || []; pergi("peta"); });
+    brs.appendChild(b1); brs.appendChild(b3);
+  } else brs.appendChild(b1);
   kaki.appendChild(brs);
 }
 

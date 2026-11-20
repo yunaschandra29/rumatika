@@ -1272,6 +1272,12 @@ const G={
   selesai:false
 };
 const TOTAL_TAHAP=NASKAH.reduce((s,n)=>s+n.tahap.length,0);
+/* Rumatika: simpan progres otomatis di perangkat ini */
+var RSIMPAN=(function(){var K='rumatika:meja-redaksi',T='',MATI=0;function baca(){try{return JSON.parse(localStorage.getItem(K)||'null')}catch(e){return null}}function pasang(ambil){function sv(){if(MATI)return;try{var d=ambil();if(!d)return;var s=JSON.stringify(d);if(s!==T){localStorage.setItem(K,s);T=s}}catch(e){}}setInterval(sv,2000);addEventListener('pagehide',sv);document.addEventListener('visibilitychange',function(){if(document.hidden)sv()});return sv}function hapus(){T='';try{localStorage.removeItem(K)}catch(e){}}function tawar(btn,teks){if(!btn)return;btn.textContent=teks;var b=document.createElement('button');b.type='button';b.className=btn.className.replace(/\bdenyut\b/g,'');b.textContent='Mulai dari awal';b.style.cssText='margin:.4em .3em 0;font-size:.86em;padding:.6em 1.6em;opacity:.9;filter:saturate(.4)';b.onclick=function(e){e.stopPropagation();if(confirm('Hapus progres yang tersimpan di perangkat ini dan mulai dari awal?')){MATI=1;hapus();location.reload()}};btn.insertAdjacentElement('afterend',b)}function benih(fn,b){var r=Math.random,s=b>>>0;Math.random=function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};try{return fn()}finally{Math.random=r}}function benihBaru(){return Math.floor(Math.random()*4294967295)}return{baca:baca,pasang:pasang,hapus:hapus,tawar:tawar,benih:benih,benihBaru:benihBaru}})();
+(()=>{const d=RSIMPAN.baca();if(d&&d.nama){Object.assign(G,d,{timer:null,cfg:{}});
+  ['iNama','iKelas','iAbsen'].forEach((i,j)=>{const e=document.getElementById(i);if(e)e.value=[G.nama,G.kelas,G.absen][j]||'';});
+  RSIMPAN.tawar(document.getElementById('bMulai'),'Lanjutkan di Redaksi');}})();
+RSIMPAN.pasang(()=>G.nama?Object.assign({},G,{timer:null,cfg:{}}):null);
 
 /* ===================== AUDIO ===================== */
 const A=(()=>{let c=null,g=null,ok=false;
@@ -2043,7 +2049,7 @@ function jalankanMuat(){
     if(idx!==i){i=idx;sub.style.opacity=0;
       setTimeout(()=>{sub.textContent=PESAN_MUAT[i];sub.style.opacity=1;},180);}
     if(p>=100){clearInterval(t);
-      setTimeout(()=>{A.tepat();ke('id');
+      setTimeout(()=>{A.tepat();if(G.nama){bukaPapan();return;}ke('id');
         setTimeout(()=>document.getElementById('iNama').focus(),440);},520);}
   },320);
 }

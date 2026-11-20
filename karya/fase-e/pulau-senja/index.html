@@ -1059,6 +1059,14 @@ $('btn-sound').onclick=()=>{audioReady();if(!bgmNodes)startBGM();setSound(!state
     s.style.left=(Math.random()*100)+'cqw';s.style.top=(90+Math.random()*20)+'cqh';
     s.style.animationDuration=(Math.random()*16+16)+'s';s.style.animationDelay=(-Math.random()*24)+'s';wrap.appendChild(s); } })();
 document.addEventListener('pointerdown',()=>{audioReady();if(state&&state.sound&&!bgmNodes)startBGM();});
+/* Rumatika: lanjutkan ekspedisi yang tersimpan di perangkat ini */
+(function(){ const d=load(); if(!d||!d.playerName) return;
+  const s=$('btn-start'), l=document.createElement('button');
+  l.className=s.className; l.id='btn-lanjut'; l.textContent='Lanjutkan Ekspedisi';
+  s.parentNode.insertBefore(l,s); s.textContent='Mulai dari awal';
+  s.style.cssText='margin-left:.6em;font-size:.86em;opacity:.9;filter:saturate(.4)';
+  l.onclick=()=>{ audioReady(); state=Object.assign(freshState(),d); startBGM(); setSound(state.sound!==false); sfx('click'); showMap(false); };
+})();
 </script>
 </body>
 </html>

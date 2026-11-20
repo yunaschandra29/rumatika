@@ -626,6 +626,11 @@ const state = {
   gim:'balap', materi:['plsv','hitung','ruang','pola'], level:1, pemain:2, kendali:'sentuh',
   main:null
 };
+/* Rumatika: simpan progres otomatis di perangkat ini */
+var RSIMPAN=(function(){var K='rumatika:porsenika',T='',MATI=0;function baca(){try{return JSON.parse(localStorage.getItem(K)||'null')}catch(e){return null}}function pasang(ambil){function sv(){if(MATI)return;try{var d=ambil();if(!d)return;var s=JSON.stringify(d);if(s!==T){localStorage.setItem(K,s);T=s}}catch(e){}}setInterval(sv,2000);addEventListener('pagehide',sv);document.addEventListener('visibilitychange',function(){if(document.hidden)sv()});return sv}function hapus(){T='';try{localStorage.removeItem(K)}catch(e){}}function tawar(btn,teks){if(!btn)return;btn.textContent=teks;var b=document.createElement('button');b.type='button';b.className=btn.className.replace(/\bdenyut\b/g,'');b.textContent='Mulai dari awal';b.style.cssText='margin:.4em .3em 0;font-size:.86em;padding:.6em 1.6em;opacity:.9;filter:saturate(.4)';b.onclick=function(e){e.stopPropagation();if(confirm('Hapus progres yang tersimpan di perangkat ini dan mulai dari awal?')){MATI=1;hapus();location.reload()}};btn.insertAdjacentElement('afterend',b)}function benih(fn,b){var r=Math.random,s=b>>>0;Math.random=function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};try{return fn()}finally{Math.random=r}}function benihBaru(){return Math.floor(Math.random()*4294967295)}return{baca:baca,pasang:pasang,hapus:hapus,tawar:tawar,benih:benih,benihBaru:benihBaru}})();
+(()=>{const d=RSIMPAN.baca();if(d){['materi','level','pemain','kendali'].forEach(k=>{if(d[k]!=null)state[k]=d[k]});
+  if(!Array.isArray(state.materi)||!state.materi.length)state.materi=['plsv','hitung','ruang','pola'];}})();
+RSIMPAN.pasang(()=>({materi:state.materi,level:state.level,pemain:state.pemain,kendali:state.kendali}));
 const WARNA = ['var(--p1)','var(--p2)','var(--p3)','var(--p4)'];
 const TUTS = [['Q','W','E','R'],['U','I','O','P'],['1','2','3','4'],['7','8','9','0']];
 const HURUF = ['A','B','C','D'];

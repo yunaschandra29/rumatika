@@ -388,6 +388,12 @@ canvas{display:block;touch-action:none}
 "use strict";
 const $=s=>document.querySelector(s);
 const S={nama:'',kelas:'',absen:'',read:{A:0,B:0,C:0,D:0},drill:{},sim:{1:0,2:0,3:0,4:0},simM:{1:{},2:{},3:{},4:{}},ter:{},ases:null,gim:{stars:[0,0,0,0,0,0]},mis:[],tries:0,sfx:false,aper:0};
+/* Rumatika: simpan progres otomatis di perangkat ini */
+var RSIMPAN=(function(){var K='rumatika:jangka-benang',T='',MATI=0;function baca(){try{return JSON.parse(localStorage.getItem(K)||'null')}catch(e){return null}}function pasang(ambil){function sv(){if(MATI)return;try{var d=ambil();if(!d)return;var s=JSON.stringify(d);if(s!==T){localStorage.setItem(K,s);T=s}}catch(e){}}setInterval(sv,2000);addEventListener('pagehide',sv);document.addEventListener('visibilitychange',function(){if(document.hidden)sv()});return sv}function hapus(){T='';try{localStorage.removeItem(K)}catch(e){}}function tawar(btn,teks){if(!btn)return;btn.textContent=teks;var b=document.createElement('button');b.type='button';b.className=btn.className.replace(/\bdenyut\b/g,'');b.textContent='Mulai dari awal';b.style.cssText='margin:.4em .3em 0;font-size:.86em;padding:.6em 1.6em;opacity:.9;filter:saturate(.4)';b.onclick=function(e){e.stopPropagation();if(confirm('Hapus progres yang tersimpan di perangkat ini dan mulai dari awal?')){MATI=1;hapus();location.reload()}};btn.insertAdjacentElement('afterend',b)}function benih(fn,b){var r=Math.random,s=b>>>0;Math.random=function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};try{return fn()}finally{Math.random=r}}function benihBaru(){return Math.floor(Math.random()*4294967295)}return{baca:baca,pasang:pasang,hapus:hapus,tawar:tawar,benih:benih,benihBaru:benihBaru}})();
+(()=>{const d=RSIMPAN.baca();if(d&&d.nama){Object.assign(S,d);
+  window.addEventListener('DOMContentLoaded',()=>{const n=document.getElementById('inNama'),k=document.getElementById('inKelas'),a=document.getElementById('inAbsen');if(n)n.value=S.nama;if(k)k.value=S.kelas;if(a)a.value=S.absen||'';
+    RSIMPAN.tawar(document.querySelector('[onclick="startApp()"]'),'Lanjutkan Buku Sketsa');});}})();
+RSIMPAN.pasang(()=>S.nama?S:null);
 
 /* ---------- stage ---------- */
 function fit(){const s=Math.min(innerWidth/1280,innerHeight/720);$('#stage').style.transform=`translate(-50%,-50%) scale(${s})`;}
@@ -497,7 +503,7 @@ function renderQ(box,q,done){
 
 /* ---------- alur awal ---------- */
 function startApp(){go('s-load');let p=0;const tips=['Jangka menggambar lingkaran. Dua paku dan seutas benang menggambar elips.','Garis singgung selalu tegak lurus jari-jari di titik singgungnya.','Elips punya dua fokus; lingkaran adalah elips dengan e = 0.'];let ti=0;
- const iv=setInterval(()=>{p+=4;$('#loadbar i').style.width=p+'%';if(p%36===0){ti=(ti+1)%3;$('#loadtip').textContent=tips[ti];}if(p>=100){clearInterval(iv);go('s-id');}},70);}
+ const iv=setInterval(()=>{p+=4;$('#loadbar i').style.width=p+'%';if(p%36===0){ti=(ti+1)%3;$('#loadtip').textContent=tips[ti];}if(p>=100){clearInterval(iv);go(S.nama?(S.aper?'s-menu':'s-aper'):'s-id');}},70);}
 function saveId(){const n=$('#inNama').value.trim(),k=$('#inKelas').value.trim();if(!n||!k){$('#idWarn').textContent='Nama dan kelas wajib diisi.';return;}S.nama=n;S.kelas=k;S.absen=$('#inAbsen').value.trim();go('s-aper');}
 
 /* apersepsi (3 langkah) */

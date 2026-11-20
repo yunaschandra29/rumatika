@@ -515,6 +515,12 @@ function chkAnti(inp,target){try{const u=compile(inp),t=compile(target),x0=1;con
 
 /* ---------- state ---------- */
 const S={nama:'',kelas:'',absen:'',read:{},mdone:{},sim:{},ter:{},drill:{ok:0,n:0,first:0},mis:{},ases:null,asesLog:[],game:{st:[0,0,0,0,0,0],un:1},wrongTotal:0};
+/* Rumatika: simpan progres otomatis di perangkat ini */
+var RSIMPAN=(function(){var K='rumatika:piksel-tak-hingga',T='',MATI=0;function baca(){try{return JSON.parse(localStorage.getItem(K)||'null')}catch(e){return null}}function pasang(ambil){function sv(){if(MATI)return;try{var d=ambil();if(!d)return;var s=JSON.stringify(d);if(s!==T){localStorage.setItem(K,s);T=s}}catch(e){}}setInterval(sv,2000);addEventListener('pagehide',sv);document.addEventListener('visibilitychange',function(){if(document.hidden)sv()});return sv}function hapus(){T='';try{localStorage.removeItem(K)}catch(e){}}function tawar(btn,teks){if(!btn)return;btn.textContent=teks;var b=document.createElement('button');b.type='button';b.className=btn.className.replace(/\bdenyut\b/g,'');b.textContent='Mulai dari awal';b.style.cssText='margin:.4em .3em 0;font-size:.86em;padding:.6em 1.6em;opacity:.9;filter:saturate(.4)';b.onclick=function(e){e.stopPropagation();if(confirm('Hapus progres yang tersimpan di perangkat ini dan mulai dari awal?')){MATI=1;hapus();location.reload()}};btn.insertAdjacentElement('afterend',b)}function benih(fn,b){var r=Math.random,s=b>>>0;Math.random=function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};try{return fn()}finally{Math.random=r}}function benihBaru(){return Math.floor(Math.random()*4294967295)}return{baca:baca,pasang:pasang,hapus:hapus,tawar:tawar,benih:benih,benihBaru:benihBaru}})();
+(()=>{const d=RSIMPAN.baca();if(d&&d.nama){Object.assign(S,d);
+  window.addEventListener('DOMContentLoaded',()=>{const n=document.getElementById('iNama'),k=document.getElementById('iKelas'),a=document.getElementById('iAbsen');if(n)n.value=S.nama;if(k)k.value=S.kelas||'';if(a)a.value=S.absen||'';
+    RSIMPAN.tawar(document.getElementById('bStart'),'LANJUTKAN');});}})();
+RSIMPAN.pasang(()=>S.nama?S:null);
 const MIS={lupaC:'Lupa menuliskan konstanta integrasi C',turunkan:'Menurunkan fungsi, padahal diminta mengintegralkan',bagiPangkat:'Lupa membagi dengan pangkat yang baru',dx:'Keliru menghitung lebar kolom Δx',lupaDx:'Lupa mengalikan tinggi kolom dengan Δx',titik:'Keliru memilih titik sampel (kiri/kanan/tengah)',tanda:'Mengabaikan tanda negatif untuk daerah di bawah sumbu x',batas:'Tertukar urutan F(b) − F(a)',tdk:'Keliru menerapkan Teorema Dasar Kalkulus',sifat:'Keliru memakai sifat-sifat integral tentu',jarak:'Menyamakan jarak tempuh dengan perpindahan',tetap:'Lupa menambahkan biaya tetap',atasBawah:'Tertukar kurva atas dan kurva bawah',luasNeg:'Menuliskan luas sebagai bilangan negatif',hitung:'Kekeliruan hitung aritmetika'};
 function logMis(t){if(!t)return;S.mis[t]=(S.mis[t]||0)+1}
 
@@ -685,7 +691,7 @@ function runLoad(){const cv=$('#ldCv'),c=cv.getContext('2d');c.imageSmoothingEna
     for(let i=0;i<n;i++){const xm=(i+.5)*dx,h=f(xm);c.fillStyle=i%2?'#3EE6E0':'#2ab7b2';const x0=Math.round(X(i*dx)),x1=Math.round(X((i+1)*dx));c.fillRect(x0,Math.round(Y(h)),Math.max(1,x1-x0),Math.round(Y(0)-Y(h)))}
     c.fillStyle='#FFD23F';for(let px=10;px<=310;px++){const x=(px-10)/300*4;c.fillRect(px,Math.round(Y(f(x))),1,2)}
     c.fillStyle='#A9A9D6';c.fillRect(10,140,300,1)};
-  const step=()=>{draw(ns[k]);$('#ldTx').textContent='MERENDER KURVA… n = '+ns[k];$('#ldBar').style.width=((k+1)/ns.length*100)+'%';k++;if(k<ns.length)setTimeout(step,420);else setTimeout(()=>{show('s-id');$('#iNama').focus()},600)};step()}
+  const step=()=>{draw(ns[k]);$('#ldTx').textContent='MERENDER KURVA… n = '+ns[k];$('#ldBar').style.width=((k+1)/ns.length*100)+'%';k++;if(k<ns.length)setTimeout(step,420);else setTimeout(()=>{if(S.nama){show('s-menu');return}show('s-id');$('#iNama').focus()},600)};step()}
 
 /* ---------- identitas ---------- */
 $('#bId').onclick=()=>{const n=$('#iNama').value.trim();if(!n){toast('Nama wajib diisi dulu, ya.');$('#iNama').focus();return}

@@ -706,7 +706,7 @@ async function splash(){go('s-splash');const id=RUN;
  const teks=['Memanaskan oven...','Mengaduk adonan...','Kue mulai mengembang...','Memotong kue sama besar...','Menata piring...'];
  for(let i=1;i<=10;i++){if(id!==RUN)return;$('#splashBar').style.width=(i*10)+'%';$('#splashTeks').textContent=teks[Math.min(4,Math.floor((i-1)/2))];
   const a=$('#adonanNaik');if(a)a.style.transform=`scaleY(${.25+i*.075})`;const j=$('#jendelaOven');if(j)j.setAttribute('fill',i>3?'#E0802E':'#5A3A2A');if(i%3===0)bunyi('pop');await W(300)}
- await W(400);if(id!==RUN)return;apersepsi()}
+ await W(400);if(id!==RUN)return;if(ST.nama){bukaMenu();return}apersepsi()}
 
 /* ---------- 3 Apersepsi ---------- */
 const APS=[
@@ -774,8 +774,8 @@ function pasangPecah(el,obj,bt,onChange){el.querySelectorAll('button').forEach(x
 
 /* ================= MATERI ================= */
 let MAT={key:null,i:0};
-function bukaMateri(k){MAT={key:k,i:0};const m=MATERI[k];go('s-materi',`Meja ${m.no} · ${m.nama}`);tampilLangkah()}
-function tampilLangkah(){const m=MATERI[MAT.key],st=m.steps[MAT.i];RUN++;const id=RUN;
+function bukaMateri(k){const rs=LANGKAH[k]||0;MAT={key:k,i:rs>=MATERI[k].steps.length-1?0:rs};const m=MATERI[k];go('s-materi',`Meja ${m.no} · ${m.nama}`);tampilLangkah()}
+function tampilLangkah(){LANGKAH[MAT.key]=MAT.i;const m=MATERI[MAT.key],st=m.steps[MAT.i];RUN++;const id=RUN;
  $('#mBadge').textContent=`${m.topik} · Langkah ${MAT.i+1} dari ${m.steps.length}`;$('#mJudul').textContent=st.judul;$('#mTeks').innerHTML=st.teks;
  $('#mTitik').innerHTML=m.steps.map((_,i)=>`<i class="${i===MAT.i?'on':i<MAT.i?'lewat':''}"></i>`).join('');
  $('#segModel').hidden=st.model===false;
@@ -1153,7 +1153,13 @@ const SOAL=[
   bahas:`"Membeli lagi" dan "seluruhnya" berarti penjumlahan. ${F(3,4)} + ${F(3,2)} = ${F(3,4)} + ${F(6,4)} = ${F(9,4)} = ${MX(2,1,4)} kg.`}
 ];
 let LAT={i:0,hasil:[]},CUR=null;
-function mulaiLatihan(){LAT={i:0,hasil:[]};go('s-latihan','Uji Rasa');tampilSoal()}
+/* Rumatika: simpan progres otomatis di perangkat ini */
+var RSIMPAN=(function(){var K='rumatika:dapur-kue-nusantara',T='',MATI=0;function baca(){try{return JSON.parse(localStorage.getItem(K)||'null')}catch(e){return null}}function pasang(ambil){function sv(){if(MATI)return;try{var d=ambil();if(!d)return;var s=JSON.stringify(d);if(s!==T){localStorage.setItem(K,s);T=s}}catch(e){}}setInterval(sv,2000);addEventListener('pagehide',sv);document.addEventListener('visibilitychange',function(){if(document.hidden)sv()});return sv}function hapus(){T='';try{localStorage.removeItem(K)}catch(e){}}function tawar(btn,teks,ekstra){if(!btn)return;btn.textContent=teks;var b=document.createElement('button');b.type='button';b.className=btn.className.replace(/\bdenyut\b/g,'');b.textContent='Mulai dari awal';b.style.cssText='margin:.4em .3em 0;font-size:.86em;padding:.6em 1.6em;opacity:.9;filter:saturate(.4)';b.onclick=function(e){e.stopPropagation();if(confirm('Hapus progres yang tersimpan di perangkat ini dan mulai dari awal?')){MATI=1;hapus();(ekstra||[]).forEach(function(k){try{localStorage.removeItem(k)}catch(e){}});location.reload()}};btn.insertAdjacentElement('afterend',b)}function benih(fn,b){var r=Math.random,s=b>>>0;Math.random=function(){s=(s+0x6D2B79F5)>>>0;var t=s;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};try{return fn()}finally{Math.random=r}}function benihBaru(){return Math.floor(Math.random()*4294967295)}return{baca:baca,pasang:pasang,hapus:hapus,tawar:tawar,benih:benih,benihBaru:benihBaru}})();
+let LANGKAH={};
+(()=>{const d=RSIMPAN.baca();if(d){if(d.LAT&&Array.isArray(d.LAT.hasil))LAT=d.LAT;ST.refleksi=d.refleksi||{};LANGKAH=d.langkah||{};}
+  if(ST.nama)RSIMPAN.tawar($('#btnMulai'),'Lanjutkan belajar',['dkn-siswa']);})();
+RSIMPAN.pasang(()=>ST.nama?{LAT,refleksi:ST.refleksi,langkah:LANGKAH}:null);
+function mulaiLatihan(){if(!(LAT.i>0&&LAT.hasil.length<SOAL.length))LAT={i:0,hasil:[]};go('s-latihan','Uji Rasa');tampilSoal()}
 function perbaruiTombol(){$('#btnPeriksa').disabled=!(CUR&&CUR.siap())}
 function tampilSoal(){RUN++;const q=SOAL[LAT.i];
  $('#stempelBaris').innerHTML=SOAL.map((_,i)=>`<div class="stempel ${i<LAT.i?(LAT.hasil[i]?'b':'s'):i===LAT.i?'kini':''}">${i+1}</div>`).join('');
