@@ -32,8 +32,40 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Lexend:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/site.css">
 <!--PRATINJAU:KEPALA-SELESAI-->
+<script>
+/* Intro motion graphic: sekali per pengunjung, hanya saat beranda dibuka langsung. Ganti angka pada kunci agar tampil lagi untuk semua. */
+(function () {
+  try {
+    var h = decodeURIComponent(location.hash.replace(/^#/, ""));
+    var tenang = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!window.RUMATIKA_PRATINJAU && !tenang && (!h || h === "beranda") && localStorage.getItem("rumatika-intro-1") !== "1")
+      document.documentElement.classList.add("intro-on");
+  } catch (e) { /* tanpa intro */ }
+})();
+</script>
 </head>
 <body>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-kisi"></div>
+  <div class="intro-simbol" id="intro-simbol"></div>
+  <div class="intro-tengah">
+    <div class="intro-logo">
+      <svg class="intro-denah" viewBox="0 0 600 195" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path pathLength="1" d="M16 100 L96 24 L176 100"/>
+        <path pathLength="1" d="M118 46 V34 H146 V68"/>
+        <path pathLength="1" d="M36 92 V158 H156 V92"/>
+        <path pathLength="1" d="M80 158 V132 a16 16 0 0 1 32 0 V158"/>
+        <path pathLength="1" d="M74 76 h40 v28 h-40 z M94 76 v28 M74 90 h40"/>
+        <path pathLength="1" d="M6 168 Q50 150 94 182 Q138 150 182 168"/>
+      </svg>
+      <img class="intro-merek" src="assets/merek/logo-rumatika-gelap.webp" width="600" height="195" alt="">
+    </div>
+    <p class="intro-tagline">Rumahnya Matematika</p>
+    <p class="intro-sub">MPI <i></i> Gim Edukasi <i></i> Lab Maya <i></i> Fase A–F</p>
+  </div>
+  <div class="intro-garis"><span></span></div>
+  <button type="button" class="intro-lewati" id="intro-lewati">Lewati</button>
+</div>
 
 <header class="kepala">
   <div class="wrap kepala-isi">

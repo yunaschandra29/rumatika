@@ -616,8 +616,39 @@
     sambutan.addEventListener("click", function (e) { if (e.target === sambutan) tutupSambutan(); });
   }
 
+  /* ---------- intro motion graphic ----------
+     Kelas intro-on dipasang oleh skrip kecil di <head> (sekali per pengunjung, hanya beranda).
+     Sambutan baru dibuka setelah intro selesai. */
+  var KUNCI_INTRO = "rumatika-intro-1";
+  function jalankanIntro(lanjut) {
+    var akar = document.documentElement, el = $("#intro");
+    if (!el || !akar.classList.contains("intro-on")) { lanjut(); return; }
+    try { localStorage.setItem(KUNCI_INTRO, "1"); } catch (e) { /* abaikan */ }
+    var wadah = $("#intro-simbol"), SIMBOL = ["π", "√", "Σ", "÷", "×", "+", "−", "=", "%", "∞", "½", "x²", "△", "∠", "≤", "y"];
+    for (var i = 0; i < 18; i++) {
+      var sp = document.createElement("span");
+      sp.textContent = SIMBOL[i % SIMBOL.length];
+      if (i % 5 === 0) sp.className = "kuning";
+      sp.style.cssText = "left:" + (4 + Math.random() * 92).toFixed(1) + "%;--u:" + (18 + Math.random() * 30).toFixed(0) + "px;--t:" +
+        (Math.random() * 1.6).toFixed(2) + "s;--d:" + (2.4 + Math.random() * 1.4).toFixed(2) + "s;--o:" + (.25 + Math.random() * .45).toFixed(2) +
+        ";--r0:" + (Math.random() * 40 - 20).toFixed(0) + "deg;--r1:" + (Math.random() * 80 - 40).toFixed(0) + "deg;--y:-" + (55 + Math.random() * 40).toFixed(0) + "vh";
+      wadah.appendChild(sp);
+    }
+    var beres = false;
+    function tutup(cepat) {
+      if (beres) return; beres = true;
+      if (cepat) el.classList.add("selesai");
+      setTimeout(function () { akar.classList.remove("intro-on"); el.parentNode && el.parentNode.removeChild(el); lanjut(); }, cepat ? 560 : 0);
+    }
+    el.addEventListener("animationend", function (e) { if (e.target === el) tutup(false); });
+    $("#intro-lewati").addEventListener("click", function () { tutup(true); });
+    el.addEventListener("click", function (e) { if (e.target !== $("#intro-lewati")) tutup(true); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" || e.key === "Enter" || e.key === " ") tutup(true); });
+    setTimeout(function () { tutup(false); }, 6000); /* jaga-jaga bila animationend tidak terpanggil */
+  }
+
   window.addEventListener("hashchange", function () { rute(false); });
   rute(true);
   muatStatistik();
-  setTimeout(bukaSambutan, 700);
+  jalankanIntro(function () { setTimeout(bukaSambutan, 350); });
 })();

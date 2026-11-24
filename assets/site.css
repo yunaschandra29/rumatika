@@ -1039,3 +1039,88 @@ button.video-layar:hover .video-putar { transform: scale(1.08); }
   .aplikasi-ikon { width: 72px; height: 72px; border-radius: 18px; padding: 8px; }
   .aplikasi .aksi .tombol { flex: 1 1 100%; }
 }
+
+
+/* ---------- intro motion graphic (kunjungan pertama ke beranda) ----------
+   Urutan: kisi cetak biru → denah rumah digambar → logo muncul dari kiri → tagline → tirai naik. */
+.intro { display: none; }
+.intro-on body { overflow: hidden; }
+.intro-on .intro {
+  display: grid; place-items: center; position: fixed; inset: 0; z-index: 1000;
+  background: radial-gradient(ellipse at 50% 42%, #17306E 0%, var(--layar) 62%);
+  color: #E7EEFF; overflow: hidden;
+  animation: intro-naik .75s cubic-bezier(.7, 0, .2, 1) 4.1s forwards;
+}
+.intro.selesai { animation: intro-naik .55s cubic-bezier(.7, 0, .2, 1) forwards !important; }
+.intro-kisi {
+  position: absolute; inset: -40px;
+  background-image:
+    linear-gradient(rgba(132, 165, 255, .13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(132, 165, 255, .13) 1px, transparent 1px),
+    linear-gradient(rgba(132, 165, 255, .06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(132, 165, 255, .06) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  opacity: 0; animation: intro-kisi 1.2s ease-out .05s forwards;
+}
+.intro-tengah { position: relative; display: grid; justify-items: center; gap: 10px; padding: 0 16px; text-align: center; }
+.intro-logo { position: relative; width: min(560px, 82vw); aspect-ratio: 600 / 195; }
+.intro-denah, .intro-merek { position: absolute; inset: 0; width: 100%; height: 100%; }
+.intro-denah path {
+  stroke: #7CD3FF; stroke-width: 2.6; stroke-dasharray: 1; stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 6px rgba(124, 211, 255, .55));
+  animation: intro-gambar .7s cubic-bezier(.5, 0, .3, 1) forwards, intro-pudar .6s ease 1.9s forwards;
+}
+.intro-denah path:nth-child(2) { animation-delay: .35s, 1.9s; }
+.intro-denah path:nth-child(3) { animation-delay: .45s, 1.9s; }
+.intro-denah path:nth-child(4) { animation-delay: .65s, 1.9s; }
+.intro-denah path:nth-child(5) { animation-delay: .75s, 1.9s; }
+.intro-denah path:nth-child(6) { animation-delay: .9s, 1.9s; }
+.intro-denah path:nth-child(1) { animation-delay: .2s, 1.9s; }
+.intro-merek {
+  clip-path: inset(0 100% 0 0); opacity: 0;
+  animation: intro-buka 1s cubic-bezier(.4, 0, .2, 1) 1.3s forwards;
+}
+.intro-tagline {
+  margin: 6px 0 0; font: 700 clamp(22px, 3.4vw, 40px)/1.1 var(--f-tampil); letter-spacing: -.01em;
+  opacity: 0; transform: translateY(14px); animation: intro-masuk .6s cubic-bezier(.2, .8, .2, 1) 2.35s forwards;
+}
+.intro-tagline::after {
+  content: ""; display: block; height: .32em; margin-top: -.28em; background: var(--sapuan);
+  transform: scaleX(0); transform-origin: left; animation: intro-sapu .55s ease-out 2.8s forwards;
+}
+.intro-sub {
+  margin: 0; font: 500 clamp(11px, 1.35vw, 15px)/1.4 var(--f-ukur); letter-spacing: .08em; text-transform: uppercase; color: #A3B4DA;
+  opacity: 0; animation: intro-masuk .6s ease 2.9s forwards;
+}
+.intro-sub i { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--stabilo); vertical-align: middle; margin: 0 .7em; }
+.intro-simbol { position: absolute; inset: 0; pointer-events: none; }
+.intro-simbol span {
+  position: absolute; bottom: -60px; font: 600 var(--u, 28px)/1 var(--f-tampil); color: #7CD3FF;
+  opacity: 0; animation: intro-melayang var(--d, 3.2s) cubic-bezier(.3, .6, .4, 1) var(--t, 0s) forwards;
+}
+.intro-simbol span.kuning { color: var(--stabilo); }
+.intro-garis { position: absolute; left: 50%; bottom: 44px; width: min(260px, 60vw); height: 3px; transform: translateX(-50%); background: rgba(132, 165, 255, .2); border-radius: 3px; overflow: hidden; }
+.intro-garis span { display: block; height: 100%; background: var(--stabilo); transform: scaleX(0); transform-origin: left; animation: intro-isi 3.9s linear .1s forwards; }
+.intro-lewati {
+  position: absolute; right: max(16px, env(safe-area-inset-right)); bottom: 30px;
+  font: 500 13px/1 var(--f-ukur); letter-spacing: .06em; color: #A3B4DA; background: transparent;
+  border: 1px solid rgba(163, 180, 218, .4); border-radius: 999px; padding: 9px 16px; cursor: pointer;
+}
+.intro-lewati:hover, .intro-lewati:focus-visible { color: #fff; border-color: #fff; }
+@media (max-width: 520px) { .intro-garis { bottom: 92px; } .intro-lewati { left: 50%; right: auto; transform: translateX(-50%); } }
+
+@keyframes intro-kisi { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: none; } }
+@keyframes intro-gambar { to { stroke-dashoffset: 0; } }
+@keyframes intro-pudar { to { opacity: 0; } }
+@keyframes intro-buka { 0% { opacity: 1; clip-path: inset(0 100% 0 0); } 100% { opacity: 1; clip-path: inset(0 0 0 0); } }
+@keyframes intro-masuk { to { opacity: 1; transform: none; } }
+@keyframes intro-sapu { to { transform: scaleX(1); } }
+@keyframes intro-isi { to { transform: scaleX(1); } }
+@keyframes intro-melayang {
+  0% { opacity: 0; transform: translateY(0) rotate(var(--r0, 0deg)); }
+  15% { opacity: var(--o, .5); }
+  80% { opacity: var(--o, .5); }
+  100% { opacity: 0; transform: translateY(var(--y, -70vh)) rotate(var(--r1, 20deg)); }
+}
+@keyframes intro-naik { to { transform: translateY(-100%); border-bottom-left-radius: 50% 12%; border-bottom-right-radius: 50% 12%; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .intro-on .intro { display: none; } }
