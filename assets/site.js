@@ -617,13 +617,11 @@
   }
 
   /* ---------- intro motion graphic ----------
-     Kelas intro-on dipasang oleh skrip kecil di <head> (sekali per pengunjung, hanya beranda).
+     Kelas intro-on dipasang oleh skrip kecil di <head> (setiap kali beranda dibuka langsung).
      Sambutan baru dibuka setelah intro selesai. */
-  var KUNCI_INTRO = "rumatika-intro-1";
   function jalankanIntro(lanjut) {
     var akar = document.documentElement, el = $("#intro");
     if (!el || !akar.classList.contains("intro-on")) { lanjut(); return; }
-    try { localStorage.setItem(KUNCI_INTRO, "1"); } catch (e) { /* abaikan */ }
     var wadah = $("#intro-simbol"), SIMBOL = ["π", "√", "Σ", "÷", "×", "+", "−", "=", "%", "∞", "½", "x²", "△", "∠", "≤", "y"];
     for (var i = 0; i < 18; i++) {
       var sp = document.createElement("span");

@@ -33,12 +33,12 @@
 <link rel="stylesheet" href="assets/site.css">
 <!--PRATINJAU:KEPALA-SELESAI-->
 <script>
-/* Intro motion graphic: sekali per pengunjung, hanya saat beranda dibuka langsung. Ganti angka pada kunci agar tampil lagi untuk semua. */
+/* Intro motion graphic: tampil setiap kali beranda dibuka langsung (bukan lewat tautan karya). */
 (function () {
   try {
     var h = decodeURIComponent(location.hash.replace(/^#/, ""));
     var tenang = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!window.RUMATIKA_PRATINJAU && !tenang && (!h || h === "beranda") && localStorage.getItem("rumatika-intro-1") !== "1")
+    if (!window.RUMATIKA_PRATINJAU && !tenang && (!h || h === "beranda"))
       document.documentElement.classList.add("intro-on");
   } catch (e) { /* tanpa intro */ }
 })();
